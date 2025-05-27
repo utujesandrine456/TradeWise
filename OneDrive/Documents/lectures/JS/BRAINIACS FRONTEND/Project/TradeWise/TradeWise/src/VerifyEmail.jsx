@@ -90,7 +90,7 @@ const VerifyEmail = () => {
                         </div>
                     </form>
  
-                    <button className='bg-[#BE741E] text-[#fff]  p-2 mb-2 rounded mt-3 mb-[20px] '>Verify Email</button>
+                    <button className='bg-[#BE741E] text-[#fff]  p-2 mb-[12px] rounded mt-3 mb-[20px] '>Verify Email</button>
                     <div className='flex  justify-center align-center mb-3'>
                         <a href="#" className=' font-bold text-[18px] underline hover:text-white transition-all duration-400 ease-in-out' onClick={handleResendCode}>Resend Code</a>
                     </div>
