@@ -1,10 +1,11 @@
 import React from "react";
-import './App.css';
+import './index.css';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from "./Home";
 import Login from './Login';
 import Signup from './Signup';
 import VerifyEmail from './VerifyEmail'
+import DashboardLayout from "./components/DashboardLayout";
 
 
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/Login" element={ <Login />}></Route>
           <Route path="/Signup" element={ <Signup />}></Route>
           <Route path='/email' element={<VerifyEmail />}></Route>
+          <Route path='/dashboard' element={<DashboardLayout />}></Route>
       </Routes>
       
     </Router>
