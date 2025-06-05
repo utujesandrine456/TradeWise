@@ -4,15 +4,33 @@ import { MdEmail } from "react-icons/md";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/ReactToastify.css';
 import { IoTimer } from "react-icons/io5";
+import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 
 const VerifyEmail = () => {
     const [timeLeft, setTimeleft] = useState(15);
-
+    const [codeDigits, setCodeDigits] = useState(['', '', '', '', '', '']);
+    const [loading, setLoading] = useState(false);
+    const [resendingLoading, setResendLoading] = useState(false);
     const inputsRef = useRef([]);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const passedEmail = location.state?.email;
+    const [email] = useState(passedEmail || localStorage.getItem('userEmail'));
+
 
     useEffect(() => {
+        if(!email){
+            toast.error("No email found. Please sign up again.");
+            navigate('/signup');
+        }
+    }, [email, navigate]);
+
+    
+    useEffect(() => {
+
         if (timeLeft === 0) {
             toast.error('Verification code expired. Please request a new code.');
             return;
@@ -22,35 +40,97 @@ const VerifyEmail = () => {
             setTimeleft(prev => {
                 if(prev <= 1){
                     clearInterval(timerId);
-                return 0;
+                    return 0;
                 }
                 return prev -1;
             });
         }, 1000);
-
         return () => clearInterval(timerId);
+    }, [timeLeft]);
 
-    }, []);
 
-
-    const handleChange = (e, index) => {
-            const value = e.target.value;
-
-            if (value.length === 1 && index < inputsRef.current.length - 1) {
-                inputsRef.current[index + 1].focus();
-            }
-    }
-
-    const handleKeyDown = (e, index) => {
-        if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
-          inputsRef.current[index - 1].focus();
-        }
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     };
 
 
-    const handleResendCode = () => {
-        setTimeleft(15);
-        toast.info('A new verification code has been sent.')
+    const handleChange = (e, index) => {
+        const value = e.target.value.replace(/[^0-9]/g, '');
+        if (value.length > 1) return;
+        const newDigits = [...codeDigits];
+        newDigits[index] = value;
+        setCodeDigits(newDigits);
+        if (value.length === 1 && index < inputsRef.current.length - 1) {
+            inputsRef.current[index + 1].focus();
+        }
+    }
+
+    const handleKeyDown = (e, index) => {
+        if (e.key === 'Backspace' && codeDigits[index] === '' && index > 0) {
+            inputsRef.current[index - 1].focus();
+        }
+    };
+
+    const handleResendCode = async () => {
+        if(!email){
+            toast.error("No email found. Please sign up again.");
+            navigate('/signup');
+        }
+
+        setResendLoading(true);
+
+        try {
+            const res = await axios.post('http://localhost:4000/api/auth/resend-code', { email });
+            setTimeleft(15 * 60); 
+            setCodeDigits(['','','','','','']); 
+            toast.success('New verification code sent to your email');
+
+        } catch (error) {
+            toast.error(error.response?.data?.message || 'Failed to resend code');
+        }finally{
+            setResendLoading(false);
+        }
+    };
+
+    const handleSubmit = async () => {
+        const code = codeDigits.join('');
+
+        if (code.length !== 6) {
+            toast.error('Please enter the 6-digit code.');
+            return;
+        }
+
+        if(!email){
+            toast.error("No email found. Please sign up again.");
+            navigate('/signup');
+        }
+
+        setLoading(true);
+        try {
+            const res = await axios.post('http://localhost:4000/api/auth/verify-email', { 
+                email, 
+                code 
+            });
+
+            toast.success(res.data.message);
+
+            localStorage.removeItem('userEmail');
+            
+            navigate('/table');
+
+            
+        } catch (error) {
+            console.error("Verification error:", error);
+            toast.error(error.response?.data?.message || 'Verification failed');
+        }finally{
+            setLoading(false);
+        }
+    };
+
+    if(!email){
+        return null;
     }
     
 
@@ -79,10 +159,10 @@ const VerifyEmail = () => {
                 <div className='bg-[#1c1206] p-3 text-[#BE741E] '>
                     <div className='flex flex-row justify-center gap-2 items-center mb-4 text-[#fff]'>
                         <IoTimer className='text-3xl'/>
-                        <p className='text-center  mb-0 font-bold text-[20px] '>Timer: {timeLeft} </p>
+                        <p className='text-center  mb-0 font-bold text-[20px] '>Timer: {formatTime(timeLeft)} </p>
                     </div>
                     
-                    <form className='my-2 mt-2'>
+                    <form className='my-2 mt-2' onSubmit={e => { e.preventDefault(); handleSubmit(); }}>
                         <div>
                             {[...Array(6)].map((_,i) => (
                                 <input key={i} type="text" maxLength={1} ref={el => inputsRef.current[i] = el} onChange = {(e) => handleChange(e, i)} onKeyDown={(e) => handleKeyDown(e, i)} className="w-[50px] h-[50px] mx-4 px-4 font-bold text-2xl rounded-[5px] border border-gray-600 text-black text-center" />
@@ -90,9 +170,9 @@ const VerifyEmail = () => {
                         </div>
                     </form>
  
-                    <button className='bg-[#BE741E] text-[#fff]  p-2 mb-[12px] rounded mt-3 mb-[20px] '>Verify Email</button>
-                    <div className='flex  justify-center align-center mb-3'>
-                        <a href="#" className=' font-bold text-[18px] underline hover:text-white transition-all duration-400 ease-in-out' onClick={handleResendCode}>Resend Code</a>
+                    <button className='bg-[#BE741E] text-[#fff]  p-2 mb-[12px] rounded mt-3 mb-[20px] ' onClick={handleSubmit} disabled={loading}>{loading ? 'Verifying...' : 'Verify Email'}</button>
+                    <div className='flex  justify-center align-center mb-[6px]'>
+                        <a href="#" className=' font-bold text-[17px] underline hover:text-white transition-all duration-400 ease-in-out' onClick={handleResendCode}>Resend Code</a>
                     </div>
                     
                 </div>
