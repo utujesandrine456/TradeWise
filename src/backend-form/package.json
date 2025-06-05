@@ -1,0 +1,33 @@
+{
+    "name": "smartexpenstrackerapp",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "devDependencies": {
+        "autoprefixer": "^10.4.21",
+        "postcss": "^8.5.3",
+        "tailwindcss": "^4.1.4"
+    },
+    "dependencies": {
+        "axios": "^1.9.0",
+        "bcryptjs": "^3.0.2",
+        "cookie-parser": "^1.4.7",
+        "cors": "^2.8.5",
+        "express": "^5.1.0",
+        "js-cookie": "^3.0.5",
+        "jsonwebtoken": "^9.0.2",
+        "jwt-decode": "^4.0.0",
+        "lodash": "^4.17.21",
+        "nodemailer": "^7.0.3",
+        "nodemon": "^3.1.10",
+        "react-toastify": "^11.0.5",
+        "recharts": "^2.15.3"
+    }
+}
