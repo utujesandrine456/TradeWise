@@ -5,7 +5,7 @@ import Home from "./Home";
 import Login from './Login';
 import Signup from './Signup';
 import VerifyEmail from './VerifyEmail'
-import DashboardLayout from "./components/DashboardLayout";
+import DashboardLayout from "./components1/DashboardLayout";
 
 
 
