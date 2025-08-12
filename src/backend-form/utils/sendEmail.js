@@ -14,7 +14,7 @@ const sendVerificationEmail = async(email, code) => {
         });
 
         const mailOptions = {
-            from: '"TradeWise" <tradewise.app456@gmail.com>', // Fixed: matches auth user
+            from: '"TradeWise" <tradewise.app456@gmail.com>', 
             to: email,
             subject: 'Email Verification Code',
             html: `

@@ -3,6 +3,10 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const authRoutes = require('./routes/Auth.js');
+const productRoutes = require('./routes/products.js');
+const purchaseRoutes = require('./routes/purchases.js');
+const saleRoutes = require('./routes/sales.js');
+const transactionRoutes = require('./routes/transactions.js');
 const cookieParser = require('cookie-parser');
 
 app.use(cors({
@@ -14,10 +18,14 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/purchases', purchaseRoutes);
+app.use('/api/sales', saleRoutes);
+app.use('/api/transactions', transactionRoutes);
 
 
-const uri = "mongodb+srv://sandrine:12345@cluster0.ejten.mongodb.net/Smart-Expense-Tracker?retryWrites=true&w=majority";
-const PORT = 4000;
+const uri = process.env.MONGODB_URL;
+const PORT = process.env.PORT || '4000';
 
 
 mongoose.connect(uri)

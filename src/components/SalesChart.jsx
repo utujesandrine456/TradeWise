@@ -29,8 +29,8 @@ const SalesChart = () => {
         label: 'Sales',
         data: [300, 450, 350, 600, 500, 700, 550],
         fill: true,
-        backgroundColor: 'rgba(255, 165, 0, 0.3)', // A vibrant orange with opacity
-        borderColor: 'rgb(255, 140, 0)', // A darker orange
+        backgroundColor: 'rgba(255, 165, 0, 0.3)', 
+        borderColor: 'rgb(255, 140, 0)', 
         tension: 0.4,
         pointBackgroundColor: 'rgb(255, 140, 0)',
         pointBorderColor: '#fff',
@@ -46,32 +46,32 @@ const SalesChart = () => {
       legend: {
         position: 'top',
         labels: {
-            color: '#eee' // Lighter text from Home.jsx
+            color: '#eee'
         }
       },
       title: {
         display: true,
         text: 'Sales Over the Week',
-        color: '#eee' // Lighter text from Home.jsx
+        color: '#eee'
       },
     },
     scales: {
         y: {
             beginAtZero: true,
-            suggestedMax: 800, // Adjust based on expected data range
+            suggestedMax: 800, 
             ticks: {
-                color: '#eee' // Lighter y-axis labels
+                color: '#eee' 
             },
             grid: {
-                color: '#444' // Darker grid lines from Home.jsx
+                color: '#444' 
             }
         },
         x: {
             ticks: {
-                color: '#eee' // Lighter x-axis labels
+                color: '#eee' 
             },
             grid: {
-                color: '#444' // Darker grid lines from Home.jsx
+                color: '#444' 
             }
         }
     }

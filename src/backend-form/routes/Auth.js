@@ -16,7 +16,6 @@ router.use(cookieParser());
 const authentication = async (req, res, next) => {
     const token = req.cookies.token;
     
-    
     if(!token){
         return res.status(401).json({ message: 'Token missing' });
     }
@@ -25,6 +24,7 @@ const authentication = async (req, res, next) => {
         const decoded = jwt.verify(token, JWT_SECRET);
         req.user = decoded;
         next();
+
     } catch (err) {
         return res.status(403).json({ message: 'Failed to authenticate token' });
     }
@@ -208,11 +208,12 @@ router.post('/login', async(req, res) => {
         }
         
         const token = jwt.sign({userId: user._id, role: user.role}, JWT_SECRET, {expiresIn: JWT_EXPIRES_IN});
+
         res.cookie('token', token, {
             httpOnly: false,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
-            maxAge: 20 * 24 * 60 * 60 * 1000,
+            maxAge: 5 * 24 * 60 * 60 * 1000,
         })
         
         res.status(201).json({ message: 'Login successfully', token: token });
