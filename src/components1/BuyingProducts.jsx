@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { MdAdd, MdSearch, MdFilterList, MdEdit, MdDelete, MdVisibility, MdShoppingCart, MdAttachMoney, MdInventory, MdCheckCircle, MdSchedule, MdAccountBalance, MdTrendingUp } from 'react-icons/md';
 import PurchaseOrderForm from './forms/PurchaseOrderForm';
 
+
+
 const BuyingProducts = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
@@ -91,7 +93,8 @@ const BuyingProducts = () => {
 
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 overflow-auto" >
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
