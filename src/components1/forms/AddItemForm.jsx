@@ -13,6 +13,7 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
     minStockLevel: ''
   });
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -21,9 +22,35 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
     }));
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(formData);
+    
+    // Calculate status based on quantity and min stock level
+    const quantity = parseInt(formData.initialQuantity);
+    const minStockLevel = formData.minStockLevel ? parseInt(formData.minStockLevel) : 0;
+    const status = quantity <= 0 
+      ? 'Out of Stock' 
+      : quantity <= minStockLevel 
+        ? 'Low Stock' 
+        : 'In Stock';
+  
+    const numericData = {
+      ...formData,
+      name: formData.name.trim(),
+      category: formData.category,
+      description: formData.description.trim(),
+      purchasePrice: parseFloat(formData.purchasePrice),
+      sellingPrice: parseFloat(formData.sellingPrice), // Fixed: using sellingPrice instead of purchasePrice
+      quantity: parseInt(formData.initialQuantity), 
+      minStockLevel: minStockLevel,
+      supplier: formData.supplier.trim(),
+      status: status // Adding calculated status
+    };
+  
+    onSave(numericData);
+  
+    // Reset form
     setFormData({
       name: '',
       category: '',
@@ -34,6 +61,7 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
       supplier: '',
       minStockLevel: ''
     });
+    
     onClose();
   };
 
@@ -211,5 +239,6 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
     </div>
   );
 };
+
 
 export default AddItemForm;
