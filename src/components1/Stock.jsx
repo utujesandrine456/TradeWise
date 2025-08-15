@@ -6,6 +6,7 @@ import EditModal from './modals/EditModal';
 import AddToCartButton from './buttons/AddToCartButton';
 import { productAPI } from '../services1/api';
 
+
 const Stock = ({ onAddToCart }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
@@ -27,15 +28,21 @@ const Stock = ({ onAddToCart }) => {
     fetchData();
   }, []);
 
+  
   const fetchData = async () => {
     try {
       setLoading(true);
-      const [productsData, statsData] = await Promise.all([
-        productAPI.getAll(),
-        productAPI.getStats()
-      ]);
+      const productsData = await productAPI.getAll();
       setStockItems(productsData);
-      setStats(statsData);
+
+      
+      const stats = {
+        totalProducts: productsData.length,
+        inStock: productsData.filter(item => item.status === 'In Stock').length,
+        lowStock: productsData.filter(item => item.status === 'Low Stock').length,
+        outOfStock: productsData.filter(item => item.status === 'Out of Stock').length
+      };
+      setStats(stats);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -90,24 +97,42 @@ const Stock = ({ onAddToCart }) => {
     }
   };
 
+
   const handleAddItem = async (newItem) => {
     try {
-
+      const quantity = parseInt(newItem.initialQuantity);
+      const minStockLevel = parseInt(newItem.minStockLevel) || 0;
+      
       const payload = {
-        ...newItem, 
-        quantity: newItem.initialQuantity
+        name: newItem.name,
+        category: newItem.category,
+        description: newItem.description,
+        purchasePrice: parseFloat(newItem.purchasePrice),
+        sellingPrice: parseFloat(newItem.sellingPrice),
+        quantity: quantity,
+        supplier: newItem.supplier,
+        minStockLevel: minStockLevel,
+        status: quantity <= 0 ? 'Out of Stock' : quantity <= minStockLevel ? 'Low Stock' : 'In Stock'
       };
 
-      await productAPI.create(payload);
-      fetchData(); 
+      const response = await productAPI.create(payload);
+      
+      if (response) {
+        
+        await fetchData();
+        alert('Item added successfully!');
+        return true;
+      }
     } catch (error) {
       console.error('Error adding item:', error);
+      alert(`Failed to add item: ${error.message}`);
+      return false;
     }
   };
 
+
   return (
-    <div className="space-y-6">
-      
+    <div className="space-y-6 ">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-2xl font-bold text-gray-800">Inventory Management</h2>
