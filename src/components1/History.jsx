@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MdSearch, MdFilterList, MdCalendarToday, MdReceipt, MdShoppingCart, MdAttachMoney, MdAccountBalance, MdTrendingUp } from 'react-icons/md';
 
+
 const History = () => {
   const [selectedFilter, setSelectedFilter] = useState('all');
   
@@ -76,7 +77,7 @@ const History = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 ">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
