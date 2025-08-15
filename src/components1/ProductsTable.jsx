@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const ProductsTable = () => {
     const products = [
     { name: 'Cement', purchasePrice: 9000, quantity: 3, sellingPrice: 9500, totalPrice: 28500, status: 'paid' },
@@ -10,7 +11,7 @@ const ProductsTable = () => {
     ];
 
   return (
-    <div className="bg-black p-6 rounded-lg shadow-lg text-white">
+    <div className="bg-black p-6 rounded-lg shadow-lg text-white ">
       <h3 className="text-xl font-semibold mb-4 text-white">Highly Purchased Products</h3>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-700">
