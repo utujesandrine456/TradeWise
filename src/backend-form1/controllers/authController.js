@@ -6,7 +6,7 @@ const { sendVerificationEmail } = require('../utils/sendEmail');
 const registerUser = async (req, res) => {
     const { email } = req.body;
     const code = Math.floor(100000 + Math.random() * 900000).toString();
-    const codeExpires = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
+    const codeExpires = new Date(Date.now() + 5 * 60 * 1000); 
 
     let user = await User.findOne({ email });
     if (!user) user = new User({ email });
