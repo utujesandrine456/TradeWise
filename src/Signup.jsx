@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link } from 'react-router-dom'
-import Login from './assets/Login.jpg'
+import Loginimage from './assets/Login.jpg'
 
 
 const Signup = () => {
@@ -9,7 +9,7 @@ const Signup = () => {
       <div className="flex w-full h-screen bg-[#FFF]">
 
         <div className='w-70 h-[100vh] flex float-right'>
-          <img src={Login} alt="login" className='w-[650px] object-cover '/>
+          <img src={Loginimage} alt="login" className='w-[650px] object-cover '/>
         </div>
 
         <form className='flex flex-col gap-4 p-3 w-[500px] mx-auto my-8'>
