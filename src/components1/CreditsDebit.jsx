@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { MdAdd, MdSearch, MdFilterList, MdEdit, MdDelete, MdVisibility, MdAttachMoney, MdAccountBalance, MdTrendingUp, MdTrendingDown, MdCreditCard, MdAccountBalanceWallet, MdReceipt } from 'react-icons/md';
 import TransactionForm from './forms/TransactionForm';
 
+
+
 const CreditsDebit = () => {
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [selectedPeriod, setSelectedPeriod] = useState('month');
   const [isTransactionFormOpen, setIsTransactionFormOpen] = useState(false);
   
-  // Sample financial transactions data
+ 
   const transactions = [
     {
       id: 1,
@@ -99,7 +101,7 @@ const CreditsDebit = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 overflow-auto ">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
