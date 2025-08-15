@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MdNotifications, MdNotificationsActive, MdNotificationsOff, MdDelete, MdMarkEmailRead, MdWarning, MdInfo, MdCheckCircle, MdCalendarToday } from 'react-icons/md';
 
+
 const Notification = () => {
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [notifications, setNotifications] = useState([
@@ -80,7 +81,7 @@ const Notification = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 ">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
