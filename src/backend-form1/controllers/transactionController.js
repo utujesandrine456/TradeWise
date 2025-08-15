@@ -19,6 +19,7 @@ const getTransactionById = async (req, res) => {
       return res.status(404).json({ message: 'Transaction not found' });
     }
     res.status(200).json(transaction);
+
   } catch (error) {
     res.status(500).json({ message: 'Error fetching transaction', error: error.message });
   }
@@ -30,7 +31,7 @@ const createTransaction = async (req, res) => {
   try {
     const transaction = new Transaction(req.body);
     const savedTransaction = await transaction.save();
-    res.status(201).json(savedTransaction);
+    res.status(201).json({message: "Your transaction has been saved", savedTransaction});
   } catch (error) {
     res.status(400).json({ message: 'Error creating transaction', error: error.message });
   }
@@ -45,10 +46,12 @@ const updateTransaction = async (req, res) => {
       req.body,
       { new: true, runValidators: true }
     );
+
     if (!transaction) {
       return res.status(404).json({ message: 'Transaction not found' });
     }
     res.status(200).json(transaction);
+    
   } catch (error) {
     res.status(400).json({ message: 'Error updating transaction', error: error.message });
   }
