@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MdAdd, MdSearch, MdFilterList, MdEdit, MdDelete, MdVisibility, MdShoppingCart, MdAttachMoney, MdPerson, MdAccountBalance, MdCheckCircle, MdSchedule, MdTrendingUp } from 'react-icons/md';
 import SaleForm from './forms/SaleForm';
+import '../index.css'
 
 const SellingProducts = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -88,7 +89,7 @@ const SellingProducts = () => {
   const pendingSales = sales.filter(s => s.status === 'pending').length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 hide-scrollbar">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
