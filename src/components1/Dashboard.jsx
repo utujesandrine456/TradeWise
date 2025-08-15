@@ -5,10 +5,12 @@ import SalesChart from './SalesChart';
 import PurchaseChart from './PurchaseChart';
 import ProductsTable from './ProductsTable';
 import StatsCard from './StatsCard';
+import '../index.css';
+
 
 const Dashboard = () => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 hide-scrollbar">
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <StatsCard 
