@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link } from 'react-router-dom'
-import Login from './assets/Login.jpg'
+import Signupimage from './assets/Login.jpg'
 
-const Signup = () => {
+const Login = () => {
   return (
     <>
         <div className="flex w-full h-screen">
@@ -54,11 +54,11 @@ const Signup = () => {
             </div>
 
             <div className='w-1/2 h-[100vh] flex items-center justify-center bg-gray-50'>
-                <img src={Login} alt="login" className='w-full h-full object-cover' />
+                <img src={Signupimage} alt="login" className='w-full h-full object-cover' />
             </div>
         </div> 
     </>
   )
 }
 
-export default Signup;
+export default Login;
