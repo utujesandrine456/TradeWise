@@ -8,7 +8,7 @@ const SellingProducts = () => {
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [isSaleFormOpen, setIsSaleFormOpen] = useState(false);
   
-  // Sample sales data
+ 
   const sales = [
     { 
       id: 1, 

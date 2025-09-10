@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { MdAdd, MdSearch, MdFilterList, MdEdit, MdDelete, MdVisibility, MdInventory, MdCheckCircle, MdSchedule, MdAccountBalance } from 'react-icons/md';
+import { MdAdd, MdSearch, MdFilterList, MdEdit, MdDelete, MdVisibility, MdInventory, MdCheckCircle, MdSchedule, MdAccountBalance, MdShoppingCart } from 'react-icons/md';
 import AddItemForm from './forms/AddItemForm';
 import ViewModal from './modals/ViewModal';
 import EditModal from './modals/EditModal';
 import AddToCartButton from './buttons/AddToCartButton';
+import Cart from './Cart';
 import { productAPI } from '../services1/api';
+import { useCart } from '../contexts/CartContext';
 
 
-const Stock = ({ onAddToCart }) => {
+
+const Stock = () => {
+  const { addToCart, getCartItemCount } = useCart();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [isAddItemFormOpen, setIsAddItemFormOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [stockItems, setStockItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,6 +27,7 @@ const Stock = ({ onAddToCart }) => {
     lowStock: 0,
     outOfStock: 0
   });
+  const [error, setError] = useState('');
   
 
   useEffect(() => {
@@ -32,10 +38,18 @@ const Stock = ({ onAddToCart }) => {
   const fetchData = async () => {
     try {
       setLoading(true);
+      
+      // Check if user is authenticated
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('Please login to view inventory');
+        setLoading(false);
+        return;
+      }
+      
       const productsData = await productAPI.getAll();
       setStockItems(productsData);
 
-      
       const stats = {
         totalProducts: productsData.length,
         inStock: productsData.filter(item => item.status === 'In Stock').length,
@@ -45,6 +59,7 @@ const Stock = ({ onAddToCart }) => {
       setStats(stats);
     } catch (error) {
       console.error('Error fetching data:', error);
+      setError('Failed to load inventory data');
     } finally {
       setLoading(false);
     }
@@ -71,7 +86,9 @@ const Stock = ({ onAddToCart }) => {
 
   const handleUpdateItem = async (updatedItem) => {
     try {
-      await productAPI.update(updatedItem._id, updatedItem);
+      const itemId = updatedItem.id || updatedItem._id;
+      await productAPI.update(itemId, updatedItem);
+      
       fetchData(); 
     } catch (error) {
       console.error('Error updating item:', error);
@@ -79,10 +96,7 @@ const Stock = ({ onAddToCart }) => {
   };
 
   const handleAddToCart = (item) => {
-    if (onAddToCart) {
-      onAddToCart(item);
-    }
-    
+    addToCart(item);
     alert(`${item.quantity} ${item.name}(s) added to cart!`);
   };
 
@@ -103,24 +117,32 @@ const Stock = ({ onAddToCart }) => {
       const quantity = parseInt(newItem.initialQuantity);
       const minStockLevel = parseInt(newItem.minStockLevel) || 0;
       
+      // Get current user ID from localStorage
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      if (!user.id) {
+        alert('Please login to add items');
+        return false;
+      }
+      
       const payload = {
+        user_id: user.id,
         name: newItem.name,
         category: newItem.category,
         description: newItem.description,
-        purchasePrice: parseFloat(newItem.purchasePrice),
-        sellingPrice: parseFloat(newItem.sellingPrice),
+        purchase_price: parseFloat(newItem.purchasePrice),
+        selling_price: parseFloat(newItem.sellingPrice),
         quantity: quantity,
         supplier: newItem.supplier,
-        minStockLevel: minStockLevel,
+        min_stock_level: minStockLevel,
         status: quantity <= 0 ? 'Out of Stock' : quantity <= minStockLevel ? 'Low Stock' : 'In Stock'
       };
 
       const response = await productAPI.create(payload);
       
       if (response) {
-        
         await fetchData();
         alert('Item added successfully!');
+        setIsAddItemFormOpen(false);
         return true;
       }
     } catch (error) {
@@ -133,18 +155,44 @@ const Stock = ({ onAddToCart }) => {
 
   return (
     <div className="space-y-6 ">
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          {error}
+          <button 
+            onClick={() => setError('')}
+            className="ml-2 text-red-500 hover:text-red-700"
+          >
+            ×
+          </button>
+        </div>
+      )}
+      
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-2xl font-bold text-gray-800">Inventory Management</h2>
           <p className="text-gray-600">Manage your product stock and inventory levels</p>
         </div>
-        <button 
-          onClick={() => setIsAddItemFormOpen(true)}
-          className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition duration-200 flex items-center gap-2"
-        >
-          <MdAdd className="text-xl" />
-          Add New Item
-        </button>
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={() => setIsCartOpen(true)}
+            className="bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition duration-200 flex items-center gap-2 relative"
+          >
+            <MdShoppingCart className="text-xl" />
+            Cart
+            {getCartItemCount() > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {getCartItemCount()}
+              </span>
+            )}
+          </button>
+          <button 
+            onClick={() => setIsAddItemFormOpen(true)}
+            className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition duration-200 flex items-center gap-2"
+          >
+            <MdAdd className="text-xl" />
+            Add New Item
+          </button>
+        </div>
       </div>
 
       
@@ -231,8 +279,8 @@ const Stock = ({ onAddToCart }) => {
                   <td className="px-6 py-4 text-sm text-gray-900 font-medium">{item.name}</td>
                   <td className="px-6 py-4 text-sm text-gray-600">{item.category}</td>
                   <td className="px-6 py-4 text-sm text-gray-900">{item.quantity}</td>
-                  <td className="px-6 py-4 text-sm text-gray-900">{item.purchasePrice?.toLocaleString()} Frw</td>
-                  <td className="px-6 py-4 text-sm text-gray-900">{item.sellingPrice?.toLocaleString()} Frw</td>
+                  <td className="px-6 py-4 text-sm text-gray-900">{item.purchase_price?.toLocaleString()} Frw</td>
+                  <td className="px-6 py-4 text-sm text-gray-900">{item.selling_price?.toLocaleString()} Frw</td>
                   <td className="px-6 py-4">
                     <span className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(item.status)}`}>
                       {item.status}
@@ -258,7 +306,7 @@ const Stock = ({ onAddToCart }) => {
                         <MdEdit className="text-lg" />
                       </button>
                       <button 
-                        onClick={() => handleDelete(item._id)}
+                        onClick={() => handleDelete(item.id || item._id)}
                         className="text-red-600 hover:text-red-800 p-2 rounded-lg hover:bg-red-50 transition duration-200"
                         title="Delete Item"
                       >
@@ -301,16 +349,16 @@ const Stock = ({ onAddToCart }) => {
           { key: 'category', label: 'Category' },
           { key: 'description', label: 'Description' },
           { key: 'quantity', label: 'Quantity' },
-          { key: 'purchasePrice', label: 'Purchase Price', render: (value) => `${value?.toLocaleString()} Frw` },
-          { key: 'sellingPrice', label: 'Selling Price', render: (value) => `${value?.toLocaleString()} Frw` },
+          { key: 'purchase_price', label: 'Purchase Price', render: (value) => `${value?.toLocaleString()} Frw` },
+          { key: 'selling_price', label: 'Selling Price', render: (value) => `${value?.toLocaleString()} Frw` },
           { key: 'supplier', label: 'Supplier' },
-          { key: 'minStockLevel', label: 'Minimum Stock Level' },
+          { key: 'min_stock_level', label: 'Minimum Stock Level' },
           { key: 'status', label: 'Status' },
-          { key: 'createdAt', label: 'Created At', render: (value) => new Date(value).toLocaleDateString() }
+          { key: 'created_at', label: 'Created At', render: (value) => new Date(value).toLocaleDateString() }
         ]}
       />
 
-      {/* Edit Modal */}
+      
       <EditModal
         isOpen={isEditModalOpen}
         onClose={() => {
@@ -331,12 +379,18 @@ const Stock = ({ onAddToCart }) => {
             { value: 'Other', label: 'Other' }
           ]},
           { key: 'description', label: 'Description', type: 'textarea', placeholder: 'Enter product description' },
-          { key: 'purchasePrice', label: 'Purchase Price (Frw)', required: true, type: 'number', min: 0, placeholder: '0' },
-          { key: 'sellingPrice', label: 'Selling Price (Frw)', required: true, type: 'number', min: 0, placeholder: '0' },
+          { key: 'purchase_price', label: 'Purchase Price (Frw)', required: true, type: 'number', min: 0, placeholder: '0' },
+          { key: 'selling_price', label: 'Selling Price (Frw)', required: true, type: 'number', min: 0, placeholder: '0' },
           { key: 'quantity', label: 'Quantity', required: true, type: 'number', min: 0, placeholder: '0' },
           { key: 'supplier', label: 'Supplier', required: true, placeholder: 'Enter supplier name' },
-          { key: 'minStockLevel', label: 'Minimum Stock Level', type: 'number', min: 0, placeholder: '0' }
+          { key: 'min_stock_level', label: 'Minimum Stock Level', type: 'number', min: 0, placeholder: '0' }
         ]}
+      />
+
+      {/* Cart Modal */}
+      <Cart 
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
       />
     </div>
   );
