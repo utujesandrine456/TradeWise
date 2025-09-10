@@ -1,271 +1,417 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import logo from './assets/logo.png';
-import styles from './Home.module.css'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { businessProfileAPI } from './services1/api';
+import './Home.module.css';
 
-
-
-export default function Onboarding() {
+const AfterSignup = () => {
+  const [formData, setFormData] = useState({
+    business_name: '',
+    business_type: '',
+    industry: '',
+    description: '',
+    address: '',
+    phone: '',
+    website: '',
+    tax_id: '',
+    business_license: '',
+    annual_revenue: '',
+    employee_count: '',
+    founded_year: '',
+    business_hours: '',
+    payment_methods: [],
+    target_market: '',
+    competitors: '',
+    business_goals: ''
+  });
+  
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
 
-  const [company, setCompany] = useState({ name: "", category: "", phone: "" });
-  const [products, setProducts] = useState([]);
-  const [newProduct, setNewProduct] = useState({ name: "", buying: "", selling: "" });
-  const [agreed, setAgreed] = useState(false);
+  useEffect(() => {
+    
+    const tempUser = localStorage.getItem('tempUser');
+    if (tempUser) {
+      setUser(JSON.parse(tempUser));
+    } else {
+      
+      const token = localStorage.getItem('token');
+      const currentUser = localStorage.getItem('user');
+      if (token && currentUser) {
+        setUser(JSON.parse(currentUser));
+      } else {
+        
+        navigate('/signup');
+      }
+    }
+  }, [navigate]);
 
-  const addProduct = () => {
-    if (!newProduct.name || !newProduct.buying || !newProduct.selling) return;
-    setProducts([...products, newProduct]);
-    setNewProduct({ name: "", buying: "", selling: "" });
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
+    
+    if (type === 'checkbox' && name === 'payment_methods') {
+      const checked = e.target.checked;
+      setFormData(prev => ({
+        ...prev,
+        payment_methods: checked 
+          ? [...prev.payment_methods, value]
+          : prev.payment_methods.filter(method => method !== value)
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
   };
 
-  const deleteProduct = (index) => setProducts(products.filter((_, i) => i !== index));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!user) {
+      setError('User data not found. Please try logging in again.');
+      return;
+    }
 
-  const handleSubmit = async () => {
-    if (!agreed) return alert("You must agree to terms.");
-   
-    await fetch("/api/onboarding", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ company, products }),
-    });
-    navigate("/dashboard"); 
+    setLoading(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      const response = await businessProfileAPI.create({
+        user_id: user.id,
+        ...formData,
+        annual_revenue: parseFloat(formData.annual_revenue) || 0,
+        employee_count: parseInt(formData.employee_count) || 0,
+        founded_year: parseInt(formData.founded_year) || 0
+      });
+      
+      if (response.success) {
+        setSuccess('Business profile created successfully! Redirecting to dashboard...');
+        
+        
+        localStorage.removeItem('tempUser');
+        
+        
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 2000);
+      } else {
+        setError(response.message || 'Failed to create business profile');
+      }
+    } catch (error) {
+      console.error('Business profile creation error:', error);
+      setError('Failed to create business profile. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-  <>
-
-    {/* Navbar */}
-    <div className="bg-[#BE741E] flex justify-between items-center px-6">
-      <div className="flex items-center space-x-1">
-        <img src={logo} alt="logo" className={styles.home_navbar_logo} />
-        <h1 className={styles.home_navbar_title}>TradeWise</h1>
-      </div>
-      <div className={styles.home_navbar_links}>
-          <a href="#company">Company info</a>
-          <a href="#product">Products</a>
-          <a href="#terms">Terms & Conditions</a>
-      </div>
-
-    </div>
-
-    <div className="min-h-auto flex justify-center bg-gray-100 p-2">
-      <div className="bg-gray-100 shadow-lg rounded-xl p-8 w-full max-w-3xl my-6">
-        {/* Progress */}
-        <div className="flex justify-between mb-6">
-          {[1, 2, 3].map((s) => (
-            <div
-              key={s}
-              className={`flex-1 h-2 mx-1 rounded ${step >= s ? "bg-[#BE741E]" : "bg-gray-300"}`}
-            ></div>
-          ))}
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">
+            Complete Your Business Profile
+          </h1>
+          <p className="mt-2 text-gray-600">
+            Welcome to TradeWise, {user.company_name}! Let's set up your business profile.
+          </p>
         </div>
 
-        {/* Step 1: Company */}
-        {step === 1 && (
-          <div >
-            <h1 className="text-2xl font-bold mb-4">Your Company Info</h1>
-            <input
-              type="text"
-              placeholder="Company Name"
-              value={company.name}
-              onChange={(e) => setCompany({ ...company, name: e.target.value })}
-              className="w-full p-3 border rounded mb-4"
-            />
-            <input
-              type="text"
-              placeholder="Category"
-              value={company.category}
-              onChange={(e) => setCompany({ ...company, category: e.target.value })}
-              className="w-full p-3 border rounded mb-4"
-            />
-            <input
-              type="text"
-              placeholder="Business Email"
-              value={company.category}
-              onChange={(e) => setCompany({ ...company, category: e.target.value })}
-              className="w-full p-3 border rounded mb-4"
-            />
-            <input
-              type="tel"
-              placeholder="Phone Number"
-              value={company.phone}
-              onChange={(e) => setCompany({ ...company, phone: e.target.value })}
-              className="w-full p-3 border rounded mb-4"
-            />
-            <textarea placeholder="Company short description..." className="w-full border rounded-lg p-2 my-1"></textarea>
-            <button
-              onClick={() => setStep(2)}
-              className="bg-[#BE741E] text-white px-6 py-2 rounded w-full"
-            >
-              Next
-            </button>
+        {error && (
+          <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+            {error}
           </div>
         )}
 
+        {success && (
+          <div className="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+            {success}
+          </div>
+        )}
 
-        {/* Step 2: Products */}
-        {step === 2 && (
-          <div className="bg-gray-100 justify-center items-center p-6">
-            <h1 className="text-2xl font-bold mb-4">Products</h1>
-            
-            <div className="flex gap-3 mb-4">
+        <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-6 space-y-6">
+          
+          {/* Basic Business Information */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Business Name *
+              </label>
               <input
                 type="text"
-                placeholder="Product Name"
-                value={newProduct.name}
-                onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-                className="p-3 border rounded "
+                name="business_name"
+                required
+                className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                value={formData.business_name}
+                onChange={handleChange}
+                placeholder="Your business name"
               />
-              <input
-                type="number"
-                placeholder="Buying Price"
-                value={newProduct.buying}
-                onChange={(e) => setNewProduct({ ...newProduct, buying: e.target.value })}
-                className="p-3 border rounded "
-              />
-              <input
-                type="number"
-                placeholder="Selling Price"
-                value={newProduct.selling}
-                onChange={(e) => setNewProduct({ ...newProduct, selling: e.target.value })}
-                className="p-3 border rounded "
-              />
-              
-              <button onClick={addProduct} className="bg-green-500 text-white rounded px-4 relative top-[-60px] right-20 font-semibold">
-                Add+
-              </button>
             </div>
 
-            <table className="w-full border-collapse border mb-4">
-              <thead>
-                <tr className="bg-gray-200">
-                  <th className="p-2">Name</th>
-                  <th className="p-2">Buying Price</th>
-                  <th className="p-2">Selling Price</th>
-                  <th className="p-2">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((p, i) => (
-                  <tr key={i} className="border-t">
-                    <td className="p-2">{p.name}</td>
-                    <td className="p-2">{p.buying}</td>
-                    <td className="p-2">{p.selling}</td>
-                    <td className="p-2">
-                      <button
-                        onClick={() => deleteProduct(i)}
-                        className="bg-red-500 text-white px-3 py-1 rounded"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Business Type
+              </label>
+              <select
+                name="business_type"
+                className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                value={formData.business_type}
+                onChange={handleChange}
+              >
+                <option value="">Select business type</option>
+                <option value="Sole Proprietorship">Sole Proprietorship</option>
+                <option value="Partnership">Partnership</option>
+                <option value="Corporation">Corporation</option>
+                <option value="LLC">LLC</option>
+                <option value="Franchise">Franchise</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
 
-            <div className="flex justify-between">
-              <button onClick={() => setStep(1)} className="px-6 py-2 border rounded">
-                Back
-              </button>
-              <button onClick={() => setStep(3)} className="bg-[#BE741E] text-white px-6 py-2 rounded">
-                Next
-              </button>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Industry
+              </label>
+              <input
+                type="text"
+                name="industry"
+                className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                value={formData.industry}
+                onChange={handleChange}
+                placeholder="e.g., Technology, Retail, Manufacturing"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Founded Year
+              </label>
+              <input
+                type="number"
+                name="founded_year"
+                min="1900"
+                max={new Date().getFullYear()}
+                className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                value={formData.founded_year}
+                onChange={handleChange}
+                placeholder="e.g., 2020"
+              />
             </div>
           </div>
-        )}
 
+          {/* Description */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Business Description
+            </label>
+            <textarea
+              name="description"
+              rows={3}
+              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              value={formData.description}
+              onChange={handleChange}
+              placeholder="Describe your business, products, and services..."
+            />
+          </div>
 
-        {/* Step 3: Terms */}
-        {step === 3 && (
-          <>
-            <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-200 max-w-3xl mx-auto max-h-[500px] overflow-y-auto hide-scrollbar">
-              <h2 className="text-3xl font-extrabold mb-6 text-[#BE741E] tracking-tight">
-                TradeWise - Terms & Conditions
-              </h2>
-
-              <ol className="list-decimal pl-6 text-gray-700 space-y-4 leading-relaxed">
-                <li>
-                  <strong className="text-gray-900">Acceptance of Terms: <br></br></strong>  
-                  By creating an account and using TradeWise, you agree to abide by these Terms & Conditions.
-                </li>
-
-                <li>
-                  <strong className="text-gray-900">Account Responsibility: <br></br></strong>  
-                  You are responsible for maintaining the confidentiality of your login credentials and activities under your account.
-                </li>
-
-                <li>
-                  <strong className="text-gray-900">Data Accuracy: <br></br></strong>  
-                  All company and product information you provide must be accurate and up to date.
-                </li>
-
-                <li>
-                  <strong className="text-gray-900">Usage of Platform: <br></br></strong>  
-                  TradeWise is intended for legitimate business tracking and trade management only.
-                </li>
-
-                <li>
-                  <strong className="text-gray-900">Prohibited Activities: <br></br></strong>  
-                  You must not engage in fraudulent, illegal, or misleading activities using this platform.
-                </li>
-
-                <li>
-                  <strong className="text-gray-900">Data Storage & Security: <br></br></strong>  
-                  Your data is stored securely. However, we are not liable for data loss due to unforeseen events.
-                </li>
-
-                <li>
-                  <strong className="text-gray-900">Termination: <br></br></strong>  
-                  We reserve the right to suspend or terminate your account if you violate these Terms.
-                </li>
-
-                <li>
-                  <strong className="text-gray-900">Updates to Terms: <br></br></strong>  
-                  TradeWise may update these Terms from time to time. Continued use means you accept the updated Terms.
-                </li>
-              </ol>
-
-              <div className="mt-8 flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  checked={agreed}
-                  onChange={() => setAgreed(!agreed)}
-                  className="w-5 h-5 accent-[#BE741E] border-gray-300 rounded"  />
-                <span className="text-gray-800 text-sm md:text-base">
-                  I agree to the Terms & Conditions
-                </span>
-              </div>
-
-              <div className="flex justify-between mt-8">
-                <button
-                  onClick={() => setStep(2)}
-                  className="px-6 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition duration-200"
-                >
-                  Back
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  className={`px-8 py-2 rounded-lg font-semibold text-white transition duration-200 ${
-                    agreed
-                      ? "bg-green-500 hover:bg-green-600"
-                      : "bg-green-300 cursor-not-allowed"
-                  }`}
-                  disabled={!agreed}
-                >
-                  Submit
-                </button>
-              </div>
+          {/* Contact Information */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Address
+              </label>
+              <textarea
+                name="address"
+                rows={2}
+                className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                value={formData.address}
+                onChange={handleChange}
+                placeholder="Business address"
+              />
             </div>
 
-          </>
-        )}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="Business phone number"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Website
+              </label>
+              <input
+                type="url"
+                name="website"
+                className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                value={formData.website}
+                onChange={handleChange}
+                placeholder="https://yourwebsite.com"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Business Hours
+              </label>
+              <input
+                type="text"
+                name="business_hours"
+                className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                value={formData.business_hours}
+                onChange={handleChange}
+                placeholder="e.g., Monday-Friday 9AM-6PM"
+              />
+            </div>
+          </div>
+
+          {/* Financial Information */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Annual Revenue
+              </label>
+              <input
+                type="number"
+                name="annual_revenue"
+                min="0"
+                step="0.01"
+                className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                value={formData.annual_revenue}
+                onChange={handleChange}
+                placeholder="Annual revenue amount"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Number of Employees
+              </label>
+              <input
+                type="number"
+                name="employee_count"
+                min="1"
+                className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                value={formData.employee_count}
+                onChange={handleChange}
+                placeholder="Number of employees"
+              />
+            </div>
+          </div>
+
+          {/* Payment Methods */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Accepted Payment Methods
+            </label>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {['Cash', 'Credit Card', 'Debit Card', 'Bank Transfer', 'Mobile Money', 'PayPal', 'Check', 'Crypto'].map((method) => (
+                <label key={method} className="flex items-center">
+                  <input
+                    type="checkbox"
+                    name="payment_methods"
+                    value={method}
+                    checked={formData.payment_methods.includes(method)}
+                    onChange={handleChange}
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <span className="ml-2 text-sm text-gray-700">{method}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Business Strategy */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Target Market
+              </label>
+              <textarea
+                name="target_market"
+                rows={2}
+                className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                value={formData.target_market}
+                onChange={handleChange}
+                placeholder="Describe your target market..."
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Competitors
+              </label>
+              <textarea
+                name="competitors"
+                rows={2}
+                className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                value={formData.competitors}
+                onChange={handleChange}
+                placeholder="List your main competitors..."
+              />
+            </div>
+          </div>
+
+          {/* Business Goals */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Business Goals
+            </label>
+            <textarea
+              name="business_goals"
+              rows={3}
+              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              value={formData.business_goals}
+              onChange={handleChange}
+              placeholder="What are your short-term and long-term business goals?"
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div className="flex justify-end space-x-4">
+            <button
+              type="button"
+              onClick={() => navigate('/dashboard')}
+              className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Skip for Now
+            </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Creating Profile...' : 'Complete Profile'}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-  </>
   );
-}
+};
+
+export default AfterSignup;
 
 
