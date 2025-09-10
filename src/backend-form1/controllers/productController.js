@@ -1,23 +1,32 @@
-const Product = require('../models/Product');
+const pool = require('../config/db');
 
-// Get all products
+
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find().sort({ createdAt: -1 });
+    const userId = req.user.id; // From JWT middleware
+    const { rows: products } = await pool.query(
+      'SELECT * FROM products WHERE user_id = $1 ORDER BY created_at DESC',
+      [userId]
+    );
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching products', error: error.message });
   }
 };
 
-// Get single product by ID
+
 const getProductById = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
-    if (!product) {
+    const { rows: products } = await pool.query(
+      'SELECT * FROM products WHERE id = $1',
+      [req.params.id]
+    );
+    
+    if (products.length === 0) {
       return res.status(404).json({ message: 'Product not found' });
     }
-    res.status(200).json(product);
+    
+    res.status(200).json(products[0]);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching product', error: error.message });
   }
@@ -26,9 +35,16 @@ const getProductById = async (req, res) => {
 // Create new product
 const createProduct = async (req, res) => {
   try {
-    const product = new Product(req.body);
-    const savedProduct = await product.save();
-    res.status(201).json(savedProduct);
+    const { name, category, description, purchase_price, selling_price, quantity, supplier, min_stock_level, status } = req.body;
+    
+    const { rows: newProduct } = await pool.query(
+      `INSERT INTO products (name, category, description, purchase_price, selling_price, quantity, supplier, min_stock_level, status) 
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) 
+       RETURNING *`,
+      [name, category, description, purchase_price, selling_price, quantity, supplier, min_stock_level, status]
+    );
+    
+    res.status(201).json({message: "Product created successfully", product: newProduct[0]});
   } catch (error) {
     res.status(400).json({ message: 'Error creating product', error: error.message });
   }
@@ -37,15 +53,22 @@ const createProduct = async (req, res) => {
 // Update product
 const updateProduct = async (req, res) => {
   try {
-    const product = await Product.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
+    const { name, category, description, purchase_price, selling_price, quantity, supplier, min_stock_level, status } = req.body;
+    
+    const { rows: updatedProduct } = await pool.query(
+      `UPDATE products 
+       SET name = $1, category = $2, description = $3, purchase_price = $4, selling_price = $5, 
+           quantity = $6, supplier = $7, min_stock_level = $8, status = $9, updated_at = NOW()
+       WHERE id = $10 
+       RETURNING *`,
+      [name, category, description, purchase_price, selling_price, quantity, supplier, min_stock_level, status, req.params.id]
     );
-    if (!product) {
+
+    if (updatedProduct.length === 0) {
       return res.status(404).json({ message: 'Product not found' });
     }
-    res.status(200).json(product);
+    
+    res.status(200).json(updatedProduct[0]);
   } catch (error) {
     res.status(400).json({ message: 'Error updating product', error: error.message });
   }
@@ -54,10 +77,15 @@ const updateProduct = async (req, res) => {
 // Delete product
 const deleteProduct = async (req, res) => {
   try {
-    const product = await Product.findByIdAndDelete(req.params.id);
-    if (!product) {
+    const { rows: deletedProduct } = await pool.query(
+      'DELETE FROM products WHERE id = $1 RETURNING *',
+      [req.params.id]
+    );
+    
+    if (deletedProduct.length === 0) {
       return res.status(404).json({ message: 'Product not found' });
     }
+    
     res.status(200).json({ message: 'Product deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Error deleting product', error: error.message });
@@ -68,25 +96,31 @@ const deleteProduct = async (req, res) => {
 const searchProducts = async (req, res) => {
   try {
     const { search, category, status } = req.query;
-    let query = {};
+    let query = 'SELECT * FROM products WHERE 1=1';
+    let params = [];
+    let paramCount = 0;
 
     if (search) {
-      query.$or = [
-        { name: { $regex: search, $options: 'i' } },
-        { description: { $regex: search, $options: 'i' } },
-        { supplier: { $regex: search, $options: 'i' } }
-      ];
+      paramCount++;
+      query += ` AND (name ILIKE $${paramCount} OR description ILIKE $${paramCount} OR supplier ILIKE $${paramCount})`;
+      params.push(`%${search}%`);
     }
 
     if (category) {
-      query.category = category;
+      paramCount++;
+      query += ` AND category = $${paramCount}`;
+      params.push(category);
     }
 
     if (status) {
-      query.status = status;
+      paramCount++;
+      query += ` AND status = $${paramCount}`;
+      params.push(status);
     }
 
-    const products = await Product.find(query).sort({ createdAt: -1 });
+    query += ' ORDER BY created_at DESC';
+
+    const { rows: products } = await pool.query(query, params);
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ message: 'Error searching products', error: error.message });
@@ -96,16 +130,16 @@ const searchProducts = async (req, res) => {
 // Get product statistics
 const getProductStats = async (req, res) => {
   try {
-    const totalProducts = await Product.countDocuments();
-    const inStock = await Product.countDocuments({ status: 'In Stock' });
-    const lowStock = await Product.countDocuments({ status: 'Low Stock' });
-    const outOfStock = await Product.countDocuments({ status: 'Out of Stock' });
+    const totalProducts = await pool.query('SELECT COUNT(*) FROM products');
+    const inStockProducts = await pool.query('SELECT COUNT(*) FROM products WHERE status = $1', ['In Stock']);
+    const lowStockProducts = await pool.query('SELECT COUNT(*) FROM products WHERE status = $1', ['Low Stock']);
+    const outOfStockProducts = await pool.query('SELECT COUNT(*) FROM products WHERE status = $1', ['Out of Stock']);
 
     res.status(200).json({
-      totalProducts,
-      inStock,
-      lowStock,
-      outOfStock
+      totalProducts: totalProducts.rows[0]?.count || 0,
+      inStockProducts: inStockProducts.rows[0]?.count || 0,
+      lowStockProducts: lowStockProducts.rows[0]?.count || 0,
+      outOfStockProducts: outOfStockProducts.rows[0]?.count || 0
     });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching product statistics', error: error.message });
