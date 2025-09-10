@@ -8,10 +8,10 @@ const AddToCartButton = ({ item, onAddToCart, className = "" }) => {
   const handleAddToCart = () => {
     if (quantity > 0 && quantity <= item.quantity) {
       onAddToCart({
-        id: item._id || item.id,
+        id: item.id || item._id,
         name: item.name,
         category: item.category,
-        price: item.sellingPrice || item.price,
+        price: item.selling_price || item.sellingPrice || item.price,
         quantity: quantity,
         maxQuantity: item.quantity
       });
