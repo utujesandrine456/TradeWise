@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 import { MdDashboard, MdStorage, MdHistory, MdShoppingBag, MdAttachMoney, MdNotifications, MdCreditCard, MdShowChart, MdLogout } from "react-icons/md";
 import { GiTrade } from "react-icons/gi";
 import { BsBook } from "react-icons/bs";
-import { FaDollarSign, FaShoppingCart } from "react-icons/fa";
-import { FaCartPlus } from "react-icons/fa6";
 import logo from '../assets/logo.png';
 import Dashboard from './Dashboard';
 import Stock from './Stock';
@@ -12,13 +12,12 @@ import BuyingProducts from './BuyingProducts';
 import SellingProducts from './SellingProducts';
 import Notification from './Notification';
 import CreditsDebit from './CreditsDebit';
-import ShoppingCart from './ShoppingCart';
 import '../index.css'
 
 const DashboardLayout = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();
+  const { user, logout: authLogout } = useAuth();
 
   const tabs = [
     { id: 'dashboard', name: 'Dashboard', icon: <MdDashboard className="mr-4 text-xl text-white" /> },
@@ -30,25 +29,17 @@ const DashboardLayout = () => {
     { id: 'credits', name: 'Credits/Debit', icon: <MdCreditCard className="mr-4 text-xl text-white" /> },
   ];
 
+  const handleLogout = () => {
+    authLogout();
+    navigate('/Login');
+  };
+
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
         return <Dashboard />;
       case 'stock':
-        return <Stock onAddToCart={(item) => {
-          setCartItems(prev => {
-            const existingItem = prev.find(cartItem => cartItem.id === item.id);
-            if (existingItem) {
-              return prev.map(cartItem => 
-                cartItem.id === item.id 
-                  ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
-                  : cartItem
-              );
-            } else {
-              return [...prev, item];
-            }
-          });
-        }} />;
+        return <Stock />;
       case 'history':
         return <History />;
       case 'buying':
@@ -97,7 +88,10 @@ const DashboardLayout = () => {
 
         {/* Logout */}
         <div className="p-6 border-t border-gray-200">
-          <button className="w-full flex items-center py-3 px-4 text-black hover:bg-white rounded-lg transition duration-200 font-medium cursor-pointer bg-white hover:shadow-md">
+          <button 
+            onClick={handleLogout}
+            className="w-full flex items-center py-3 px-4 text-black hover:bg-white rounded-lg transition duration-200 font-medium cursor-pointer bg-white hover:shadow-md"
+          >
             <MdLogout className="mr-4 text-xl"/>
             Logout
           </button>
@@ -108,19 +102,8 @@ const DashboardLayout = () => {
       <div className="flex-1 flex flex-col overflow-hidden bg-white text-gray-800 hide-scrollbar">
         {/* Header */}
         <header className="flex items-center justify-between p-6 bg-white border-b border-gray-200 shadow-sm text-gray-800">
-          <div className="text-3xl font-semibold">Welcome Back, User!</div>
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={() => setIsCartOpen(true)}
-              className="relative p-2 text-gray-600 hover:text-gray-800 transition duration-200"
-            >
-              <FaCartPlus className="text-[30px]" />
-              {cartItems.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartItems.length}
-                </span>
-              )}
-            </button>
+          <div className="text-3xl font-semibold">
+            Welcome Back, {user?.company_name || 'User'}!
           </div>
         </header>
 
@@ -130,45 +113,7 @@ const DashboardLayout = () => {
         </main>
       </div>
 
-      {/* Shopping Cart */}
-      <ShoppingCart 
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        cartItems={cartItems}
-        onUpdateQuantity={(itemId, newQuantity) => {
-          setCartItems(prev => 
-            prev.map(item => 
-              item.id === itemId 
-                ? { ...item, quantity: newQuantity }
-                : item
-            ).filter(item => item.quantity > 0)
-          );
-        }}
-        onRemoveItem={(itemId) => {
-          setCartItems(prev => prev.filter(item => item.id !== itemId));
-        }}
-        onCheckout={(items, total) => {
-          console.log('Checkout completed:', { items, total });
-          setCartItems([]);
-          // Here you would typically process the checkout
-        }}
-        onAddToCart={(item) => {
-          setCartItems(prev => {
-            const existingItem = prev.find(cartItem => cartItem.id === item.id);
-            if (existingItem) {
-              
-              return prev.map(cartItem => 
-                cartItem.id === item.id 
-                  ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
-                  : cartItem
-              );
-            } else {
-              
-              return [...prev, item];
-            }
-          });
-        }}
-      />
+
     </div>
   );
 };
