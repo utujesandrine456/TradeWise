@@ -4,10 +4,10 @@ const path = require('path');
 
 
 const pool = new Pool({
-  user: process.env.DB_USER || 'postgres',
+  user: process.env.DB_USER || 'sandrine',
   host: process.env.DB_HOST || 'localhost',
   database: process.env.DB_NAME || 'TradeWise',
-  password: process.env.DB_PASSWORD || 'utuje001$',
+  password: process.env.DB_PASSWORD || 'bubuna',
   port: process.env.DB_PORT || 5432,
 });
 
