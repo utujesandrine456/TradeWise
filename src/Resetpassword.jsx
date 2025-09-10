@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Signupimage from './assets/Login.jpg'
 
 
 
 const Resetpassword = () => {
+  const [isloading, setIsloading] = useState(true);
+
   return (
     <div className='bg-black h-screen flex flex-1 justify-between'>
       <div className='w-1/2 h-[100vh] flex items-center justify-center bg-gray-50'>
@@ -18,7 +20,7 @@ const Resetpassword = () => {
           <input type="text" placeholder="New Password" className='w-100 py-2 px-4 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BE741E] focus:border-transparent' />
           <input type="text" placeholder="Confirm Password" className='w-100 py-2 px-4 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BE741E] focus:border-transparent' />
         </div>
-        <button type="submit" className="flex w-40 mx-auto text-center py-2 px-6 mt-4 bg-[#BE741E] text-sm text-white font-medium rounded-lg hover:bg-[#cc8b3a]" >Reset Password</button>
+        <button type="submit" disabled={isloading} className="flex w-40 mx-auto text-center py-2 px-6 mt-4 bg-[#BE741E] text-sm text-white font-medium rounded-lg hover:bg-[#cc8b3a] disabled:opacity-50 disabled:cursor-not-allowed" >Reset Password</button>
       </div>
     </div>
   )
