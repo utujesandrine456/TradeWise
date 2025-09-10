@@ -9,6 +9,12 @@ import DashboardLayout from "./components1/DashboardLayout";
 import Form from "./SalesForm";
 import Pform from "./PurchasesForm";
 import Onboarding from "./AfterSignup";
+import { CartProvider } from "./contexts/CartContext";
+import ProtectedRoute from "./components1/ProtectedRoute";
+import Forgotpassword from "./Forgotpassword";
+import Resetpassword from "./Resetpassword";
+import NotFound from "./notfound";
+
 
 
 
@@ -19,13 +25,26 @@ function App() {
     <Router>
       <Routes>
           <Route path="/" element={ <Home />}></Route>
-          <Route path="/Login" element={ <Login />}></Route>
-          <Route path="/Signup" element={ <Signup />}></Route>
+          <Route path="/login" element={ <Login />}></Route>
+          <Route path="/signup" element={ <Signup />}></Route>
           <Route path='/email' element={<VerifyEmail />}></Route>
-          <Route path='/dashboard' element={<DashboardLayout />}></Route>
+          <Route path='/dashboard' element={
+            <ProtectedRoute>
+              <CartProvider>
+                <DashboardLayout />
+              </CartProvider>
+            </ProtectedRoute>
+          }></Route>
           <Route path='/salesdata' element={<Form />}></Route>
           <Route path='/purchasedata' element={<Pform />}></Route>
-          <Route path='/land' element={<Onboarding />}></Route>
+          <Route path='/land' element={
+            <ProtectedRoute>
+              <Onboarding />
+            </ProtectedRoute>
+          }></Route>
+          <Route path='/forgotpassword' element={<Forgotpassword />}></Route>
+          <Route path='/resetpassword' element={<Resetpassword />}></Route>
+          <Route path='*' element={<NotFound />}></Route>
       </Routes>
     </Router>
      
