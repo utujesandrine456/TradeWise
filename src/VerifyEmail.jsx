@@ -4,13 +4,13 @@ import { MdEmail } from "react-icons/md";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/ReactToastify.css';
 import { IoTimer } from "react-icons/io5";
-import axios from 'axios';
+import { userAPI } from './services1/api';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
 
 const VerifyEmail = () => {
-    const [timeLeft, setTimeleft] = useState(15);
+    const [timeLeft, setTimeleft] = useState(24 * 60 * 60); // 24 hours in seconds
     const [codeDigits, setCodeDigits] = useState(['', '', '', '', '', '']);
     const [loading, setLoading] = useState(false);
     const [resendingLoading, setResendLoading] = useState(false);
@@ -82,13 +82,16 @@ const VerifyEmail = () => {
         setResendLoading(true);
 
         try {
-            const res = await axios.post('http://localhost:4000/api/auth/resend-code', { email });
-            setTimeleft(15 * 60); 
-            setCodeDigits(['','','','','','']); 
-            toast.success('New verification code sent to your email');
-
+            const res = await userAPI.resendVerification({ email });
+            if (res.success) {
+                setTimeleft(24 * 60 * 60); // 24 hours in seconds
+                setCodeDigits(['','','','','','']); 
+                toast.success('New verification code sent to your email');
+            } else {
+                toast.error(res.message || 'Failed to resend code');
+            }
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Failed to resend code');
+            toast.error(error.message || 'Failed to resend code');
         }finally{
             setResendLoading(false);
         }
@@ -109,21 +112,22 @@ const VerifyEmail = () => {
 
         setLoading(true);
         try {
-            const res = await axios.post('http://localhost:4000/api/auth/verify-email', { 
+            const res = await userAPI.verifyEmail({ 
                 email, 
-                code 
+                verificationCode: code 
             });
 
-            toast.success(res.data.message);
-
-            localStorage.removeItem('userEmail');
-            
-            navigate('/table');
-
+            if (res.success) {
+                toast.success(res.message);
+                localStorage.removeItem('userEmail');
+                navigate('/land'); // Redirect to business profile setup
+            } else {
+                toast.error(res.message || 'Verification failed');
+            }
             
         } catch (error) {
             console.error("Verification error:", error);
-            toast.error(error.response?.data?.message || 'Verification failed');
+            toast.error(error.message || 'Verification failed');
         }finally{
             setLoading(false);
         }
@@ -151,7 +155,7 @@ const VerifyEmail = () => {
                     <p className='mt-4'>   Hi ,<br></br>
                         Please check your inbox and enter the verification<br></br>
                         code below to verify your email address. The code <br></br>
-                        will expire in 15 seconds.
+                        will expire in 24 hours.
                     </p>
                     
                 </div>
