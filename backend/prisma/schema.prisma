@@ -1,0 +1,113 @@
+generator client {
+    provider = "prisma-client-js"
+    output   = "../generated/prisma"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model MTrader {
+    id String @id @default(ulid())
+    enterpriseName String  //or (username) the company name
+    email String @unique //business email
+    password String
+    profilePicture String?
+    resetPasswordToken String?
+    //timestamps
+    resetPasswordExpires DateTime?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    stock MStock?
+    notifications MNotification[]
+}
+
+model MStock {
+    id String @id @default(ulid())
+    //timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    traderId String @unique
+    trader   MTrader  @relation(fields: [traderId], references: [id])
+    products MProduct[]
+}
+
+
+model MCategory {
+    id String @id @default(ulid())
+    name String
+    description String?
+    // timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    // relations
+    products MProduct[]
+}
+
+enum ENProductUnit {
+    KG     // for weight
+    Pieces // things counted by pieces like 20 sacks of items
+    Liters // for liquids
+}
+
+model MProduct {
+    id String @id @default(ulid())
+    name String // keep name in lowercase
+    unit ENProductUnit @default(Pieces)
+    // timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    // relations
+    categoryId String
+    category MCategory @relation(fields: [categoryId], references: [id])
+    stockId String
+    stock MStock @relation(fields: [stockId], references: [id])
+    prices MPricesOfProduct[] // <-- back-reference
+}
+
+model MPricesOfProduct{
+    id String @id @default(ulid())
+    price Float
+    //timestamps
+    createdAt DateTime @default(now())
+    //relations
+    productId String
+    product MProduct @relation(fields: [productId], references: [id])
+
+    @@index([productId])
+}
+
+
+// Notifications
+
+enum ENNotificationImpact {
+    Low
+    Medium
+    High
+}
+
+enum ENNotificationFilterType {
+    INFO
+    WARNING
+    SUCCESS
+}
+
+model MNotification {
+    id String @id @default(ulid())
+    title String @db.VarChar(20) @map("noti_title")
+    message String @db.VarChar(255) @map("noti_message")
+    impact ENNotificationImpact @default(Medium)
+    filterType ENNotificationFilterType @default(INFO)
+    // the type depends on filter type, eg info has payment_received and new_item_inChat
+    type String @db.VarChar(20) @map("noti_type")
+    read Boolean @default(false)
+    //timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    traderId String
+    trader MTrader @relation(fields: [traderId], references: [id])
+}
