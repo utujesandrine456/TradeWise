@@ -22,6 +22,12 @@ export class GqlMTrader {
   @Field({ nullable: true })
   resetPasswordExpires?: Date;
 
+  @Field({ nullable: true })
+  verifyAccountToken?: string;
+
+  @Field({ nullable: true })
+  verifyAccountExpires?: Date;
+
   @Field()
   createdAt: Date;
 

@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import {Link, useNavigate } from 'react-router-dom'
-import Signupimage from './assets/Login.jpg'
-import { userAPI } from './services1/api'
+import React, { useState } from 'react';
+import {Link, useNavigate } from 'react-router-dom';
+import Signupimage from '../assets/Login.jpg';
 
 const Login = () => {
   const [formData, setFormData] = useState({

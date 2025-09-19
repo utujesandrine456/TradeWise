@@ -53,3 +53,13 @@ export class ResetPasswordDto {
     @IsNotEmpty()
     token: string;
 }
+
+export class VerifyAccountDto {
+    @IsEmail()
+    @IsNotEmpty()
+    email: string;
+    
+    @IsString()
+    @IsNotEmpty()
+    token: string;
+}

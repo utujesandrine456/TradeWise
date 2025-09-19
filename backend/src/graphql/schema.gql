@@ -38,6 +38,8 @@ type GqlMTrader {
   profilePicture: String
   resetPasswordToken: String
   resetPasswordExpires: DateTime
+  verifyAccountToken: String
+  verifyAccountExpires: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
   stock: GqlMStock

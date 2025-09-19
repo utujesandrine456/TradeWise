@@ -15,8 +15,10 @@ model MTrader {
     password String
     profilePicture String?
     resetPasswordToken String?
+    verifyAccountToken String?
     //timestamps
     resetPasswordExpires DateTime?
+    verifyAccountExpires DateTime?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     //relations

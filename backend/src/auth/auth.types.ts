@@ -20,3 +20,8 @@ export type TUpdateTrader = {
     profilePicture?: string;
     password?: string;
 }
+
+export type VerifyAccountDetails = {
+    email: string;
+    token: string;
+}

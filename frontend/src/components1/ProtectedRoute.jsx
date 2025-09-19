@@ -12,7 +12,6 @@ const ProtectedRoute = ({ children, requireAuth = true }) => {
     }
   }, [isAuthenticated, loading, requireAuth, navigate]);
 
-
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">

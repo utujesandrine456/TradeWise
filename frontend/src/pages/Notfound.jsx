@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./Notfound.module.css";
 import {Link} from 'react-router-dom';
-import not from './assets/image1.png'
-
+import not from '../assets/image1.png'
 
 const NotFound = () => {
   return (

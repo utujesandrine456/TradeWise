@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import Signupimage from './assets/Login.jpg'
-
-
+import Signupimage from '../assets/Login.jpg'
 
 const Resetpassword = () => {
   const [isloading, setIsloading] = useState(true);

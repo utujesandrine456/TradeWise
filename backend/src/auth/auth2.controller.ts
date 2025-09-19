@@ -1,16 +1,16 @@
 import { Body, Controller, InternalServerErrorException, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ConfigService } from 'src/config/config.service';
-import { ForgotPasswordDto, ResetPasswordDto } from './auth.dto';
+import { ForgotPasswordDto, ResetPasswordDto, VerifyAccountDto } from './auth.dto';
 import { EmailService } from 'src/communication/email/email.service';
 import { UnProtectedRoutesGuard } from 'src/custom/guards/un-protected-routes/un-protected-routes.guard';
+import { EmailValidationPipe } from 'src/custom/pipes/EmailValidation.pipe';
 
-@Controller('auth/password/')
+@Controller('auth')
 export class Auth2Controller {
     constructor(
         private readonly authService: AuthService,
         private readonly emailService: EmailService,
-        private readonly configService: ConfigService,
     ) {}
 
     private emailHtml(token: string) {
@@ -85,9 +85,9 @@ export class Auth2Controller {
             </body>
             </html>
         `
-    }
+    }  
 
-    @Post('forgot')
+    @Post('password/forgot')
     @UseGuards(UnProtectedRoutesGuard)
     public async forgotPassword(
         @Body() dto: ForgotPasswordDto
@@ -106,11 +106,27 @@ export class Auth2Controller {
         }
     }
     
-    @Post('reset')
+    @Post('password/reset')
     @UseGuards(UnProtectedRoutesGuard)
     public async resetPassword(
         @Body() dto: ResetPasswordDto
     ) {
         await this.authService.resetPassword(dto)
+    }
+
+    @Post('account/resend-token')
+    @UseGuards(UnProtectedRoutesGuard)
+    public async resendVerifyAccountToken(
+        @Body() dto: VerifyAccountDto
+    ) {
+        await this.authService.sendVerifyAccountToken(dto.email);
+    }
+
+    @Post('account/verify')
+    @UseGuards(UnProtectedRoutesGuard)
+    public async verifyAccount(
+        @Body() dto: VerifyAccountDto
+    ) {
+        await this.authService.verifyAccount(dto);
     }
 }

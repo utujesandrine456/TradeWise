@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from 'react'
-import Signupimage from './assets/Login.jpg'
+import Signupimage from '../assets/Login.jpg'
 
 const Forgotpassword = () => {
 

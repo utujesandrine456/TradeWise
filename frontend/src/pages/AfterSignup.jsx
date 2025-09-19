@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { businessProfileAPI } from './services1/api';
 import './Home.module.css';
 
 const AfterSignup = () => {
@@ -27,26 +26,7 @@ const AfterSignup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [user, setUser] = useState(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    
-    const tempUser = localStorage.getItem('tempUser');
-    if (tempUser) {
-      setUser(JSON.parse(tempUser));
-    } else {
-      
-      const token = localStorage.getItem('token');
-      const currentUser = localStorage.getItem('user');
-      if (token && currentUser) {
-        setUser(JSON.parse(currentUser));
-      } else {
-        
-        navigate('/signup');
-      }
-    }
-  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -67,57 +47,17 @@ const AfterSignup = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!user) {
-      setError('User data not found. Please try logging in again.');
-      return;
-    }
-
     setLoading(true);
     setError('');
-    setSuccess('');
-
-    try {
-      const response = await businessProfileAPI.create({
-        user_id: user.id,
-        ...formData,
-        annual_revenue: parseFloat(formData.annual_revenue) || 0,
-        employee_count: parseInt(formData.employee_count) || 0,
-        founded_year: parseInt(formData.founded_year) || 0
-      });
-      
-      if (response.success) {
-        setSuccess('Business profile created successfully! Redirecting to dashboard...');
-        
-        
-        localStorage.removeItem('tempUser');
-        
-        
-        setTimeout(() => {
-          navigate('/dashboard');
-        }, 2000);
-      } else {
-        setError(response.message || 'Failed to create business profile');
-      }
-    } catch (error) {
-      console.error('Business profile creation error:', error);
-      setError('Failed to create business profile. Please try again.');
-    } finally {
+    setSuccess('Saving your profile (UI only)...');
+    console.log('AfterSignup form data (UI only):', formData);
+    setTimeout(() => {
       setLoading(false);
-    }
+      setSuccess('Profile saved (UI only). You can proceed to the dashboard.');
+    }, 600);
   };
-
-  if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -127,7 +67,7 @@ const AfterSignup = () => {
             Complete Your Business Profile
           </h1>
           <p className="mt-2 text-gray-600">
-            Welcome to TradeWise, {user.company_name}! Let's set up your business profile.
+            Welcome to TradeWise! Let's set up your business profile.
           </p>
         </div>
 

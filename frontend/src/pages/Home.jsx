@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Home.module.css'
-import logo from './assets/logo.png'
+import logo from '../assets/logo.png'
 import { FaUser, FaRegCommentDots } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { FaFacebook } from "react-icons/fa";

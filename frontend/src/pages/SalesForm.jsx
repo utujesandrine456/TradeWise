@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import logo from './assets/logo.png';
+import logo from '../assets/logo.png';
 import styles from './Home.module.css';
-import Dior from './assets/Dior.jpg';
+import Dior from '../assets/Dior.jpg';
 import { Trash2, RotateCcw } from 'lucide-react';
 
-const Pform = () => {
+const Form = () => {
   const [trades, setTrades] = useState([]);
   const clearAll = () => setTrades([]);
   const totalPL = trades.reduce((acc, trade) => acc + trade.profitLoss, 0);
@@ -44,7 +44,7 @@ const Pform = () => {
             alt="Profile"
             className="w-[30px] h-[30px] rounded-full"
           />
-          <h3 className="ml-2 font-bold text-[18px] text-white">Pacifique</h3>
+          <h3 className="ml-2 font-bold text-[18px] text-white">Sandrine</h3>
         </div>
       </div>
 
@@ -54,7 +54,7 @@ const Pform = () => {
         <div className="flex-1 py-11 px-[30px] bg-gray-100 flex items-start">
           <div className="bg-white shadow-md rounded-xl p-6 w-full max-w-2xl">
             <h2 className="text-[20px] font-semibold text-gray-800 mb-1">
-              Add Daily Purchases
+              Add Daily Sales
             </h2>
             <p className="text-sm text-gray-500 mb-4">
               Enter your trading data for today
@@ -76,7 +76,7 @@ const Pform = () => {
               {/* Item Sold */}
               <div className="col-span-1">
                 <label className="block text-sm font-medium text-gray-700">
-                  Item Bought
+                  Item Sold
                 </label>
                 <input
                   type="text"
@@ -248,4 +248,4 @@ const Pform = () => {
   );
 };
 
-export default Pform;
+export default Form;

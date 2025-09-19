@@ -1,25 +1,20 @@
 import React from "react";
 import './index.css';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import Home from "./Home";
-import Login from './Login';
-import Signup from './Signup';
-import VerifyEmail from './VerifyEmail'
+import Home from "./pages/Home";
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import VerifyEmail from './pages/VerifyEmail'
 import DashboardLayout from "./components1/DashboardLayout";
-import Form from "./SalesForm";
-import Pform from "./PurchasesForm";
-import Onboarding from "./AfterSignup";
+import Form from "./pages/SalesForm";
+import Pform from "./pages/PurchasesForm";
+import Onboarding from "./pages/AfterSignup";
 import { CartProvider } from "./contexts/CartContext";
-import ProtectedRoute from "./components1/ProtectedRoute";
-import Forgotpassword from "./Forgotpassword";
-import Resetpassword from "./Resetpassword";
-import NotFound from "./notfound";
-
-
-
+import Forgotpassword from "./pages/Forgotpassword";
+import Resetpassword from "./pages/Resetpassword";
+import NotFound from "./pages/Notfound";
 
 function App() {
-
   return (
     <>
     <Router>
