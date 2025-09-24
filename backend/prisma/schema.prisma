@@ -21,6 +21,7 @@ model MTrader {
     verifyAccountExpires DateTime?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    lastLogin DateTime @default(now())
     //relations
     stock MStock?
     notifications MNotification[]

@@ -29,6 +29,9 @@ export class GqlMTrader {
   verifyAccountExpires?: Date;
 
   @Field()
+  lastLogin: Date;
+
+  @Field()
   createdAt: Date;
 
   @Field()

@@ -46,7 +46,7 @@ const Signup = () => {
         email: formData.email,
         password: formData.password,
       });
-      
+    
       if (success) {
         setSuccess('Account created successfully! Please check your email for verification.');
         localStorage.setItem('userEmail', formData.email);
