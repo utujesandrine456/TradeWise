@@ -11,9 +11,11 @@ datasource db {
 model MTrader {
     id String @id @default(ulid())
     enterpriseName String  //or (username) the company name
-    email String @unique //business email
+    //business email & phone for communication when one null, other is used
+    email String? @unique
+    phone String? @unique
+    
     password String
-    profilePicture String?
     resetPasswordToken String?
     verifyAccountToken String?
     //timestamps
@@ -23,8 +25,25 @@ model MTrader {
     updatedAt DateTime @updatedAt
     lastLogin DateTime @default(now())
     //relations
-    stock MStock?
+    stock MStock? @relation("trader_stock")
     notifications MNotification[]
+    settings MTraderSettings? @relation("trader_settings")
+}
+
+model MTraderSettings{ // contains both profile and basic settings
+    id String @id @default(ulid())
+    enterpriseDescription String @db.VarChar(255)
+    logo String
+    name String //name of the trader
+    evaluationPeriod Int @default(7) // in days(weekly)
+    deleteSoldStockAfterEvaluationPeriod Boolean @default(false)
+    ussdCode String
+    //timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    traderId String @unique
+    trader   MTrader  @relation("trader_settings", fields: [traderId], references: [id])
 }
 
 model MStock {
@@ -32,60 +51,124 @@ model MStock {
     //timestamps
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    markAsBought Boolean @default(false) // the schedule will remove it
     //relations
     traderId String @unique
-    trader   MTrader  @relation(fields: [traderId], references: [id])
-    products MProduct[]
+    trader   MTrader  @relation("trader_stock", fields: [traderId], references: [id])
+    images MStockImage[] @relation("stock_images")
+    transactions MTransaction[] @relation("trader_transaction")
+    financials MFinancial[] @relation("stock_financials")
+    buyList MBuyList[] @relation("buy_list_stock")
 }
 
-
-model MCategory {
+model MSoldStock {
     id String @id @default(ulid())
-    name String
-    description String?
-    // timestamps
+    //timestamps
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    // relations
-    products MProduct[]
+    //relations
+    products MProduct[] @relation("sold_stock_products")
 }
 
-enum ENProductUnit {
-    KG     // for weight
-    Pieces // things counted by pieces like 20 sacks of items
-    Liters // for liquids
+model MStockImage {
+    id String @id @default(ulid())
+    name String
+    //timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    stockId String
+    stock MStock @relation("stock_images", fields: [stockId], references: [id])
+    products MProduct[] @relation("stock_images_products")
+}
+
+enum EUnitType {
+    Piece
+    Kilogram
+    Litre
 }
 
 model MProduct {
     id String @id @default(ulid())
-    name String // keep name in lowercase
-    unit ENProductUnit @default(Pieces)
-    // timestamps
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    // relations
-    categoryId String
-    category MCategory @relation(fields: [categoryId], references: [id])
-    stockId String
-    stock MStock @relation(fields: [stockId], references: [id])
-    prices MPricesOfProduct[] // <-- back-reference
-}
-
-model MPricesOfProduct{
-    id String @id @default(ulid())
-    price Float
+    name String @db.VarChar(40) // must refrect the stock_image name
+    unit EUnitType @default(Piece)
+    quantity Int @default(0)
     //timestamps
     createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
     //relations
-    productId String
-    product MProduct @relation(fields: [productId], references: [id])
-
-    @@index([productId])
+    stockImageId String
+    stockImage MStockImage @relation("stock_images_products", fields: [stockImageId], references: [id])
+    soldStock MSoldStock[] @relation("sold_stock_products")
 }
 
+model MBuyList { // item added in check
+    id String @id @default(ulid())
+    name String @db.VarChar(40) // must refrect the stock_image name
+    quantity Float?
+    //timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    stockId String
+    stock MStock @relation("buy_list_stock", fields: [stockId], references: [id])
+}
+
+enum ENTransactionType {
+    Purchase
+    Sale
+}
+
+model MTransaction {
+    id String @id @default(ulid())
+    type ENTransactionType @default(Sale)
+    description String
+    secondParty String //the customer(sales)/sales-man(purchase)
+    //timestampa
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    stockId String
+    stock MStock @relation("trader_transaction", fields: [stockId], references: [id])
+    products    MTransactionProduct[] // store productId + amount + price (child table)
+    financials MFinancial[] @relation("transaction_financials")
+}
+
+model MTransactionProduct {
+    transactionId String
+    transaction   MTransaction @relation(fields: [transactionId], references: [id])
+    productId     String
+    amount        Float
+    price         Float
+    //timestamp
+    createdAt     DateTime     @default(now())
+    @@id([transactionId, productId]) // composite primary key
+}
+
+enum ENFinancialType {
+    Credit
+    Debit
+}
+
+model MFinancial {
+    id String @id @default(ulid())
+    type ENFinancialType @default(Credit)
+    amount Float
+    description String
+    collateral String // collateral for the loan
+
+    //timestamps
+    deadline DateTime // deadline for the loan
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    stockId String
+    stock MStock @relation("stock_financials", fields: [stockId], references: [id])
+    transactionId String?
+    transaction MTransaction? @relation("transaction_financials", fields: [transactionId], references: [id])
+}
 
 // Notifications
-
 enum ENNotificationImpact {
     Low
     Medium

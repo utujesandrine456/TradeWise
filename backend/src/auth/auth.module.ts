@@ -10,7 +10,7 @@ import { Auth2Controller } from './auth2.controller';
 
 @Module({
   imports: [
-    PrismaModule, // ✅ add this
+    PrismaModule,
     ConfigModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,

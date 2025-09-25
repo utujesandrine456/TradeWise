@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Patch, Post, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, InternalServerErrorException, Patch, Post, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginTraderDto, RegisterTraderDto, UpdateProfileDto } from './auth.dto';
+import type { LoginTraderDto, RegisterTraderDto, UpdateProfileDto, OnboardingDto } from './auth.dto';
 import { Request, Response } from 'express';
 import { UnProtectedRoutesGuard } from 'src/custom/guards/un-protected-routes/un-protected-routes.guard';
 import { ProtectedRoutesGuard } from 'src/custom/guards/protected-routes/protected-routes.guard';
@@ -52,84 +52,76 @@ export class AuthController {
         return trader
     }
     
-    @UseGuards(ProtectedRoutesGuard)
     @Post('logout')
-    public logout(@Res({ passthrough: true }) res: Response) {
-        res.cookie('accessToken', '', { maxAge: 0 });
-        res.clearCookie('accessToken', { path: '/' });
-
+    public async logout(
+        @Res({ passthrough: true }) res: Response,
+        @CurrentTrader() trader: TJwtPayload,
+    ) {
+        res.cookie('accessToken', '', {
+            httpOnly: true,
+            secure: this.configService.nodeEnv().get() === 'production',
+            maxAge: 0,
+        });
+        res.clearCookie('accessToken'); // extra protection
         return { message: 'Logged out successfully' };
     }
-    
-    @UseGuards(ProtectedRoutesGuard)
-    @Get('profile')
-    public getProfile(
-        @CurrentTrader() currentTrader: TJwtPayload
-    ) {
-        return this.authService.getProfile(currentTrader.sub);
-    }
 
     @UseGuards(ProtectedRoutesGuard)
-    @UseInterceptors(FileInterceptor('file', { storage: memoryStorage() }))
-    @Patch('profile')
-    public async update(
-        @CurrentTrader() currentTrader: TJwtPayload,
-        @Body() dto: UpdateProfileDto,
-        @UploadedFile() file?: Express.Multer.File,
-    ) {
-        let profilePicture: string | undefined;
-        const trader = await this.authService.getProfile(currentTrader.sub);
-
-        if(file) {
-            // destroy old profile picture
-            if(trader.profilePicture){
-                // eg: https://res.cloudinary.com/dizkxmaoh/image/upload/v1757333897/traders/imphlmkadkkndaptyszm.png => traders/imphlmkadkkndaptyszm
-                const publicId = extractPublicId(trader.profilePicture);
-                if(publicId) {
-                    console.log('Attempting to delete public_id:', publicId);
-                    try {
-                        const result = await cloudinary.uploader.destroy(publicId, {
-                            invalidate: true,
-                            resource_type: 'image',
-                        });
-
-                        console.log('Destroy result:', result);  // Should log { result: 'ok' } or { result: 'not_found' }
-            
-                        if (result.result === 'not_found') {
-                            console.warn('Image not found in Cloudinary - already deleted?');
-                        }
-                    } catch (error) {
-                        console.error('Error destroying image:', error);
-                    }
-                } else {
-                    console.warn('Invalid URL - could not extract public_id');
-                }
+    @UseInterceptors(FileInterceptor('logo', {
+        storage: memoryStorage(),
+        fileFilter: (req, file, cb) => {
+            if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+                return cb(new Error('Only image files are allowed!'), false);
             }
+            cb(null, true);
+        },
+        limits: {
+            fileSize: 5 * 1024 * 1024, //5mb
+        }
+    }))
+    @Post('on-boarding')
+    public async onBoarding(
+        @Body() dto: OnboardingDto,
+        @CurrentTrader() trader: TJwtPayload,
+        @UploadedFile() file: Express.Multer.File,
+    ) {
+        let logo: string | undefined;
+        if(file) {
+            const traderSettings = await this.authService.getTraderSettings(trader.sub);
+            if(traderSettings?.logo){
+                const publicId = extractPublicId(traderSettings.logo);
+                if(publicId)
+                    await cloudinary.uploader.destroy(publicId);
+            }
+            try {
+                const result = await new Promise<CloudinaryUploadResult>((resolve, reject) => {
+                    const stream = cloudinary.uploader.upload_stream(
+                        {
+                            folder: 'logos-tradewise',
+                            resource_type: 'image',
+                            format: 'webp',
+                            quality: 'auto',
+                            transformation: [
+                                { width: 150, height: 150, crop: 'fill', gravity: 'face' }, // square crop, focus on face
+                                { quality: 'auto' },                                        // auto compress
+                                { fetch_format: 'auto' }                                    // serve webp/avif if supported
+                            ]
+                        },
+                        (error, uploadResult) => {
+                            if(error) reject(error);
+                            if (!uploadResult) return reject(new Error('Cloudinary upload returned undefined'));
+                            else resolve(uploadResult as CloudinaryUploadResult);
+                        }
+                    );
+                    stream.end(file.buffer);
+                });
 
-            // upload new one
-            const result = await new Promise<CloudinaryUploadResult>((resolve, reject) => {
-                const stream = cloudinary.uploader.upload_stream(
-                    { 
-                        folder: 'traders', 
-                        resource_type: 'image',
-                        transformation: [
-                            { width: 300, height: 300, crop: 'fill', gravity: 'face' }, // square crop, focus on face
-                            { quality: 'auto' },                                        // auto compress
-                            { fetch_format: 'auto' }                                    // serve webp/avif if supported
-                        ]
-                    },
-                    (error, uploadResult) => {
-                        if(error) reject(error);
-                        if (!uploadResult) return reject(new Error('Cloudinary upload returned undefined'));
-                        else resolve(uploadResult as CloudinaryUploadResult);
-                    }
-                );
-                stream.end(file.buffer);
-            });
-
-            profilePicture = result.secure_url;
+                logo = result.secure_url;
+            } catch (error) {
+                throw new InternalServerErrorException('Failed to upload logo', error.message);
+            }
         }
 
-        return this.authService.updateProfile({...dto, profilePicture}, currentTrader.sub);
+        return this.authService.onboarding({ ...dto, logo }, trader.sub);
     }
 }

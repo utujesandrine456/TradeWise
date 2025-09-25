@@ -4,8 +4,10 @@
 /build
 
 # Logs
-logs
+/logs
+/log
 log
+logs
 *.log
 npm-debug.log*
 pnpm-debug.log*

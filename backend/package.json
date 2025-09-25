@@ -32,6 +32,7 @@
     "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.9",
     "@types/nodemailer": "^7.0.1",
+    "@types/twilio": "^3.19.2",
     "apollo-server-express": "^3.13.0",
     "bcrypt": "^6.0.0",
     "chalk": "^5.6.0",
@@ -50,7 +51,8 @@
     "nodemailer": "^7.0.6",
     "reflect-metadata": "^0.2.2",
     "rimraf": "^6.0.1",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "twilio": "^5.9.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

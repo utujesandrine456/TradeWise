@@ -92,18 +92,8 @@ export class Auth2Controller {
     public async forgotPassword(
         @Body() dto: ForgotPasswordDto
     ) {
-        const resetPasswordToken = await this.authService.forgotPassword(dto.email);        
-        try {
-            const resetPasswordEmailOptions = {
-                to: dto.email,
-                subject: 'Reset Password Token',
-                html: this.emailHtml(resetPasswordToken),
-            }
-            await this.emailService.sendEmail(resetPasswordEmailOptions);
-        } catch (error) {
-            await this.authService.resetPasswordFields(dto.email);
-            throw new InternalServerErrorException(error.message);
-        }
+        const { email, phone } = dto;
+        this.authService.forgetPassword({ email, phone });
     }
     
     @Post('password/reset')
@@ -111,7 +101,17 @@ export class Auth2Controller {
     public async resetPassword(
         @Body() dto: ResetPasswordDto
     ) {
-        await this.authService.resetPassword(dto)
+        const { token, password } = dto;
+        this.authService.resetPassword({ token, password });
+    }
+
+    @Post('account/send-token')
+    @UseGuards(UnProtectedRoutesGuard)
+    public async sendVerifyAccountToken(
+        @Body() dto: VerifyAccountDto
+    ) {
+        const { email, phone } = dto;
+        this.authService.sendVerifyAccountToken({ email, phone });
     }
 
     @Post('account/resend-token')
@@ -119,7 +119,8 @@ export class Auth2Controller {
     public async resendVerifyAccountToken(
         @Body() dto: VerifyAccountDto
     ) {
-        await this.authService.sendVerifyAccountToken(dto.email);
+        const { email, phone } = dto;
+        this.authService.sendVerifyAccountToken({ email, phone });
     }
 
     @Post('account/verify')
@@ -127,6 +128,7 @@ export class Auth2Controller {
     public async verifyAccount(
         @Body() dto: VerifyAccountDto
     ) {
-        await this.authService.verifyAccount(dto);
+        const { token } = dto;
+        this.authService.verifyAccount(token);
     }
 }
