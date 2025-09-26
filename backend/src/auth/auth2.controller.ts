@@ -1,134 +1,61 @@
-import { Body, Controller, InternalServerErrorException, Post, UseGuards } from '@nestjs/common';
+import { Controller, InternalServerErrorException, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ConfigService } from 'src/config/config.service';
-import { ForgotPasswordDto, ResetPasswordDto, VerifyAccountDto } from './auth.dto';
+import { ValidatedBody } from 'src/custom/decorators/validate.decorator';
+import { forgetPasswordSchema, resetPasswordSchema, sendOtpSchema, verifyOtpSchema } from './auth.dto-schema';
 import { EmailService } from 'src/communication/email/email.service';
-import { UnProtectedRoutesGuard } from 'src/custom/guards/un-protected-routes/un-protected-routes.guard';
-import { EmailValidationPipe } from 'src/custom/pipes/EmailValidation.pipe';
+import { UnProtectedRouteGuard } from 'src/custom/guards/un-protected-route/un-protected-route.guard';
 
+@UseGuards(UnProtectedRouteGuard)
 @Controller('auth')
 export class Auth2Controller {
-    constructor(
+    public constructor(
         private readonly authService: AuthService,
-        private readonly emailService: EmailService,
+        private readonly emailService: EmailService
     ) {}
 
-    private emailHtml(token: string) {
-        return `
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Reset Password</title>
-            <style>
-            body {
-                background-color: #f3e7d9;
-                font-family: Arial, sans-serif;
-                color: #1c1206;
-                margin: 0;
-                padding: 0;
-            }
-            .container {
-                max-width: 600px;
-                margin: 0 auto;
-                background-color: #ffffff;
-                border: 2px solid #be741e;
-                padding: 20px;
-                border-radius: 8px;
-            }
-            .header {
-                background-color: #be741e;
-                color: #ffffff;
-                text-align: center;
-                padding: 15px;
-                border-radius: 6px 6px 0 0;
-                font-size: 24px;
-                font-weight: bold;
-            }
-            .content {
-                margin-top: 20px;
-                font-size: 16px;
-                line-height: 1.5;
-            }
-            .button {
-                display: inline-block;
-                margin-top: 20px;
-                padding: 10px 20px;
-                background-color: #be741e;
-                color: #ffffff;
-                text-decoration: none;
-                border-radius: 5px;
-                font-weight: bold;
-            }
-            .footer {
-                margin-top: 30px;
-                font-size: 12px;
-                text-align: center;
-                color: #1c1206;
-            }
-            </style>
-            </head>
-            <body>
-            <div class="container">
-                <div class="header">Tradewise</div>
-                <div class="content">
-                <p>Hello,</p>
-                <p>We received a request to reset your password.</p>
-                <p>Your Password reset token is: <strong>${token}</strong></p>
-                <p>The token will expire in 10 minutes. If you did not request a password reset, please ignore this email.</p>
-                </div>
-                <div class="footer">
-                &copy; 2025 Tradewise. All rights reserved.
-                </div>
-            </div>
-            </body>
-            </html>
-        `
-    }  
-
-    @Post('password/forgot')
-    @UseGuards(UnProtectedRoutesGuard)
-    public async forgotPassword(
-        @Body() dto: ForgotPasswordDto
+    @Post('password/forget')
+    public async forgetPassword (
+        @ValidatedBody(forgetPasswordSchema) dto: any
     ) {
-        const { email, phone } = dto;
-        this.authService.forgetPassword({ email, phone });
+        const otp = await this.authService.sendOtp({ email: dto.email, phone: dto.phone, isPasswordReset: true });
+        
+        //sending email
+        try {
+            await this.emailService.forgetPassword(otp, dto.email);
+            return otp;
+        } catch (error) {
+            throw new InternalServerErrorException('Failed to send email', error.message);
+        }
     }
-    
+
     @Post('password/reset')
-    @UseGuards(UnProtectedRoutesGuard)
-    public async resetPassword(
-        @Body() dto: ResetPasswordDto
+    public async resetPassword (
+        @ValidatedBody(resetPasswordSchema) dto: any
     ) {
-        const { token, password } = dto;
-        this.authService.resetPassword({ token, password });
+        const user = await this.authService.verifyOtp({ email: dto.email, phone: dto.phone, otp: dto.otp, isPasswordReset: true });
+        return await this.authService.resetPassword({password: dto.password }, user.id);
     }
 
-    @Post('account/send-token')
-    @UseGuards(UnProtectedRoutesGuard)
-    public async sendVerifyAccountToken(
-        @Body() dto: VerifyAccountDto
+    @Post('account/send')
+    public async sendOtp (
+        @ValidatedBody(sendOtpSchema) dto: any
     ) {
-        const { email, phone } = dto;
-        this.authService.sendVerifyAccountToken({ email, phone });
-    }
+        const otp = await this.authService.sendOtp({ email: dto.email, phone: dto.phone, isPasswordReset: false });
 
-    @Post('account/resend-token')
-    @UseGuards(UnProtectedRoutesGuard)
-    public async resendVerifyAccountToken(
-        @Body() dto: VerifyAccountDto
-    ) {
-        const { email, phone } = dto;
-        this.authService.sendVerifyAccountToken({ email, phone });
+        //sending email
+        try {
+            await this.emailService.verifyAccount(otp, dto.email);
+            return otp;
+        } catch (error) {
+            throw new InternalServerErrorException('Failed to send email', error.message);
+        }
     }
 
     @Post('account/verify')
-    @UseGuards(UnProtectedRoutesGuard)
-    public async verifyAccount(
-        @Body() dto: VerifyAccountDto
+    public async verifyOtp (
+        @ValidatedBody(verifyOtpSchema) dto: any
     ) {
-        const { token } = dto;
-        this.authService.verifyAccount(token);
+        await this.authService.verifyOtp({ email: dto.email, phone: dto.phone, otp: dto.otp, isPasswordReset: false });
+        return { message: 'Account verified successfully' };
     }
 }

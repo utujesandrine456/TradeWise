@@ -1,49 +1,52 @@
+import { SendMessage } from "generated/prisma";
 
-export type TJwtPayload = {
+export interface IJwtPayload {
     sub: string; // the id
-    email?: string;
-    phone?: string;
+    lastLoginAt: Date;
 }
 
-export type TRegisterTrader = {
+export type TRegisterDetails = {
+    email?: string;
+    phone?: string;
     enterpriseName: string;
+    password: string;
+}
+
+export type TLoginDetails = {
     email?: string;
     phone?: string;
     password: string;
 }
 
-export type TLoginTrader = {
+export type TUpdateDetails = {
     email?: string;
     phone?: string;
-    password: string;
-}
-
-export type TUpdateTrader = {
     enterpriseName?: string;
-    profilePicture?: string;
     password?: string;
 }
 
-export type TSendVerifyAccountDetails = {
-    email?: string;
-    phone?: string;
+export type TOnboardingDetails = {
+    enterpriseDescription?: string,
+    logo?: string,
+    evaluationPeriod?: number,
+    deleteSoldStockAfterEvaluationPeriod?: boolean,
+    ussdCode?: string,
+    sendMessage?: SendMessage
 }
 
-export type TForgotPasswordDetails = {
+export type TSendOtpDetails = {
     email?: string;
     phone?: string;
+    isPasswordReset: boolean;
+}
+
+export type TVerifyOtpDetails = {
+    email?: string;
+    phone?: string;
+    otp: string;
+    isPasswordReset: boolean;
 }
 
 export type TResetPasswordDetails = {
-    token: string;
     password: string;
-}
-
-export type TOnboardingTrader = {
-    enterpriseDescription: string;
-    logo?: string;
-    name: string; // trader name
-    evaluationPeriod: number;
-    deleteSoldStockAfterEvaluationPeriod: boolean;
-    ussdCode: string;
 }

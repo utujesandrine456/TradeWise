@@ -1,41 +1,45 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
-import { PrismaModule } from './prisma/prisma.module';
-import { ConfigModule } from './config/config.module';
-import { ConfigService } from './config/config.service';
-import { JwtModule } from '@nestjs/jwt';
-import { ManagementModule } from './management/management.module';
-import { GraphQLModule } from '@nestjs/graphql';
-import * as path from 'path';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { AppResolver } from './app.resolver';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AppResolver } from './app.resolver';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { AuthModule } from './auth/auth.module';
 import { CommunicationModule } from './communication/communication.module';
+import { EmailService } from './communication/email/email.service';
+import * as path from 'path';
+import { PrismaModule } from './prisma/prisma.module';
+import { SettingsMiddleware } from './custom/middlewares/settings/settings.middleware';
 
 @Module({
     imports: [
-        AuthModule,
-        PrismaModule,
-        ConfigModule,
+        ConfigModule.forRoot({ isGlobal: true }),
         JwtModule.registerAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
-            global: true,
-            useFactory: (configService: ConfigService) => ({
-                secret: configService.jwt_secret().get(),
+            useFactory: (config: ConfigService) => ({
+                secret: config.get<string>("jwt_secret"),
+                signOptions: { expiresIn: '7d' }
             }),
         }),
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
             autoSchemaFile: path.join(process.cwd(), 'src/graphql/schema.gql'),
+            sortSchema: true,
         }),
+        AuthModule,
         CommunicationModule,
-        ManagementModule,
+        PrismaModule
     ],
     controllers: [AppController],
-    providers: [AppResolver, AppService],
+    providers: [AppService, AppResolver, EmailService],
 })
 export class AppModule implements NestModule {
-    public configure(consumer: MiddlewareConsumer) {}
+    public configure(consumer: MiddlewareConsumer) {
+        consumer
+            .apply(SettingsMiddleware)
+            .forRoutes('*path')
+    }
 }

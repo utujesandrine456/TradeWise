@@ -1,25 +1,29 @@
-// auth.module.ts
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule } from 'src/config/config.module';
-import { PrismaModule } from 'src/prisma/prisma.module'; // import the module
-import { EmailModule } from 'src/communication/email/email.module';
 import { Auth2Controller } from './auth2.controller';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
+import { EmailModule } from 'src/communication/email/email.module';
 
 @Module({
-  imports: [
-    PrismaModule,
-    ConfigModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      global: true,
-      signOptions: { expiresIn: '7d' },
-    }),
-    EmailModule
-  ],
-  controllers: [AuthController, Auth2Controller],
-  providers: [AuthService],
+    imports: [
+        ConfigModule,
+        JwtModule.register({
+            global: true,
+            secret: process.env.JWT_SECRET,
+            signOptions: { expiresIn: '7d' },
+        }),
+        EmailModule,
+    ],
+    controllers: [
+        AuthController, 
+        Auth2Controller
+    ],
+    providers: [
+        AuthService, 
+        PrismaService,
+    ],
 })
 export class AuthModule {}

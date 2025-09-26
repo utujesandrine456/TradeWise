@@ -1,270 +1,251 @@
-import { 
-    BadRequestException, 
-    Injectable, 
-    UnauthorizedException 
-} from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common'; 
+import { ConfigService } from '@nestjs/config';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import * as idTools from 'id-tools';
 import * as crypto from 'crypto';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { 
-    TForgotPasswordDetails, 
-    TJwtPayload, 
-    TLoginTrader, 
-    TOnboardingTrader, 
-    TRegisterTrader, 
+    IJwtPayload, 
+    TLoginDetails, 
+    TOnboardingDetails, 
+    TRegisterDetails, 
     TResetPasswordDetails, 
-    TSendVerifyAccountDetails, 
-    TUpdateTrader,
+    TSendOtpDetails, 
+    TUpdateDetails,
+    TVerifyOtpDetails,
 } from './auth.types';
-import { JwtService } from '@nestjs/jwt';
-import { Response } from 'express';
-import { generateToken } from 'src/custom/utils/generateToken';
-import { EmailService } from 'src/communication/email/email.service';
+import { PrismaClientKnownRequestError } from 'generated/prisma/runtime/library';
+import { MTrader, SendMessage } from 'generated/prisma';
+import generateOtp from 'src/custom/utils/generate.otp';
 
 @Injectable()
 export class AuthService {
     public constructor(
+        private readonly configService: ConfigService,
         private readonly prismaService: PrismaService,
-        private readonly jwtService: JwtService,
-        private readonly emailService: EmailService
+        private readonly jwtService: JwtService
     ) {}
-
-    private async generateJWTToken(payload: TJwtPayload) {
-        const token = await this.jwtService.signAsync(payload);
-        return token;
-    }
-
-    private checkEmailOrPhone(email?: string, phone?: string) {
-        if(email && phone)
-            throw new BadRequestException('Only one of email or phone is required');
-        if(!email && !phone)
-            throw new BadRequestException('Email or phone is required');
-    }
-
-    //for signup
-    public async registerTrader(details: TRegisterTrader) {
-        const { enterpriseName, email, phone, password } = details;
-        this.checkEmailOrPhone(email, phone);
-
-        //find if a trader(enterpriser) already exists
-        const userExists =
-            (await this.prismaService.mTrader.findUnique({
-                where: { email },
-            })) ||
-            (await this.prismaService.mTrader.findUnique({
-                where: { phone },
-            }));
-
-        if(userExists) {
-            throw new BadRequestException('Trader already exists');
-        }
-
-        //hashing password
-        const saltRounds = 10;
-        const salt = await bcrypt.genSalt(saltRounds);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        //gen the id (ulid) using id-tools
-        const id = idTools.generateUlid();
-        const newTrader = await this.prismaService.mTrader.create({
-            data: {
-                id, 
-                email: email || null,
-                phone: phone || null,
-                password: hashedPassword,
-                enterpriseName,
-            }
-        });
-
-        // creating an empty stock
-        await this.prismaService.mStock.create({ data: { traderId: newTrader.id } });
-        const token = await this.generateJWTToken({ 
-            sub: newTrader.id,
-            email: newTrader.email || undefined,
-            phone: newTrader.phone || undefined 
-        });
-
-        return { newTrader, token };
-    }
-
-    public async login(details: TLoginTrader, res: Response) {
-        const { email, password } = details;
-
-        //find the trader in the db
-        const loginTrader = await this.prismaService.mTrader.findUnique({ where: { email } });
-        if(!loginTrader) 
-            throw new BadRequestException('Invalid credentials');
-
-        const isMatchPassword = await bcrypt.compare(password, loginTrader.password);
-        if(!isMatchPassword) 
-            throw new UnauthorizedException('Invalid credentials');
-
-        const token = await this.generateJWTToken({ 
-            sub: loginTrader.id, 
-            email : loginTrader.email || undefined,
-            phone: loginTrader.phone || undefined 
-        });
-
-        return { loginTrader, token };
-    }
-
-    // will handle both create and update onboarding
-    public async onboarding(details: TOnboardingTrader, id: string) {
-        const existingTrader = await this.prismaService.mTrader.findUnique({ where: { id } });
-        if (!existingTrader)
-            throw new Error(`Trader with id "${id}" not found`);
-
-        const updateData: any = {};
-        for (const [key, value] of Object.entries(details)) {
-            if (value !== null && value !== undefined) {
-                updateData[key] = value;
-            }
-        }
-
-        return this.prismaService.mTraderSettings.update({ where: { traderId: id }, data: updateData });
-    }
-
-    public async getTraderSettings(id: string) {
-        const existingTrader = await this.prismaService.mTrader.findUnique({ where: { id } });
-        if (!existingTrader)
-            throw new Error(`Trader with id "${id}" not found`);
-
-        return this.prismaService.mTraderSettings.findUnique({ where: { traderId: id } });
-    }
     
-    public async updateProfile(details: TUpdateTrader, id: string) {
-        const existingTrader = await this.prismaService.mTrader.findUnique({ where: { id } });
+    private async phoneOrEmail(phone?: string, email?: string, allowBoth = true) {
+        if (!phone && !email) 
+            throw new BadRequestException('Either phone or email is required');
+        if (phone && email && !allowBoth)
+            throw new BadRequestException('Phone and email cannot be used together');
+    }
 
-        if (!existingTrader)
-            throw new Error(`Trader with id "${id}" not found`);
+    public async getProfile(id: string) {
+        const user = await this.prismaService.mTrader.findUnique({ where: { id } });
+        if (!user) 
+            throw new BadRequestException('User not found');
+        return user;
+    }
 
-        let { password, ...rest } = details;
-        if (password) {
-            const saltRounds = 10;
-            const salt = await bcrypt.genSalt(saltRounds);
-            password = await bcrypt.hash(password, salt);
-        }
+    public async generateToken(sub: string) {
+        const payload: IJwtPayload = { sub, lastLoginAt: new Date() };
+        return await this.jwtService.signAsync(payload);
+    }
 
-        const updateData: any = {};
-        for (const [key, value] of Object.entries(rest)) {
-            if (value !== null && value !== undefined) {
-            updateData[key] = value;
+    public async register(details: TRegisterDetails) {
+        const { email, phone, enterpriseName, password } = details;
+        await this.phoneOrEmail(phone, email);
+
+        const existingUser = await this.prismaService.mTrader.findFirst({
+            where: {
+                OR: [ { email }, { phone } ]
             }
+        });
+        if (existingUser) 
+            throw new BadRequestException('User with this phone or email already exists');
+
+        const id = idTools.generateUlid();
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = await this.prismaService.mTrader.create({
+            data: {
+                id,
+                email,
+                phone,
+                enterpriseName,
+                password: hashedPassword
+            }
+        });
+
+        return newUser;
+    }
+
+    public async login(details: TLoginDetails) {
+        const { email, phone, password } = details;
+        await this.phoneOrEmail(phone, email, false);
+
+        const user = await this.prismaService.mTrader.findFirst({
+            where: {
+                OR: [ { email }, { phone } ]
+            }
+        });
+        if (!user) 
+            throw new BadRequestException('Invalid credentials');
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) 
+            throw new BadRequestException('Invalid credentials');
+
+        return user;
+    }
+
+    public async update(details: TUpdateDetails, id: string) {
+        let { email, phone, enterpriseName, password } = details;
+        try {
+            const updateData: Record<any, string> = {};
+            if (password) {
+                const hashedPassword = await bcrypt.hash(password, 10);
+                updateData.password = hashedPassword;
+            }
+            if (email) updateData.email = email;
+            if (phone) updateData.phone = phone;
+            if (enterpriseName) updateData.enterpriseName = enterpriseName;
+    
+            const user = await this.prismaService.mTrader.update({
+                where: { id },
+                data: updateData
+            });
+    
+            return user;
+        } catch (error) {
+            if (error instanceof PrismaClientKnownRequestError) {
+                if (error.code === 'P2002') 
+                    throw new BadRequestException('Phone or email already exists');
+                if (error.code === 'P2025') 
+                    throw new BadRequestException('User not found');
+            }
+
+            throw new InternalServerErrorException(error.message ?? "Something went wrong");
         }
-        if (password) updateData.password = password;
-
-        return this.prismaService.mTrader.update({ where: { id }, data: updateData });
     }
 
-    // token generation and verifications //
+    public async onboarding(details: TOnboardingDetails, id: string) {
+        const { enterpriseDescription, logo, evaluationPeriod, deleteSoldStockAfterEvaluationPeriod, ussdCode, sendMessage } = details;
 
-    public async forgetPassword(details: TForgotPasswordDetails) {
-        const { email, phone } = details;
-        this.checkEmailOrPhone(email, phone);
+        try {
+            const updateData: Partial<{
+                enterpriseDescription: string;
+                logo: string;
+                evaluationPeriod: number;
+                deleteSoldStockAfterEvaluationPeriod: boolean;
+                ussdCode: string;
+                sendMessage: SendMessage;
+            }> = {};
 
-        const trader = await this.prismaService.mTrader.findFirst({ 
-            where: { 
-                OR: [
-                    { email }, { phone }
-                ]
-            } 
-        });
-        if(!trader) 
-            throw new BadRequestException('Invalid credentials');
+            if (enterpriseDescription) updateData.enterpriseDescription = enterpriseDescription;
+            if (logo) updateData.logo = logo;
+            if (evaluationPeriod) updateData.evaluationPeriod = evaluationPeriod;
+            if (deleteSoldStockAfterEvaluationPeriod != undefined) updateData.deleteSoldStockAfterEvaluationPeriod = deleteSoldStockAfterEvaluationPeriod;
+            if (ussdCode) updateData.ussdCode = ussdCode;
+            if (sendMessage != undefined) updateData.sendMessage = sendMessage;
+    
+            const settings = await this.prismaService.mTraderSettings.update({
+                where: { traderId: id }, 
+                data: updateData
+            });
+    
+            return settings;
+        } catch (error) {
+            if (error instanceof PrismaClientKnownRequestError) {
+                if (error.code === 'P2025') 
+                    throw new BadRequestException('User not found');
+            }
 
-        const token = generateToken(6);
-        const hashedToken = await crypto.createHash('sha256').update(token).digest('hex');
-        const newTrader = await this.prismaService.mTrader.update({ 
-            where: { id: trader.id }, 
-            data: { 
-                resetPasswordToken: hashedToken,
-                resetPasswordExpires: new Date(Date.now() + 10 * 60 * 1000) // 10 minutes
-            } 
-        });
-
-        return { token, newTrader };
+            throw new InternalServerErrorException(error.message ?? "Something went wrong");
+        }
     }
 
-    public async resetPassword(details: TResetPasswordDetails) {
-        const { token, password } = details;
-        const hashedToken = await crypto.createHash('sha256').update(token).digest('hex');
-        const trader = await this.prismaService.mTrader.findFirst({ 
-            where: { 
-                resetPasswordToken: hashedToken,
-                resetPasswordExpires: {
-                    gte: new Date() // token must be less than or equal to the current date by 10 minutes
-                }
-            } 
+    public async sendOtp(details: TSendOtpDetails) {
+        const { email, phone, isPasswordReset } = details;
+        await this.phoneOrEmail(phone, email, false);
+
+        const otp = generateOtp();
+        const hashedOtp = crypto.createHash('sha256').update(otp).digest('hex');
+        const user = await this.prismaService.mTrader.findFirst({
+            where: {
+                OR: [ { email }, { phone } ].filter(Boolean) as any
+            },
         });
 
-        if(!trader) 
-            throw new BadRequestException('Invalid or expired token');
-        
-        const saltRounds = 10;
-        const salt = await bcrypt.genSalt(saltRounds); // extra security
-        const hashedPassword = await bcrypt.hash(password, salt);
-        const newTrader = await this.prismaService.mTrader.update({ 
-            where: { id: trader.id }, 
-            data: { 
-                password: hashedPassword,
-                resetPasswordToken: null,
-                resetPasswordExpires: null
-            } 
+        if (!user) 
+            throw new BadRequestException('User not found');
+
+        let updateData: Partial<MTrader>;
+        if (isPasswordReset) {
+            updateData = {
+                resetPasswordToken: hashedOtp,
+                resetPasswordExpires: new Date(Date.now() + 10 * 60 * 1000)
+            };
+        } else {
+            updateData = {
+                verifyAccountToken: hashedOtp,
+                verifyAccountExpires: new Date(Date.now() + 10 * 60 * 1000)
+            };
+        }
+
+        await this.prismaService.mTrader.update({
+            where: { id: user.id },
+            data: updateData
         });
-        
-        return newTrader;
+
+        return otp;
     }
 
-    public async sendVerifyAccountToken(details: TSendVerifyAccountDetails) {
-        const {email, phone} = details;
-        this.checkEmailOrPhone(email, phone);
+    public async verifyOtp(details: TVerifyOtpDetails) {
+        const { email, phone, otp, isPasswordReset } = details;
 
-        const trader = await this.prismaService.mTrader.findFirst({ 
-            where: { 
-                OR: [
-                    { email }, { phone }
-                ]
-            } 
-        });
-        if(!trader) 
-            throw new BadRequestException('Invalid credentials');
+        await this.phoneOrEmail(phone, email, false);
+        const hashedOtp = crypto.createHash('sha256').update(otp).digest('hex');
 
-        const token = generateToken(6);
-        const hashedToken = await crypto.createHash('sha256').update(token).digest('hex');
-        const newTrader = await this.prismaService.mTrader.update({ 
-            where: { id: trader.id }, 
-            data: { 
-                verifyAccountToken: hashedToken,
-                verifyAccountExpires: new Date(Date.now() + 10 * 60 * 1000) // 10 minutes
-            } 
+        const user = await this.prismaService.mTrader.findFirst({
+            where: {
+                OR: [ { email }, { phone } ].filter(Boolean) as any,
+                ...(isPasswordReset 
+                    ? { resetPasswordToken: hashedOtp } 
+                    : { verifyAccountToken: hashedOtp }
+                ),
+                ...(isPasswordReset 
+                    ? { resetPasswordExpires: { gte: new Date() } } 
+                    : { verifyAccountExpires: { gte: new Date() } }),
+            },
         });
 
-        return { token, newTrader };
+        if (!user) 
+            throw new BadRequestException('Invalid or expired OTP');
+
+        if(!isPasswordReset)
+            await this.clearOtp(user.id);
+
+        return user;
     }
 
-    public async verifyAccount(token: string) {
-        const hashedToken = await crypto.createHash('sha256').update(token).digest('hex');
-        const trader = await this.prismaService.mTrader.findFirst({ 
-            where: { 
-                verifyAccountToken: hashedToken,
-                verifyAccountExpires: {
-                    gte: new Date() // token must be less than or equal to the current date by 10 minutes
-                }
-            } 
-        });
-
-        if(!trader) 
-            throw new BadRequestException('Invalid or expired token');
-        
-        const newTrader = await this.prismaService.mTrader.update({ 
-            where: { id: trader.id }, 
+    private async clearOtp(id: string) {
+        await this.prismaService.mTrader.update({
+            where: { id },
             data: { 
                 verifyAccountToken: null,
-                verifyAccountExpires: null
-            } 
+                verifyAccountExpires: null,
+                resetPasswordToken: null,
+                resetPasswordExpires: null
+            }
         });
-        
-        return newTrader;
+    }
+
+    public async resetPassword(details: TResetPasswordDetails, id: string) {
+        const { password } = details;
+
+        const user = await this.prismaService.mTrader.update({
+            where: { id },
+            data: { 
+                password: await bcrypt.hash(password, 10),
+                resetPasswordToken: null,
+                resetPasswordExpires: null
+            }
+        });
+
+        return user;
     }
 }

@@ -4,9 +4,6 @@
 /build
 
 # Logs
-/logs
-/log
-log
 logs
 *.log
 npm-debug.log*
@@ -59,5 +56,3 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 /generated/prisma
-
-/prisma/migrations

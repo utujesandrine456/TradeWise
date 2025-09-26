@@ -16,6 +16,7 @@ model MTrader {
     phone String? @unique
     
     password String
+    
     resetPasswordToken String?
     verifyAccountToken String?
     //timestamps
@@ -28,6 +29,14 @@ model MTrader {
     stock MStock? @relation("trader_stock")
     notifications MNotification[]
     settings MTraderSettings? @relation("trader_settings")
+
+    @@index([email])
+    @@index([phone])
+}
+
+enum SendMessage {
+    Email
+    Phone
 }
 
 model MTraderSettings{ // contains both profile and basic settings
@@ -35,9 +44,10 @@ model MTraderSettings{ // contains both profile and basic settings
     enterpriseDescription String @db.VarChar(255)
     logo String
     name String //name of the trader
-    evaluationPeriod Int @default(7) // in days(weekly)
+    evaluationPeriod Int @default(7) // in days(weekly) 
     deleteSoldStockAfterEvaluationPeriod Boolean @default(false)
     ussdCode String
+    sendMessage SendMessage @default(Email)
     //timestamps
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

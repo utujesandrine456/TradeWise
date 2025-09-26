@@ -1,471 +1,174 @@
 
-                [2025-09-08T08:04:50.971Z] POST /auth/login | Status: 401 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 350 | Duration: 12ms
-                | UserId: 
-            
-
-                [2025-09-08T08:06:05.326Z] POST /auth/login | Status: 401 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 350 | Duration: 12ms
-                | UserId: 
-            
-
-                [2025-09-08T08:06:48.267Z] POST /auth/login | Status: 401 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 350 | Duration: 12ms
-                | UserId: 
-            
-
-                [2025-09-08T08:10:47.390Z] POST /auth/register | Status: 201 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 388 | Duration: 68ms
-                | UserId: 
-            
-
-                [2025-09-08T08:10:53.499Z] POST /auth/logout | Status: 201 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 486 | Duration: 0ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
-
-                [2025-09-08T08:11:40.036Z] POST /auth/login | Status: 201 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 350 | Duration: 48ms
-                | UserId: 
-            
-
-                [2025-09-08T08:35:00.684Z] GET /auth/profile | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 615 bytes | Duration: 5ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
-
-                [2025-09-08T08:35:29.414Z] POST /auth/login | Status: 201 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 579 bytes | Duration: 55ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
-
-                [2025-09-08T08:35:32.957Z] GET /auth/profile | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 1194 bytes | Duration: 1ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
-
-                [2025-09-08T08:38:21.851Z] POST /auth/logout | Status: 201 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 486 bytes | Duration: 3ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
-
-                [2025-09-08T08:38:27.872Z] POST /auth/login | Status: 201 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 836 bytes | Duration: 54ms
-                | UserId: 
-            
-
-                [2025-09-08T08:38:33.518Z] GET /auth/profile | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 1451 bytes | Duration: 3ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:16:17.213Z] POST /api/auth/register | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 423 bytes | Duration: 21ms | UserId: 
+        
 
-                [2025-09-08T08:39:03.574Z] GET /auth/profile | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 615 bytes | Duration: 6ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:16:23.951Z] POST /api/auth/register | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 423 bytes | Duration: 5ms | UserId: 
+        
 
-                [2025-09-08T08:39:35.163Z] GET /auth/profile | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 615 bytes | Duration: 6ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:17:51.972Z] POST /api/auth/register | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 391 bytes | Duration: 160ms | UserId: 
+        
 
-                [2025-09-08T08:43:55.483Z] GET /auth/profile | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 615 bytes | Duration: 7ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:19:25.406Z] POST /api/auth/register | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 423 bytes | Duration: 112ms | UserId: 
+        
 
-                [2025-09-08T08:44:30.944Z] GET /auth/profile | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 615 bytes | Duration: 5ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:19:57.181Z] POST /api/auth/register | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 642 bytes | Duration: 6ms | UserId: 
+        
 
-                [2025-09-08T08:46:00.113Z] GET /auth/profile | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 615 bytes | Duration: 17ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:20:27.867Z] POST /api/auth/register | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 642 bytes | Duration: 40ms | UserId: 
+        
 
-                [2025-09-08T08:47:21.116Z] GET /auth/profile | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 615 bytes | Duration: 9ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:21:03.825Z] POST /api/auth/register | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 642 bytes | Duration: 23ms | UserId: 
+        
 
-                [2025-09-08T08:47:42.872Z] GET /auth/profile | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 615 bytes | Duration: 16ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:21:52.722Z] POST /api/auth/register | Status: 403 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 642 bytes | Duration: 23ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-                [2025-09-08T08:51:28.357Z] GET /auth/profile | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 615 bytes | Duration: 9ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:23:15.468Z] POST /api/auth/register | Status: 401 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 642 bytes | Duration: 22ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-                [2025-09-08T08:53:30.842Z] PATCH /auth/profile | Status: 400 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 65536 bytes | Duration: 8ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:23:25.668Z] POST /api/auth/logout | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 512 bytes | Duration: 11ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-                [2025-09-08T08:54:19.913Z] PATCH /auth/profile | Status: 400 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 65536 bytes | Duration: 6ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:23:38.726Z] POST /api/auth/login | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 388 bytes | Duration: 9ms | UserId: 
+        
 
-                [2025-09-08T08:56:16.531Z] PATCH /auth/profile/ | Status: 404 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 65536 bytes | Duration: 3ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:23:43.725Z] POST /api/auth/login | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 742 bytes | Duration: 113ms | UserId: 
+        
 
-                [2025-09-08T08:56:42.821Z] PATCH /auth/profile/ | Status: 400 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 65536 bytes | Duration: 7ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:23:50.788Z] POST /api/auth/register | Status: 401 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 642 bytes | Duration: 5ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-                [2025-09-08T11:51:58.960Z] POST /auth/register | Status: 401 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 617 bytes | Duration: 4ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:23:53.903Z] POST /api/auth/login | Status: 401 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 1247 bytes | Duration: 5ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-                [2025-09-08T11:52:10.149Z] GET /auth/profile | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 615 bytes | Duration: 79ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:23:58.431Z] POST /api/auth/logout | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 1759 bytes | Duration: 4ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-                [2025-09-08T11:53:22.389Z] GET /auth/profile | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 615 bytes | Duration: 2ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T17:24:00.816Z] POST /api/auth/logout | Status: 401 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 2020 bytes | Duration: 1ms | UserId: 
+        
 
-                [2025-09-08T11:53:51.044Z] PATCH /auth/profile/ | Status: 400 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 489 bytes | Duration: 6ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:03:15.094Z] GET /api/auth/profile | Status: 404 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 242 bytes | Duration: 6ms | UserId: 
+        
 
-                [2025-09-08T11:54:14.271Z] PATCH /auth/profile/ | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 876 bytes | Duration: 95ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:03:30.274Z] GET /api/auth/ | Status: 401 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 235 bytes | Duration: 2ms | UserId: 
+        
 
-                [2025-09-08T12:07:50.231Z] PATCH /auth/profile/ | Status: 400 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 65536 bytes | Duration: 7ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:03:35.598Z] POST /api/auth/login | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 589 bytes | Duration: 98ms | UserId: 
+        
 
-                [2025-09-08T12:12:36.351Z] PATCH /auth/profile/ | Status: 400 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 65536 bytes | Duration: 7ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:03:46.316Z] GET /api/auth/ | Status: 200 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 486 bytes | Duration: 35ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-                [2025-09-08T12:13:05.377Z] PATCH /auth/profile/ | Status: 400 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 2317669 bytes | Duration: 2ms
-                | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:06:11.407Z] PATCH /api/auth/ | Status: 200 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 535 bytes | Duration: 11ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-08T12:14:02.155Z] PATCH /auth/profile/ | Status: 400 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 65536 bytes | Duration: 6ms
-| UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:06:59.342Z] PATCH /api/auth/ | Status: 200 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 634 bytes | Duration: 68ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-08T12:14:45.643Z] PATCH /auth/profile/ | Status: 400 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 65536 bytes | Duration: 12ms
-| UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
-[2025-09-08T12:18:21.532Z] PATCH /auth/profile/ | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 2251121 bytes | Duration: 31736ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:07:05.807Z] POST /api/auth/logout | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 512 bytes | Duration: 3ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-08T12:19:35.381Z] GET /auth/profile | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 615 bytes | Duration: 2ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:07:08.399Z] POST /api/auth/login | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 866 bytes | Duration: 3ms | UserId: 
+        
 
-[2025-09-08T12:25:19.349Z] PATCH /auth/profile/ | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 2251121 bytes | Duration: 19935ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:08:01.607Z] POST /api/auth/login | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 354 bytes | Duration: 11ms | UserId: 
+        
 
-[2025-09-08T12:31:09.563Z] PATCH /auth/profile/ | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 4068 bytes | Duration: 18ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:08:08.027Z] POST /api/auth/login | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 355 bytes | Duration: 58ms | UserId: 
+        
 
-[2025-09-08T12:31:52.107Z] PATCH /auth/profile/ | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 4068 bytes | Duration: 6404ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:08:11.877Z] POST /api/auth/login | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 711 bytes | Duration: 62ms | UserId: 
+        
 
-[2025-09-08T12:33:25.592Z] PATCH /auth/profile/ | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 4068 bytes | Duration: 6456ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:08:28.980Z] PATCH /api/auth/ | Status: 200 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 631 bytes | Duration: 84ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-08T12:35:51.766Z] PATCH /auth/profile/ | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 4068 bytes | Duration: 3783ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:30:41.308Z] POST /api/auth/password/forget | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 557 bytes | Duration: 140ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-08T12:40:18.700Z] PATCH /auth/profile/ | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 4068 bytes | Duration: 4114ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:30:51.862Z] POST /api/auth/password/forget | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 590 bytes | Duration: 29ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-08T12:42:41.018Z] PATCH /auth/profile/ | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 4068 bytes | Duration: 5290ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:31:01.571Z] POST /api/auth/password/forget | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 1179 bytes | Duration: 4123ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-08T12:43:47.728Z] PATCH /auth/profile/ | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 2251121 bytes | Duration: 26816ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:31:31.979Z] POST /api/auth/password/reset | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 563 bytes | Duration: 3ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-08T12:53:30.674Z] PATCH /auth/profile/ | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 128085 bytes | Duration: 15799ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:32:10.870Z] POST /api/auth/password/reset | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 563 bytes | Duration: 13ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-08T12:57:42.572Z] PATCH /auth/profile/ | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 190503 bytes | Duration: 8096ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:32:58.084Z] POST /api/auth/password/reset | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 608 bytes | Duration: 6ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-08T13:00:17.353Z] PATCH /auth/profile/ | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 128085 bytes | Duration: 8423ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:33:40.730Z] POST /api/auth/password/reset | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 608 bytes | Duration: 12ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-08T13:01:50.496Z] PATCH /auth/profile/ | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 190503 bytes | Duration: 4520ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:33:59.434Z] POST /api/auth/password/reset | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 639 bytes | Duration: 73ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-08T13:08:49.153Z] GET /auth/profile | Status: 200 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 615 bytes | Duration: 28ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
+[2025-09-26T18:34:04.055Z] POST /api/auth/logout | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 1151 bytes | Duration: 4ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-08T20:15:53.364Z] OPTIONS /api/auth.register | Status: 404 | Host: 127.0.0.1:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 584 bytes | Duration: 12ms | UserId: 
-            
+[2025-09-26T18:34:07.555Z] POST /api/auth/login | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 1507 bytes | Duration: 3ms | UserId: 
+        
 
-[2025-09-08T20:16:32.290Z] OPTIONS /api/auth/register | Status: 404 | Host: 127.0.0.1:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 584 bytes | Duration: 2ms | UserId: 
-            
+[2025-09-26T18:34:17.721Z] POST /api/auth/login | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 358 bytes | Duration: 3ms | UserId: 
+        
 
-[2025-09-09T05:02:36.861Z] OPTIONS /api/auth/register | Status: 404 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 583 bytes | Duration: 5ms | UserId: 
-            
+[2025-09-26T18:34:19.826Z] POST /api/auth/login | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 716 bytes | Duration: 3ms | UserId: 
+        
 
-[2025-09-09T05:05:34.380Z] OPTIONS /api/auth/register | Status: 404 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 583 bytes | Duration: 1ms | UserId: 
-            
+[2025-09-26T18:34:24.534Z] POST /api/auth/password/reset | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 1104 bytes | Duration: 73ms | UserId: 
+        
 
-[2025-09-09T05:20:49.538Z] OPTIONS /api/auth/login | Status: 404 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 580 bytes | Duration: 1ms | UserId: 
-            
+[2025-09-26T18:34:32.923Z] POST /api/auth/login | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 358 bytes | Duration: 3ms | UserId: 
+        
 
-[2025-09-09T05:21:27.797Z] OPTIONS /api/auth/login | Status: 404 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 580 bytes | Duration: 0ms | UserId: 
-            
+[2025-09-26T18:35:09.376Z] POST /api/auth/login | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 358 bytes | Duration: 3ms | UserId: 
+        
 
-[2025-09-09T05:51:04.893Z] POST /api/auth/register | Status: 400 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 1357 bytes | Duration: 21ms | UserId: 
-            
+[2025-09-26T18:35:13.372Z] POST /api/auth/login | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 713 bytes | Duration: 2ms | UserId: 
+        
 
-[2025-09-09T06:36:59.379Z] POST /api/auth/register | Status: 400 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 774 bytes | Duration: 15ms | UserId: 
-            
+[2025-09-26T18:37:46.293Z] POST /api/auth/password/reset | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 388 bytes | Duration: 79ms | UserId: 
+        
 
-[2025-09-09T06:37:23.946Z] POST /api/auth/register | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 774 bytes | Duration: 69ms | UserId: 
-            
+[2025-09-26T18:37:59.797Z] POST /api/auth/login | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 357 bytes | Duration: 62ms | UserId: 
+        
 
-[2025-09-09T11:54:27.663Z] POST /api/auth/login | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 973 bytes | Duration: 107ms | UserId: 01K4PK312ZZ3N2WDYT1C2VFQ7S
-            
+[2025-09-26T18:38:04.768Z] POST /api/auth/logout | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 869 bytes | Duration: 6ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
 
-[2025-09-09T11:54:36.049Z] POST /api/auth/login | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 973 bytes | Duration: 86ms | UserId: 01K4PK312ZZ3N2WDYT1C2VFQ7S
-            
+[2025-09-26T18:40:50.885Z] POST /api/auth/account/send | Status: 404 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 301 bytes | Duration: 8ms | UserId: 
+        
 
-[2025-09-09T12:01:15.648Z] POST /api/auth/register | Status: 400 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 778 bytes | Duration: 9ms | UserId: 
-            
+[2025-09-26T18:41:10.552Z] POST /api/auth/account/send | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 301 bytes | Duration: 12ms | UserId: 
+        
 
-[2025-09-09T12:01:53.005Z] POST /api/auth/register | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 779 bytes | Duration: 88ms | UserId: 
-            
+[2025-09-26T18:41:43.194Z] POST /api/auth/account/send | Status: 500 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 334 bytes | Duration: 21170ms | UserId: 
+        
 
-[2025-09-09T12:03:28.438Z] POST /api/auth/register | Status: 401 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 1008 bytes | Duration: 1ms | UserId: 01K4Q5N5TW50H7WFWM52T8EWJR
-            
+[2025-09-26T18:53:00.214Z] POST /api/auth/account/send | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 334 bytes | Duration: 11579ms | UserId: 
+        
 
-[2025-09-09T12:04:31.990Z] POST /api/auth/register | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 777 bytes | Duration: 66ms | UserId: 
-            
+[2025-09-26T18:53:07.742Z] POST /api/auth/account/verify | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 303 bytes | Duration: 2ms | UserId: 
+        
 
-[2025-09-09T12:05:54.640Z] POST /api/auth/register | Status: 401 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 1005 bytes | Duration: 1ms | UserId: 01K4Q5T13JZRKHAK13YQ25KKSV
-            
+[2025-09-26T18:53:39.039Z] POST /api/auth/account/verify | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 360 bytes | Duration: 7ms | UserId: 
+        
 
-[2025-09-09T12:06:37.127Z] POST /api/auth/register | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 775 bytes | Duration: 110ms | UserId: 
-            
+[2025-09-26T18:54:36.276Z] POST /api/auth/account/verify | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 360 bytes | Duration: 13ms | UserId: 
+        
 
-[2025-09-09T12:08:18.000Z] POST /api/auth/register | Status: 401 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 1004 bytes | Duration: 1ms | UserId: 01K4Q5XVA2JZ62GKKWCBCCH391
-            
+[2025-09-26T18:56:05.991Z] POST /api/auth/account/verify | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 360 bytes | Duration: 14ms | UserId: 
+        
 
-[2025-09-09T12:09:02.535Z] POST /api/auth/register | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 775 bytes | Duration: 70ms | UserId: 
-            
+[2025-09-26T18:56:10.678Z] POST /api/auth/account/verify | Status: 400 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 720 bytes | Duration: 3ms | UserId: 
+        
 
-[2025-09-09T12:14:06.322Z] POST /api/auth/register | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 775 bytes | Duration: 96ms | UserId: 
-            
+[2025-09-26T18:56:18.358Z] POST /api/auth/login | Status: 201 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 357 bytes | Duration: 63ms | UserId: 
+        
 
-[2025-09-09T12:15:52.556Z] POST /api/auth/register | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 775 bytes | Duration: 75ms | UserId: 
-            
-
-[2025-09-09T12:18:47.192Z] POST /api/auth/register | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 775 bytes | Duration: 120ms | UserId: 
-            
-
-[2025-09-09T12:19:29.649Z] POST /api/auth/register | Status: 401 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 1004 bytes | Duration: 1ms | UserId: 01K4Q6M48J1AVQJSY2X69FXXP5
-            
-
-[2025-09-09T12:20:08.463Z] POST /api/auth/register | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 775 bytes | Duration: 70ms | UserId: 
-            
-
-[2025-09-09T12:25:29.930Z] POST /api/auth/logout | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 896 bytes | Duration: 2ms | UserId: 01K4Q6PKMAGJS580TRVTD1N0A9
-            
-
-[2025-09-09T12:26:33.759Z] POST /api/auth/logout | Status: 401 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 624 bytes | Duration: 1ms | UserId: 
-            
-
-[2025-09-09T12:46:08.817Z] POST /api/auth/login | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 744 bytes | Duration: 86ms | UserId: 
-            
-
-[2025-09-09T12:46:57.855Z] POST /api/auth/logout | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 896 bytes | Duration: 6ms | UserId: 01K4Q6PKMAGJS580TRVTD1N0A9
-            
-
-[2025-09-09T12:46:59.379Z] POST /api/auth/logout | Status: 401 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 1563 bytes | Duration: 2ms | UserId: 
-            
-
-[2025-09-09T12:48:40.886Z] POST /api/auth/login | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 744 bytes | Duration: 57ms | UserId: 
-            
-
-[2025-09-09T12:51:02.653Z] POST /api/auth/logout | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 896 bytes | Duration: 1ms | UserId: 01K4Q6PKMAGJS580TRVTD1N0A9
-            
-
-[2025-09-09T12:51:25.544Z] POST /api/auth/login | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 744 bytes | Duration: 59ms | UserId: 
-            
-
-[2025-09-09T12:59:10.125Z] POST /api/auth/logout | Status: 201 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 OPR/121.0.0.0 | DataLength: 896 bytes | Duration: 1ms | UserId: 01K4Q6PKMAGJS580TRVTD1N0A9
-            
-
-[2025-09-09T18:08:25.178Z] POST /api//auth/login | Status: 404 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 584 bytes | Duration: 0ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
-
-[2025-09-09T18:08:29.680Z] POST /api/auth/login | Status: 201 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 1167 bytes | Duration: 80ms | UserId: 01K4M61A6HMTDCWNT7NNSZPS2J
-            
-
-[2025-09-09T18:09:30.854Z] POST /api/auth/logout | Status: 201 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 619 bytes | Duration: 2ms | UserId: 01K4Q6PKMAGJS580TRVTD1N0A9
-            
-
-[2025-09-09T18:09:59.208Z] POST /api/auth/password/forgot | Status: 400 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 270 bytes | Duration: 3ms | UserId: 
-            
-
-[2025-09-09T18:10:10.329Z] POST /api/auth/password/forgot | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 336 bytes | Duration: 20ms | UserId: 
-            
-
-[2025-09-09T18:11:06.220Z] POST /api/auth/password/forgot | Status: 400 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 336 bytes | Duration: 11ms | UserId: 
-            
-
-[2025-09-09T18:11:10.642Z] POST /api/auth/password/forgot | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 673 bytes | Duration: 5ms | UserId: 
-            
-
-[2025-09-09T18:11:27.880Z] POST /api/auth/password/forgot | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 337 bytes | Duration: 448ms | UserId: 
-            
-
-[2025-09-09T18:12:57.620Z] POST /api/auth/password/forgot | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 337 bytes | Duration: 5523ms | UserId: 
-            
-
-[2025-09-09T18:14:15.909Z] POST /api/auth/password/forgot | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 337 bytes | Duration: 538ms | UserId: 
-            
-
-[2025-09-09T18:14:52.199Z] POST /api/auth/password/forgot | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 337 bytes | Duration: 502ms | UserId: 
-            
-
-[2025-09-09T18:15:09.547Z] POST /api/auth/password/forgot | Status: 500 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 337 bytes | Duration: 671ms | UserId: 
-            
-
-[2025-09-09T18:16:25.536Z] POST /api/auth/password/forgot | Status: 201 | Host: localhost:3000 | Client: PostmanRuntime/7.45.0 | DataLength: 337 bytes | Duration: 11195ms | UserId: 
-            
-[2025-09-16T16:26:44.585Z] POST /api/auth/logout | Status: 201 | Host: localhost:3000 | Client: PostmanRuntime/7.46.0 | DataLength: 490 bytes | Duration: 4ms | UserId: 01K4T19BY58RC6YBNBA4Z6RKAM
-[2025-09-16T16:26:51.167Z] POST /graphql | Status: 404 | Host: localhost:3000 | Client: PostmanRuntime/7.46.0 | DataLength: 509 bytes | Duration: 12ms | UserId: 
-[2025-09-16T17:28:00.110Z] GET / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 685 bytes | Duration: 9ms | UserId: 
-[2025-09-16T17:28:04.962Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 2153 bytes | Duration: 36ms | UserId: 
-[2025-09-16T17:28:06.345Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 4306 bytes | Duration: 7ms | UserId: 
-[2025-09-16T17:28:08.360Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 6459 bytes | Duration: 5ms | UserId: 
-[2025-09-16T17:28:10.376Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 8612 bytes | Duration: 4ms | UserId: 
-[2025-09-16T17:28:12.391Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 10765 bytes | Duration: 4ms | UserId: 
-[2025-09-16T17:28:14.407Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 12918 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:28:16.425Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 15071 bytes | Duration: 4ms | UserId: 
-[2025-09-16T17:28:18.441Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 17224 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:28:20.459Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 19377 bytes | Duration: 4ms | UserId: 
-[2025-09-16T17:28:22.473Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 21530 bytes | Duration: 4ms | UserId: 
-[2025-09-16T17:28:31.986Z] GET / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 711 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:28:32.706Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 2153 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:28:42.108Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 2153 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:28:44.121Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 4306 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:28:46.135Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 6459 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:28:48.154Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 8612 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:28:50.169Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 10765 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:28:52.187Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 12918 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:28:54.204Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 15071 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:28:56.219Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 17224 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:28:58.227Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 19377 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:00.237Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 21530 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:29:02.254Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 23683 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:04.271Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 25836 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:29:06.279Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 27989 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:08.301Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 30142 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:10.319Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 32295 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:12.329Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 34448 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:14.343Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 36601 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:16.352Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 38754 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:29:18.368Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 40907 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:20.383Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 43060 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:29:22.401Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 45213 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:29:24.417Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 47366 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:26.435Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 49519 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:29:28.446Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 51672 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:30.462Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 53825 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:32.483Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 55978 bytes | Duration: 5ms | UserId: 
-[2025-09-16T17:29:34.499Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 58131 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:36.518Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 60284 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:29:38.533Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 62437 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:40.546Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 64590 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:42.561Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 66743 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:44.583Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 68896 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:46.599Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 71049 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:48.616Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 73202 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:29:50.628Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 75355 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:52.646Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 77508 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:54.664Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 79661 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:56.680Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 81814 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:29:58.691Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 83967 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:30:00.700Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 86120 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:02.715Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 88273 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:30:04.731Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 90426 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:06.747Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 92579 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:08.764Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 94732 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:30:10.772Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 96885 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:30:12.793Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 99038 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:14.811Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 101191 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:16.830Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 103344 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:18.846Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 105497 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:30:20.864Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 107650 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:30:22.880Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 109803 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:24.897Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 111956 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:26.909Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 114109 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:28.929Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 116262 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:30:30.946Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 118415 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:30:32.961Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 120568 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:34.978Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 122721 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:30:36.987Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 124874 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:38.998Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 127027 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:41.012Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 129180 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:30:43.028Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 131333 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:45.044Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 133486 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:30:47.062Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 135639 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:49.077Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 137792 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:51.087Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 139945 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:30:53.105Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 142098 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:55.125Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 144251 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:30:57.144Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 146404 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:30:59.155Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 148557 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:01.164Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 150710 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:31:03.176Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 152863 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:05.192Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 155016 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:07.210Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 157169 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:31:09.227Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 159322 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:11.242Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 161475 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:13.250Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 163628 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:31:15.273Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 165781 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:17.291Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 167934 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:19.308Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 170087 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:31:21.317Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 172240 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:31:23.335Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 174393 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:31:25.357Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 176546 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:27.373Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 178699 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:31:29.389Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 180852 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:31.407Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 183005 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:33.418Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 185158 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:35.440Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 187311 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:37.456Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 189464 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:39.472Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 191617 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:31:41.488Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 193770 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:31:43.506Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 195923 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:45.523Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 198076 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:47.537Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 200229 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:49.554Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 202382 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:31:51.572Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 204535 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:53.589Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 206688 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:55.607Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 208841 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:57.618Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 210994 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:31:59.633Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 213147 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:32:01.655Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 215300 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:32:03.671Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 217453 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:32:05.688Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 219606 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:32:07.705Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 221759 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:32:09.722Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 223912 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:32:11.739Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 226065 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:32:13.755Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 228218 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:32:15.771Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 230371 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:32:17.788Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 232524 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:32:19.798Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 234677 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:32:21.819Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 236830 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:32:23.837Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 238983 bytes | Duration: 1ms | UserId: 
-[2025-09-16T17:32:25.855Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 241136 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:35:08.685Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 2153 bytes | Duration: 3ms | UserId: 
-[2025-09-16T17:35:15.357Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 2153 bytes | Duration: 2ms | UserId: 
-[2025-09-16T17:35:17.374Z] POST / | Status: 200 | Host: localhost:3000 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 4306 bytes | Duration: 2ms | UserId: 
-[2025-09-18T16:30:16.450Z] POST /api/auth/register | Status: 400 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1380 bytes | Duration: 157ms | UserId: 
-[2025-09-18T16:30:16.457Z] POST /api/auth/logout | Status: 401 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 2046 bytes | Duration: 1ms | UserId: 
-[2025-09-18T16:32:13.810Z] POST /api/auth/register | Status: 400 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1380 bytes | Duration: 1ms | UserId: 
-[2025-09-18T16:32:13.817Z] POST /api/auth/logout | Status: 401 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 2046 bytes | Duration: 1ms | UserId: 
-[2025-09-18T16:32:48.795Z] POST /api/auth/register | Status: 400 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1380 bytes | Duration: 1ms | UserId: 
-[2025-09-18T16:32:48.802Z] POST /api/auth/logout | Status: 401 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 2046 bytes | Duration: 1ms | UserId: 
-[2025-09-18T16:32:55.956Z] POST /api/auth/register | Status: 400 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1373 bytes | Duration: 1ms | UserId: 
-[2025-09-18T16:32:55.962Z] POST /api/auth/logout | Status: 401 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 2039 bytes | Duration: 0ms | UserId: 
-[2025-09-18T16:35:00.186Z] POST /api/auth/register | Status: 400 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1373 bytes | Duration: 1ms | UserId: 
-[2025-09-18T16:35:00.193Z] POST /api/auth/logout | Status: 401 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 2039 bytes | Duration: 1ms | UserId: 
-[2025-09-18T16:36:08.361Z] POST /api/auth/register | Status: 201 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1358 bytes | Duration: 114ms | UserId: 
-[2025-09-18T18:51:40.102Z] POST /api/auth/register | Status: 201 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1357 bytes | Duration: 7904ms | UserId: 
-[2025-09-18T18:54:05.550Z] POST /api/auth/register | Status: 201 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1358 bytes | Duration: 4353ms | UserId: 
-[2025-09-18T19:04:43.704Z] POST /api/auth/register | Status: 201 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1358 bytes | Duration: 7816ms | UserId: 
-[2025-09-19T06:35:32.934Z] POST /api/auth/register | Status: 201 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1357 bytes | Duration: 6503ms | UserId: 
-[2025-09-19T06:35:51.523Z] POST /api/api/auth/account/verify | Status: 404 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 728 bytes | Duration: 2ms | UserId: 
-[2025-09-19T06:35:51.525Z] POST /api/api/auth/account/verify | Status: 404 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1914 bytes | Duration: 1ms | UserId: 
-[2025-09-19T06:36:04.594Z] POST /api/auth/account/verify | Status: 400 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 724 bytes | Duration: 3ms | UserId: 
-[2025-09-19T06:36:04.597Z] POST /api/auth/account/verify | Status: 400 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1902 bytes | Duration: 2ms | UserId: 
-[2025-09-19T07:00:43.068Z] POST /api/auth/account/verify | Status: 201 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1338 bytes | Duration: 46ms | UserId: 
-[2025-09-19T07:08:27.040Z] POST /api/auth/register | Status: 201 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1357 bytes | Duration: 5820ms | UserId: 
-[2025-09-19T07:13:29.232Z] POST /api/auth/account/verify | Status: 201 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1338 bytes | Duration: 135ms | UserId: 
-[2025-09-19T07:42:42.840Z] POST /api/auth/login | Status: 201 | Host: localhost:2015 | Client: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 OPR/122.0.0.0 | DataLength: 1323 bytes | Duration: 108ms | UserId: 
+[2025-09-26T18:56:21.981Z] POST /api/auth/account/verify | Status: 401 | Host: localhost:2015 | Client: PostmanRuntime/7.48.0 | DataLength: 968 bytes | Duration: 7ms | UserId: 01K63GJTKXXA0HTET6518QFCDM
+        
