@@ -15,7 +15,7 @@ export type TLogger = {
 
 // Function-based logger middleware
 export function loggerMiddleware() {
-  const logDir = path.join(process.cwd(), 'log');
+  const logDir = path.join(process.cwd(), 'logs');
   if (!fs.existsSync(logDir)) fs.mkdirSync(logDir, { recursive: true });
   const logFilePath = path.join(logDir, 'request-log.txt');
 
