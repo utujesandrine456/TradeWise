@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Patch, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Patch, Post, Req, Res, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { IJwtPayload, TRegisterDetails } from './auth.types';
@@ -8,7 +8,9 @@ import { loginSchema, onboardingSchema, registerSchema, updateSchema } from './a
 import { CurrentUser } from 'src/custom/decorators/currentUser.decorator';
 import { ProtectedRouteGuard } from 'src/custom/guards/protected-route/protected-route.guard';
 import { UnProtectedRouteGuard } from 'src/custom/guards/un-protected-route/un-protected-route.guard';
+import { SanitizeInterceptor } from 'src/custom/interceptors/sanitize/sanitize.interceptor';
 
+@UseInterceptors(SanitizeInterceptor)
 @Controller('auth')
 export class AuthController {
     constructor(

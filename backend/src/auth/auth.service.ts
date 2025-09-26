@@ -66,7 +66,8 @@ export class AuthService {
                 email,
                 phone,
                 enterpriseName,
-                password: hashedPassword
+                password: hashedPassword,
+                lastLogin: new Date()
             }
         });
 
@@ -89,7 +90,10 @@ export class AuthService {
         if (!isPasswordValid) 
             throw new BadRequestException('Invalid credentials');
 
-        return user;
+        return await this.prismaService.mTrader.update({
+            where: { id: user.id },
+            data: { lastLogin: new Date() },
+        });
     }
 
     public async update(details: TUpdateDetails, id: string) {

@@ -1,10 +1,12 @@
-import { Controller, InternalServerErrorException, Post, UseGuards } from '@nestjs/common';
+import { Controller, InternalServerErrorException, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ValidatedBody } from 'src/custom/decorators/validate.decorator';
 import { forgetPasswordSchema, resetPasswordSchema, sendOtpSchema, verifyOtpSchema } from './auth.dto-schema';
 import { EmailService } from 'src/communication/email/email.service';
 import { UnProtectedRouteGuard } from 'src/custom/guards/un-protected-route/un-protected-route.guard';
+import { SanitizeInterceptor } from 'src/custom/interceptors/sanitize/sanitize.interceptor';
 
+@UseInterceptors(SanitizeInterceptor)
 @UseGuards(UnProtectedRouteGuard)
 @Controller('auth')
 export class Auth2Controller {
