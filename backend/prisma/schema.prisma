@@ -70,6 +70,7 @@ model MStock {
     transactions MTransaction[] @relation("trader_transaction")
     financials MFinancial[] @relation("stock_financials")
     buyList MBuyList[] @relation("buy_list_stock")
+    soldStock MSoldStock[] @relation("stock_sold_stock")
 }
 
 model MSoldStock {
@@ -78,12 +79,21 @@ model MSoldStock {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     //relations
+    stockId String
+    stock MStock @relation("stock_sold_stock", fields: [stockId], references: [id], onDelete: Cascade)
     products MProduct[] @relation("sold_stock_products")
+}
+
+enum EUnitType {
+    Piece
+    Kilogram
+    Litre
 }
 
 model MStockImage {
     id String @id @default(ulid())
     name String
+    unit EUnitType @default(Piece)
     //timestamps
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -93,16 +103,9 @@ model MStockImage {
     products MProduct[] @relation("stock_images_products")
 }
 
-enum EUnitType {
-    Piece
-    Kilogram
-    Litre
-}
-
 model MProduct {
     id String @id @default(ulid())
     name String @db.VarChar(40) // must refrect the stock_image name
-    unit EUnitType @default(Piece)
     quantity Int @default(0)
     //timestamps
     createdAt DateTime @default(now())
