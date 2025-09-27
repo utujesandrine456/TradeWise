@@ -12,6 +12,7 @@ import { EmailService } from './communication/email/email.service';
 import * as path from 'path';
 import { PrismaModule } from './prisma/prisma.module';
 import { SettingsMiddleware } from './custom/middlewares/settings/settings.middleware';
+import { ManagementModule } from './management/management.module';
 
 @Module({
     imports: [
@@ -31,7 +32,8 @@ import { SettingsMiddleware } from './custom/middlewares/settings/settings.middl
         }),
         AuthModule,
         CommunicationModule,
-        PrismaModule
+        PrismaModule,
+        ManagementModule
     ],
     controllers: [AppController],
     providers: [AppService, AppResolver, EmailService],
