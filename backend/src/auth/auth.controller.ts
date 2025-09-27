@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Patch, Post, Req, Res, UseGuards, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Patch, Post, Req, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { IJwtPayload, TRegisterDetails } from './auth.types';
@@ -9,6 +9,9 @@ import { CurrentUser } from 'src/custom/decorators/currentUser.decorator';
 import { ProtectedRouteGuard } from 'src/custom/guards/protected-route/protected-route.guard';
 import { UnProtectedRouteGuard } from 'src/custom/guards/un-protected-route/un-protected-route.guard';
 import { SanitizeInterceptor } from 'src/custom/interceptors/sanitize/sanitize.interceptor';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { v2 as cloudinary } from 'cloudinary';
+import { storage } from 'src/custom/utils/cloudinary.config';
 
 @UseInterceptors(SanitizeInterceptor)
 @Controller('auth')
@@ -83,11 +86,21 @@ export class AuthController {
     }
     
     @UseGuards(ProtectedRouteGuard)
+    @UseInterceptors(FileInterceptor('logo', { storage }))
     @Post('onboarding')
     public async onboarding(
         @ValidatedBody(onboardingSchema) dto: any,
-        @CurrentUser() user: IJwtPayload
+        @CurrentUser() user: IJwtPayload,
+        @UploadedFile() logo: Express.Multer.File
     ) {
-        return await this.authService.onboarding(dto, user.sub);
+        const onboarding = await this.authService.getOnboarding(user.sub);
+        if (onboarding.logo_PublicId)
+            await cloudinary.uploader.destroy(onboarding.logo_PublicId);
+
+        return await this.authService.onboarding({
+            ...dto, 
+            logoUrl: logo?.path,
+            logo_PublicId: logo.filename
+        }, user.sub);
     }
 }

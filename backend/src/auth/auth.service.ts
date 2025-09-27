@@ -27,7 +27,7 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) {}
     
-    private async phoneOrEmail(phone?: string, email?: string, allowBoth = true) {
+    private phoneOrEmail(phone?: string, email?: string, allowBoth = true) {
         if (!phone && !email) 
             throw new BadRequestException('Either phone or email is required');
         if (phone && email && !allowBoth)
@@ -48,7 +48,7 @@ export class AuthService {
 
     public async register(details: TRegisterDetails) {
         const { email, phone, enterpriseName, password } = details;
-        await this.phoneOrEmail(phone, email);
+        this.phoneOrEmail(phone, email);
 
         const existingUser = await this.prismaService.mTrader.findFirst({
             where: {
@@ -71,12 +71,45 @@ export class AuthService {
             }
         });
 
+        let sendMessageType: SendMessage;
+        if(email) 
+            sendMessageType = SendMessage.Email;
+        else if (phone)
+            sendMessageType = SendMessage.Phone;
+        else
+            sendMessageType = SendMessage.Email;
+
+        // initializing the settings
+        await this.prismaService.mTraderSettings.create({
+            data: {
+                traderId: id,
+                enterpriseDescription: '',
+                logoUrl: '',
+                logo_PublicId: '',
+                evaluationPeriod: 7,
+                deleteSoldStockAfterEvaluationPeriod: false,
+                ussdCode: '',
+                sendMessage: sendMessageType,
+                name: enterpriseName
+            }
+        });
+
+        // creating a stock
+        await this.prismaService.mStock.create({
+            data: {
+                id: idTools.generateUlid(),
+                traderId: id,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            }
+        });
+
         return newUser;
     }
 
     public async login(details: TLoginDetails) {
         const { email, phone, password } = details;
-        await this.phoneOrEmail(phone, email, false);
+        this.phoneOrEmail(phone, email, false);
 
         const user = await this.prismaService.mTrader.findFirst({
             where: {
@@ -126,13 +159,22 @@ export class AuthService {
         }
     }
 
-    public async onboarding(details: TOnboardingDetails, id: string) {
-        const { enterpriseDescription, logo, evaluationPeriod, deleteSoldStockAfterEvaluationPeriod, ussdCode, sendMessage } = details;
+    public async getOnboarding(id: string) {
+        const settings = await this.prismaService.mTraderSettings.findUnique({ where: { traderId: id } });
+        if (!settings) 
+            throw new BadRequestException('Trader onboarding settings not found');
+        return settings;
+    }
 
+    public async onboarding(details: TOnboardingDetails, id: string) {
+        const { enterpriseDescription, logoUrl, logo_PublicId, evaluationPeriod, deleteSoldStockAfterEvaluationPeriod, ussdCode, sendMessage } = details;
+
+        console.log("The users id: ", id);
         try {
             const updateData: Partial<{
                 enterpriseDescription: string;
-                logo: string;
+                logoUrl: string;
+                logo_PublicId: string;
                 evaluationPeriod: number;
                 deleteSoldStockAfterEvaluationPeriod: boolean;
                 ussdCode: string;
@@ -140,7 +182,8 @@ export class AuthService {
             }> = {};
 
             if (enterpriseDescription) updateData.enterpriseDescription = enterpriseDescription;
-            if (logo) updateData.logo = logo;
+            if (logoUrl) updateData.logoUrl = logoUrl;
+            if (logo_PublicId) updateData.logo_PublicId = logo_PublicId;
             if (evaluationPeriod) updateData.evaluationPeriod = evaluationPeriod;
             if (deleteSoldStockAfterEvaluationPeriod != undefined) updateData.deleteSoldStockAfterEvaluationPeriod = deleteSoldStockAfterEvaluationPeriod;
             if (ussdCode) updateData.ussdCode = ussdCode;
@@ -154,7 +197,7 @@ export class AuthService {
             return settings;
         } catch (error) {
             if (error instanceof PrismaClientKnownRequestError) {
-                if (error.code === 'P2025') 
+                if (error.code === 'P2025')
                     throw new BadRequestException('User not found');
             }
 

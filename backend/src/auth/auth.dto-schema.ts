@@ -22,7 +22,8 @@ export const updateSchema = Joi.object({
 
 export const onboardingSchema = Joi.object({
     enterpriseDescription: Joi.string().optional(),
-    logo: Joi.string().optional(),
+    logo_PublicId: Joi.string().optional(),
+    logoUrl: Joi.string().optional(),
     evaluationPeriod: Joi.number().optional(),
     deleteSoldStockAfterEvaluationPeriod: Joi.boolean().optional(),
     ussdCode: Joi.string().optional(),

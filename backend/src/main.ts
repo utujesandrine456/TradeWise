@@ -7,11 +7,11 @@ import * as express from 'express';
 import * as cookieParser from 'cookie-parser';
 import { jwtDecodeMiddleware } from './custom/middlewares/jwtDecode.middleware';
 import { loggerMiddleware } from './custom/middlewares/logger.middleware';
-
-const configService = new ConfigService();
+import { cloudinaryConfig } from './custom/utils/cloudinary.config';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
+    const configService = app.get(ConfigService);
 
     app.setGlobalPrefix('api');
     app.useGlobalPipes(new ValidationPipe());
@@ -22,6 +22,8 @@ async function bootstrap() {
     app.use(loggerMiddleware());
     app.use(jwtDecodeMiddleware());
     
+    cloudinaryConfig(configService);
+
     const port = configService.get<number>('port') ?? 3000;
     const nodeEnv = configService.get<string>('node_env') ?? 'development';
     const envColor = nodeEnv === 'production' ? chalk.red.underline(nodeEnv) : chalk.blue.underline(nodeEnv)

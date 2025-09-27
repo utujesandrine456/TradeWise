@@ -42,7 +42,8 @@ enum SendMessage {
 model MTraderSettings{ // contains both profile and basic settings
     id String @id @default(ulid())
     enterpriseDescription String @db.VarChar(255)
-    logo String
+    logo_PublicId String // for storing public_id
+    logoUrl String // to show 
     name String //name of the trader
     evaluationPeriod Int @default(7) // in days(weekly) 
     deleteSoldStockAfterEvaluationPeriod Boolean @default(false)
@@ -53,7 +54,7 @@ model MTraderSettings{ // contains both profile and basic settings
     updatedAt DateTime @updatedAt
     //relations
     traderId String @unique
-    trader   MTrader  @relation("trader_settings", fields: [traderId], references: [id])
+    trader   MTrader  @relation("trader_settings", fields: [traderId], references: [id], onDelete: Cascade)
 }
 
 model MStock {
@@ -64,7 +65,7 @@ model MStock {
     markAsBought Boolean @default(false) // the schedule will remove it
     //relations
     traderId String @unique
-    trader   MTrader  @relation("trader_stock", fields: [traderId], references: [id])
+    trader   MTrader  @relation("trader_stock", fields: [traderId], references: [id], onDelete: Cascade)
     images MStockImage[] @relation("stock_images")
     transactions MTransaction[] @relation("trader_transaction")
     financials MFinancial[] @relation("stock_financials")
@@ -88,7 +89,7 @@ model MStockImage {
     updatedAt DateTime @updatedAt
     //relations
     stockId String
-    stock MStock @relation("stock_images", fields: [stockId], references: [id])
+    stock MStock @relation("stock_images", fields: [stockId], references: [id], onDelete: Cascade)
     products MProduct[] @relation("stock_images_products")
 }
 

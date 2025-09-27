@@ -27,7 +27,8 @@ export type TUpdateDetails = {
 
 export type TOnboardingDetails = {
     enterpriseDescription?: string,
-    logo?: string,
+    logoUrl?: string,
+    logo_PublicId?: string,
     evaluationPeriod?: number,
     deleteSoldStockAfterEvaluationPeriod?: boolean,
     ussdCode?: string,
