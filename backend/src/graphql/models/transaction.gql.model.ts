@@ -1,38 +1,17 @@
-import { ObjectType, Field } from "@nestjs/graphql";
+import { ObjectType, Field, registerEnumType } from "@nestjs/graphql";
 import { ENTransactionType } from "generated/prisma";
-import { MGqlStock } from "./stock.gql.model";
-import { MGqlFinancial } from "./financial.gql.model";
+import { MGqlStock, MGqlFinancial, MGqlTransactionProduct } from "./circular-dependency";
 
-@ObjectType()
-export class MGqlTransactionProduct {
-    @Field()
-    id: string;
-
-    @Field()
-    amount: number;
-
-    @Field()
-    price: number;
-
-    @Field(() => Date)
-    createdAt: Date;
-
-    @Field(() => Date)
-    updatedAt: Date;
-
-    @Field()
-    transactionId: string;
-
-    @Field(() => MGqlTransaction)
-    transaction: MGqlTransaction;
-}
+registerEnumType(ENTransactionType, {
+    name: "ENTransactionType"
+})
 
 @ObjectType()
 export class MGqlTransaction {
     @Field()
     id: string;
 
-    @Field()
+    @Field(() => ENTransactionType)
     type: ENTransactionType;
 
     @Field()

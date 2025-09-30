@@ -1,6 +1,14 @@
-import { ObjectType, Field } from "@nestjs/graphql";
+import { ObjectType, Field, registerEnumType } from "@nestjs/graphql";
 import { ENNotificationFilterType, ENNotificationImpact } from "generated/prisma";
-import { MGqlTrader } from "./trader.gql.model";
+import { MGqlTrader } from "./circular-dependency";
+
+registerEnumType(ENNotificationImpact, {
+  name: "ENNotificationImpact"
+});
+
+registerEnumType(ENNotificationFilterType, {
+  name: "ENNotificationFilterType"
+});
 
 @ObjectType()
 export class MGqlNotification {
