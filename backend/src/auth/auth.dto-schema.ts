@@ -1,3 +1,4 @@
+import { EUnitType } from 'generated/prisma';
 import * as Joi from 'joi';
 
 export const registerSchema = Joi.object({

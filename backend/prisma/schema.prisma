@@ -107,6 +107,7 @@ model MProduct {
     id String @id @default(ulid())
     name String @db.VarChar(40) // must refrect the stock_image name
     quantity Int @default(0)
+    brand String?
     //timestamps
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

@@ -93,14 +93,19 @@ export class AuthController {
         @CurrentUser() user: IJwtPayload,
         @UploadedFile() logo: Express.Multer.File
     ) {
-        const onboarding = await this.authService.getOnboarding(user.sub);
-        if (onboarding.logo_PublicId)
-            await cloudinary.uploader.destroy(onboarding.logo_PublicId);
-
-        return await this.authService.onboarding({
-            ...dto, 
-            logoUrl: logo?.path,
-            logo_PublicId: logo.filename
-        }, user.sub);
+        try {            
+            const onboarding = await this.authService.getOnboarding(user.sub);
+            if (onboarding.logo_PublicId)
+                await cloudinary.uploader.destroy(onboarding.logo_PublicId);
+    
+            return await this.authService.onboarding({
+                ...dto, 
+                logoUrl: logo?.path,
+                logo_PublicId: logo?.filename
+            }, user.sub);
+        } catch (error) {
+            await cloudinary.uploader.destroy(logo?.filename);
+            throw new BadRequestException(error.message);
+        }
     }
 }

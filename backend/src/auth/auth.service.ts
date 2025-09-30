@@ -167,9 +167,15 @@ export class AuthService {
     }
 
     public async onboarding(details: TOnboardingDetails, id: string) {
-        const { enterpriseDescription, logoUrl, logo_PublicId, evaluationPeriod, deleteSoldStockAfterEvaluationPeriod, ussdCode, sendMessage } = details;
+        const { 
+            enterpriseDescription, 
+            logoUrl, logo_PublicId, 
+            evaluationPeriod, 
+            deleteSoldStockAfterEvaluationPeriod, 
+            ussdCode, 
+            sendMessage,
+        } = details;
 
-        console.log("The users id: ", id);
         try {
             const updateData: Partial<{
                 enterpriseDescription: string;
@@ -188,7 +194,7 @@ export class AuthService {
             if (deleteSoldStockAfterEvaluationPeriod != undefined) updateData.deleteSoldStockAfterEvaluationPeriod = deleteSoldStockAfterEvaluationPeriod;
             if (ussdCode) updateData.ussdCode = ussdCode;
             if (sendMessage != undefined) updateData.sendMessage = sendMessage;
-    
+
             const settings = await this.prismaService.mTraderSettings.update({
                 where: { traderId: id }, 
                 data: updateData
@@ -198,10 +204,10 @@ export class AuthService {
         } catch (error) {
             if (error instanceof PrismaClientKnownRequestError) {
                 if (error.code === 'P2025')
-                    throw new BadRequestException('User not found');
+                    throw new Error('User not found');
             }
 
-            throw new InternalServerErrorException(error.message ?? "Something went wrong");
+            throw new Error(error.message ?? "Something went wrong");
         }
     }
 
