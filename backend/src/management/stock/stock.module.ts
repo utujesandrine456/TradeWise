@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { StockService } from './stock.service';
-import { StockResolver } from './stock.resolver';
+import { StockImageResolver } from './stockImage.resolver';
 import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
@@ -8,7 +8,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
     PrismaModule
   ],
   providers: [
-    StockResolver, 
+    StockImageResolver, 
     StockService
   ],
 })

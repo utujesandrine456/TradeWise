@@ -45,6 +45,7 @@ model MTraderSettings{ // contains both profile and basic settings
     logo_PublicId String // for storing public_id
     logoUrl String // to show 
     name String //name of the trader
+    currency String @default("RWF") // default if Rwandan Franc
     evaluationPeriod Int @default(7) // in days(weekly) 
     deleteSoldStockAfterEvaluationPeriod Boolean @default(false)
     ussdCode String
@@ -92,7 +93,7 @@ enum EUnitType {
 
 model MStockImage {
     id String @id @default(ulid())
-    name String
+    name String @db.VarChar(40)
     unit EUnitType @default(Piece)
     //timestamps
     createdAt DateTime @default(now())
@@ -101,12 +102,14 @@ model MStockImage {
     stockId String
     stock MStock @relation("stock_images", fields: [stockId], references: [id], onDelete: Cascade)
     products MProduct[] @relation("stock_images_products")
+    @@unique([name, stockId])
 }
 
 model MProduct {
     id String @id @default(ulid())
     name String @db.VarChar(40) // must refrect the stock_image name
     quantity Int @default(0)
+    price Float @default(0.0)  // the price is in thousands eg 5.5 = 5500 and 0.7 = 700
     brand String?
     //timestamps
     createdAt DateTime @default(now())
@@ -115,6 +118,7 @@ model MProduct {
     stockImageId String
     stockImage MStockImage @relation("stock_images_products", fields: [stockImageId], references: [id])
     soldStock MSoldStock[] @relation("sold_stock_products")
+    transactions MTransaction[] @relation("transaction_products")
 }
 
 model MBuyList { // item added in check
@@ -145,19 +149,8 @@ model MTransaction {
     //relations
     stockId String
     stock MStock @relation("trader_transaction", fields: [stockId], references: [id])
-    products    MTransactionProduct[] // store productId + amount + price (child table)
+    products MProduct[] @relation("transaction_products")
     financials MFinancial[] @relation("transaction_financials")
-}
-
-model MTransactionProduct {
-    transactionId String
-    transaction   MTransaction @relation(fields: [transactionId], references: [id])
-    productId     String
-    amount        Float
-    price         Float
-    //timestamp
-    createdAt     DateTime     @default(now())
-    @@id([transactionId, productId]) // composite primary key
 }
 
 enum ENFinancialType {

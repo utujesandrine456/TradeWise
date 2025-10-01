@@ -1,5 +1,5 @@
-import { ObjectType, Field } from "@nestjs/graphql";
-import { MGqlSoldStock, MGqlStockImage, MGqlStock } from "./circular-dependency";
+import { ObjectType, Field, Float } from "@nestjs/graphql";
+import { MGqlSoldStock, MGqlStockImage, MGqlStock } from "../circular-dependency";
 
 @ObjectType()
 export class MGqlProduct {
@@ -8,6 +8,12 @@ export class MGqlProduct {
 
     @Field()
     name: string;
+
+    @Field(() => Float)
+    price: number;
+
+    @Field({ nullable: true })
+    brand?: string;
 
     @Field()
     quantity: number;

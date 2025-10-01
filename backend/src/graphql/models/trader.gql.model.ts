@@ -1,6 +1,6 @@
 import { Field, ObjectType, registerEnumType } from "@nestjs/graphql";
 import { MGqlNotification } from "./notification.gql.model";
-import { MGqlStock, MGqlTraderSettings } from "./circular-dependency";
+import { MGqlStock, MGqlTraderSettings } from "../circular-dependency";
 import { EUnitType } from "generated/prisma";
 
 registerEnumType(EUnitType, {

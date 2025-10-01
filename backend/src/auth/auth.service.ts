@@ -18,13 +18,15 @@ import {
 import { PrismaClientKnownRequestError } from 'generated/prisma/runtime/library';
 import { MTrader, SendMessage } from 'generated/prisma';
 import generateOtp from 'src/custom/utils/generate.otp';
+import { CurrencyService } from 'src/custom/utils/currency.md';
 
 @Injectable()
 export class AuthService {
     public constructor(
         private readonly configService: ConfigService,
         private readonly prismaService: PrismaService,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
+        private readonly currencyService: CurrencyService
     ) {}
     
     private phoneOrEmail(phone?: string, email?: string, allowBoth = true) {
@@ -174,6 +176,7 @@ export class AuthService {
             deleteSoldStockAfterEvaluationPeriod, 
             ussdCode, 
             sendMessage,
+            currency
         } = details;
 
         try {
@@ -185,6 +188,7 @@ export class AuthService {
                 deleteSoldStockAfterEvaluationPeriod: boolean;
                 ussdCode: string;
                 sendMessage: SendMessage;
+                currency: string;
             }> = {};
 
             if (enterpriseDescription) updateData.enterpriseDescription = enterpriseDescription;
@@ -194,6 +198,11 @@ export class AuthService {
             if (deleteSoldStockAfterEvaluationPeriod != undefined) updateData.deleteSoldStockAfterEvaluationPeriod = deleteSoldStockAfterEvaluationPeriod;
             if (ussdCode) updateData.ussdCode = ussdCode;
             if (sendMessage != undefined) updateData.sendMessage = sendMessage;
+            if (currency) {
+                if(!this.currencyService.isValidCurrency(currency))
+                    throw new BadRequestException('Invalid currency code');
+                updateData.currency = currency;
+            }
 
             const settings = await this.prismaService.mTraderSettings.update({
                 where: { traderId: id }, 
@@ -207,13 +216,13 @@ export class AuthService {
                     throw new Error('User not found');
             }
 
-            throw new Error(error.message ?? "Something went wrong");
+            throw new InternalServerErrorException(error.message ?? "Something went wrong");
         }
     }
 
     public async sendOtp(details: TSendOtpDetails) {
         const { email, phone, isPasswordReset } = details;
-        await this.phoneOrEmail(phone, email, false);
+        this.phoneOrEmail(phone, email, false);
 
         const otp = generateOtp();
         const hashedOtp = crypto.createHash('sha256').update(otp).digest('hex');

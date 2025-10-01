@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AppResolver } from './app.resolver';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
@@ -13,6 +13,7 @@ import * as path from 'path';
 import { PrismaModule } from './prisma/prisma.module';
 import { SettingsMiddleware } from './custom/middlewares/settings/settings.middleware';
 import { ManagementModule } from './management/management.module';
+import { IJwtPayload } from './auth/auth.types';
 
 @Module({
     imports: [
@@ -29,6 +30,23 @@ import { ManagementModule } from './management/management.module';
             driver: ApolloDriver,
             autoSchemaFile: path.join(process.cwd(), 'src/graphql/schema.gql'),
             sortSchema: true,
+            context: ({ req, res }) => {
+                const jwtService = new JwtService();
+                const configService = new ConfigService();
+                const token = req.cookies?.accessToken || req.headers['authorization']?.split(' ')[1];
+
+                let user: IJwtPayload | undefined = undefined;
+                if (token) {
+                    try {
+                        user = jwtService.verify(token, { secret: configService.get('jwt_secret') }) as IJwtPayload;
+                    } catch (err) {
+                        user = undefined;
+                    }
+                }
+                
+                req.user = user;
+                return { req, res, user }; 
+            },
         }),
         AuthModule,
         CommunicationModule,

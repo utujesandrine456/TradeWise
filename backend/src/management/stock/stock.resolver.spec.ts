@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { StockResolver } from './stock.resolver';
+import { StockResolver } from './stockImage.resolver';
 import { StockService } from './stock.service';
 
 describe('StockResolver', () => {

@@ -1,6 +1,6 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { EUnitType } from "generated/prisma";
-import { MGqlStock } from "./circular-dependency";
+import { MGqlStock } from "../circular-dependency";
 
 @ObjectType()
 export class MGqlStockImage {

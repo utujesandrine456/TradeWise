@@ -11,14 +11,42 @@ export class StockService {
 
     public async getStockImages(traderId: string) {
         return await this.prismaService.mStockImage.findMany({
-            where: {
-                stock: { traderId }
+            where: { 
+                stock: {
+                    traderId
+                }
+            },
+            include: { 
+                stock: {
+                    include: {
+                        trader: true
+                    }
+                }
             }
+        }) ?? [];
+    }
+
+    public async getStockImage(traderId: string, stockImgId: string) {
+        return await this.prismaService.mStockImage.findUnique({ 
+            where: { 
+                id: stockImgId, 
+                stock: { traderId } 
+            },
+            include: {
+                stock: {
+                    include: {
+                        trader: true
+                    }
+                }
+            } 
         });
     }
 
     public async createStockImage(details: { name: string, unit: EUnitType }, traderId: string) {
         try {
+            const { name, unit } = details;
+            const nameLower = name.toLowerCase();
+
             const stock = await this.prismaService.mStock.findUnique({
                 where: {
                     traderId
@@ -28,9 +56,16 @@ export class StockService {
 
             const stockImage = await this.prismaService.mStockImage.create({
                 data: {
-                    name: details.name,
-                    unit: details.unit,
+                    name: nameLower,
+                    unit: unit,
                     stockId: stock.id
+                },
+                include: {
+                    stock: {
+                        include: {
+                            trader: true
+                        }
+                    }
                 }
             });
 
@@ -54,6 +89,13 @@ export class StockService {
                 data: {
                     name: details.name,
                     unit: details.unit
+                },
+                include: {
+                    stock: {
+                        include: {
+                            trader: true
+                        }
+                    }
                 }
             });
 
@@ -71,6 +113,13 @@ export class StockService {
                 where: {
                     id: imgId,
                     stock: { traderId }
+                },
+                include: {
+                    stock: {
+                        include: {
+                            trader: true
+                        }
+                    }
                 }
             });
 

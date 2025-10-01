@@ -35,6 +35,13 @@ enum EUnitType {
   Piece
 }
 
+input GqlTransactionCreateProductInput {
+  brand: String
+  name: String!
+  price: Float!
+  quantity: Int!
+}
+
 type MGqlBuyList {
   createdAt: DateTime!
   id: String!
@@ -74,9 +81,11 @@ type MGqlNotification {
 }
 
 type MGqlProduct {
+  brand: String
   createdAt: DateTime!
   id: String!
   name: String!
+  price: Float!
   quantity: Float!
   soldStock: [MGqlSoldStock!]!
   stockImage: MGqlStockImage!
@@ -154,9 +163,9 @@ type MGqlTraderSettings {
 type MGqlTransaction {
   createdAt: DateTime!
   description: String!
-  financials: [MGqlFinancial!]!
+  financials: [MGqlFinancial!]
   id: String!
-  products: [MGqlTransactionProduct!]!
+  products: [MGqlProduct!]!
   secondParty: String!
   stock: MGqlStock!
   stockId: String!
@@ -164,24 +173,17 @@ type MGqlTransaction {
   updatedAt: DateTime!
 }
 
-type MGqlTransactionProduct {
-  amount: Float!
-  createdAt: DateTime!
-  id: String!
-  price: Float!
-  transaction: MGqlTransaction!
-  transactionId: String!
-  updatedAt: DateTime!
-}
-
 type Mutation {
   createStockImage(name: String!, unit: EUnitType!): MGqlStockImage!
-  createTransaction: String!
+  createTransaction(description: String!, products: [GqlTransactionCreateProductInput!]!, secondParty: String!, type: ENTransactionType!): MGqlTransaction!
   deleteStockImage(stockImageId: String!): MGqlStockImage!
   updateStockImage(name: String, stockImageId: String!, unit: EUnitType): MGqlStockImage!
 }
 
 type Query {
+  getAllTransactions(type: ENTransactionType): [MGqlTransaction!]!
   getHello: String!
-  getStockImages: [MGqlStockImage!]!
+  getStockImage(id: String!): MGqlStockImage
+  getStockImages: [MGqlStockImage!]
+  getTransaction(transactionId: String!): MGqlTransaction!
 }

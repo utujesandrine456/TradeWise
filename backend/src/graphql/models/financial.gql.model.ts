@@ -1,6 +1,6 @@
 import { Field, ObjectType, registerEnumType } from "@nestjs/graphql";
 import { ENFinancialType } from "generated/prisma";
-import { MGqlStock, MGqlTransaction } from "./circular-dependency";
+import { MGqlStock, MGqlTransaction } from "../circular-dependency";
 
 registerEnumType(ENFinancialType, {
     name: "ENFinancialType"

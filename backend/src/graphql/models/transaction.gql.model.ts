@@ -1,6 +1,6 @@
 import { ObjectType, Field, registerEnumType } from "@nestjs/graphql";
 import { ENTransactionType } from "generated/prisma";
-import { MGqlStock, MGqlFinancial, MGqlTransactionProduct } from "./circular-dependency";
+import { MGqlStock, MGqlFinancial, MGqlProduct } from "../circular-dependency";
 
 registerEnumType(ENTransactionType, {
     name: "ENTransactionType"
@@ -32,9 +32,9 @@ export class MGqlTransaction {
     @Field(() => MGqlStock)
     stock: MGqlStock;
 
-    @Field(() => [MGqlTransactionProduct])
-    products: MGqlTransactionProduct[];
+    @Field(() => [MGqlProduct])
+    products: MGqlProduct[];
 
-    @Field(() => [MGqlFinancial])
-    financials: MGqlFinancial[];
+    @Field(() => [MGqlFinancial], { nullable: true })
+    financials?: MGqlFinancial[];
 }

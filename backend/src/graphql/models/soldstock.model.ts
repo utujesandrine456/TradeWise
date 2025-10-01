@@ -1,5 +1,5 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import { MGqlStock, MGqlProduct } from "./circular-dependency";
+import { MGqlStock, MGqlProduct } from "../circular-dependency";
 
 @ObjectType()
 export class MGqlSoldStock {

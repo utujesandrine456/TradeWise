@@ -32,6 +32,7 @@ export type TOnboardingDetails = {
     evaluationPeriod?: number,
     deleteSoldStockAfterEvaluationPeriod?: boolean,
     ussdCode?: string,
+    currency?: string,
     sendMessage?: SendMessage,
     products?: {
         name: string;
