@@ -4,10 +4,6 @@ import { mockDashboardData, mockApiResponse} from '../__mock__';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import './Dashboard.css';
 
-
-
-
-
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -107,8 +103,6 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-
-
 
       <div className="mt-8 bg-white rounded-lg shadow p-6">
         <h3 className="text-lg font-medium text-gray-900 mb-4">Sales vs Purchases (This Month)</h3>
