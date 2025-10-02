@@ -38,11 +38,11 @@ const generateTransactions = (count, type) => {
   });
 };
 
-// Generate mock data
+
 export const mockCredits = generateTransactions(25, 'credit');
 export const mockDebits = generateTransactions(25, 'debit');
 
-// Calculate summary
+
 export const creditsSummary = {
   total: mockCredits.reduce((sum, t) => sum + t.amount, 0),
   thisMonth: mockCredits

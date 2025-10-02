@@ -10,7 +10,7 @@ const VerifyEmail = () => {
     const navigate = useNavigate();
     const [verifyDetails, setVerifyDetails] = useState(null);
 
-    // Load and validate verification context from localStorage
+
     useEffect(() => {
         try {
             const isVerifyDetails = localStorage.getItem('verifyAccount');
@@ -31,12 +31,12 @@ const VerifyEmail = () => {
         }
     }, [navigate]);
 
-    const [timeLeft, setTimeLeft] = useState(10 * 60); // 10 mins
+    const [timeLeft, setTimeLeft] = useState(10 * 60);
     const [otpCode, setOtpCode] = useState("");
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    // Timer
+
     useEffect(() => {
         if (timeLeft <= 0) return;
 
@@ -53,7 +53,7 @@ const VerifyEmail = () => {
         return `${mins}:${secs}`;
     };
 
-    // Verify API call
+
     const handleVerifyEmail = async (e) => {
         e.preventDefault();
 
@@ -84,7 +84,7 @@ const VerifyEmail = () => {
         }
     };
 
-    // Resend API call
+
     const handleResendCode = async () => {
         try {
             if (!verifyDetails) {
@@ -94,9 +94,9 @@ const VerifyEmail = () => {
             const { email } = verifyDetails;
 
             await backendApi.post("/auth/account/resend-code", { email });
-            setTimeLeft(10 * 60); // reset timer
+            setTimeLeft(10 * 60); 
             setError(null);
-            setOtpCode(""); // clear old input
+            setOtpCode(""); 
         } catch (error) {
             console.log(error);
             setError(error.response?.data?.message || error.message || "Failed to resend code");

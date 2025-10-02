@@ -36,7 +36,7 @@ const Stock = () => {
         if (response.success) {
           setStockItems(response.data);
           
-          // Calculate statistics
+
           setStats({
             totalProducts: response.data.length,
             inStock: response.data.filter(item => item.status === 'In Stock').length,
@@ -100,7 +100,7 @@ const Stock = () => {
       const minStockLevel = parseInt(newItem.minStockLevel) || 0;
       
       const newItemObj = {
-        id: Math.max(0, ...stockItems.map(item => item.id)) + 1, // Generate new ID
+        id: Math.max(0, ...stockItems.map(item => item.id)) + 1, 
         name: newItem.name,
         category: newItem.category,
         description: newItem.description,

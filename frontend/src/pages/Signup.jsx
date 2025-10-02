@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import {Link, useNavigate } from 'react-router-dom'
 import Loginimage from '../assets/Login.jpg'
-import { useAuthContext } from '../contexts/AuthContext.jsx'
+import { useAuth } from '../contexts/AuthContext.jsx'
 import { Eye, EyeOff } from 'lucide-react'
 
 const Signup = () => {
-  const { isAuthenticated, signup } = useAuthContext();
+  const { isAuthenticated, signup } = useAuth();
 
   const [confirmPassword, setConfirmPassword] = useState(''); // 'confirmPassword' is not send to the backend
   const [formData, setFormData] = useState({ enterpriseName: '', email: '', password: '' });

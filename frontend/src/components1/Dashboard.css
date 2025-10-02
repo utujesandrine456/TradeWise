@@ -3,7 +3,7 @@
 }
 
 .dashboard-header {
-  @apply flex justify-between items-start mb-8;
+  @apply flex justify-between items-start ;
 }
 
 .dashboard-header h1 {
@@ -14,7 +14,8 @@
   @apply text-gray-600 mt-2;
 }
 
-/* Stats Cards */
+
+
 .stats-card {
   @apply bg-white rounded-lg shadow p-6;
 }

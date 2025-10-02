@@ -1,16 +1,25 @@
-import { createContext, useContext } from "react";
-import { useAuth } from "../hooks/useAuth.js";
+import { createContext, useContext, useState } from "react";
 
-const AuthContext = createContext(null);
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const auth = useAuth(); // all values from your hook
+  const [user, setUser] = useState(null);
+
+  const login = (userData) => setUser(userData);
+  const logout = () => setUser(null);
+
   return (
-    <AuthContext.Provider value={auth}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// Custom hook to use Auth anywhere
-export const useAuthContext = () => useContext(AuthContext);
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};

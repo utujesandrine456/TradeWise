@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { MdTrendingUp, MdTrendingDown, MdInventory, MdShoppingCart, MdNotifications, MdBusiness } from 'react-icons/md';
-import { 
-  mockDashboardData, 
-  mockNotifications,
-  mockApiResponse
-} from '../__mock__';
+import { useState, useEffect } from 'react';
+import { MdTrendingUp, MdInventory, MdShoppingCart, MdBusiness } from 'react-icons/md';
+import { mockDashboardData, mockApiResponse} from '../__mock__';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import './Dashboard.css';
+
+
+
 
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [notifications, setNotifications] = useState([]);
-  const [showNotifications, setShowNotifications] = useState(false);
+
 
   useEffect(() => {
-    // Simulate API call to fetch dashboard data
     const fetchDashboardData = async () => {
       try {
         const response = await mockApiResponse(mockDashboardData);
@@ -30,102 +28,21 @@ const Dashboard = () => {
         setLoading(false);
       }
     };
-
-    const fetchNotifications = async () => {
-      try {
-        const response = await mockApiResponse(mockNotifications);
-        if (response.success) {
-          setNotifications(response.data);
-        }
-      } catch (err) {
-        console.error('Notifications error:', err);
-      }
-    };
-
+    
     fetchDashboardData();
-    fetchNotifications();
   }, []);
 
-  const markNotificationAsRead = (notificationId) => {
-    setNotifications(prev => prev.filter(n => n.id !== notificationId));
-  };
 
-  // No need for fetchDashboardData or fetchNotifications with mock data
 
-  // Loading and error states are not needed with mock data
   if (!dashboardData) {
     return <div className="text-center py-8">No dashboard data available</div>;
   }
 
-  const { user, today, this_month, inventory, recent_activity } = dashboardData;
+  const { today, this_month, inventory, recent_activity } = dashboardData;
+
 
   return (
     <div className="dashboard-container">
-      {/* Header */}
-      <div className="dashboard-header">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">
-            Welcome back, {user?.company_name || 'User'}!
-          </h1>
-          <p className="text-gray-600 mt-2">
-            Here's what's happening with your business today
-          </p>
-        </div>
-        
-        {/* Notifications */}
-        <div className="relative">
-          <button
-            onClick={() => setShowNotifications(!showNotifications)}
-            className="relative p-2 text-gray-600 hover:text-gray-900 focus:outline-none"
-          >
-            <MdNotifications className="h-6 w-6" />
-            {notifications.length > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {notifications.length}
-              </span>
-            )}
-          </button>
-          
-          {/* Notifications Dropdown */}
-          {showNotifications && (
-            <div className="absolute right-0 mt-2 w-80 bg-white rounded-md shadow-lg z-50 border">
-              <div className="py-2">
-                <div className="px-4 py-2 border-b">
-                  <h3 className="text-sm font-medium text-gray-900">Notifications</h3>
-                </div>
-                {notifications.length > 0 ? (
-                  notifications.map((notification) => (
-                    <div
-                      key={notification.id}
-                      className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
-                      onClick={() => markNotificationAsRead(notification.id)}
-                    >
-                      <div className="flex items-start">
-                        <div className="flex-shrink-0">
-                          <div className={`w-2 h-2 rounded-full ${
-                            notification.priority === 'high' ? 'bg-red-400' : 
-                            notification.priority === 'medium' ? 'bg-yellow-400' : 'bg-blue-400'
-                          }`}></div>
-                        </div>
-                        <div className="ml-3 flex-1">
-                          <p className="text-sm font-medium text-gray-900">{notification.title}</p>
-                          <p className="text-sm text-gray-600">{notification.message}</p>
-                          <p className="text-xs text-gray-400 mt-1">
-                        {new Date(notification.created_at).toLocaleString()}
-                      </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <div className="px-4 py-3 text-sm text-gray-500">No new notifications</div>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
       {/* Today's Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div className="bg-white rounded-lg shadow p-6">
@@ -136,7 +53,7 @@ const Dashboard = () => {
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Today's Sales</p>
               <p className="text-2xl font-semibold text-gray-900">
-                ${today?.sales?.total?.toFixed(2) || '0.00'}
+                {today?.sales?.total?.toFixed(2) || '0.00'}Frw
               </p>
               <p className="text-sm text-gray-500">{today?.sales?.count || 0} transactions</p>
             </div>
@@ -151,7 +68,7 @@ const Dashboard = () => {
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Today's Purchases</p>
               <p className="text-2xl font-semibold text-gray-900">
-                ${today?.purchases?.total?.toFixed(2) || '0.00'}
+                {today?.purchases?.total?.toFixed(2) || '0.00'}Frw
               </p>
               <p className="text-sm text-gray-500">{today?.purchases?.count || 0} transactions</p>
             </div>
@@ -166,7 +83,7 @@ const Dashboard = () => {
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Products</p>
               <p className="text-2xl font-semibold text-gray-900">
-                {inventory?.stats?.total_products || 0}
+                {inventory?.stats?.total_products || 0}Frw
               </p>
               <p className="text-sm text-gray-500">
                 {inventory?.stats?.in_stock || 0} in stock
@@ -183,7 +100,7 @@ const Dashboard = () => {
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">This Month</p>
               <p className="text-2xl font-semibold text-gray-900">
-                ${this_month?.sales?.total?.toFixed(2) || '0.00'}
+                {this_month?.sales?.total?.toFixed(2) || '0.00'}Frw
               </p>
               <p className="text-sm text-gray-500">Total revenue</p>
             </div>
@@ -191,12 +108,55 @@ const Dashboard = () => {
         </div>
       </div>
 
+
+
+      <div className="mt-8 bg-white rounded-lg shadow p-6">
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Sales vs Purchases (This Month)</h3>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={this_month?.daily || []}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="sales" stroke="#16a34a" strokeWidth={2} />
+            <Line type="monotone" dataKey="purchases" stroke="#2563eb" strokeWidth={2} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+
+
+      <div className="mt-8 bg-white rounded-lg shadow p-6">
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Inventory Distribution</h3>
+        <ResponsiveContainer width="100%" height={300}>
+          <PieChart>
+            <Pie
+              data={[
+                { name: "In Stock", value: inventory?.stats?.in_stock || 0 },
+                { name: "Out of Stock", value: inventory?.stats?.out_of_stock || 0 }
+              ]}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              outerRadius={120}
+              fill="#8884d8"
+              dataKey="value"
+              label
+            >
+              <Cell fill="#16a34a" />
+              <Cell fill="#dc2626" />
+            </Pie>
+            <Tooltip />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+
       {/* Inventory Alerts */}
       {(inventory?.low_stock_alerts?.length > 0 || inventory?.out_of_stock_alerts?.length > 0) && (
         <div className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Inventory Alerts</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Low Stock Alerts */}
+           
             {inventory.low_stock_alerts?.length > 0 && (
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <h3 className="text-lg font-medium text-yellow-800 mb-3">Low Stock Items</h3>
@@ -248,7 +208,7 @@ const Dashboard = () => {
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-medium text-gray-900">
-                      ${sale.total_price?.toFixed(2)}
+                      {sale.total_price?.toFixed(2)} Frw
                     </p>
                     <p className="text-xs text-gray-500">
                       {new Date(sale.created_at).toLocaleString()}
@@ -275,7 +235,7 @@ const Dashboard = () => {
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-medium text-gray-900">
-                      ${purchase.total_price?.toFixed(2)}
+                      {purchase.total_price?.toFixed(2)} Frw
                     </p>
                     <p className="text-xs text-gray-500">
                       {new Date(purchase.created_at).toLocaleString()}
@@ -297,15 +257,15 @@ const Dashboard = () => {
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <p className="text-sm font-medium text-gray-500">Business Type</p>
+                <p className="text-md font-medium text-[#BE741E]">Business Type</p>
                 <p className="text-sm text-gray-900">{dashboardData.business_profile.business_type}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Industry</p>
+                <p className="text-md font-medium text-[#BE741E]">Industry</p>
                 <p className="text-sm text-gray-900">{dashboardData.business_profile.industry}</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Employees</p>
+                <p className="text-md font-medium text-[#BE741E]">Employees</p>
                 <p className="text-sm text-gray-900">{dashboardData.business_profile.employee_count}</p>
               </div>
             </div>

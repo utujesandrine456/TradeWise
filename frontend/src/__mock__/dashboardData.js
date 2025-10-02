@@ -7,38 +7,52 @@ export const mockDashboardData = {
   },
   today: {
     sales: {
-      total: 12450.75,
+      total: 4650.75,
       count: 24,
       change: 12.5
     },
     purchases: {
-      total: 8560.30,
+      total: 8580.30,
       count: 18,
       change: 5.2
     }
   },
   this_month: {
     sales: {
-      total: 189450.25,
+      total: 1800.45,
       count: 342,
       change: 8.7
     },
     purchases: {
-      total: 124560.80,
+      total: 5960.80,
       count: 215,
       change: 3.4
-    }
+    },
+    daily: [
+      { date: "2025-09-01", sales: 5000, purchases: 3500 },
+      { date: "2025-09-02", sales: 2200, purchases: 5700 },
+      { date: "2025-09-03", sales: 6800, purchases: 5200 },
+      { date: "2025-09-05", sales: 3200, purchases: 3900 },
+      { date: "2025-09-07", sales: 6100, purchases: 7500 },
+      { date: "2025-09-08", sales: 4300, purchases: 8500 },
+      { date: "2025-09-10", sales: 7300, purchases: 4500 },
+      { date: "2025-09-13", sales: 8600, purchases: 4700 },
+      { date: "2025-09-16", sales: 6900, purchases: 8000 },
+      { date: "2025-09-19", sales: 9200, purchases: 5300 },
+      { date: "2025-09-23", sales: 7600, purchases: 5700 },
+      { date: "2025-09-28", sales: 8100, purchases: 9200 }
+    ]
   },
   inventory: {
-    total_items: 1245,
+    total_items: 569,
     low_stock: 42,
-    out_of_stock: 7,
+    out_of_stock: 59,
     categories: 18,
     stats: {
-      total_products: 1245,
-      in_stock: 1196,
-      low_stock: 42,
-      out_of_stock: 7
+      total_products: 738,
+      in_stock: 296,
+      low_stock: 149,
+      out_of_stock: 59
     },
     low_stock_alerts: [
       { id: 1, name: 'Premium Widget', quantity: 5, min_stock_level: 10, category: 'Widgets' },

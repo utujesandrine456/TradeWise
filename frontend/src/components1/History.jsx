@@ -5,7 +5,7 @@ import { MdSearch, MdFilterList, MdCalendarToday, MdReceipt, MdShoppingCart, MdA
 const History = () => {
   const [selectedFilter, setSelectedFilter] = useState('all');
   
-  // Sample transaction history data
+
   const transactions = [
     { 
       id: 1, 

@@ -3,7 +3,6 @@ import { MdAdd, MdSearch, MdFilterList, MdEdit, MdDelete, MdVisibility, MdShoppi
 import PurchaseOrderForm from './forms/PurchaseOrderForm';
 
 
-
 const BuyingProducts = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');

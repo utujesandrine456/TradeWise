@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import {Link, useNavigate } from 'react-router-dom';
 import Signupimage from '../assets/Login.jpg';
 import { EyeOff, Eye } from 'lucide-react';
-import { useAuthContext } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
+
+
 
 const Login = () => {
-  const {isAuthenticated, login} = useAuthContext();
+  const {isAuthenticated, login} = useAuth();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');

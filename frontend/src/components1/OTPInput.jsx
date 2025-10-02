@@ -7,14 +7,14 @@ const OTPInput = ({ length = 6, onComplete, time }) => {
     const handleChange = (e, idx) => {
         if(time < 0) return;
         
-        const val = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""); // allow Upper-case letters and numbers
+        const val = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""); 
         if (!val) return;
 
         const newValues = [...values];
-        newValues[idx] = val.slice(-1); // only last digit
+        newValues[idx] = val.slice(-1); 
         setValues(newValues);
 
-        // Move to next input if not last
+
         if (idx < length - 1) {
             inputsRef.current[idx + 1].focus();
         }
@@ -29,11 +29,11 @@ const OTPInput = ({ length = 6, onComplete, time }) => {
             e.preventDefault();
             const newValues = [...values];
             if (values[idx]) {
-                // if current input has a value, just clear it
+            
                 newValues[idx] = "";
                 setValues(newValues);
             } else if (idx > 0) {
-                // if empty, move focus back and clear previous
+
                 newValues[idx - 1] = "";
                 setValues(newValues);
                 inputsRef.current[idx - 1].focus();
@@ -58,7 +58,7 @@ const OTPInput = ({ length = 6, onComplete, time }) => {
         });
         setValues(newValues);
 
-        // Move focus to last filled input
+
         const lastIndex = pasteData.length - 1;
         if (inputsRef.current[lastIndex]) {
             inputsRef.current[lastIndex].focus();
