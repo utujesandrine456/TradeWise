@@ -8,7 +8,6 @@ import { GqlTransactionCreateProductInput, TTransactionCreateProduct } from './t
 import { GqlFinancialCreateInput } from '../financials/financials.types';
 import { FinancialsService } from '../financials/financials.service';
 
-
 @Resolver()
 export class TransactionResolver {
   public constructor(
@@ -22,7 +21,7 @@ export class TransactionResolver {
   ) {
     return await this.transactionService.getTransactionById(user.sub, transactionId);
   }
-  
+
   @Query(() => [MGqlTransaction])
   public async getAllTransactions(
     @CurrentUser() user: IJwtPayload,
