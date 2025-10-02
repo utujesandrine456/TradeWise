@@ -71,18 +71,6 @@ model MStock {
     transactions MTransaction[] @relation("trader_transaction")
     financials MFinancial[] @relation("stock_financials")
     buyList MBuyList[] @relation("buy_list_stock")
-    soldStock MSoldStock[] @relation("stock_sold_stock")
-}
-
-model MSoldStock {
-    id String @id @default(ulid())
-    //timestamps
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    //relations
-    stockId String
-    stock MStock @relation("stock_sold_stock", fields: [stockId], references: [id], onDelete: Cascade)
-    products MProduct[] @relation("sold_stock_products")
 }
 
 enum EUnitType {
@@ -95,6 +83,7 @@ model MStockImage {
     id String @id @default(ulid())
     name String @db.VarChar(40)
     unit EUnitType @default(Piece)
+    quantity Int @default(0) // total quantity of the product in stock
     //timestamps
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -117,7 +106,6 @@ model MProduct {
     //relations
     stockImageId String
     stockImage MStockImage @relation("stock_images_products", fields: [stockImageId], references: [id])
-    soldStock MSoldStock[] @relation("sold_stock_products")
     transactions MTransaction[] @relation("transaction_products")
 }
 
@@ -162,11 +150,14 @@ model MFinancial {
     id String @id @default(ulid())
     type ENFinancialType @default(Credit)
     amount Float
+
     description String
-    collateral String // collateral for the loan
+    collateral String? // collateral for the loan
+
+    isPaidBack Boolean @default(false)
 
     //timestamps
-    deadline DateTime // deadline for the loan
+    deadline DateTime? // deadline for the loan
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     //relations

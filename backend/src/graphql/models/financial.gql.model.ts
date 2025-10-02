@@ -18,10 +18,16 @@ export class MGqlFinancial {
     amount: number;
 
     @Field()
-    description: string;
+    isPaidBack: number;
+
+    @Field(() => Date, { nullable: true })
+    deadline?: number;
 
     @Field()
-    collateral: string;
+    description: string;
+
+    @Field({ nullable: true })
+    collateral?: string;
 
     @Field(() => Date)
     createdAt: Date;
@@ -38,6 +44,6 @@ export class MGqlFinancial {
     @Field()
     transactionId: string;
 
-    @Field(() => MGqlTransaction)
+    @Field(() => MGqlTransaction, { nullable: true })
     transaction: MGqlTransaction;
 }

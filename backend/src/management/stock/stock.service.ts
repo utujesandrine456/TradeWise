@@ -130,4 +130,15 @@ export class StockService {
                     throw new BadRequestException('Product not found');
         }
     }
+
+    public async getStock(traderId: string) {
+        const stock = await this.prismaService.mStock.findMany({
+            where: { traderId },
+            include: { 
+                trader: true,
+                images: true
+            }
+        });
+        return stock;
+    }
 }

@@ -8,3 +8,4 @@ export * from "./models/product.gql.model";
 export * from "./models/buylist.gql.model";
 export * from "./models/stockImage.gql.model";
 export * from "./models/soldstock.model";
+export * from "./models/analysis.gql.model";

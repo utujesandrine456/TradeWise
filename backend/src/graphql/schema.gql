@@ -35,6 +35,14 @@ enum EUnitType {
   Piece
 }
 
+input GqlFinancialCreateInput {
+  amount: Float!
+  collateral: String
+  deadline: DateTime
+  description: String!
+  type: ENFinancialType!
+}
+
 input GqlTransactionCreateProductInput {
   brand: String
   name: String!
@@ -54,13 +62,15 @@ type MGqlBuyList {
 
 type MGqlFinancial {
   amount: Float!
-  collateral: String!
+  collateral: String
   createdAt: DateTime!
+  deadline: DateTime
   description: String!
   id: String!
+  isPaidBack: Float!
   stock: MGqlStock!
   stockId: String!
-  transaction: MGqlTransaction!
+  transaction: MGqlTransaction
   transactionId: String!
   type: ENFinancialType!
   updatedAt: DateTime!
@@ -174,15 +184,20 @@ type MGqlTransaction {
 }
 
 type Mutation {
+  createFinancial(amount: Float!, collateral: String, deadline: DateTime, description: String!, type: ENFinancialType!): MGqlFinancial!
   createStockImage(name: String!, unit: EUnitType!): MGqlStockImage!
-  createTransaction(description: String!, products: [GqlTransactionCreateProductInput!]!, secondParty: String!, type: ENTransactionType!): MGqlTransaction!
+  createTransaction(description: String!, financialDetails: GqlFinancialCreateInput, products: [GqlTransactionCreateProductInput!]!, secondParty: String!, type: ENTransactionType!): MGqlTransaction!
   deleteStockImage(stockImageId: String!): MGqlStockImage!
+  markAsPaidBack(financialId: String!): MGqlFinancial!
   updateStockImage(name: String, stockImageId: String!, unit: EUnitType): MGqlStockImage!
 }
 
 type Query {
   getAllTransactions(type: ENTransactionType): [MGqlTransaction!]!
+  getFinancial(financialId: String!): MGqlFinancial!
+  getFinancials: [MGqlFinancial!]!
   getHello: String!
+  getStock: MGqlStock
   getStockImage(id: String!): MGqlStockImage
   getStockImages: [MGqlStockImage!]
   getTransaction(transactionId: String!): MGqlTransaction!

@@ -3,11 +3,14 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { TTransactionCreateDetails } from './transaction.types';
 import { ENTransactionType, MProduct } from 'generated/prisma';
 import { generateUlid } from 'id-tools';
+import { TFinancialCreateDetails } from '../financials/financials.types';
+import { FinancialsService } from '../financials/financials.service';
 
 @Injectable()
 export class TransactionService {
     public constructor(
-        private readonly prismaService: PrismaService
+        private readonly prismaService: PrismaService,
+        private readonly financialService: FinancialsService,
     ) {}
 
     public async getAllTransactions(traderId: string, type?: string) {
@@ -58,8 +61,14 @@ export class TransactionService {
         return transaction;
     }
 
-    public async createTransaction(traderId: string, details: TTransactionCreateDetails) {
-        const {type, description, secondParty, products} = details;
+    public async createTransaction(
+        traderId: string, 
+        details: TTransactionCreateDetails, 
+        financialDetails?: TFinancialCreateDetails
+    ) {
+        const { type, description, secondParty, products } = details;
+
+
         const stock = await this.prismaService.mStock.findFirst({
             where: { traderId }
         });
@@ -82,28 +91,25 @@ export class TransactionService {
                 missingProducts.push(product.name);
             } else {
                 validatedProducts.push({
-                id: generateUlid(),
-                name: product.name,
-                stockImageId: stockImg.id,
-                quantity: product.quantity,
-                price: product.price,
-                brand: product.brand ?? null,
-                createdAt: now,
-                updatedAt: now,
+                    id: generateUlid(),
+                    name: product.name,
+                    stockImageId: stockImg.id,
+                    quantity: product.quantity,
+                    price: product.price,
+                    brand: product.brand ?? null,
+                    createdAt: now,
+                    updatedAt: now,
                 });
             }
         }
 
         if (missingProducts.length > 0) {
-            throw new BadRequestException(
-                `The following products are missing stock images: ${missingProducts.join(
-                ", "
-                )}. Please add them first.`
-            );
+            throw new BadRequestException(`The following products are missing stock images: ${missingProducts.join(", ")}. Please add them first.`);
         }
 
         const transaction = await this.prismaService.mTransaction.create({
             data: {
+                id: generateUlid(),
                 type,
                 description,
                 secondParty,
@@ -115,10 +121,26 @@ export class TransactionService {
                         createdAt, updatedAt,
                     })),
                 },
+                financials: financialDetails 
+                    ? {
+                        create: {
+                            id: generateUlid(),
+                            type: financialDetails.type,
+                            amount: financialDetails.amount,
+                            description: financialDetails.description,
+                            collateral: financialDetails.collateral,
+                            deadline: financialDetails.deadline ?? undefined,
+                            stockId: stock.id,
+                        }
+                    } 
+                : undefined,
             },
             include: {
-                products: true,
+                products: {
+                    orderBy: { createdAt: 'desc' }
+                },
                 stock: { include: { trader: true } },
+                financials: true,
             },
         });
 
