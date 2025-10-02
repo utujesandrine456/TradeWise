@@ -1,0 +1,72 @@
+export const mockStockItems = [
+  {
+    id: 1,
+    name: 'Premium Widget',
+    category: 'Widgets',
+    description: 'High-quality widget for professional use',
+    purchase_price: 15.99,
+    selling_price: 29.99,
+    quantity: 45,
+    min_stock_level: 10,
+    status: 'In Stock',
+    supplier: 'Widgets Inc.',
+    created_at: '2025-08-15T10:30:00Z',
+    updated_at: '2025-09-10T14:20:00Z'
+  },
+  {
+    id: 2,
+    name: 'Basic Components Kit',
+    category: 'Electronics',
+    description: 'Starter kit for electronic projects',
+    purchase_price: 29.50,
+    selling_price: 49.99,
+    quantity: 8,
+    min_stock_level: 15,
+    status: 'Low Stock',
+    supplier: 'ElectroParts Ltd',
+    created_at: '2025-09-01T09:15:00Z',
+    updated_at: '2025-09-14T11:45:00Z'
+  },
+  {
+    id: 3,
+    name: 'Power Adapter',
+    category: 'Electronics',
+    description: 'Universal power adapter with multiple tips',
+    purchase_price: 8.75,
+    selling_price: 19.99,
+    quantity: 0,
+    min_stock_level: 5,
+    status: 'Out of Stock',
+    supplier: 'PowerTech',
+    created_at: '2025-07-20T13:20:00Z',
+    updated_at: '2025-09-12T16:30:00Z'
+  },
+  {
+    id: 4,
+    name: 'USB-C Cable',
+    category: 'Accessories',
+    description: '3ft USB-C to USB-C cable',
+    purchase_price: 3.25,
+    selling_price: 9.99,
+    quantity: 32,
+    min_stock_level: 20,
+    status: 'In Stock',
+    supplier: 'CableMasters',
+    created_at: '2025-08-05T11:10:00Z',
+    updated_at: '2025-09-11T10:15:00Z'
+  },
+  {
+    id: 5,
+    name: 'Wireless Mouse',
+    category: 'Peripherals',
+    description: 'Ergonomic wireless mouse with silent click',
+    purchase_price: 12.99,
+    selling_price: 24.99,
+    quantity: 5,
+    min_stock_level: 8,
+    status: 'Low Stock',
+    supplier: 'TechGadgets Inc',
+    created_at: '2025-08-22T14:45:00Z',
+    updated_at: '2025-09-13T09:30:00Z'
+  }
+];

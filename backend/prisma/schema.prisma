@@ -1,0 +1,213 @@
+generator client {
+    provider = "prisma-client-js"
+    output   = "../generated/prisma"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model MTrader {
+    id String @id @default(ulid())
+    enterpriseName String  //or (username) the company name
+    //business email & phone for communication when one null, other is used
+    email String? @unique
+    phone String? @unique
+    
+    password String
+    
+    resetPasswordToken String?
+    verifyAccountToken String?
+    //timestamps
+    resetPasswordExpires DateTime?
+    verifyAccountExpires DateTime?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    lastLogin DateTime @default(now())
+    //relations
+    stock MStock? @relation("trader_stock")
+    notifications MNotification[]
+    settings MTraderSettings? @relation("trader_settings")
+
+    @@index([email])
+    @@index([phone])
+}
+
+enum SendMessage {
+    Email
+    Phone
+}
+
+model MTraderSettings{ // contains both profile and basic settings
+    id String @id @default(ulid())
+    enterpriseDescription String @db.VarChar(255)
+    logo_PublicId String // for storing public_id
+    logoUrl String // to show 
+    name String //name of the trader
+    evaluationPeriod Int @default(7) // in days(weekly) 
+    deleteSoldStockAfterEvaluationPeriod Boolean @default(false)
+    ussdCode String
+    sendMessage SendMessage @default(Email)
+    //timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    traderId String @unique
+    trader   MTrader  @relation("trader_settings", fields: [traderId], references: [id], onDelete: Cascade)
+}
+
+model MStock {
+    id String @id @default(ulid())
+    //timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    markAsBought Boolean @default(false) // the schedule will remove it
+    //relations
+    traderId String @unique
+    trader   MTrader  @relation("trader_stock", fields: [traderId], references: [id], onDelete: Cascade)
+    images MStockImage[] @relation("stock_images")
+    transactions MTransaction[] @relation("trader_transaction")
+    financials MFinancial[] @relation("stock_financials")
+    buyList MBuyList[] @relation("buy_list_stock")
+    soldStock MSoldStock[] @relation("stock_sold_stock")
+}
+
+model MSoldStock {
+    id String @id @default(ulid())
+    //timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    stockId String
+    stock MStock @relation("stock_sold_stock", fields: [stockId], references: [id], onDelete: Cascade)
+    products MProduct[] @relation("sold_stock_products")
+}
+
+enum EUnitType {
+    Piece
+    Kilogram
+    Litre
+}
+
+model MStockImage {
+    id String @id @default(ulid())
+    name String
+    unit EUnitType @default(Piece)
+    //timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    stockId String
+    stock MStock @relation("stock_images", fields: [stockId], references: [id], onDelete: Cascade)
+    products MProduct[] @relation("stock_images_products")
+}
+
+model MProduct {
+    id String @id @default(ulid())
+    name String @db.VarChar(40) // must refrect the stock_image name
+    quantity Int @default(0)
+    //timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    stockImageId String
+    stockImage MStockImage @relation("stock_images_products", fields: [stockImageId], references: [id])
+    soldStock MSoldStock[] @relation("sold_stock_products")
+}
+
+model MBuyList { // item added in check
+    id String @id @default(ulid())
+    name String @db.VarChar(40) // must refrect the stock_image name
+    quantity Float?
+    //timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    stockId String
+    stock MStock @relation("buy_list_stock", fields: [stockId], references: [id])
+}
+
+enum ENTransactionType {
+    Purchase
+    Sale
+}
+
+model MTransaction {
+    id String @id @default(ulid())
+    type ENTransactionType @default(Sale)
+    description String
+    secondParty String //the customer(sales)/sales-man(purchase)
+    //timestampa
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    stockId String
+    stock MStock @relation("trader_transaction", fields: [stockId], references: [id])
+    products    MTransactionProduct[] // store productId + amount + price (child table)
+    financials MFinancial[] @relation("transaction_financials")
+}
+
+model MTransactionProduct {
+    transactionId String
+    transaction   MTransaction @relation(fields: [transactionId], references: [id])
+    productId     String
+    amount        Float
+    price         Float
+    //timestamp
+    createdAt     DateTime     @default(now())
+    @@id([transactionId, productId]) // composite primary key
+}
+
+enum ENFinancialType {
+    Credit
+    Debit
+}
+
+model MFinancial {
+    id String @id @default(ulid())
+    type ENFinancialType @default(Credit)
+    amount Float
+    description String
+    collateral String // collateral for the loan
+
+    //timestamps
+    deadline DateTime // deadline for the loan
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    stockId String
+    stock MStock @relation("stock_financials", fields: [stockId], references: [id])
+    transactionId String?
+    transaction MTransaction? @relation("transaction_financials", fields: [transactionId], references: [id])
+}
+
+// Notifications
+enum ENNotificationImpact {
+    Low
+    Medium
+    High
+}
+
+enum ENNotificationFilterType {
+    INFO
+    WARNING
+    SUCCESS
+}
+
+model MNotification {
+    id String @id @default(ulid())
+    title String @db.VarChar(20) @map("noti_title")
+    message String @db.VarChar(255) @map("noti_message")
+    impact ENNotificationImpact @default(Medium)
+    filterType ENNotificationFilterType @default(INFO)
+    // the type depends on filter type, eg info has payment_received and new_item_inChat
+    type String @db.VarChar(20) @map("noti_type")
+    read Boolean @default(false)
+    //timestamps
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    //relations
+    traderId String
+    trader MTrader @relation(fields: [traderId], references: [id])
+}
