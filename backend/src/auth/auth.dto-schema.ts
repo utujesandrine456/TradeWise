@@ -1,3 +1,4 @@
+import { EUnitType } from 'generated/prisma';
 import * as Joi from 'joi';
 
 export const registerSchema = Joi.object({
@@ -28,6 +29,7 @@ export const onboardingSchema = Joi.object({
     deleteSoldStockAfterEvaluationPeriod: Joi.boolean().optional(),
     ussdCode: Joi.string().optional(),
     sendMessage: Joi.string().optional(),
+    currency: Joi.string().optional(),
 });
 
 export const forgetPasswordSchema = Joi.object({

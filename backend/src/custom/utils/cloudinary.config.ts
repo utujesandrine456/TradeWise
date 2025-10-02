@@ -20,7 +20,7 @@ export const storage = new CloudinaryStorage({
     allowed_formats: ['png', 'jpg', 'jpeg', 'gif', 'webp'],
     resource_type: 'auto',
     format: 'webp',
-    transformation: [{ width: 500, height: 500, crop: 'limit' }],
+    transformation: [{ width: 150, height: 150, crop: 'limit' }],
   }),
 });
 

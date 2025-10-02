@@ -1,4 +1,4 @@
-import { SendMessage } from "generated/prisma";
+import { EUnitType, SendMessage } from "generated/prisma";
 
 export interface IJwtPayload {
     sub: string; // the id
@@ -32,7 +32,12 @@ export type TOnboardingDetails = {
     evaluationPeriod?: number,
     deleteSoldStockAfterEvaluationPeriod?: boolean,
     ussdCode?: string,
-    sendMessage?: SendMessage
+    currency?: string,
+    sendMessage?: SendMessage,
+    products?: {
+        name: string;
+        unit: EUnitType;
+    }[]
 }
 
 export type TSendOtpDetails = {

@@ -6,6 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { EmailModule } from 'src/communication/email/email.module';
+import { CurrencyModule } from 'src/custom/utils/currency.md';
 
 @Module({
     imports: [
@@ -16,9 +17,10 @@ import { EmailModule } from 'src/communication/email/email.module';
             signOptions: { expiresIn: '7d' },
         }),
         EmailModule,
+        CurrencyModule
     ],
     controllers: [
-        AuthController, 
+        AuthController,
         Auth2Controller
     ],
     providers: [

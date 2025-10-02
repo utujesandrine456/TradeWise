@@ -1,7 +1,10 @@
-import { Field, ObjectType } from "@nestjs/graphql";
+import { Field, ObjectType, registerEnumType } from "@nestjs/graphql";
 import { ENFinancialType } from "generated/prisma";
-import { MGqlTransaction } from "./transaction.gql.model";
-import { MGqlStock } from "./stock.gql.model";
+import { MGqlStock, MGqlTransaction } from "../circular-dependency";
+
+registerEnumType(ENFinancialType, {
+    name: "ENFinancialType"
+})
 
 @ObjectType()
 export class MGqlFinancial {

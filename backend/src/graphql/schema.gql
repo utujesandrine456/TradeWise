@@ -2,10 +2,188 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum ENFinancialType {
+  Credit
+  Debit
+}
+
+enum ENNotificationFilterType {
+  INFO
+  SUCCESS
+  WARNING
+}
+
+enum ENNotificationImpact {
+  High
+  Low
+  Medium
+}
+
+enum ENTransactionType {
+  Purchase
+  Sale
+}
+
+enum EUnitType {
+  Kilogram
+  Litre
+  Piece
+}
+
+input GqlTransactionCreateProductInput {
+  brand: String
+  name: String!
+  price: Float!
+  quantity: Int!
+}
+
+type MGqlBuyList {
+  createdAt: DateTime!
+  id: String!
+  name: String!
+  quantity: Float
+  stock: MGqlStock!
+  stockId: String!
+  updatedAt: DateTime!
+}
+
+type MGqlFinancial {
+  amount: Float!
+  collateral: String!
+  createdAt: DateTime!
+  description: String!
+  id: String!
+  stock: MGqlStock!
+  stockId: String!
+  transaction: MGqlTransaction!
+  transactionId: String!
+  type: ENFinancialType!
+  updatedAt: DateTime!
+}
+
+type MGqlNotification {
+  createdAt: DateTime!
+  filterType: ENNotificationFilterType!
+  id: String!
+  impact: ENNotificationImpact!
+  message: String!
+  read: Boolean!
+  title: String!
+  trader: MGqlTrader!
+  traderId: String!
+  type: String!
+  updatedAt: DateTime!
+}
+
+type MGqlProduct {
+  brand: String
+  createdAt: DateTime!
+  id: String!
+  name: String!
+  price: Float!
+  quantity: Float!
+  soldStock: [MGqlSoldStock!]!
+  stockImage: MGqlStockImage!
+  stockImageId: String!
+  updatedAt: DateTime!
+}
+
+type MGqlSoldStock {
+  createdAt: DateTime!
+  id: String!
+  products: [MGqlProduct!]!
+  stock: MGqlStock!
+  stockId: String!
+  updatedAt: DateTime!
+}
+
+type MGqlStock {
+  buyList: [MGqlBuyList!]!
+  createdAt: DateTime!
+  financials: [MGqlFinancial!]!
+  id: String!
+  images: [MGqlStockImage!]!
+  markAsBought: Boolean!
+  products: [MGqlProduct!]!
+  soldStock: [MGqlSoldStock!]!
+  trader: MGqlTrader!
+  traderId: String!
+  transactions: [MGqlTransaction!]!
+  updatedAt: DateTime!
+}
+
+type MGqlStockImage {
+  createdAt: DateTime!
+  id: String!
+  name: String!
+  stock: MGqlStock!
+  stockId: String!
+  unit: EUnitType!
+  updatedAt: DateTime!
+}
+
+type MGqlTrader {
+  createdAt: DateTime!
+  email: String
+  enterpriseName: String!
+  id: String!
+  lastLogin: DateTime!
+  notifications: [MGqlNotification!]!
+  phone: String
+  resetPasswordExpires: DateTime!
+  resetPasswordToken: String!
+  settings: MGqlTraderSettings!
+  stock: MGqlStock!
+  updatedAt: DateTime!
+  verifyAccountExpires: DateTime!
+  verifyAccountToken: String!
+}
+
+type MGqlTraderSettings {
+  createdAt: DateTime!
+  deleteSoldStockAfterEvaluationPeriod: Boolean!
+  enterpriseDescription: String!
+  evaluationPeriod: Float!
+  id: String!
+  logoUrl: String!
+  logo_PublicId: String!
+  name: String!
+  sendMessage: String!
+  trader: MGqlTrader!
+  traderId: String!
+  updatedAt: DateTime!
+  ussdCode: String!
+}
+
+type MGqlTransaction {
+  createdAt: DateTime!
+  description: String!
+  financials: [MGqlFinancial!]
+  id: String!
+  products: [MGqlProduct!]!
+  secondParty: String!
+  stock: MGqlStock!
+  stockId: String!
+  type: ENTransactionType!
+  updatedAt: DateTime!
+}
+
 type Mutation {
-  createTransaction: String!
+  createStockImage(name: String!, unit: EUnitType!): MGqlStockImage!
+  createTransaction(description: String!, products: [GqlTransactionCreateProductInput!]!, secondParty: String!, type: ENTransactionType!): MGqlTransaction!
+  deleteStockImage(stockImageId: String!): MGqlStockImage!
+  updateStockImage(name: String, stockImageId: String!, unit: EUnitType): MGqlStockImage!
 }
 
 type Query {
+  getAllTransactions(type: ENTransactionType): [MGqlTransaction!]!
   getHello: String!
+  getStockImage(id: String!): MGqlStockImage
+  getStockImages: [MGqlStockImage!]
+  getTransaction(transactionId: String!): MGqlTransaction!
 }

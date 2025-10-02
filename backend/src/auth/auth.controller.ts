@@ -12,6 +12,7 @@ import { SanitizeInterceptor } from 'src/custom/interceptors/sanitize/sanitize.i
 import { FileInterceptor } from '@nestjs/platform-express';
 import { v2 as cloudinary } from 'cloudinary';
 import { storage } from 'src/custom/utils/cloudinary.config';
+import * as multer from 'multer';
 
 @UseInterceptors(SanitizeInterceptor)
 @Controller('auth')
@@ -91,16 +92,25 @@ export class AuthController {
     public async onboarding(
         @ValidatedBody(onboardingSchema) dto: any,
         @CurrentUser() user: IJwtPayload,
-        @UploadedFile() logo: Express.Multer.File
+        @UploadedFile() logo?: Express.Multer.File
     ) {
-        const onboarding = await this.authService.getOnboarding(user.sub);
-        if (onboarding.logo_PublicId)
-            await cloudinary.uploader.destroy(onboarding.logo_PublicId);
+        try {    
+            const onboarding = await this.authService.getOnboarding(user.sub);
+            if (logo && onboarding.logo_PublicId)
+                await cloudinary.uploader.destroy(onboarding.logo_PublicId);
+    
+            return await this.authService.onboarding({
+                ...dto, 
+                logoUrl: logo?.path,
+                logo_PublicId: logo?.filename
+            }, user.sub);
+        } catch (error) {
+            if(logo?.filename && error instanceof multer.MulterError){
+                await cloudinary.uploader.destroy(logo?.filename);
+                throw new BadRequestException(error.message);
+            }
 
-        return await this.authService.onboarding({
-            ...dto, 
-            logoUrl: logo?.path,
-            logo_PublicId: logo.filename
-        }, user.sub);
+            throw error;
+        }
     }
 }
