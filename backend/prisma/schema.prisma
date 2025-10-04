@@ -13,10 +13,8 @@ model MTrader {
     enterpriseName String  //or (username) the company name
     //business email & phone for communication when one null, other is used
     email String? @unique
-    phone String? @unique
-    
-    password String
-    
+    phone String? @unique    
+    password String  
     resetPasswordToken String?
     verifyAccountToken String?
     //timestamps

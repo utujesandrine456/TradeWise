@@ -2,6 +2,17 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Analysis {
+  analysisPeriod: PeriodMap!
+  finance: FinanceMap!
+  products: ProductMap!
+  profit: Float!
+  stock: MGqlStock!
+  totalPurchases: Float!
+  totalSales: Float!
+  transactions: [MGqlTransaction!]!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -33,6 +44,11 @@ enum EUnitType {
   Kilogram
   Litre
   Piece
+}
+
+type FinanceMap {
+  credits: Float!
+  debits: Float!
 }
 
 input GqlFinancialCreateInput {
@@ -192,6 +208,16 @@ type Mutation {
   updateStockImage(name: String, stockImageId: String!, unit: EUnitType): MGqlStockImage!
 }
 
+type PeriodMap {
+  endDate: DateTime!
+  startDate: DateTime!
+}
+
+type ProductMap {
+  bought: [MGqlProduct!]!
+  sold: [MGqlProduct!]!
+}
+
 type Query {
   getAllTransactions(type: ENTransactionType): [MGqlTransaction!]!
   getFinancial(financialId: String!): MGqlFinancial!
@@ -201,4 +227,5 @@ type Query {
   getStockImage(id: String!): MGqlStockImage
   getStockImages: [MGqlStockImage!]
   getTransaction(transactionId: String!): MGqlTransaction!
+  stockAnalysis(end: DateTime, start: DateTime): Analysis!
 }

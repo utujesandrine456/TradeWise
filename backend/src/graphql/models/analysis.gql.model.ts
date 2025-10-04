@@ -1,30 +1,58 @@
 import { Field, ObjectType, Float } from "@nestjs/graphql";
-import { MGqlStock } from "./stock.gql.model";
-import { MGqlProduct } from "./product.gql.model";
+import { MGqlTransaction, MGqlProduct, MGqlStock } from "../circular-dependency";
+
+@ObjectType()
+class ProductMap {
+  @Field(() => [MGqlProduct])
+  bought: MGqlProduct[];
+
+  @Field(() => [MGqlProduct])
+  sold: MGqlProduct[];
+}
+
+@ObjectType()
+class FinanceMap {
+  @Field(() => Float)
+  credits: number;
+
+  @Field(() => Float)
+  debits: number;
+}
+
+@ObjectType()
+class PeriodMap {
+  @Field(() => Date)
+  startDate: Date;
+
+  @Field(() => Date)
+  endDate: Date;
+}
 
 @ObjectType('Analysis')
 export class MGqlStockAnalysis {
-    @Field(() => MGqlStock)
-    stock: MGqlStock;
+  @Field(() => PeriodMap)
+  analysisPeriod: PeriodMap; // startDate, endDate
+  //start: more past, end: more recent 
 
-    @Field(() => [MGqlProduct])
-    soldProducts: MGqlProduct[];
+  @Field(() => MGqlStock)
+  stock: MGqlStock;
 
-    @Field(() => [MGqlProduct])
-    boughtProducts: MGqlProduct[];
+  @Field(() => ProductMap)
+  products: ProductMap; // bought & sold products
 
-    @Field(() => Float)
-    totalSales: number; // Total revenue from sold products
+  @Field(() => [MGqlTransaction])
+  transactions: MGqlTransaction[];
 
-    @Field(() => Float)
-    totalPurchases: number; // Total cost from bought products
+  @Field(() => Float)
+  // Total revenue from sold products
+  totalSales: number;
 
-    @Field(() => Float)
-    profit: number; // totalSales - totalPurchases (can be negative: loss)
+  @Field(() => Float)
+  totalPurchases: number; // Total cost from bought products
 
-    @Field(() => [Date, Date])
-    analysisPeriod: [Date, Date]; // [startDate, endDate]
+  @Field(() => Float)
+  profit: number; // totalSales - totalPurchases (can be negative: loss)
 
-    @Field(() => [Float, Float])
-    finance: [number, number] // [credits, debits]
+  @Field(() => FinanceMap)
+  finance: FinanceMap // [credits, debits]
 }
