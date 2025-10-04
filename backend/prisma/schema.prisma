@@ -153,6 +153,7 @@ model MFinancial {
     collateral String? // collateral for the loan
 
     isPaidBack Boolean @default(false)
+    isNotified Boolean @default(false)
 
     //timestamps
     deadline DateTime? // deadline for the loan

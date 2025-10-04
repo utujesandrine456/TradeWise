@@ -51,7 +51,7 @@ import { IJwtPayload } from './auth/auth.types';
         AuthModule,
         CommunicationModule,
         PrismaModule,
-        ManagementModule
+        ManagementModule,
     ],
     controllers: [AppController],
     providers: [AppService, AppResolver, EmailService],
