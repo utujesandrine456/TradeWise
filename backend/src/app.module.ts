@@ -14,6 +14,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { SettingsMiddleware } from './custom/middlewares/settings/settings.middleware';
 import { ManagementModule } from './management/management.module';
 import { IJwtPayload } from './auth/auth.types';
+import { ScheduleModule } from './schedule/schedule.module';
 
 @Module({
     imports: [
@@ -48,6 +49,7 @@ import { IJwtPayload } from './auth/auth.types';
                 return { req, res, user }; 
             },
         }),
+        ScheduleModule,
         AuthModule,
         CommunicationModule,
         PrismaModule,
