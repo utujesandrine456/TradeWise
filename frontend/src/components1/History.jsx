@@ -73,7 +73,7 @@ const History = () => {
   };
 
   const getTypeIcon = (type) => {
-    return type === 'sale' ? <MdShoppingCart className="text-green-600" /> : <MdAttachMoney className="text-blue-600" />;
+    return type === 'sale' ? <MdShoppingCart className="text-[#BE741E]" /> : <MdAttachMoney className="text-[#BE741E]" />;
   };
 
   return (
@@ -96,10 +96,10 @@ const History = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 text-sm">Total Transactions</p>
-              <p className="text-2xl font-bold text-gray-800">54</p>
+              <p className="text-3xl font-bold text-gray-800">54 </p>
             </div>
-            <div className="bg-blue-100 p-3 rounded-lg">
-              <MdReceipt className="text-blue-600 text-2xl" />
+            <div className="bg-[#BE741E] p-3 mt-4 rounded-lg">
+              <MdReceipt className="text-white text-2xl" />
             </div>
           </div>
         </div>
@@ -107,10 +107,10 @@ const History = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 text-sm">Total Sales</p>
-              <p className="text-2xl font-bold text-green-600">342,000 Frw</p>
+              <p className="text-2xl font-bold text-gray-800">342,000 Frw</p>
             </div>
-            <div className="bg-green-100 p-3 rounded-lg">
-              <MdShoppingCart className="text-green-600 text-2xl" />
+            <div className="bg-[#BE741E] p-3 rounded-lg">
+              <MdShoppingCart className="text-[#fff] text-2xl" />
             </div>
           </div>
         </div>
@@ -118,10 +118,10 @@ const History = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 text-sm">Total Purchases</p>
-              <p className="text-2xl font-bold text-blue-600">234,000 Frw</p>
+              <p className="text-2xl font-bold text-gray-800">234,000 Frw</p>
             </div>
-            <div className="bg-blue-100 p-3 rounded-lg">
-              <MdAttachMoney className="text-blue-600 text-2xl" />
+            <div className="bg-[#BE741E] p-3 rounded-lg">
+              <MdAttachMoney className="text-[#fff] text-2xl" />
             </div>
           </div>
         </div>
@@ -129,10 +129,10 @@ const History = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 text-sm">Net Profit</p>
-              <p className="text-2xl font-bold text-purple-600">108,000 Frw</p>
+              <p className="text-2xl font-bold text-gray-800">108,000 Frw</p>
             </div>
-            <div className="bg-purple-100 p-3 rounded-lg">
-              <MdTrendingUp className="text-purple-600 text-2xl" />
+            <div className="bg-[#BE741E] p-3 rounded-lg">
+              <MdTrendingUp className="text-white text-2xl" />
             </div>
           </div>
         </div>
@@ -164,7 +164,7 @@ const History = () => {
               onClick={() => setSelectedFilter('sale')}
               className={`px-4 py-2 rounded-lg transition duration-200 ${
                 selectedFilter === 'sale' 
-                  ? 'bg-green-600 text-white' 
+                  ? 'bg-[#BE741E] text-white' 
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -174,7 +174,7 @@ const History = () => {
               onClick={() => setSelectedFilter('purchase')}
               className={`px-4 py-2 rounded-lg transition duration-200 ${
                 selectedFilter === 'purchase' 
-                  ? 'bg-blue-600 text-white' 
+                  ? 'bg-[#BE741E] text-white' 
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >

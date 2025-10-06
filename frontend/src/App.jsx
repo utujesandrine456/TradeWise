@@ -17,6 +17,8 @@ import NotFound from "./pages/Notfound";
 function App() {
   return (
     <>
+    <ToastContainer />
+    
     <Router>
       <Routes>
           <Route path="/" element={ <Home />}></Route>

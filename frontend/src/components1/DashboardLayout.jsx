@@ -12,6 +12,7 @@ import Notification from './Notification';
 import CreditsDebit from './CreditsDebit';
 import '../index.css';
 import { mockNotifications, mockApiResponse } from '../__mock__';
+import { CgProfile } from "react-icons/cg";
 
 
 
@@ -124,11 +125,15 @@ const DashboardLayout = () => {
 
       <div className="flex-1 flex flex-col overflow-hidden bg-white text-gray-800 hide-scrollbar">
 
-        <header className="flex items-center justify-between p-6 bg-white border-b border-gray-200 shadow-sm text-gray-800">
+        <header className="flex items-center justify-between p-4 bg-white border-b border-gray-200 shadow-sm text-gray-800">
           <div className="text-3xl font-semibold">
             Welcome Back, {user?.company_name || 'User'}!
+            <p className="text-sm font-normal mt-1">Here’s your dashboard overview, be able to track you daily and monthly expense.</p>
           </div>
-          <div className="dashboard-header">
+          <div className="relative flex flex-row items-center justify-center text-center mx-8">
+            <button className='text-gray-600 mx-2 hover:text-black'>
+              <CgProfile size={24}/>
+            </button>
             <div className="relative">
               <button onClick={() => setShowNotifications(!showNotifications)} className="relative p-2 text-gray-600 hover:text-gray-900 focus:outline-none">
                 <MdNotifications className="h-6 w-6" />

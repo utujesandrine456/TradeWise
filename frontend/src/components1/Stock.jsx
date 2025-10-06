@@ -114,12 +114,12 @@ const Stock = () => {
         updated_at: new Date().toISOString()
       };
 
-      // Simulate API call
+
       const response = await mockApiResponse(newItemObj);
       if (response.success) {
         setStockItems(prevItems => [...prevItems, response.data]);
         
-        // Update stats
+ 
         setStats(prevStats => ({
           ...prevStats,
           totalProducts: prevStats.totalProducts + 1,
@@ -162,12 +162,12 @@ const Stock = () => {
         <div className="flex items-center gap-3">
           <button 
             onClick={() => setIsCartOpen(true)}
-            className="bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition duration-200 flex items-center gap-2 relative"
+            className="bg-[#BE741E] text-white px-4 py-3 rounded-lg hover:bg-[#BE741E] transition duration-200 flex items-center gap-2 relative"
           >
             <MdShoppingCart className="text-xl" />
             Cart
             {getCartItemCount() > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              <span className="absolute -top-2 -right-2 bg-[#BE741E] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                 {getCartItemCount()}
               </span>
             )}
@@ -204,7 +204,7 @@ const Stock = () => {
 
       
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-blue-100">Total Items</p>
@@ -213,7 +213,7 @@ const Stock = () => {
             <div className="text-4xl opacity-80"><MdInventory className="text-6xl" /></div>
           </div>
         </div>
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-green-100">In Stock</p>
@@ -222,7 +222,7 @@ const Stock = () => {
             <div className="text-4xl opacity-80"><MdCheckCircle className="text-6xl" /></div>
           </div>
         </div>
-        <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-yellow-100">Low Stock</p>
@@ -231,7 +231,7 @@ const Stock = () => {
             <div className="text-4xl opacity-80"><MdSchedule className="text-6xl" /></div>
           </div>
         </div>
-        <div className="bg-gradient-to-r from-red-500 to-red-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-red-100">Out of Stock</p>

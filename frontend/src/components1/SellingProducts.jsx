@@ -17,7 +17,7 @@ const SellingProducts = () => {
       quantity: 10, 
       unitPrice: 9000, 
       totalPrice: 90000, 
-      date: '2024-01-15', 
+      date: '2025-09-21', 
       status: 'completed',
       paymentMethod: 'Mobile Money'
     },
@@ -28,7 +28,7 @@ const SellingProducts = () => {
       quantity: 5, 
       unitPrice: 12000, 
       totalPrice: 60000, 
-      date: '2024-01-14', 
+      date: '2025-04-14', 
       status: 'pending',
       paymentMethod: 'Bank Transfer'
     },
@@ -39,7 +39,7 @@ const SellingProducts = () => {
       quantity: 15, 
       unitPrice: 15000, 
       totalPrice: 225000, 
-      date: '2024-01-13', 
+      date: '2025-07-30', 
       status: 'completed',
       paymentMethod: 'Cash'
     },
@@ -50,7 +50,7 @@ const SellingProducts = () => {
       quantity: 8, 
       unitPrice: 200, 
       totalPrice: 1600, 
-      date: '2024-01-12', 
+      date: '2025-01-12', 
       status: 'pending',
       paymentMethod: 'Credit Card'
     },
@@ -61,7 +61,7 @@ const SellingProducts = () => {
       quantity: 12, 
       unitPrice: 8000, 
       totalPrice: 96000,  
-      date: '2024-01-11', 
+      date: '2025-09-11', 
       status: 'completed',
       paymentMethod: 'Mobile Money'
     },
@@ -107,37 +107,37 @@ const SellingProducts = () => {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-green-100">Total Sales</p>
+              <p className="text-white">Total Sales</p>
               <p className="text-3xl font-bold">{sales.length}</p>
             </div>
             <div className="text-4xl opacity-80"><MdAccountBalance className="text-6xl" /></div>
           </div>
         </div>
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-blue-100">Completed</p>
+              <p className="text-white">Completed</p>
               <p className="text-3xl font-bold">{completedSales}</p>
             </div>
             <div className="text-4xl opacity-80"><MdCheckCircle className="text-6xl" /></div>
           </div>
         </div>
-        <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-yellow-100">Pending</p>
+              <p className="text-white">Pending</p>
               <p className="text-3xl font-bold">{pendingSales}</p>
             </div>
             <div className="text-4xl opacity-80"><MdSchedule className="text-6xl" /></div>
           </div>
         </div>
-        <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-purple-100">Total Revenue</p>
+              <p className="text-white">Total Revenue</p>
               <p className="text-2xl font-bold">{(totalRevenue / 1000000).toFixed(1)}M</p>
             </div>
             <div className="text-4xl opacity-80"><MdTrendingUp className="text-6xl" /></div>
@@ -181,7 +181,7 @@ const SellingProducts = () => {
         <div className="p-6 border-b border-gray-200">
           <h3 className="text-lg font-semibold text-gray-800">Sales Orders</h3>
         </div>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto scrollbar-hidden">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
@@ -290,7 +290,6 @@ const SellingProducts = () => {
         onClose={() => setIsSaleFormOpen(false)}
         onSave={(newSale) => {
           console.log('New sale created:', newSale);
-          // Here you would typically save to your backend
           setIsSaleFormOpen(false);
         }}
       />

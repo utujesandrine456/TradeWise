@@ -73,8 +73,8 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="bg-blue-100 p-2 rounded-lg">
-                <MdInventory className="text-blue-600 text-xl" />
+              <div className="bg-[#BE741E] p-2 rounded-lg">
+                <MdInventory className="text-[#fff] text-xl" />
               </div>
               <h2 className="text-xl font-semibold text-gray-800">Add New Item</h2>
             </div>
@@ -99,7 +99,7 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BE741E] focus:border-transparent"
                 placeholder="Enter product name"
               />
             </div>
@@ -113,7 +113,7 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
                 value={formData.category}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BE741E] focus:border-transparent"
               >
                 <option value="">Select category</option>
                 <option value="Electronics">Electronics</option>
@@ -134,7 +134,7 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
                 value={formData.description}
                 onChange={handleChange}
                 rows="3"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BE741E] focus:border-transparent"
                 placeholder="Enter product description"
               />
             </div>
@@ -150,7 +150,7 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
                 onChange={handleChange}
                 required
                 min="0"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BE741E] focus:border-transparent"
                 placeholder="0"
               />
             </div>
@@ -166,7 +166,7 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
                 onChange={handleChange}
                 required
                 min="0"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BE741E] focus:border-transparent"
                 placeholder="0"
               />
             </div>
@@ -182,7 +182,7 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
                 onChange={handleChange}
                 required
                 min="0"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BE741E] focus:border-transparent"
                 placeholder="0"
               />
             </div>
@@ -197,7 +197,7 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
                 value={formData.supplier}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BE741E] focus:border-transparent"
                 placeholder="Enter supplier name"
               />
             </div>
@@ -212,7 +212,7 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
                 value={formData.minStockLevel}
                 onChange={handleChange}
                 min="0"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#BE741E] focus:border-transparent"
                 placeholder="0"
               />
             </div>
@@ -228,7 +228,7 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
             </button>
             <button
               type="submit"
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 flex items-center gap-2"
+              className="px-6 py-3 bg-[#BE741E] text-white rounded-lg transition duration-200 flex items-center gap-2"
             >
               <MdSave className="text-xl" />
               Save Item

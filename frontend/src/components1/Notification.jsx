@@ -12,7 +12,7 @@ const Notification = () => {
       message: 'Payment of 2,000,000 Frw received from John Doe for iPhone 15 Pro',
       time: '2 minutes ago',
       read: false,
-      icon: <MdCheckCircle className="text-green-600" />
+      icon: <MdCheckCircle className="text-[#BE741E]" />
     },
     {
       id: 2,
@@ -21,7 +21,7 @@ const Notification = () => {
       message: 'iPhone 15 Pro is running low on stock. Only 3 units remaining.',
       time: '15 minutes ago',
       read: false,
-      icon: <MdWarning className="text-yellow-600" />
+      icon: <MdWarning className="text-[#BE741E]" />
     },
     {
       id: 3,
@@ -30,7 +30,7 @@ const Notification = () => {
       message: 'New order received from Jane Smith for MacBook Air M2',
       time: '1 hour ago',
       read: true,
-      icon: <MdInfo className="text-blue-600" />
+      icon: <MdInfo className="text-[#BE741E]" />
     },
     {
       id: 4,
@@ -39,7 +39,7 @@ const Notification = () => {
       message: 'Stock levels have been updated successfully for all products',
       time: '2 hours ago',
       read: true,
-      icon: <MdCheckCircle className="text-green-600" />
+      icon: <MdCheckCircle className="text-[#BE741E]" />
     },
     {
       id: 5,
@@ -48,7 +48,7 @@ const Notification = () => {
       message: 'Payment for Samsung Galaxy S24 is still pending from Mike Johnson',
       time: '3 hours ago',
       read: false,
-      icon: <MdWarning className="text-yellow-600" />
+      icon: <MdWarning className="text-[#BE741E]" />
     },
     {
       id: 6,
@@ -57,7 +57,7 @@ const Notification = () => {
       message: 'Scheduled system maintenance will occur tonight at 2:00 AM',
       time: '5 hours ago',
       read: true,
-      icon: <MdInfo className="text-blue-600" />
+      icon: <MdInfo className="text-[#BE741E]" />
     }
   ]);
 
@@ -108,8 +108,8 @@ const Notification = () => {
               <p className="text-gray-600 text-sm">Total Notifications</p>
               <p className="text-2xl font-bold text-gray-800">{notifications.length}</p>
             </div>
-            <div className="bg-blue-100 p-3 rounded-lg">
-              <MdNotifications className="text-blue-600 text-2xl" />
+            <div className="bg-[#BE741E] p-3 rounded-lg">
+              <MdNotifications className="text-[#fff] text-2xl" />
             </div>
           </div>
         </div>
@@ -117,10 +117,10 @@ const Notification = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 text-sm">Unread</p>
-              <p className="text-2xl font-bold text-red-600">{unreadCount}</p>
+              <p className="text-2xl font-bold text-[#000]">{unreadCount}</p>
             </div>
-            <div className="bg-red-100 p-3 rounded-lg">
-              <MdNotificationsActive className="text-red-600 text-2xl" />
+            <div className="bg-[#BE741E] p-3 rounded-lg">
+              <MdNotificationsActive className="text-[#fff] text-2xl" />
             </div>
           </div>
         </div>
@@ -128,10 +128,10 @@ const Notification = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 text-sm">Read</p>
-              <p className="text-2xl font-bold text-green-600">{notifications.length - unreadCount}</p>
+              <p className="text-2xl font-bold text-[#000]">{notifications.length - unreadCount}</p>
             </div>
-            <div className="bg-green-100 p-3 rounded-lg">
-              <MdNotificationsOff className="text-green-600 text-2xl" />
+            <div className="bg-[#BE741E] p-3 rounded-lg">
+              <MdNotificationsOff className="text-[#fff] text-2xl" />
             </div>
           </div>
         </div>
@@ -139,10 +139,10 @@ const Notification = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 text-sm">Today</p>
-              <p className="text-2xl font-bold text-purple-600">{notifications.filter(n => n.time.includes('minutes') || n.time.includes('hour')).length}</p>
+              <p className="text-2xl font-bold text-black">{notifications.filter(n => n.time.includes('minutes') || n.time.includes('hour')).length}</p>
             </div>
-            <div className="bg-purple-100 p-3 rounded-lg">
-              <MdCalendarToday className="text-purple-600 text-2xl" />
+            <div className="bg-[#BE741E] p-3 rounded-lg">
+              <MdCalendarToday className="text-white text-2xl" />
             </div>
           </div>
         </div>
@@ -185,7 +185,7 @@ const Notification = () => {
             onClick={() => setSelectedFilter('info')}
             className={`px-4 py-2 rounded-lg transition duration-200 ${
               selectedFilter === 'info' 
-                ? 'bg-blue-600 text-white' 
+                ? 'bg-blue-400 text-white' 
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
@@ -219,7 +219,7 @@ const Notification = () => {
                 </div>
                 <p className="text-gray-600 mt-2">{notification.message}</p>
                 <div className="flex items-center gap-2 mt-4">
-                  <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                  <button className="text-[#BE741E] hover:text-blue-800 text-sm font-medium">
                     View Details
                   </button>
                   <button className="text-gray-400 hover:text-gray-600 text-sm">
@@ -253,7 +253,7 @@ const Notification = () => {
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" defaultChecked />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#BE741E]"></div>
               </label>
             </div>
             <div className="flex items-center justify-between">
@@ -263,7 +263,7 @@ const Notification = () => {
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" defaultChecked />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#BE741E]"></div>
               </label>
             </div>
           </div>
@@ -275,7 +275,7 @@ const Notification = () => {
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" defaultChecked />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#BE741E]"></div>
               </label>
             </div>
             <div className="flex items-center justify-between">
@@ -285,7 +285,7 @@ const Notification = () => {
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" defaultChecked />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#BE741E]"></div>
               </label>
             </div>
           </div>

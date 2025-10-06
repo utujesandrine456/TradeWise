@@ -10,6 +10,16 @@
 }
 
 
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none; 
+  scrollbar-width: none;     
+}
+
+
 .hide-scrollbar {
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;

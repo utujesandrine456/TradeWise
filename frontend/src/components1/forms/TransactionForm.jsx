@@ -51,8 +51,8 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="bg-purple-100 p-2 rounded-lg">
-                <MdAccountBalance className="text-purple-600 text-xl" />
+              <div className="bg-[#BE741E] p-2 rounded-lg">
+                <MdAccountBalance className="text-white text-xl" />
               </div>
               <h2 className="text-xl font-semibold text-gray-800">New Transaction</h2>
             </div>
@@ -217,7 +217,7 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
             </button>
             <button
               type="submit"
-              className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition duration-200 flex items-center gap-2"
+              className="px-6 py-3 bg-[#BE741E] text-white rounded-lg transition duration-200 flex items-center gap-2"
             >
               <MdSave className="text-xl" />
               Record Transaction

@@ -46,13 +46,13 @@ export const mockDashboardData = {
   inventory: {
     total_items: 569,
     low_stock: 42,
-    out_of_stock: 59,
+    out_of_stock: 162,
     categories: 18,
     stats: {
       total_products: 738,
       in_stock: 296,
       low_stock: 149,
-      out_of_stock: 59
+      out_of_stock: 162
     },
     low_stock_alerts: [
       { id: 1, name: 'Premium Widget', quantity: 5, min_stock_level: 10, category: 'Widgets' },

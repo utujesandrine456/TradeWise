@@ -30,7 +30,7 @@ const AddToCartButton = ({ item, onAddToCart, className = "" }) => {
       {!isExpanded ? (
         <button
           onClick={() => setIsExpanded(true)}
-          className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition duration-200 flex items-center gap-2 text-xs"
+          className="bg-[#BE741E] text-white px-3 py-2 rounded-lg hover:bg-[#BE741E] transition duration-200 flex items-center gap-2 text-xs"
         >
           <MdShoppingCart className="text-xl" />
           Add to Cart

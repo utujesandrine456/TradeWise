@@ -111,37 +111,37 @@ const BuyingProducts = () => {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-blue-100">Total Purchases</p>
+              <p className="text-white">Total Purchases</p>
               <p className="text-3xl font-bold">{purchases.length}</p>
             </div>
             <div className="text-4xl opacity-80"><MdInventory className="text-6xl" /></div>
           </div>
         </div>
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-green-100">Completed</p>
+              <p className="text-white">Completed</p>
               <p className="text-3xl font-bold">{completedPurchases}</p>
             </div>
             <div className="text-4xl opacity-80"><MdCheckCircle className="text-6xl" /></div>
           </div>
         </div>
-        <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-yellow-100">Pending</p>
+              <p className="text-white">Pending</p>
               <p className="text-3xl font-bold">{pendingPurchases}</p>
             </div>
             <div className="text-4xl opacity-80"><MdSchedule className="text-6xl" /></div>
           </div>
         </div>
-        <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-purple-100">Total Spent</p>
+              <p className="text-white">Total Spent</p>
               <p className="text-2xl font-bold">{(totalSpent / 1000000).toFixed(1)}M</p>
             </div>
             <div className="text-4xl opacity-80"><MdAccountBalance className="text-6xl" /></div>
@@ -185,7 +185,7 @@ const BuyingProducts = () => {
         <div className="p-6 border-b border-gray-200">
           <h3 className="text-lg font-semibold text-gray-800">Purchase Orders</h3>
         </div>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto scrollbar-hidden">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>

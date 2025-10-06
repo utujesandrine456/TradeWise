@@ -119,39 +119,39 @@ const CreditsDebit = () => {
 
       {/* Financial Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-green-100">Total Credits</p>
+              <p className="text-white">Total Credits</p>
               <p className="text-3xl font-bold">{(totalCredits / 1000000).toFixed(1)}M</p>
             </div>
             <div className="text-4xl opacity-80"><MdAccountBalance className="text-6xl" /></div>
           </div>
         </div>
-        <div className="bg-gradient-to-r from-red-500 to-red-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-red-100">Total Debits</p>
+              <p className="text-white">Total Debits</p>
               <p className="text-3xl font-bold">{(totalDebits / 1000000).toFixed(1)}M</p>
             </div>
             <div className="text-4xl opacity-80"><MdTrendingDown className="text-6xl" /></div>
           </div>
         </div>
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-blue-100">Net Balance</p>
-              <p className={`text-3xl font-bold ${netBalance >= 0 ? 'text-green-200' : 'text-red-200'}`}>
+              <p className="text-white">Net Balance</p>
+              <p className={`text-3xl font-bold ${netBalance >= 0 ? 'text-white' : 'text-red-200'}`}>
                 {(netBalance / 1000000).toFixed(1)}M
               </p>
             </div>
             <div className="text-4xl opacity-80"><MdTrendingUp className="text-6xl" /></div>
           </div>
         </div>
-        <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-xl">
+        <div className="bg-[#BE741E] text-white p-6 rounded-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-purple-100">Transactions</p>
+              <p className="text-white">Transactions</p>
               <p className="text-3xl font-bold">{transactions.length}</p>
             </div>
             <div className="text-4xl opacity-80"><MdReceipt className="text-6xl" /></div>
@@ -164,7 +164,7 @@ const CreditsDebit = () => {
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-800">Bank Account</h3>
-            <MdAccountBalance className="text-blue-600 text-2xl" />
+            <MdAccountBalance className="text-black text-2xl" />
           </div>
           <div className="space-y-2">
             <p className="text-2xl font-bold text-gray-800">{(netBalance * 0.7 / 1000000).toFixed(1)}M Frw</p>
@@ -178,13 +178,13 @@ const CreditsDebit = () => {
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-800">Mobile Money</h3>
-            <MdAccountBalanceWallet className="text-green-600 text-2xl" />
+            <MdAccountBalanceWallet className="text-black text-2xl" />
           </div>
           <div className="space-y-2">
             <p className="text-2xl font-bold text-gray-800">{(netBalance * 0.2 / 1000000).toFixed(1)}M Frw</p>
             <p className="text-sm text-gray-600">Available Balance</p>
             <div className="flex items-center gap-2 text-sm">
-              <span className="text-green-600">+8.3%</span>
+              <span className="text-green-500">+8.3%</span>
               <span className="text-gray-500">from last month</span>
             </div>
           </div>
@@ -192,7 +192,7 @@ const CreditsDebit = () => {
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-800">Cash</h3>
-            <MdCreditCard className="text-purple-600 text-2xl" />
+            <MdCreditCard className="text-black text-2xl" />
           </div>
           <div className="space-y-2">
             <p className="text-2xl font-bold text-gray-800">{(netBalance * 0.1 / 1000000).toFixed(1)}M Frw</p>

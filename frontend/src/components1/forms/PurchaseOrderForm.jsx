@@ -51,8 +51,8 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave }) => {
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="bg-blue-100 p-2 rounded-lg">
-                <MdShoppingCart className="text-blue-600 text-xl" />
+              <div className="bg-[#BE741E] p-2 rounded-lg">
+                <MdShoppingCart className="text-white text-xl" />
               </div>
               <h2 className="text-xl font-semibold text-gray-800">New Purchase Order</h2>
             </div>
@@ -197,7 +197,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave }) => {
             </button>
             <button
               type="submit"
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 flex items-center gap-2"
+              className="px-6 py-3 bg-[#BE741E] text-white rounded-lg transition duration-200 flex items-center gap-2"
             >
               <MdSave className="text-xl" />
               Create Purchase Order

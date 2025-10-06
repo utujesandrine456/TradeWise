@@ -43,8 +43,8 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <MdTrendingUp className="h-6 w-6 text-green-600" />
+            <div className="p-2 bg-[#BE741E] rounded-lg">
+              <MdTrendingUp className="h-6 w-6 text-white" />
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Today's Sales</p>
@@ -58,8 +58,8 @@ const Dashboard = () => {
 
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <MdShoppingCart className="h-6 w-6 text-blue-600" />
+            <div className="p-2 bg-[#BE741E] rounded-lg">
+              <MdShoppingCart className="h-6 w-6 text-white" />
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Today's Purchases</p>
@@ -73,8 +73,8 @@ const Dashboard = () => {
 
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <MdInventory className="h-6 w-6 text-purple-600" />
+            <div className="p-2 bg-[#BE741E] rounded-lg">
+              <MdInventory className="h-6 w-6 text-white" />
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Products</p>
@@ -90,8 +90,8 @@ const Dashboard = () => {
 
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-orange-100 rounded-lg">
-              <MdBusiness className="h-6 w-6 text-orange-600" />
+            <div className="p-2 bg-[#BE741E] rounded-lg">
+              <MdBusiness className="h-6 w-6 text-white" />
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">This Month</p>
@@ -113,8 +113,8 @@ const Dashboard = () => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="sales" stroke="#16a34a" strokeWidth={2} />
-            <Line type="monotone" dataKey="purchases" stroke="#2563eb" strokeWidth={2} />
+            <Line type="monotone" dataKey="sales" stroke="#BE741E" strokeWidth={2} />
+            <Line type="monotone" dataKey="purchases" stroke="#000" strokeWidth={2} />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -136,8 +136,8 @@ const Dashboard = () => {
               dataKey="value"
               label
             >
-              <Cell fill="#16a34a" />
-              <Cell fill="#dc2626" />
+              <Cell fill="#BE741E" />
+              <Cell fill="#000" />
             </Pie>
             <Tooltip />
           </PieChart>

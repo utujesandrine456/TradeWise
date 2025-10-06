@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Home.module.css'
 import logo from '../assets/logo.png'
 import { FaUser, FaRegCommentDots } from 'react-icons/fa';
@@ -11,10 +11,45 @@ import { IoCall } from "react-icons/io5";
 import { IoLocationSharp } from "react-icons/io5";
 import { PiDownloadSimpleBold } from "react-icons/pi";
 import { Link } from 'react-router-dom';
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+
+
+
+const slides = [
+  {
+    image: "./src/assets/TradeWis.jpg",
+    title: "Trade with Precision & Confidence",
+    desc: "Track your profits, losses, and ROI instantly with real-time analytics. TradeWise gives you the clarity to see where your money goes and how it grows. Every trade is guided by data-driven insights for smarter investing.",
+  },
+  {
+    image: "./src/assets/Smile.jpg",
+    title: "Smart Insights, Smarter Decisions",
+    desc: "Leverage AI-powered tools to identify market trends and improve your strategy. TradeWise analyzes patterns to help you make informed decisions effortlessly. Turn data into power and make every trade count.",
+  },
+  {
+    image: "./src/assets/Devices.jpg",
+    title: "Grow Your Portfolio Effortlessly",
+    desc: "Manage and monitor all your investments from one simple dashboard. Stay ahead of the market with live updates and intelligent analytics. TradeWise helps you plan, invest, and grow with confidence and ease.",
+  },
+];
 
 
 
 const Home = () => {
+    const [current, setcurrent ] = useState(0);
+
+    const nextSlide = () => setcurrent((current + 1) % slides.length);
+    const prevSlide = () => setcurrent((current -1 + slides.length) % slides.length);
+    
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setcurrent((prev) => (prev + 1)  % slides.length);
+        }, 3000);
+        return () => clearInterval(timer);
+    },[]);
+    
   return (
     <>
         <div className={styles.home_container}>
@@ -31,7 +66,7 @@ const Home = () => {
                 <div className={styles.home_navbar_buttons}>
                     <button ><Link to='/Signup'>Signup</Link></button>
                     <button ><Link to='/Login'>Login</Link></button>
-                    <button style={{ background: '#BE741E', color: '#fff', border: 'none', display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px', borderRadius: '10px', cursor: 'pointer', transition: 'background 0.2s' }}>
+                    <button style={{ background: '#BE741E', color: '#fff', border: 'none', display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px', borderRadius: '10px' }}>
                         <PiDownloadSimpleBold style={{ fontSize: '1.2rem', marginRight: '4px' }} />
                         Download App
                     </button>
@@ -39,22 +74,29 @@ const Home = () => {
             </div>
 
             <div className={styles.home_content}>
-                
-                <div className={styles.home_content_text} style={{ backgroundImage: 'url("./src/assets/Finance.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', position: 'relative', padding: '120px 0', marginBottom: '60px', overflow: 'hidden', width: '100vw', height: '100vh', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)' }}>
-                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 100%)', zIndex: 1 }}></div>
-                    <div style={{ position: 'relative', zIndex: 2, textAlign: 'left', maxWidth: '800px', margin: '0 auto 0 50px', padding: '0 20px' }}>
-                        <h1 style={{ color: '#fff', fontSize: '2.8rem', fontWeight: '800', marginBottom: '20px', textShadow: '0 2px 4px rgba(0,0,0,0.3)', marginTop: '50px' }}>Smart <span style={{color: '#BE741E'}}>Calculator</span> for <br />Modern <span style={{color: '#BE741E'}}>Traders</span></h1>
-                        <p style={{ color: '#fff', fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '30px', textShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>Streamline your trading with our intuitive tool, designed to deliver fast, accurate calculations for better decision-making.</p>
-                        <button className={styles.home_image_button} style={{ background: 'rgb(221, 125, 16)', color: '#fff', border: 'none', padding: '15px 40px', borderRadius: '30px', fontSize: '1.2rem', fontWeight: '600', cursor: 'pointer', marginLeft: '80px', transition: 'all 0.4s ease', boxShadow: '0 4px 15px rgba(159, 113, 7, 0.3)' }}>Get Started</button>
-                    </div>
+                <div className="relative w-screen h-screen overflow-hidden mt-16">
+                    {slides.map((slide, index) => (
+                        <motion.div key={index} className="absolute w-full h-full bg-center bg-cover flex flex-col justify-center items-center px-20 text-white" style={{ backgroundImage: `url(${slide.image})`, display: index === current ? "flex" : "none", }} initial={{ opacity: 0 }} animate={{ opacity: index === current ? 1 : 0 }} transition={{ duration: 1 }} >
+                            <motion.h1 className="text-5xl font-bold mb-1 " initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} > {slide.title}</motion.h1>
+                            <motion.p className="text-center text-lg mb-6 mx-40" initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }}> {slide.desc}</motion.p>
+                            <motion.button className="bg-[#BE741E] px-6 py-3 text-sm rounded-full font-semibold text-white shadow-lg hover:bg-[#a4641c] transition-all" whileHover={{ scale: 1.05 }} > Get Started</motion.button>
+                        </motion.div>
+                    ))}
+
+                    <button onClick={prevSlide} className="absolute left-5 top-1/2 -translate-y-1/2 bg-black/40 p-3 rounded-full hover:bg-black/60 transition">
+                        <ChevronLeft size={28} color="#fff" />
+                    </button>
+                    <button onClick={nextSlide} className="absolute right-5 top-1/2 -translate-y-1/2 bg-black/40 p-3 rounded-full hover:bg-black/60 transition">
+                        <ChevronRight size={28} color="#fff" />
+                    </button>
                 </div>
                 
-                <div className={styles.home_content_cards} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: '60px', padding: '100px 60px 80px', background: 'linear-gradient(135deg, #fff5eb 0%, #f3e7d9 100%)', position: 'relative', overflow: 'hidden' }}>
+                <div className={styles.home_content_cards} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: '60px', padding: '60px', background: 'linear-gradient(135deg, #fff5eb 0%, #f3e7d9 100%)', position: 'relative', overflow: 'hidden' }}>
                     <div style={{ flex: 1, position: 'relative', zIndex: 1 }}>
-                        <h2 style={{ fontSize: '2.7rem', fontWeight: '800', marginBottom: '25px', lineHeight: '1.2', color: 'black' }}>
+                        <h2 style={{ fontSize: '2.2rem', fontWeight: '800', marginBottom: '25px', lineHeight: '1.2', color: 'black' }}>
                             About <span style={{ color: '#BE741E' }}>TradeWise</span>
                         </h2>
-                        <p style={{ fontSize: '1.25rem', color: '#444', lineHeight: '1.8', marginBottom: '30px', fontWeight: '400' }}>
+                        <p style={{ fontSize: '1.05rem', color: '#444', lineHeight: '1.8', marginBottom: '30px', fontWeight: '400' }}>
                             TradeWise is your ultimate companion in the world of trading. We combine cutting-edge technology with user-friendly design to provide traders with powerful tools for success. Our platform simplifies complex calculations while maintaining the highest standards of accuracy and security.
                         </p>
                         <div style={{ display: 'flex', gap: '25px', marginTop: '40px' }}>
@@ -94,7 +136,7 @@ const Home = () => {
                             }}>Real-time Analytics</p>
                         </div>
                         <img 
-                            src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                            src="./src/assets/TradeWise.jpg" 
                             alt="TradeWise Demo" 
                             style={{
                                 width: '100%',
@@ -145,7 +187,7 @@ const Home = () => {
                             color: 'black',
                             fontSize: '2.7rem',
                             fontWeight: '800',
-                            marginBottom: '20px',
+                            marginBottom: '10px',
                             position: 'relative',
                             display: 'inline-block',
                             textAlign: 'center'
@@ -154,7 +196,7 @@ const Home = () => {
                         </h4>
                         <p style={{
                             color: '#666',
-                            fontSize: '1.2rem',
+                            fontSize: '1.05rem',
                             maxWidth: '800px',
                             margin: '0 auto',
                             lineHeight: '1.6'
@@ -188,13 +230,13 @@ const Home = () => {
             
             <div style={{ background: 'linear-gradient(135deg, #fff5eb 0%, #f3e7d9 100%)', padding: '60px 0 80px 0', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '48px', flexWrap: 'wrap', marginTop: '80px' }}>
                 <div style={{ maxWidth: '600px', minWidth: '320px', flex: 1 }}>
-                    <h2 style={{ fontSize: '2.7rem', fontWeight: 700, color: '#222', marginBottom: '18px', lineHeight: 1.1 }}>
+                    <h2 style={{ fontSize: '2.2rem', fontWeight: 700, color: '#222', marginBottom: '18px', lineHeight: 1.1 }}>
                         What People Think<br />About <span style={{ color: '#BE741E' }}>TradeWise</span>
                     </h2>
-                    <p style={{ color: '#444', fontSize: '1.18rem', marginBottom: '18px', lineHeight: 1.6 }}>
+                    <p style={{ color: '#444', fontSize: '1.05rem', marginBottom: '18px', lineHeight: 1.6 }}>
                         Users rave about TradeWise's efficiency and reliability. Many have praised the smart trading calculator for significantly reducing their time spent on calculations and making their trading experience smoother. The privacy-first approach is also highly appreciated, ensuring users' data is always secure.
                     </p>
-                    <p style={{ color: '#444', fontSize: '1.18rem', lineHeight: 1.6 }}>
+                    <p style={{ color: '#444', fontSize: '1.05rem', lineHeight: 1.6 }}>
                         Additionally, TradeWise has received high marks for its accurate and real-time analytics, helping users make better trading decisions. The platform is also lauded for its user-friendly interface and comprehensive reporting tools.
                     </p>
                 </div>
@@ -209,24 +251,24 @@ const Home = () => {
                     <FaRegCommentDots size={22} style={{ color: '#BE741E' }} />
                     Contact Us
                 </button>
-                <h2 style={{ textAlign: 'center', fontSize: '2.7rem', fontWeight: 700, marginBottom: '10px', letterSpacing: '1px' }}>
+                <h2 style={{ textAlign: 'center', fontSize: '2.2rem', fontWeight: 700, marginBottom: '10px', letterSpacing: '1px' }}>
                     <span style={{ color: '#fff' }}>Any <span style={{ color: '#BE741E', position: 'relative' }}>Insights</span> ?</span><br />
                     <span style={{ color: '#fff' }}>Feel Free To <span style={{ color: '#BE741E' }}>Contact</span> Us</span>
                 </h2>
-                <p style={{ color: '#fff', textAlign: 'center', fontSize: '1.15rem', maxWidth: '700px', margin: '20px auto 38px auto' }}>
+                <p style={{ color: '#fff', textAlign: 'center', fontSize: '1rem', maxWidth: '700px', margin: '20px auto 38px auto' }}>
                     Discover valuable insights and solutions tailored to your trading needs. Contact us today to learn more about how we can streamline your journey and enhance your experience.
                 </p>
                 <form style={{ width: '100%', maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '32px' }}>
                     <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
                         <div style={{ flex: 1, minWidth: '260px' }}>
-                            <label style={{ color: '#BE741E', fontSize: '1.2rem', marginBottom: '8px', display: 'block' }}>Name:</label>
+                            <label style={{ color: '#BE741E', fontSize: '1.1rem', marginBottom: '8px', display: 'block' }}>Name:</label>
                             <div style={{ display: 'flex', alignItems: 'center', background: '#fff', borderRadius: '38px', padding: '16px 22px', marginTop: '8px', border: '1.5px solid #BE741E' }}>
                                 <FaUser size={22} style={{ color: '#91530A' }} />
                                 <input type="text" placeholder="Enter your name" style={{ background: 'none', border: 'none', outline: 'none', color: '#000', fontSize: '1.1rem', marginLeft: '14px', width: '100%' }} />
                             </div>
                         </div>
                         <div style={{ flex: 1, minWidth: '260px' }}>
-                            <label style={{ color: '#BE741E', fontSize: '1.2rem', marginBottom: '8px', display: 'block' }}>Email:</label>
+                            <label style={{ color: '#BE741E', fontSize: '1.1rem', marginBottom: '8px', display: 'block' }}>Email:</label>
                             <div style={{ display: 'flex', alignItems: 'center', background: '#fff', borderRadius: '30px', padding: '16px 22px', marginTop: '8px', border: '1.5px solid #BE741E' }}>
                                 <MdEmail size={22} style={{ color: '#91530A' }} />
                                 <input type="email" placeholder="Enter your email" style={{ background: 'none', border: 'none', outline: 'none', color: '#000', fontSize: '1.1rem', marginLeft: '14px', width: '100%' }} />
@@ -234,7 +276,7 @@ const Home = () => {
                         </div>
                     </div>
                     <div style={{ flex: 1 }}>
-                        <label style={{ color: '#BE741E', fontSize: '1.2rem', marginBottom: '8px', display: 'block' }}>Message:</label>
+                        <label style={{ color: '#BE741E', fontSize: '1.1rem', marginBottom: '8px', display: 'block' }}>Message:</label>
                         <div style={{ display: 'flex', alignItems: 'flex-start', background: '#fff', borderRadius: '38px', padding: '16px 22px', marginTop: '8px', border: '1.5px solid #BE741E' }}>
                             <FaRegCommentDots size={22} style={{ color: '#91530A', marginTop: '4px' }} />
                             <textarea placeholder="Enter your message" style={{ background: 'none', border: 'none', outline: 'none', color: '#000', fontSize: '1.1rem', marginLeft: '14px', width: '100%', minHeight: '80px', resize: 'vertical' }} />
@@ -251,19 +293,41 @@ const Home = () => {
 
 
             
-            <div style={{ backgroundColor: 'rgba(254, 251, 246, 0.8)', padding: '50px 0 70px 0', minHeight: '400px' }}>
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '60px', flexWrap: 'wrap' }}>
-                    
-                    
-                    <div style={{ flex: 1, minWidth: '350px', maxWidth: '600px' }}>
-                        <h2 style={{ textAlign: 'center', color: '#000',  fontSize: '2.7rem', marginBottom: '30px', fontWeight: 'bold' , fontFamily:'Work sans' }}>
-                            Does This Sound Like Your <span style={{ color: '#BE741E' }}>Question?</span>
-                        </h2>
-                        <p style={{ textAlign: 'center', color: '#91530A',  fontSize: '1.03rem', marginBottom: '50px', whiteSpace: 'nowrap'}}>Find answers to commonly asked questions about our products and services here. Can't find what <br></br>you're looking for? Feel free to reach out to us for personalized assistance.</p>
-                        <FAQList />
+             <div style={{ backgroundColor: "rgba(254, 251, 246, 0.8)", padding: "50px 200px"}}>
+                <div
+                    style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                }}>
+                    <div style={{ textAlign: "center" }}>
+                    <h2
+                        style={{
+                        color: "#000",
+                        fontSize: "2.7rem",
+                        marginBottom: "30px",
+                        fontWeight: "bold",
+                        fontFamily: "Work Sans",
+                    }}>
+                        Does This Sound Like Your{" "}
+                    <span style={{ color: "#BE741E" }}>Question?</span>
+                    </h2>
+                    <p
+                        style={{
+                        color: "#444",
+                        fontSize: "1.03rem",
+                        marginBottom: "50px",
+                    }}>
+                        Find answers to commonly asked questions about our products and
+                        services here. Can't find what you're looking for? Reach out for
+                        personalized help.
+                    </p>
+
+                    <FAQList />
                     </div>
                 </div>
-            </div>
+                </div>
 
             
 
@@ -405,7 +469,7 @@ const FAQList = () => {
             {faqs.map((faq, idx) => (
                 <div key={idx} style={{ background: '#fff', borderRadius: '18px', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)', padding: '28px 32px', cursor: 'pointer', transition: 'box-shadow 0.2s' }} onClick={() => setOpenIndex(openIndex === idx ? null : idx)}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#222', fontFamily: 'inherit' }}>{faq.question}</span>
+                        <span style={{ fontSize: '1.1rem', fontWeight: 500, color: '#222', fontFamily: 'inherit' }}>{faq.question}</span>
                         <span style={{ marginLeft: '18px', transition: 'transform 0.2s' }}>
                             {openIndex === idx ? (
                                 
@@ -537,7 +601,7 @@ function TestimonialCarousel() {
                 </div>
                 <div style={{ 
                     color: '#444', 
-                    fontSize: '1.13rem', 
+                    fontSize: '1rem', 
                     textAlign: 'center', 
                     marginBottom: '18px', 
                     lineHeight: 1.5
@@ -546,7 +610,7 @@ function TestimonialCarousel() {
                 </div>
                 <div style={{ 
                     color: '#888', 
-                    fontSize: '1.08rem', 
+                    fontSize: '1rem', 
                     marginTop: '8px'
                 }}>{testimonials[index].date}</div>
             </div>
@@ -669,7 +733,7 @@ const WorkStepCard = ({ number, title, description }) => {
             }}>{title}</h3>
             <p style={{
                 color: '#666',
-                fontSize: '1.1rem',
+                fontSize: '1rem',
                 lineHeight: '1.6',
                 textAlign: 'center',
                 transition: 'all 0.3s ease',

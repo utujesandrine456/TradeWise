@@ -53,8 +53,8 @@ const SaleForm = ({ isOpen, onClose, onSave }) => {
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="bg-green-100 p-2 rounded-lg">
-                <MdAttachMoney className="text-green-600 text-xl" />
+              <div className="bg-[#BE741E] p-2 rounded-lg">
+                <MdAttachMoney className="text-[#fff] text-xl" />
               </div>
               <h2 className="text-xl font-semibold text-gray-800">New Sale</h2>
             </div>
@@ -214,7 +214,7 @@ const SaleForm = ({ isOpen, onClose, onSave }) => {
             </button>
             <button
               type="submit"
-              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200 flex items-center gap-2"
+              className="px-6 py-3 bg-[#BE741E] text-white rounded-lg transition duration-200 flex items-center gap-2"
             >
               <MdSave className="text-xl" />
               Create Sale

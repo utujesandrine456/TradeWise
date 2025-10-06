@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import {Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Signupimage from '../assets/Login.jpg';
 import { EyeOff, Eye } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
-  const {isAuthenticated, login} = useAuth();
+  const { isAuthenticated, login } = useAuth();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -21,15 +21,17 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    try {
-      e.preventDefault();
-      setLoading(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    
 
-      login(formData);
+    try {
+      await login(formData);
+      toast.success("Logged in successfully !!!")
       navigate("/dashboard");
     } catch (error) {
-      setError(error.message);
+      toast.error(error.message);
       console.log("Error: ", error);
     } finally {
       setLoading(false);
@@ -37,90 +39,113 @@ const Login = () => {
   };
 
   return (
-    <>
-        <div className="flex w-full h-screen">
-          <div className='w-1/2 h-[100vh] flex items-center justify-center'>
-            <form onSubmit={handleSubmit} className='flex flex-col gap-4 p-3 w-[500px]'>
-                <div className='flex flex-col gap-2'>
-                <h2 className="text-4xl font-bold text-[#BE741E] text-center">Login</h2>
-                <p className='text-normal text-center mb-4'>Welcome back. Enter your credentials</p>
-                </div>
-                
-                {error && (
-                  <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-center">
-                    {error}
-                  </div>
-                )}
-             
-                <div className="flex flex-col gap-2 mb-4 ">
-                  <label htmlFor="email" className="text-normal font-medium text-gray-700">Business Email:</label>
+  <>
+     <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick pauseOnHover draggable theme="colored" />
+    <div className="min-h-screen flex items-center justify-center overflow-hidden" >
+      <div className="absolute inset-0" style={{ backgroundImage: `url("./src/assets/Login.jpg")`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',filter: 'blur(10px)'}}></div>
+
+      <div className="relative flex w-full max-w-6xl mx-auto h-[85vh] rounded-3xl shadow-2xl overflow-hidden bg-white/80 backdrop-blur-sm">
+        <div className="w-1/2 relative flex items-center justify-center p-8 bg-gradient-to-b from-white to-amber-50/50">
+          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-20 h-20 bg-[#BE741E]/10 rounded-full -mr-10"></div>
+          
+          <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col gap-6">
+            <div className="text-center space-y-2">
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-[#BE741E] to-amber-600 bg-clip-text text-transparent">
+                Welcome Back
+              </h2>
+              <p className="text-gray-600 text-sm">Enter your credentials to continue your journey</p>
+            </div>
+
+            {error && (
+              <div className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-center text-sm animate-pulse">
+                {error}
+              </div>
+            )}
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-md font-medium text-gray-700 flex items-center gap-2">Business Email</label>
+                <input 
+                  type="email" 
+                  id="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#BE741E]/50 focus:border-transparent transition-all duration-300 text-sm bg-white/80"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="password" className="text-md font-medium text-gray-700 flex items-center gap-2">Password</label>
+                <div className="relative">
                   <input 
-                    type="email" 
-                    name="email"
-                    placeholder='Email'
-                    value={formData.email}
+                    type={showPassword ? 'text' : 'password'} 
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    value={formData.password}
                     onChange={handleChange}
                     required
-                    className='px-4 py-2 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BE741E] focus:border-transparent'
+                    className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#BE741E]/50 focus:border-transparent transition-all duration-300 text-sm bg-white/80"
                   />
+                  <button 
+                    type="button" 
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-[#BE741E] transition-colors duration-200"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
                 </div>
+              </div>
 
-                {/* Password */}
-                <div className="flex flex-col gap-1 mb-3">
-                  <label htmlFor="password" className="text-[15px] font-medium text-gray-700">Password:</label>
-                  <div className='relative'>
-                    <input 
-                      type={showPassword ? 'text' : 'password'} 
-                      name="password"
-                      placeholder='Password'
-                      value={formData.password}
-                      onChange={handleChange}
-                      required
-                      className='px-4 py-2 pr-10 border border-gray-300 text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BE741E] focus:border-transparent w-full'
-                    />
-                    <button 
-                      type="button" 
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                    >
-                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                    </button>
-                  </div>
-                </div>
-
-                
-                <div className="flex items-center gap-2 mt-3">
+              <div className="flex items-center gap-2 pt-2">
                 <input 
-                    type="checkbox" 
-                    id="agree"
-                    className='w-4 h-4 rounded border-gray-300 accent-[#BE741E]'
+                  type="checkbox" 
+                  id="agree"
+                  className="w-4 h-4 rounded border-gray-300 accent-[#BE741E] focus:ring-[#BE741E]/50"
                 />
-                <label htmlFor="agree" className="text-[15px] text-gray-600">I agree to the terms and conditions</label>
-                </div>
-            
-                <button 
-                  type="submit"
-                  disabled={loading}
-                  className='w-full py-2 px-4 mt-4 bg-[#BE741E] text-white font-medium rounded-lg hover:bg-[#cc8b3a] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed'
-                >
-                  {loading ? 'Signing in...' : 'Login'}
-                </button>
-
-                <p className='text-[16px] text-center text-gray-600'>
-                  Don't have an account? 
-                  <Link to="/signup" className='text-[#BE741E] text-normal font-bold underline'>
-                    Signup
-                  </Link>
-                </p>
-            </form>
+                <label htmlFor="agree" className="text-sm text-gray-600 cursor-pointer select-none">
+                  I agree to the <span className="text-[#BE741E] underline">terms and conditions</span>
+                </label>
+              </div>
             </div>
 
-            <div className='w-1/2 h-[100vh] flex items-center justify-center bg-gray-50'>
-                <img src={Signupimage} alt="login" className='w-full h-full object-cover' />
-            </div>
-        </div> 
-    </>
-  )
-}
+            <button 
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 px-4 mt-4 bg-gradient-to-r from-[#BE741E] to-amber-600 text-white font-semibold rounded-xl hover:from-amber-500 hover:to-[#BE741E] transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
+            >
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Signing in...
+                </span>
+              ) : (
+                'Sign In'
+              )}
+            </button>
+
+            <p className="text-center text-sm text-gray-500">
+              Don't have an account? 
+              <Link to="/signup" className="text-[#BE741E] text-md font-semibold underline hover:text-amber-600 transition-colors">
+                Sign up
+              </Link>
+            </p>
+          </form>
+        </div>
+
+      
+        <div className="w-1/2 relative overflow-hidden">
+          <img src={Signupimage} alt="Creative login illustration" className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+          <div className="absolute top-20 right-10 w-24 h-24 bg-white/20 rounded-full blur-xl animate-pulse"></div>
+        </div>
+      </div>
+    </div>
+  </>
+  );
+};
 
 export default Login;
