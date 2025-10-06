@@ -13,12 +13,16 @@ import { CartProvider } from "./contexts/CartContext";
 import Forgotpassword from "./pages/Forgotpassword";
 import Resetpassword from "./pages/Resetpassword";
 import NotFound from "./pages/Notfound";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 function App() {
   return (
     <>
     <ToastContainer />
-    
+
     <Router>
       <Routes>
           <Route path="/" element={ <Home />}></Route>

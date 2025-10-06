@@ -13,6 +13,7 @@ import { PiDownloadSimpleBold } from "react-icons/pi";
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Typewriter } from 'react-simple-typewriter';
 
 
 
@@ -21,19 +22,20 @@ const slides = [
   {
     image: "./src/assets/TradeWis.jpg",
     title: "Trade with Precision & Confidence",
-    desc: "Track your profits, losses, and ROI instantly with real-time analytics. TradeWise gives you the clarity to see where your money goes and how it grows. Every trade is guided by data-driven insights for smarter investing.",
+    desc: "Track your profits, losses, and ROI instantly with real-time analytics. TradeWise gives you clarity to see where your money goes and how it grows. Every trade is guided by data-driven insights for smarter investing. Make informed decisions and maximize your returns effortlessly.",
   },
   {
     image: "./src/assets/Smile.jpg",
     title: "Smart Insights, Smarter Decisions",
-    desc: "Leverage AI-powered tools to identify market trends and improve your strategy. TradeWise analyzes patterns to help you make informed decisions effortlessly. Turn data into power and make every trade count.",
+    desc: "Leverage AI-powered tools to identify market trends quickly. TradeWise analyzes patterns to help you make informed choices. Gain insights that turn data into actionable strategies. Make every trade count with confidence and precision.",
   },
   {
     image: "./src/assets/Devices.jpg",
     title: "Grow Your Portfolio Effortlessly",
-    desc: "Manage and monitor all your investments from one simple dashboard. Stay ahead of the market with live updates and intelligent analytics. TradeWise helps you plan, invest, and grow with confidence and ease.",
+    desc: "Manage and monitor all your investments from one dashboard. Stay ahead of the market with live updates and intelligent analytics. TradeWise helps you plan, invest, and grow systematically. Achieve your financial goals with clarity and ease.",
   },
 ];
+
 
 
 
@@ -46,10 +48,11 @@ const Home = () => {
     useEffect(() => {
         const timer = setInterval(() => {
             setcurrent((prev) => (prev + 1)  % slides.length);
-        }, 3000);
+        }, 14000);
         return () => clearInterval(timer);
     },[]);
     
+
   return (
     <>
         <div className={styles.home_container}>
@@ -77,8 +80,25 @@ const Home = () => {
                 <div className="relative w-screen h-screen overflow-hidden mt-16">
                     {slides.map((slide, index) => (
                         <motion.div key={index} className="absolute w-full h-full bg-center bg-cover flex flex-col justify-center items-center px-20 text-white" style={{ backgroundImage: `url(${slide.image})`, display: index === current ? "flex" : "none", }} initial={{ opacity: 0 }} animate={{ opacity: index === current ? 1 : 0 }} transition={{ duration: 1 }} >
-                            <motion.h1 className="text-5xl font-bold mb-1 " initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} > {slide.title}</motion.h1>
-                            <motion.p className="text-center text-lg mb-6 mx-40" initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }}> {slide.desc}</motion.p>
+                            <motion.h1 className="text-5xl font-bold mb-1 " initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} > 
+                                <Typewriter words={[slide.title]} loop={true}
+                                cursor
+                                cursorStyle="|"
+                                typeSpeed={70}
+                                deleteSpeed={50}
+                                delaySpeed={2000}
+                            /></motion.h1>
+                            <motion.p className="text-center text-lg mb-6 mx-40" initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }}> 
+                                 <Typewriter
+                                    words={[slide.desc]} 
+                                    loop={true}
+                                    cursor
+                                    cursorStyle="_"
+                                    typeSpeed={10}
+                                    deleteSpeed={20}
+                                    delaySpeed={2000}
+                                />
+                            </motion.p>
                             <motion.button className="bg-[#BE741E] px-6 py-3 text-sm rounded-full font-semibold text-white shadow-lg hover:bg-[#a4641c] transition-all" whileHover={{ scale: 1.05 }} > Get Started</motion.button>
                         </motion.div>
                     ))}
