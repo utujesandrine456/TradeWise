@@ -40,71 +40,71 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       {/* Today's Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-2 md:mb-8">
+        <div className="stats-card">
           <div className="flex items-center">
-            <div className="p-2 bg-[#BE741E] rounded-lg">
+            <div className="stats-card-icon bg-[#BE741E]">
               <MdTrendingUp className="h-6 w-6 text-white" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Today's Sales</p>
-              <p className="text-2xl font-semibold text-gray-900">
+            <div className="stats-card-content">
+              <p className="stats-card-title">Today's Sales</p>
+              <p className="stats-card-value">
                 {today?.sales?.total?.toFixed(2) || '0.00'}Frw
               </p>
-              <p className="text-sm text-gray-500">{today?.sales?.count || 0} transactions</p>
+              <p className="stats-card-subtitle">{today?.sales?.count || 0} transactions</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="stats-card">
           <div className="flex items-center">
-            <div className="p-2 bg-[#BE741E] rounded-lg">
+            <div className="stats-card-icon bg-[#BE741E]">
               <MdShoppingCart className="h-6 w-6 text-white" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Today's Purchases</p>
-              <p className="text-2xl font-semibold text-gray-900">
+            <div className="stats-card-content">
+              <p className="stats-card-title">Today's Purchases</p>
+              <p className="stats-card-value">
                 {today?.purchases?.total?.toFixed(2) || '0.00'}Frw
               </p>
-              <p className="text-sm text-gray-500">{today?.purchases?.count || 0} transactions</p>
+              <p className="stats-card-subtitle">{today?.purchases?.count || 0} transactions</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="stats-card">
           <div className="flex items-center">
-            <div className="p-2 bg-[#BE741E] rounded-lg">
+            <div className="stats-card-icon bg-[#BE741E]">
               <MdInventory className="h-6 w-6 text-white" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total Products</p>
-              <p className="text-2xl font-semibold text-gray-900">
+            <div className="stats-card-content">
+              <p className="stats-card-title">Total Products</p>
+              <p className="stats-card-value">
                 {inventory?.stats?.total_products || 0}Frw
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="stats-card-subtitle">
                 {inventory?.stats?.in_stock || 0} in stock
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="stats-card">
           <div className="flex items-center">
-            <div className="p-2 bg-[#BE741E] rounded-lg">
+            <div className="stats-card-icon bg-[#BE741E]">
               <MdBusiness className="h-6 w-6 text-white" />
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">This Month</p>
-              <p className="text-2xl font-semibold text-gray-900">
+            <div className="stats-card-content">
+              <p className="stats-card-title">This Month</p>
+              <p className="stats-card-value">
                 {this_month?.sales?.total?.toFixed(2) || '0.00'}Frw
               </p>
-              <p className="text-sm text-gray-500">Total revenue</p>
+              <p className="stats-card-subtitle">Total revenue</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="mt-8 bg-white rounded-lg shadow p-6">
+      <div className="mt-6 md:mt-8 bg-white rounded-lg shadow p-6 border border-gray-100">
         <h3 className="text-lg font-medium text-gray-900 mb-4">Sales vs Purchases (This Month)</h3>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={this_month?.daily || []}>
@@ -119,7 +119,7 @@ const Dashboard = () => {
         </ResponsiveContainer>
       </div>
 
-      <div className="mt-8 bg-white rounded-lg shadow p-6">
+      <div className="mt-8 bg-white rounded-lg shadow p-6 border border-gray-100">
         <h3 className="text-lg font-medium text-gray-900 mb-4">Inventory Distribution</h3>
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
@@ -146,18 +146,18 @@ const Dashboard = () => {
 
       {/* Inventory Alerts */}
       {(inventory?.low_stock_alerts?.length > 0 || inventory?.out_of_stock_alerts?.length > 0) && (
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Inventory Alerts</h2>
+        <div className="inventory-alerts">
+          <h2>Inventory Alerts</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
            
             {inventory.low_stock_alerts?.length > 0 && (
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                <h3 className="text-lg font-medium text-yellow-800 mb-3">Low Stock Items</h3>
+              <div className="alert-card low-stock">
+                <h3>Low Stock Items</h3>
                 <div className="space-y-2">
                   {inventory.low_stock_alerts.map((item, index) => (
-                    <div key={index} className="flex justify-between items-center text-sm">
-                      <span className="text-yellow-700">{item.name}</span>
-                      <span className="text-yellow-600">
+                    <div key={index} className="alert-item low-stock">
+                      <span>{item.name}</span>
+                      <span>
                         {item.quantity} left (Min: {item.min_stock_level})
                       </span>
                     </div>
@@ -168,13 +168,13 @@ const Dashboard = () => {
 
             {/* Out of Stock Alerts */}
             {inventory.out_of_stock_alerts?.length > 0 && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                <h3 className="text-lg font-medium text-red-800 mb-3">Out of Stock Items</h3>
+              <div className="alert-card out-of-stock">
+                <h3>Out of Stock Items</h3>
                 <div className="space-y-2">
                   {inventory.out_of_stock_alerts.map((item, index) => (
-                    <div key={index} className="flex justify-between items-center text-sm">
-                      <span className="text-red-700">{item.name}</span>
-                      <span className="text-red-600">{item.category}</span>
+                    <div key={index} className="alert-item out-of-stock">
+                      <span>{item.name}</span>
+                      <span>{item.category}</span>
                     </div>
                   ))}
                 </div>
@@ -185,25 +185,25 @@ const Dashboard = () => {
       )}
 
       {/* Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="recent-activity">
         {/* Recent Sales */}
-        <div className="bg-white rounded-lg shadow">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-medium text-gray-900">Recent Sales</h3>
+        <div className="activity-card">
+          <div className="activity-card-header">
+            <h3>Recent Sales</h3>
           </div>
-          <div className="p-6">
+          <div className="activity-card-content">
             <div className="space-y-4">
               {recent_activity.sales.map((sale, index) => (
-                <div key={sale.id || index} className="flex justify-between items-center p-2 hover:bg-gray-50 rounded">
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">{sale.product}</p>
-                    <p className="text-sm text-gray-500">{sale.customer}</p>
+                <div key={sale.id || index} className="activity-item p-2 hover:bg-gray-50 rounded">
+                  <div className="activity-item-info">
+                    <p>{sale.product}</p>
+                    <p>{sale.customer}</p>
                   </div>
-                  <div className="text-right">
-                    <p className="text-sm font-medium text-gray-900">
+                  <div className="activity-item-amount text-right">
+                    <p>
                       {sale.total_price?.toFixed(2)} Frw
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs">
                       {new Date(sale.created_at).toLocaleString()}
                     </p>
                   </div>
@@ -214,23 +214,23 @@ const Dashboard = () => {
         </div>
 
         {/* Recent Purchases */}
-        <div className="bg-white rounded-lg shadow">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-medium text-gray-900">Recent Purchases</h3>
+        <div className="activity-card">
+          <div className="activity-card-header">
+            <h3>Recent Purchases</h3>
           </div>
-          <div className="p-6">
+          <div className="activity-card-content">
             <div className="space-y-4">
               {recent_activity.purchases.map((purchase, index) => (
-                <div key={purchase.id || index} className="flex justify-between items-center p-2 hover:bg-gray-50 rounded">
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">{purchase.product}</p>
-                    <p className="text-sm text-gray-500">{purchase.supplier}</p>
+                <div key={purchase.id || index} className="activity-item p-2 hover:bg-gray-50 rounded">
+                  <div className="activity-item-info">
+                    <p>{purchase.product}</p>
+                    <p>{purchase.supplier}</p>
                   </div>
-                  <div className="text-right">
-                    <p className="text-sm font-medium text-gray-900">
+                  <div className="activity-item-amount text-right">
+                    <p>
                       {purchase.total_price?.toFixed(2)} Frw
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs">
                       {new Date(purchase.created_at).toLocaleString()}
                     </p>
                   </div>
@@ -243,23 +243,23 @@ const Dashboard = () => {
 
       {/* Business Profile Summary */}
       {dashboardData.business_profile && (
-        <div className="mt-8 bg-white rounded-lg shadow">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-medium text-gray-900">Business Profile</h3>
+        <div className="business-profile">
+          <div className="business-profile-header">
+            <h3>Business Profile</h3>
           </div>
-          <div className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div>
+          <div className="business-profile-content">
+            <div className="business-profile-grid">
+              <div className="business-profile-item">
                 <p className="text-md font-medium text-[#BE741E]">Business Type</p>
-                <p className="text-sm text-gray-900">{dashboardData.business_profile.business_type}</p>
+                <p>{dashboardData.business_profile.business_type}</p>
               </div>
-              <div>
+              <div className="business-profile-item">
                 <p className="text-md font-medium text-[#BE741E]">Industry</p>
-                <p className="text-sm text-gray-900">{dashboardData.business_profile.industry}</p>
+                <p>{dashboardData.business_profile.industry}</p>
               </div>
-              <div>
+              <div className="business-profile-item">
                 <p className="text-md font-medium text-[#BE741E]">Employees</p>
-                <p className="text-sm text-gray-900">{dashboardData.business_profile.employee_count}</p>
+                <p>{dashboardData.business_profile.employee_count}</p>
               </div>
             </div>
           </div>

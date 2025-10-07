@@ -1,5 +1,5 @@
 .dashboard-container {
-  @apply space-y-6;
+  @apply space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 }
 
 .dashboard-header {
@@ -17,7 +17,7 @@
 
 
 .stats-card {
-  @apply bg-white rounded-lg shadow p-6;
+  @apply bg-white rounded-lg shadow p-6 border border-gray-100 transition-shadow hover:shadow-lg;
 }
 
 .stats-card-icon {
@@ -99,7 +99,7 @@
 }
 
 .activity-card {
-  @apply bg-white rounded-lg shadow;
+  @apply bg-white rounded-lg shadow border border-gray-100 transition-shadow hover:shadow-lg;
 }
 
 .activity-card-header {
@@ -140,7 +140,7 @@
 
 /* Business Profile */
 .business-profile {
-  @apply mt-8 bg-white rounded-lg shadow;
+  @apply mt-8 bg-white rounded-lg shadow border border-gray-100 transition-shadow hover:shadow-lg;
 }
 
 .business-profile-header {

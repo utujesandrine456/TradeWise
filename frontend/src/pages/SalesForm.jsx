@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import logo from '../assets/logo.png';
 import styles from './Home.module.css';
 import Dior from '../assets/Dior.jpg';
@@ -6,8 +6,16 @@ import { Trash2, RotateCcw } from 'lucide-react';
 
 const Form = () => {
   const [trades, setTrades] = useState([]);
+  const [draft, setDraft] = useState({ buyingPrice: '', sellingPrice: '', quantity: '' });
   const clearAll = () => setTrades([]);
   const totalPL = trades.reduce((acc, trade) => acc + trade.profitLoss, 0);
+
+  const draftPL = useMemo(() => {
+    const buying = parseFloat(draft.buyingPrice) || 0;
+    const selling = parseFloat(draft.sellingPrice) || 0;
+    const qty = parseFloat(draft.quantity) || 0;
+    return (selling - buying) * qty;
+  }, [draft]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,6 +35,7 @@ const Form = () => {
     };
 
     setTrades([...trades, newTrade]);
+    setDraft({ buyingPrice: '', sellingPrice: '', quantity: '' });
     e.target.reset();
   };
 
@@ -38,98 +47,85 @@ const Form = () => {
           <img src={logo} alt="logo" className={styles.home_navbar_logo} />
           <h1 className={styles.home_navbar_title}>TradeWise</h1>
         </div>
-        <div className="flex items-center mx-6 p-2 rounded-lg bg-white bg-opacity-60">
-          <img
-            src={Dior}
-            alt="Profile"
-            className="w-[30px] h-[30px] rounded-full"
-          />
-          <h3 className="ml-2 font-bold text-[18px] text-white">Sandrine</h3>
+        <div className="flex items-center p-3 rounded-3xl bg-white bg-opacity-60">
+          <h3 className="font-bold text-normal text-white">S</h3>
         </div>
       </div>
 
       {/* Main Section */}
-      <div className="flex min-h-[auto] bg-gray-100"> 
+      <div className="flex flex-col lg:flex-row min-h-[auto] bg-gray-50"> 
         {/* Left: Form */}
-        <div className="flex-1 py-11 px-[30px] bg-gray-100 flex items-start">
-          <div className="bg-white shadow-md rounded-xl p-6 w-full max-w-2xl">
-            <h2 className="text-[20px] font-semibold text-gray-800 mb-1">
-              Add Daily Sales
-            </h2>
-            <p className="text-sm text-gray-500 mb-4">
-              Enter your trading data for today
-            </p>
+        <div className="flex-1 py-8 px-4 md:px-8 bg-gray-50 flex items-start">
+          <div className="bg-white/90 backdrop-blur rounded-2xl p-6 w-full max-w-2xl shadow-2xl border border-gray-100">
+            <div className="flex items-center justify-between mb-2">
+              <div>
+                <h2 className="text-[20px] font-semibold text-gray-800">Add Daily Sales</h2>
+                <p className="text-sm text-gray-500">Enter your trading data for today</p>
+              </div>
+              <div className={`text-right text-sm font-semibold ${draftPL >= 0 ? 'text-green-600' : 'text-red-600'}`}>{isNaN(draftPL) ? '—' : `${draftPL.toFixed(2)} Frw`}</div>
+            </div>
 
-            <form className="grid grid-cols-2 gap-4" onSubmit={handleSubmit}>
+            <form className="grid grid-cols-1 sm:grid-cols-2 gap-4" onSubmit={handleSubmit}>
               {/* Date */}
               <div className="col-span-1">
-                <label className="block text-sm font-medium text-gray-700">
-                  Date
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Date</label>
                 <input
                   type="date"
                   name="date"
-                  className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                  className="mt-1 block w-full border border-gray-200 rounded-xl p-2 focus:ring-2 focus:ring-amber-500/40 focus:border-transparent"
                 />
               </div>
 
               {/* Item Sold */}
               <div className="col-span-1">
-                <label className="block text-sm font-medium text-gray-700">
-                  Item Sold
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Item Sold</label>
                 <input
                   type="text"
                   name="itemSold"
                   placeholder="e.g., Cement, Oil"
-                  className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                  className="mt-1 block w-full border border-gray-200 rounded-xl p-2 focus:ring-2 focus:ring-amber-500/40 focus:border-transparent"
                 />
               </div>
 
               {/* Buying Price */}
               <div className="col-span-1">
-                <label className="block text-sm font-medium text-gray-700">
-                  Buying Price (Frw)
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Buying Price (Frw)</label>
                 <input
                   type="number"
                   name="buyingPrice"
-                  className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                  onChange={(e)=> setDraft(d => ({...d, buyingPrice: e.target.value}))}
+                  className="mt-1 block w-full border border-gray-200 rounded-xl p-2 focus:ring-2 focus:ring-amber-500/40 focus:border-transparent"
                 />
               </div>
 
               {/* Selling Price */}
               <div className="col-span-1">
-                <label className="block text-sm font-medium text-gray-700">
-                  Selling Price (Frw)
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Selling Price (Frw)</label>
                 <input
                   type="number"
                   name="sellingPrice"
-                  className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                  onChange={(e)=> setDraft(d => ({...d, sellingPrice: e.target.value}))}
+                  className="mt-1 block w-full border border-gray-200 rounded-xl p-2 focus:ring-2 focus:ring-amber-500/40 focus:border-transparent"
                 />
               </div>
 
               {/* Quantity */}
               <div className="col-span-1">
-                <label className="block text-sm font-medium text-gray-700">
-                  Quantity
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Quantity</label>
                 <input
                   type="number"
                   name="quantity"
-                  className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                  onChange={(e)=> setDraft(d => ({...d, quantity: e.target.value}))}
+                  className="mt-1 block w-full border border-gray-200 rounded-xl p-2 focus:ring-2 focus:ring-amber-500/40 focus:border-transparent"
                 />
               </div>
 
               {/* Item Type */}
               <div className="col-span-1">
-                <label className="block text-sm font-medium text-gray-700">
-                  Item Type
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Item Type</label>
                 <select
                   name="itemType"
-                  className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                  className="mt-1 block w-full border border-gray-200 rounded-xl p-2 focus:ring-2 focus:ring-amber-500/40 focus:border-transparent"
                 >
                   <option value="">Select Type</option>
                   <option value="construction">Construction</option>
@@ -139,21 +135,19 @@ const Form = () => {
               </div>
 
               {/* Notes - spans full width */}
-              <div className="col-span-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Notes (Optional)
-                </label>
+              <div className="col-span-1 sm:col-span-2">
+                <label className="block text-sm font-medium text-gray-700">Notes (Optional)</label>
                 <textarea
                   placeholder="Add any additional note..."
-                  className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+                  className="mt-1 block w-full border border-gray-200 rounded-xl p-2 focus:ring-2 focus:ring-amber-500/40 focus:border-transparent"
                 ></textarea>
               </div>
 
               {/* Submit Button - spans full width */}
-              <div className="col-span-2">
+              <div className="col-span-1 sm:col-span-2">
                 <button
                   type="submit"
-                  className="w-full bg-[#BE741E] text-white py-2 px-4 rounded-lg hover:bg-[#dc913b] transition duration-300"
+                  className="w-full bg-gradient-to-r from-brand-500 to-amber-600 text-white py-2.5 px-4 rounded-xl hover:from-amber-500 hover:to-brand-600 transition duration-300 shadow-lg"
                 >
                   + Add Trade Record
                 </button>
@@ -163,7 +157,7 @@ const Form = () => {
         </div>
 
         {/* Right: Records */}
-        <div className="w-[500px] rounded-xl my-11 mx-[30px] p-10 shadow-lg border-l bg-white">
+        <div className="w-full lg:w-[500px] rounded-xl my-6 lg:my-11 mx-4 lg:mx-[30px] p-6 lg:p-10 shadow-lg border-l bg-white">
           <div className="flex justify-between items-center mb-4">
             <div>
               <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
@@ -187,7 +181,7 @@ const Form = () => {
               <p className="text-xl font-bold">{trades.length}</p>
             </div>
             <div className="bg-gray-50 rounded-xl p-3 text-center">
-              <p className="text-sm text-gray-500">Total P&amp;L</p>
+              <p className="text-sm text-gray-500">Total P&L</p>
               <p className="text-xl font-bold text-green-600">
                 {totalPL.toFixed(2)} Frw
               </p>
