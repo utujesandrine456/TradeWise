@@ -48,7 +48,7 @@ const Home = () => {
     useEffect(() => {
         const timer = setInterval(() => {
             setcurrent((prev) => (prev + 1)  % slides.length);
-        }, 14000);
+        }, 20000);
         return () => clearInterval(timer);
     },[]);
     
@@ -76,26 +76,27 @@ const Home = () => {
                 </div>
             </div>
 
+
             <div className={styles.home_content}>
                 <div className="relative w-screen h-screen overflow-hidden mt-16">
                     {slides.map((slide, index) => (
                         <motion.div key={index} className="absolute w-full h-full bg-center bg-cover flex flex-col justify-center items-center px-20 text-white" style={{ backgroundImage: `url(${slide.image})`, display: index === current ? "flex" : "none", }} initial={{ opacity: 0 }} animate={{ opacity: index === current ? 1 : 0 }} transition={{ duration: 1 }} >
-                            <motion.h1 className="text-5xl font-bold mb-1 " initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} > 
+                            <motion.h1 className="text-5xl font-bold mb-1 " initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }} > 
                                 <Typewriter words={[slide.title]} loop={true}
                                 cursor
                                 cursorStyle="|"
-                                typeSpeed={70}
-                                deleteSpeed={50}
-                                delaySpeed={2000}
+                                typeSpeed={90}
+                                deleteSpeed={120}
+                                delaySpeed={8000}
                             /></motion.h1>
-                            <motion.p className="text-center text-lg mb-6 mx-40" initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }}> 
+                            <motion.p className="text-center text-lg mb-6 mx-40" initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.6 }}> 
                                  <Typewriter
                                     words={[slide.desc]} 
                                     loop={true}
                                     cursor
                                     cursorStyle="_"
-                                    typeSpeed={10}
-                                    deleteSpeed={20}
+                                    typeSpeed={60}
+                                    deleteSpeed={10}
                                     delaySpeed={2000}
                                 />
                             </motion.p>
@@ -508,7 +509,7 @@ const FAQList = () => {
                         </span>
                     </div>
                     {openIndex === idx && (
-                        <div style={{ marginTop: '18px', color: '#444', fontSize: '1.08rem', lineHeight: 1.6, transition: 'max-height 0.2s' }}>
+                        <div style={{textAlign: 'start', marginTop: '18px', color: '#444', fontSize: '1.08rem', lineHeight: 1.6, transition: 'max-height 0.2s' }}>
                             {faq.answer}
                         </div>
                     )}

@@ -33,6 +33,24 @@ export const AuthProvider = ({ children }) => {
     checkAuth();
   }, []);
 
+  const signup = async (payload) => {
+    try {
+      const response = await backendApi.post('/auth/register', payload);
+      const data = response.data;
+
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('trader', JSON.stringify(data));
+
+      setTrader(data);
+      setIsAuthenticated(true);
+      return true;
+    } catch (error) {
+      console.error('Signup failed:', error);
+      logout();
+      throw error;
+    }
+  };
+
   const login = async (credentials) => {
     try {
       const response = await backendApi.post('/auth/login', credentials);
@@ -68,6 +86,7 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated,
     trader,
     loading,
+    signup,
     login,
     logout,
     checkAuth

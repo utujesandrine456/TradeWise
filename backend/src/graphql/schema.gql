@@ -40,6 +40,14 @@ enum ENTransactionType {
   Sale
 }
 
+enum EPaymentMethod {
+  BankTransfer
+  Cash
+  CreditCard
+  MobileMoney
+  Other
+}
+
 enum EUnitType {
   Kilogram
   Litre
@@ -171,19 +179,33 @@ type MGqlTrader {
 }
 
 type MGqlTraderSettings {
+  address: String
+  anualRevenue: Float
+  businessHours: String
+  businessType: String
+  competitors: String
   createdAt: DateTime!
   deleteSoldStockAfterEvaluationPeriod: Boolean!
+  description: String
   enterpriseDescription: String!
   evaluationPeriod: Float!
+  foundedYear: Float
+  goals: String
   id: String!
+  industry: String
   logoUrl: String!
   logo_PublicId: String!
   name: String!
+  numberOfEmployees: Float
+  paymentMethod: EPaymentMethod
+  phoneNumber: String
   sendMessage: String!
+  targetMarket: String
   trader: MGqlTrader!
   traderId: String!
   updatedAt: DateTime!
   ussdCode: String!
+  website: String
 }
 
 type MGqlTransaction {

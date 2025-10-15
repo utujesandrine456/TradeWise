@@ -1,5 +1,7 @@
 import {React, useState, useEffect} from 'react'
 import Signupimage from '../assets/Login.jpg'
+import backendApi from '../utils/axiosInstance'
+import { toast } from 'react-toastify'
 
 const Forgotpassword = () => {
 
@@ -8,14 +10,18 @@ const Forgotpassword = () => {
   const [step, setStep]= useState(1);
   const [isloading, setIsloading]= useState(1);
 
-  const handleEmailSubmit = (e) => {
+  const handleEmailSubmit = async (e) => {
     e.preventDefault();
     setIsloading(true);
-
-    setTimeout(() => {
-      setIsloading(false);
+    try {
+      await backendApi.post('/auth/password/forget', { email });
       setStep(2);
-    }, 1500);
+      toast.success('Reset code sent');
+    } catch (err) {
+      toast.error(err.response?.data?.message || err.message || 'Failed to send reset code');
+    } finally {
+      setIsloading(false);
+    }
   };
 
 
@@ -34,16 +40,18 @@ const Forgotpassword = () => {
 
 
 
-  const handleCodeSubmit = (e) => {
+  const handleCodeSubmit = async (e) => {
     e.preventDefault();
     setIsloading(true);
-
-    setTimeout(() => {
+    try {
+      const otp = code.join('');
+      await backendApi.post('/auth/password/reset', { email, otp, password: 'Temp@1234' });
+      toast.success('Code verified. Continue to reset your password.');
+    } catch (err) {
+      toast.error(err.response?.data?.message || err.message || 'Invalid code');
+    } finally {
       setIsloading(false);
-      alert('Password reset instructions have been to your email!');
-
-    }, 1500);
-
+    }
   };
 
   return (
@@ -55,7 +63,7 @@ const Forgotpassword = () => {
           <>
             <p className='text-black/80 text-normal text-center px-auto mb-4'>Please provide a valid email address so we can send you <br></br>  a code or link to reset your password.</p>
             <form onSubmit={handleEmailSubmit} className='space-x-4'>
-              <input type="email" placeholder="Email" className='w-100 py-2 px-4 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BE741E] focus:border-transparent' />
+              <input value={email} onChange={(e)=>setemail(e.target.value)} type="email" placeholder="Email" className='w-100 py-2 px-4 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BE741E] focus:border-transparent' />
               <button type="submit" className=" py-2 px-6 mt-4 bg-[#BE741E] text-sm text-white font-medium rounded-lg hover:bg-[#cc8b3a] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" >Submit</button>
             </form>
           </>

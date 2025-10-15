@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Signupimage from '../assets/Login.jpg';
 import { EyeOff, Eye, Sparkles, ArrowRight, Moon, Sun } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -29,10 +29,12 @@ const Login = () => {
 
     try {
       await login(formData);
-      toast.success("Logged in successfully !!!")
-      navigate("/dashboard");
+      toast.success("Welcome back! You're logged in.")
+      
+      setTimeout(() => navigate('/dashboard'), 1500);
     } catch (error) {
-      toast.error(error.message);
+      const message = error?.response?.data?.message || error.message || 'Login failed';
+      toast.error(message);
       console.log("Error: ", error);
     } finally {
       setLoading(false);

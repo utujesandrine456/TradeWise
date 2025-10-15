@@ -1,14 +1,18 @@
 import React from 'react';
+import { useQuery } from '@apollo/client';
+import { GET_STOCK } from '../graphql/queries';
 
 
 const ProductsTable = () => {
-    const products = [
-    { name: 'Cement', purchasePrice: 9000, quantity: 3, sellingPrice: 9500, totalPrice: 28500, status: 'paid' },
-    { name: 'Fer plan', purchasePrice: 12000, quantity: 4, sellingPrice: 17000, totalPrice: 68000, status: 'paid' },
-    { name: 'Olive Oil', purchasePrice: 5000, quantity: 3, sellingPrice: 7000, totalPrice: 21000, status: 'credit' },
-    { name: 'Biscuits', purchasePrice:8000, quantity: 7, sellingPrice: 10000, totalPrice: 70000, status: 'paid' },
-    { name: 'Gucci clothes', purchasePrice: 12000, quantity: 8, sellingPrice: 13000, totalPrice: 104000, status: 'credit' },
-    ];
+  const { data } = useQuery(GET_STOCK);
+  const products = (data?.getStock?.products || []).map(p => ({
+    name: p.name,
+    purchasePrice: p.price,
+    quantity: p.quantity,
+    sellingPrice: p.price,
+    totalPrice: p.price * p.quantity,
+    status: 'paid'
+  }));
 
   return (
     <div className="bg-black p-6 rounded-lg shadow-lg text-white ">

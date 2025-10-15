@@ -19,6 +19,8 @@ import { PrismaClientKnownRequestError } from 'generated/prisma/runtime/library'
 import { MTrader, SendMessage } from 'generated/prisma';
 import generateOtp from 'src/custom/utils/generate.otp';
 import { CurrencyService } from 'src/custom/utils/currency.md';
+import { EPaymentMethod } from 'src/graphql/circular-dependency';
+import { EmailService } from 'src/communication/email/email.service';
 
 @Injectable()
 export class AuthService {
@@ -26,9 +28,11 @@ export class AuthService {
         private readonly configService: ConfigService,
         private readonly prismaService: PrismaService,
         private readonly jwtService: JwtService,
-        private readonly currencyService: CurrencyService
+        private readonly currencyService: CurrencyService,
+        private readonly emailService: EmailService
     ) {}
     
+
     private phoneOrEmail(phone?: string, email?: string, allowBoth = true) {
         if (!phone && !email) 
             throw new BadRequestException('Either phone or email is required');
@@ -45,23 +49,26 @@ export class AuthService {
 
     public async generateToken(sub: string) {
         const payload: IJwtPayload = { sub, lastLoginAt: new Date() };
-        return await this.jwtService.signAsync(payload);
+        return await this.jwtService.signAsync(payload, { 
+            expiresIn: '7d' 
+        });
     }
 
     public async register(details: TRegisterDetails) {
         const { email, phone, enterpriseName, password } = details;
         this.phoneOrEmail(phone, email);
-
+    
         const existingUser = await this.prismaService.mTrader.findFirst({
             where: {
-                OR: [ { email }, { phone } ]
+                OR: [{ email }, { phone }]
             }
         });
         if (existingUser) 
             throw new BadRequestException('User with this phone or email already exists');
-
+    
         const id = idTools.generateUlid();
         const hashedPassword = await bcrypt.hash(password, 10);
+    
         const newUser = await this.prismaService.mTrader.create({
             data: {
                 id,
@@ -69,45 +76,58 @@ export class AuthService {
                 phone,
                 enterpriseName,
                 password: hashedPassword,
+                isVerified: false,
                 lastLogin: new Date()
             }
         });
-
-        let sendMessageType: SendMessage;
-        if(email) 
-            sendMessageType = SendMessage.Email;
-        else if (phone)
-            sendMessageType = SendMessage.Phone;
-        else
-            sendMessageType = SendMessage.Email;
-
-        // initializing the settings
-        await this.prismaService.mTraderSettings.create({
+    
+        
+        const otp = generateOtp();
+        const hashedOtp = crypto.createHash('sha256').update(otp).digest('hex');
+        await this.prismaService.mTrader.update({
+            where: { id: newUser.id },
             data: {
-                traderId: id,
-                enterpriseDescription: '',
-                logoUrl: '',
-                logo_PublicId: '',
-                evaluationPeriod: 7,
-                deleteSoldStockAfterEvaluationPeriod: false,
-                ussdCode: '',
-                sendMessage: sendMessageType,
-                name: enterpriseName
+                verifyAccountToken: hashedOtp,
+                verifyAccountExpires: new Date(Date.now() + 10 * 60 * 1000)
             }
         });
+    
 
-        // creating a stock
-        await this.prismaService.mStock.create({
-            data: {
-                id: idTools.generateUlid(),
-                traderId: id,
-                createdAt: new Date(),
-                updatedAt: new Date()
-            }
-        });
+        if (email) await this.emailService.verifyAccount(otp, email);
+    
 
-        return newUser;
+        await this.prismaService.mStock.upsert({ where: { traderId: newUser.id }, update: {}, create: { traderId: newUser.id } });
+        await this.prismaService.mTraderSettings.upsert({ where: { traderId: newUser.id }, update: {}, create: {
+            traderId: newUser.id,
+            enterpriseDescription: '',
+            logo_PublicId: '',
+            logoUrl: '',
+            name: enterpriseName,
+            ussdCode: '',
+        }});
+
+        return { 
+            id: newUser.id,
+            email: newUser.email,
+            enterpriseName: newUser.enterpriseName,
+            message: 'Registration successful. OTP sent to your email.',
+            requiresVerification: true
+        };
     }
+
+    public async sendOtpEmail(email: string) {
+        const otp = await this.sendOtp({ email, isPasswordReset: false });
+        await this.emailService.verifyAccount(otp, email);
+        return otp;
+    }
+    
+    public async markUserVerified(id: string) {
+        return this.prismaService.mTrader.update({
+            where: { id },
+            data: { isVerified: true, verifyAccountToken: null, verifyAccountExpires: null },
+        });
+    }
+    
 
     public async login(details: TLoginDetails) {
         const { email, phone, password } = details;
@@ -124,6 +144,11 @@ export class AuthService {
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) 
             throw new BadRequestException('Invalid credentials');
+
+        
+        if (!user.isVerified) {
+            throw new BadRequestException('Please verify your email address before logging in. Check your inbox for the verification email.');
+        }
 
         return await this.prismaService.mTrader.update({
             where: { id: user.id },
@@ -168,41 +193,66 @@ export class AuthService {
         return settings;
     }
 
+    
     public async onboarding(details: TOnboardingDetails, id: string) {
         const { 
             enterpriseDescription, 
-            logoUrl, logo_PublicId, 
-            evaluationPeriod, 
-            deleteSoldStockAfterEvaluationPeriod, 
-            ussdCode, 
-            sendMessage,
-            currency
+            name,
+            currency,
+            businessType,
+            industry,
+            foundedYear,
+            description,
+            website,
+            address,
+            businessHours,
+            phoneNumber,
+            anualRevenue,
+            numberOfEmployees,
+            paymentMethod,
+            targetMarket,
+            competitors,
+            goals,
         } = details;
 
         try {
             const updateData: Partial<{
                 enterpriseDescription: string;
-                logoUrl: string;
-                logo_PublicId: string;
-                evaluationPeriod: number;
-                deleteSoldStockAfterEvaluationPeriod: boolean;
-                ussdCode: string;
-                sendMessage: SendMessage;
+                name: string;
                 currency: string;
+                businessType: string;
+                industry: string;
+                foundedYear: number;
+                description: string;
+                website: string;
+                address: string;
+                businessHours: string;
+                phoneNumber: string;
+                anualRevenue: number;
+                numberOfEmployees: number;
+                paymentMethod: EPaymentMethod;
+                targetMarket: string;
+                competitors: string;
+                goals: string;
             }> = {};
 
             if (enterpriseDescription) updateData.enterpriseDescription = enterpriseDescription;
-            if (logoUrl) updateData.logoUrl = logoUrl;
-            if (logo_PublicId) updateData.logo_PublicId = logo_PublicId;
-            if (evaluationPeriod) updateData.evaluationPeriod = evaluationPeriod;
-            if (deleteSoldStockAfterEvaluationPeriod != undefined) updateData.deleteSoldStockAfterEvaluationPeriod = deleteSoldStockAfterEvaluationPeriod;
-            if (ussdCode) updateData.ussdCode = ussdCode;
-            if (sendMessage != undefined) updateData.sendMessage = sendMessage;
-            if (currency) {
-                if(!this.currencyService.isValidCurrency(currency))
-                    throw new BadRequestException('Invalid currency code');
-                updateData.currency = currency;
-            }
+            if (name) updateData.name = name;
+            if (currency) updateData.currency = currency;
+            if (businessType) updateData.businessType = businessType;
+            if (industry) updateData.industry = industry;
+            if (foundedYear) updateData.foundedYear = foundedYear;
+            if (description) updateData.description = description;
+            if (website) updateData.website = website;
+            if (address) updateData.address = address;
+            if (businessHours) updateData.businessHours = businessHours;
+            if (phoneNumber) updateData.phoneNumber = phoneNumber;
+            if (anualRevenue) updateData.anualRevenue = anualRevenue;
+            if (numberOfEmployees) updateData.numberOfEmployees = numberOfEmployees;
+            if (paymentMethod) updateData.paymentMethod = paymentMethod;
+            if (targetMarket) updateData.targetMarket = targetMarket;
+            if (competitors) updateData.competitors = competitors;
+            if (goals) updateData.goals = goals;
 
             const settings = await this.prismaService.mTraderSettings.update({
                 where: { traderId: id }, 
@@ -219,6 +269,7 @@ export class AuthService {
             throw new InternalServerErrorException(error.message ?? "Something went wrong");
         }
     }
+
 
     public async sendOtp(details: TSendOtpDetails) {
         const { email, phone, isPasswordReset } = details;
@@ -255,6 +306,7 @@ export class AuthService {
 
         return otp;
     }
+
 
     public async verifyOtp(details: TVerifyOtpDetails) {
         const { email, phone, otp, isPasswordReset } = details;
@@ -309,5 +361,46 @@ export class AuthService {
         });
 
         return user;
+    }
+
+ 
+    public async resendOtp(email: string) {
+        const user = await this.prismaService.mTrader.findUnique({ where: { email } });
+        if (!user) throw new BadRequestException('User not found');
+      
+
+        const otp = generateOtp();
+        const hashedOtp = crypto.createHash('sha256').update(otp).digest('hex');
+      
+
+        await this.prismaService.mTrader.update({
+          where: { id: user.id },
+          data: {
+            verifyAccountToken: hashedOtp,
+            verifyAccountExpires: new Date(Date.now() + 10 * 60 * 1000),
+          },
+        });
+      
+        await this.emailService.verifyAccount(otp, email);
+      
+        return { message: 'A new OTP has been sent to your email.', otp };
+      }
+      
+      
+    async verifyAccountWithOtp(otp: string, email: string) {
+        const hashedOtp = crypto.createHash('sha256').update(otp).digest('hex');
+    
+        const user = await this.prismaService.mTrader.findUnique({ where: { email } });
+    
+        if (!user || user.verifyAccountToken !== hashedOtp || (user.verifyAccountExpires?.getTime() || 0) < Date.now()) {
+            throw new BadRequestException('Invalid or expired OTP');
+        }
+    
+        await this.prismaService.mTrader.update({
+            where: { id: user.id },
+            data: { isVerified: true, verifyAccountToken: null, verifyAccountExpires: null },
+        });
+    
+        return { id: user.id, email: user.email, enterpriseName: user.enterpriseName };
     }
 }

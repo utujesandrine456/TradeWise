@@ -1,197 +1,244 @@
 generator client {
-    provider = "prisma-client-js"
-    output   = "../generated/prisma"
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model MTrader {
-    id String @id @default(ulid())
-    enterpriseName String  //or (username) the company name
-    //business email & phone for communication when one null, other is used
-    email String? @unique
-    phone String? @unique    
-    password String  
-    resetPasswordToken String?
-    verifyAccountToken String?
-    //timestamps
-    resetPasswordExpires DateTime?
-    verifyAccountExpires DateTime?
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    lastLogin DateTime @default(now())
-    //relations
-    stock MStock? @relation("trader_stock")
-    notifications MNotification[]
-    settings MTraderSettings? @relation("trader_settings")
+  id String @id @default(ulid())
+  enterpriseName String
+  email String? @unique
+  phone String? @unique    
+  password String  
+  resetPasswordToken String?
+  verifyAccountToken String?
+  resetPasswordExpires DateTime?
+  verifyAccountExpires DateTime?
+  isVerified Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lastLogin DateTime @default(now())
+  stock MStock? @relation("trader_stock")
+  notifications MNotification[]
+  settings MTraderSettings? @relation("trader_settings")
+  stocks Stock[]
 
-    @@index([email])
-    @@index([phone])
+  @@index([email])
+  @@index([phone])
+  @@map("mtrader")
 }
 
 enum SendMessage {
-    Email
-    Phone
+  Email
+  Phone
 }
 
-model MTraderSettings{ // contains both profile and basic settings
-    id String @id @default(ulid())
-    enterpriseDescription String @db.VarChar(255)
-    logo_PublicId String // for storing public_id
-    logoUrl String // to show 
-    name String //name of the trader
-    currency String @default("RWF") // default if Rwandan Franc
-    evaluationPeriod Int @default(7) // in days(weekly) 
-    deleteSoldStockAfterEvaluationPeriod Boolean @default(false)
-    ussdCode String
-    sendMessage SendMessage @default(Email)
-    //timestamps
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    //relations
-    traderId String @unique
-    trader   MTrader  @relation("trader_settings", fields: [traderId], references: [id], onDelete: Cascade)
+enum EPaymentMethod {
+  Cash
+  BankTransfer
+  MobileMoney
+  CreditCard
+  Other
+}
+
+model MTraderSettings {
+  id String @id @default(ulid())
+  enterpriseDescription String @db.VarChar(255)
+  logo_PublicId String @db.VarChar(255)
+  logoUrl String @db.VarChar(255)
+  name String @db.VarChar(100)
+  currency String @default("RWF")
+  evaluationPeriod Int @default(7)
+  deleteSoldStockAfterEvaluationPeriod Boolean @default(false)
+  ussdCode String @db.VarChar(20)
+  sendMessage SendMessage @default(Email)
+  businessType String? @db.VarChar(100)
+  industry String? @db.VarChar(100)
+  foundedYear Int?
+  description String? @db.VarChar(500)
+  website String? @db.VarChar(255)
+  address String? @db.VarChar(255)
+  businessHours String? @db.VarChar(100)
+  phoneNumber String? @db.VarChar(20)
+  anualRevenue Float?
+  numberOfEmployees Int?
+  paymentMethod EPaymentMethod?
+  targetMarket String? @db.VarChar(255)
+  competitors String? @db.VarChar(500)
+  goals String? @db.VarChar(500)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  traderId String @unique
+  trader MTrader @relation("trader_settings", fields: [traderId], references: [id], onDelete: Cascade)
+
+  @@map("mtrader_settings")
 }
 
 model MStock {
-    id String @id @default(ulid())
-    //timestamps
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    markAsBought Boolean @default(false) // the schedule will remove it
-    //relations
-    traderId String @unique
-    trader   MTrader  @relation("trader_stock", fields: [traderId], references: [id], onDelete: Cascade)
-    images MStockImage[] @relation("stock_images")
-    transactions MTransaction[] @relation("trader_transaction")
-    financials MFinancial[] @relation("stock_financials")
-    buyList MBuyList[] @relation("buy_list_stock")
+  id String @id @default(ulid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  markAsBought Boolean @default(false)
+  traderId String @unique
+  trader MTrader @relation("trader_stock", fields: [traderId], references: [id], onDelete: Cascade)
+  images MStockImage[] @relation("stock_images")
+  transactions MTransaction[] @relation("trader_transaction")
+  financials MFinancial[] @relation("stock_financials")
+  buyList MBuyList[] @relation("buy_list_stock")
+
+  @@map("mstock")
 }
 
 enum EUnitType {
-    Piece
-    Kilogram
-    Litre
+  Piece
+  Kilogram
+  Litre
 }
 
 model MStockImage {
-    id String @id @default(ulid())
-    name String @db.VarChar(40)
-    unit EUnitType @default(Piece)
-    quantity Int @default(0) // total quantity of the product in stock
-    //timestamps
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    //relations
-    stockId String
-    stock MStock @relation("stock_images", fields: [stockId], references: [id], onDelete: Cascade)
-    products MProduct[] @relation("stock_images_products")
-    @@unique([name, stockId])
+  id String @id @default(ulid())
+  name String @db.VarChar(40)
+  unit EUnitType @default(Piece)
+  quantity Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  stockId String
+  stock MStock @relation("stock_images", fields: [stockId], references: [id], onDelete: Cascade)
+  products MProduct[] @relation("stock_images_products")
+
+  @@unique([name, stockId])
+  @@map("mstock_image")
 }
 
 model MProduct {
-    id String @id @default(ulid())
-    name String @db.VarChar(40) // must refrect the stock_image name
-    quantity Int @default(0)
-    price Float @default(0.0)  // the price is in thousands eg 5.5 = 5500 and 0.7 = 700
-    brand String?
-    //timestamps
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    //relations
-    stockImageId String
-    stockImage MStockImage @relation("stock_images_products", fields: [stockImageId], references: [id])
-    transactions MTransaction[] @relation("transaction_products")
+  id String @id @default(ulid())
+  name String @db.VarChar(40)
+  quantity Int @default(0)
+  price Float @default(0.0)
+  brand String? @db.VarChar(50)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  stockImageId String
+  stockImage MStockImage @relation("stock_images_products", fields: [stockImageId], references: [id])
+  transactions MTransaction[] @relation("transaction_products")
+
+  @@map("mproduct")
 }
 
-model MBuyList { // item added in check
-    id String @id @default(ulid())
-    name String @db.VarChar(40) // must refrect the stock_image name
-    quantity Float?
-    //timestamps
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    //relations
-    stockId String
-    stock MStock @relation("buy_list_stock", fields: [stockId], references: [id])
+model MBuyList {
+  id String @id @default(ulid())
+  name String @db.VarChar(40)
+  quantity Float?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  stockId String
+  stock MStock @relation("buy_list_stock", fields: [stockId], references: [id])
+
+  @@map("mbuy_list")
 }
 
 enum ENTransactionType {
-    Purchase
-    Sale
+  Purchase
+  Sale
 }
 
-model MTransaction {
-    id String @id @default(ulid())
-    type ENTransactionType @default(Sale)
-    description String
-    secondParty String //the customer(sales)/sales-man(purchase)
-    //timestampa
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    //relations
-    stockId String
-    stock MStock @relation("trader_transaction", fields: [stockId], references: [id])
-    products MProduct[] @relation("transaction_products")
-    financials MFinancial[] @relation("transaction_financials")
+
+model Transaction {
+  id        String   @id @default(ulid())
+  type      ENTransactionType
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  traderId  String
+  trader    MTrader  @relation(fields: [traderId], references: [id], onDelete: Cascade)
+  items     TransactionItem[]
+  // additional fields like counterparty, notes can be added
 }
+
+
+
+model TransactionItem {
+  id            String   @id @default(ulid())
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  stockId       String
+  stock         Stock       @relation(fields: [stockId], references: [id], onDelete: Cascade)
+  quantity      Int
+  price         Float?      // if you want to store sale price per unit
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
 
 enum ENFinancialType {
-    Credit
-    Debit
+  Credit
+  Debit
 }
 
 model MFinancial {
-    id String @id @default(ulid())
-    type ENFinancialType @default(Credit)
-    amount Float
+  id String @id @default(ulid())
+  type ENFinancialType @default(Credit)
+  amount Float
+  description String @db.VarChar(255)
+  collateral String? @db.VarChar(255)
+  isPaidBack Boolean @default(false)
+  isNotified Boolean @default(false)
+  deadline DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  stockId String
+  stock MStock @relation("stock_financials", fields: [stockId], references: [id])
+  transactionId String?
+  transaction MTransaction? @relation("transaction_financials", fields: [transactionId], references: [id])
 
-    description String
-    collateral String? // collateral for the loan
-
-    isPaidBack Boolean @default(false)
-    isNotified Boolean @default(false)
-
-    //timestamps
-    deadline DateTime? // deadline for the loan
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    //relations
-    stockId String
-    stock MStock @relation("stock_financials", fields: [stockId], references: [id])
-    transactionId String?
-    transaction MTransaction? @relation("transaction_financials", fields: [transactionId], references: [id])
+  @@map("mfinancial")
 }
 
-// Notifications
+
 enum ENNotificationImpact {
-    Low
-    Medium
-    High
+  Low
+  Medium
+  High
 }
+
 
 enum ENNotificationFilterType {
-    INFO
-    WARNING
-    SUCCESS
+  INFO
+  WARNING
+  SUCCESS
 }
 
 model MNotification {
-    id String @id @default(ulid())
-    title String @db.VarChar(20) @map("noti_title")
-    message String @db.VarChar(255) @map("noti_message")
-    impact ENNotificationImpact @default(Medium)
-    filterType ENNotificationFilterType @default(INFO)
-    // the type depends on filter type, eg info has payment_received and new_item_inChat
-    type String @db.VarChar(20) @map("noti_type")
-    read Boolean @default(false)
-    //timestamps
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    //relations
-    traderId String
-    trader MTrader @relation(fields: [traderId], references: [id])
+  id String @id @default(ulid())
+  title String @db.VarChar(20) @map("noti_title")
+  message String @db.VarChar(255) @map("noti_message")
+  impact ENNotificationImpact @default(Medium)
+  filterType ENNotificationFilterType @default(INFO)
+  type String @db.VarChar(20) @map("noti_type")
+  read Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  traderId String
+  trader MTrader @relation(fields: [traderId], references: [id])
+
+  @@map("mnotification")
+}
+
+
+model Stock {
+  id        String   @id @default(cuid())
+  name      String
+  category  String
+  quantity  Int @default(0)
+  unit      EUnitType
+  price     Int
+  traderId  String 
+  trader    MTrader  @relation(fields: [traderId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("stock")
 }

@@ -1,12 +1,14 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { Observable } from 'rxjs';
+import { JwtService } from '@nestjs/jwt';
+
+
 
 @Injectable()
 export class UnProtectedRouteGuard implements CanActivate {
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  constructor(private readonly jwtService: JwtService) {}
+
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     let req: any;
 
     if (context.getType<'graphql'>() === 'graphql') {
@@ -16,8 +18,18 @@ export class UnProtectedRouteGuard implements CanActivate {
       req = context.switchToHttp().getRequest();
     }
 
-    const user = req.user;
-    if (user) throw new UnauthorizedException('User is already logged in');
-    return true;
+    const token = req.cookies?.accessToken;
+
+    if (token) {
+      try {
+        const payload = await this.jwtService.verifyAsync(token);
+        if (payload) throw new UnauthorizedException('User is already logged in');
+      } catch {
+      
+        return true;
+      }
+    }
+
+    return true; 
   }
 }

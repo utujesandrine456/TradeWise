@@ -1,8 +1,12 @@
 import React, { useState, useMemo } from 'react';
+import { useMutation } from '@apollo/client';
+import { CREATE_TRANSACTION, CREATE_FINANCIAL } from '../graphql/queries';
+import { toast } from 'react-toastify';
 import logo from '../assets/logo.png';
 import styles from './Home.module.css';
-import Dior from '../assets/Dior.jpg';
 import { Trash2, RotateCcw } from 'lucide-react';
+
+
 
 const Form = () => {
   const [trades, setTrades] = useState([]);
@@ -17,39 +21,52 @@ const Form = () => {
     return (selling - buying) * qty;
   }, [draft]);
 
-  const handleSubmit = (e) => {
+
+  const [createTransaction] = useMutation(CREATE_TRANSACTION);
+  const [createFinancial] = useMutation(CREATE_FINANCIAL);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const buyingPrice = parseFloat(e.target.buyingPrice.value);
     const sellingPrice = parseFloat(e.target.sellingPrice.value);
-    const quantity = parseFloat(e.target.quantity.value);
+    const quantity = parseInt(e.target.quantity.value, 10);
+    const itemName = e.target.itemSold.value;
+    const date = e.target.date.value;
 
     const profitLoss = (sellingPrice - buyingPrice) * quantity;
 
-    const newTrade = {
-      date: e.target.date.value,
-      item: e.target.itemSold.value,
-      type: e.target.itemType.value,
-      quantity,
-      profitLoss,
-    };
-
-    setTrades([...trades, newTrade]);
-    setDraft({ buyingPrice: '', sellingPrice: '', quantity: '' });
-    e.target.reset();
+    try {
+      await createTransaction({
+        variables: {
+          type: 'Sale',
+          products: [{ name: itemName.trim(), price: sellingPrice, quantity }],
+          description: `Sale of ${itemName}`,
+          secondParty: 'Customer',
+          financialDetails: { amount: sellingPrice * quantity, description: `Sale for ${itemName}`, type: 'Credit' },
+        },
+      });
+      
+      
+      toast.success('Sale recorded');
+      setTrades([...trades, { date, item: itemName, type: 'Sale', quantity, profitLoss }]);
+      setDraft({ buyingPrice: '', sellingPrice: '', quantity: '' });
+      e.target.reset();
+    } catch (err) {
+      toast.error(err.message || 'Failed to record sale');
+    }
   };
 
   return (
     <>
+     
       {/* Navbar */}
-      <div className="bg-[#BE741E] flex justify-between items-center px-6">
+      <div className="bg-[#BE741E] flex justify-between items-center px-6 py-3 shadow-md">
         <div className="flex items-center space-x-1">
-          <img src={logo} alt="logo" className={styles.home_navbar_logo} />
+          <img src={logo} alt="logo" className="w-10 h-10 rounded-full" />
           <h1 className={styles.home_navbar_title}>TradeWise</h1>
         </div>
-        <div className="flex items-center p-3 rounded-3xl bg-white bg-opacity-60">
-          <h3 className="font-bold text-normal text-white">S</h3>
-        </div>
+        <div className="bg-white/50 px-3 py-1 rounded-lg text-white font-semibold">S</div>
       </div>
 
       {/* Main Section */}
@@ -120,19 +137,7 @@ const Form = () => {
                 />
               </div>
 
-              {/* Item Type */}
-              <div className="col-span-1">
-                <label className="block text-sm font-medium text-gray-700">Item Type</label>
-                <select
-                  name="itemType"
-                  className="mt-1 block w-full border border-gray-200 rounded-xl p-2 focus:ring-2 focus:ring-amber-500/40 focus:border-transparent"
-                >
-                  <option value="">Select Type</option>
-                  <option value="construction">Construction</option>
-                  <option value="metal">Metal</option>
-                  <option value="cement">Cement</option>
-                </select>
-              </div>
+              
 
               {/* Notes - spans full width */}
               <div className="col-span-1 sm:col-span-2">

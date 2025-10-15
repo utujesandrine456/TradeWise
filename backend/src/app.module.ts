@@ -39,7 +39,7 @@ import { ScheduleModule } from './schedule/schedule.module';
                 let user: IJwtPayload | undefined = undefined;
                 if (token) {
                     try {
-                        user = jwtService.verify(token, { secret: configService.get('jwt_secret') }) as IJwtPayload;
+                        user = jwtService.verify(token, { secret: configService.get('JWT_SECRET') }) as IJwtPayload;
                     } catch (err) {
                         user = undefined;
                     }

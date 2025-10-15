@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { MdDashboard, MdStorage, MdHistory, MdShoppingBag, MdAttachMoney, MdNotifications, MdCreditCard, MdShowChart, MdLogout } from "react-icons/md";
 import logo from '../assets/logo.png';
 import Dashboard from './Dashboard';
@@ -14,13 +14,13 @@ import Profile from './Profile';
 import '../index.css';
 import { mockNotifications, mockApiResponse } from '../__mock__';
 import { CgProfile } from "react-icons/cg";
-
+import styles from '../pages/Home.module.css';
 
 
 const DashboardLayout = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const navigate = useNavigate();
-  const { user, logout: authLogout } = useAuth();
+  const { trader, logout: authLogout } = useAuth();
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -90,7 +90,7 @@ const DashboardLayout = () => {
       <div className="w-64 shadow-2xl flex flex-col border-r border-gray-200 hide-scrollbar" style={{ backgroundColor: '#be741e' }}>
         <div className="p-6 border-b border-gray-200 flex items-center">
           <img src={logo} alt="TradeWise logo" className='w-[50px] h-[40px] rounded-full mr-1' />
-          <h1 className="text-2xl font-bold tracking-wide text-white">TradeWise</h1>
+          <h1 className={styles.home_navbar_title}>TradeWise</h1>
         </div>
       
         {/* Navigation */}
@@ -131,7 +131,7 @@ const DashboardLayout = () => {
 
         <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-white border-b border-gray-200 shadow-sm text-gray-800">
           <div className="text-2xl md:text-3xl font-semibold">
-            Welcome Back, {user?.company_name || 'User'}!
+            Welcome Back, {trader?.enterpriseName || 'User'}!
             <p className="text-sm font-normal mt-1">Here’s your dashboard overview, be able to track you daily and monthly expense.</p>
           </div>
           <div className="relative flex flex-row items-center justify-center text-center">

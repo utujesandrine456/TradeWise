@@ -21,7 +21,7 @@ export function jwtDecodeMiddleware() {
 
     if (token) {
       try {
-        const payload = jwtService.verify(token, { secret: configService.get('jwt_secret') });
+        const payload = jwtService.verify(token, { secret: configService.get('JWT_SECRET') });
         req.user = payload;
       } catch (error) {
         req.user = undefined;

@@ -6,6 +6,8 @@ import { EmailService } from 'src/communication/email/email.service';
 import { UnProtectedRouteGuard } from 'src/custom/guards/un-protected-route/un-protected-route.guard';
 import { SanitizeInterceptor } from 'src/custom/interceptors/sanitize/sanitize.interceptor';
 
+
+
 @UseInterceptors(SanitizeInterceptor)
 @UseGuards(UnProtectedRouteGuard)
 @Controller('auth')
@@ -15,13 +17,14 @@ export class Auth2Controller {
         private readonly emailService: EmailService
     ) {}
 
+    
     @Post('password/forget')
     public async forgetPassword (
         @ValidatedBody(forgetPasswordSchema) dto: any
     ) {
         const otp = await this.authService.sendOtp({ email: dto.email, phone: dto.phone, isPasswordReset: true });
         
-        //sending email
+
         try {
             await this.emailService.forgetPassword(otp, dto.email);
             return otp;
@@ -29,6 +32,7 @@ export class Auth2Controller {
             throw new InternalServerErrorException('Failed to send email', error.message);
         }
     }
+
 
     @Post('password/reset')
     public async resetPassword (
@@ -38,13 +42,13 @@ export class Auth2Controller {
         return await this.authService.resetPassword({password: dto.password }, user.id);
     }
 
+
     @Post('account/send')
     public async sendOtp (
         @ValidatedBody(sendOtpSchema) dto: any
     ) {
         const otp = await this.authService.sendOtp({ email: dto.email, phone: dto.phone, isPasswordReset: false });
 
-        //sending email
         try {
             await this.emailService.verifyAccount(otp, dto.email);
             return otp;
@@ -52,6 +56,7 @@ export class Auth2Controller {
             throw new InternalServerErrorException('Failed to send email', error.message);
         }
     }
+
 
     @Post('account/verify')
     public async verifyOtp (

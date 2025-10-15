@@ -1,26 +1,28 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import backendApi from '../utils/axiosInstance';
+import { toast, ToastContainer } from 'react-toastify';
 import './Home.module.css';
 
 const AfterSignup = () => {
+  const { trader } = useAuth();
   const [formData, setFormData] = useState({
-    business_name: '',
-    business_type: '',
+    name: '',
+    businessType: '',
     industry: '',
     description: '',
     address: '',
-    phone: '',
+    phoneNumber: '',
     website: '',
-    tax_id: '',
-    business_license: '',
-    annual_revenue: '',
-    employee_count: '',
-    founded_year: '',
-    business_hours: '',
-    payment_methods: [],
-    target_market: '',
+    foundedYear: '',
+    businessHours: '',
+    anualRevenue: '',
+    numberOfEmployees: '',
+    paymentMethod: '',
+    targetMarket: '',
     competitors: '',
-    business_goals: ''
+    goals: ''
   });
 
   const [loading, setLoading] = useState(false);
@@ -28,51 +30,70 @@ const AfterSignup = () => {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  const requiredKeys = ['business_name'];
+  const requiredKeys = ['name'];
   const progress = useMemo(() => {
-    const total = 10; // virtual total steps
+    const total = 10; 
     let filled = 0;
-    if (formData.business_name) filled += 3;
-    if (formData.business_type) filled += 1;
+    if (formData.name) filled += 3;
+    if (formData.businessType) filled += 1;
     if (formData.industry) filled += 1;
     if (formData.description) filled += 1;
-    if (formData.address || formData.phone || formData.website) filled += 2;
-    if (formData.payment_methods.length) filled += 1;
-    if (formData.business_goals) filled += 1;
+    if (formData.address || formData.phoneNumber || formData.website) filled += 2;
+    if (formData.paymentMethod) filled += 1;
+    if (formData.goals) filled += 1;
     return Math.min(100, Math.round((filled / total) * 100));
   }, [formData]);
 
   const handleChange = (e) => {
-    const { name, value, type } = e.target;
-    if (type === 'checkbox' && name === 'payment_methods') {
-      const checked = e.target.checked;
-      setFormData(prev => ({
-        ...prev,
-        payment_methods: checked 
-          ? [...prev.payment_methods, value]
-          : prev.payment_methods.filter(method => method !== value)
-      }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
-    }
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
     setSuccess('Saving your profile...');
-    console.log('AfterSignup form data (UI only):', formData);
-    setTimeout(() => {
-      setLoading(false);
+
+    try {
+      
+      const onboardingData = {
+        name: formData.name,
+        businessType: formData.businessType,
+        industry: formData.industry,
+        description: formData.description,
+        address: formData.address,
+        phoneNumber: formData.phoneNumber,
+        website: formData.website,
+        foundedYear: formData.foundedYear ? parseInt(formData.foundedYear) : undefined,
+        businessHours: formData.businessHours,
+        anualRevenue: formData.anualRevenue ? parseFloat(formData.anualRevenue) : undefined,
+        numberOfEmployees: formData.numberOfEmployees ? parseInt(formData.numberOfEmployees) : undefined,
+        paymentMethod: formData.paymentMethod,
+        targetMarket: formData.targetMarket,
+        competitors: formData.competitors,
+        goals: formData.goals
+      };
+
+      const response = await backendApi.post('/auth/onboarding', onboardingData);
+      toast.success('Profile completed successfully!');
       setSuccess('Profile saved. You can proceed to the dashboard.');
-    }, 800);
+      setTimeout(() => navigate('/dashboard'), 2000);
+    } catch (error) {
+      const message = error?.response?.data?.message || error.message || 'Failed to save profile';
+      toast.error(message);
+      setError(message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const canProceed = requiredKeys.every(k => !!formData[k]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-brand-50 py-10 px-4 sm:px-6 lg:px-8">
+    <>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick pauseOnHover draggable theme="colored" />
+      <div className="min-h-screen bg-gradient-to-b from-white to-brand-50 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto bg-white/80 backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden border border-white/40">
         {/* Header */}
         <div className="relative bg-gradient-to-r from-brand-500 to-amber-500 text-white text-center py-10 px-6">
@@ -95,10 +116,10 @@ const AfterSignup = () => {
             {/* Section: Basic Info */}
             <Section title="Basic Information" subtitle="Tell us about your business.">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <InputField label="Business Name *" name="business_name" value={formData.business_name} onChange={handleChange} required placeholder="Your business name" />
-                <SelectField label="Business Type" name="business_type" value={formData.business_type} onChange={handleChange} options={['Sole Proprietorship','Partnership','Corporation','LLC','Franchise','Other']} />
+                <InputField label="Business Name *" name="name" value={formData.name} onChange={handleChange} required placeholder="Your business name" />
+                <SelectField label="Business Type" name="businessType" value={formData.businessType} onChange={handleChange} options={['Sole Proprietorship','Partnership','Corporation','LLC','Franchise','Other']} />
                 <InputField label="Industry" name="industry" value={formData.industry} onChange={handleChange} placeholder="Technology, Retail, Manufacturing" />
-                <InputField label="Founded Year" type="number" name="founded_year" value={formData.founded_year} onChange={handleChange} placeholder="e.g., 2020" min="1900" max={new Date().getFullYear()} />
+                <InputField label="Founded Year" type="number" name="foundedYear" value={formData.foundedYear} onChange={handleChange} placeholder="e.g., 2020" min="1900" max={new Date().getFullYear()} />
               </div>
             </Section>
 
@@ -111,42 +132,34 @@ const AfterSignup = () => {
             <Section title="Contacts" subtitle="How can customers reach you?">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <TextAreaField label="Address" name="address" value={formData.address} onChange={handleChange} placeholder="Business address" rows={2} />
-                <InputField label="Phone Number" name="phone" value={formData.phone} onChange={handleChange} placeholder="Business phone number" />
+                <InputField label="Phone Number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Business phone number" />
                 <InputField label="Website" type="url" name="website" value={formData.website} onChange={handleChange} placeholder="https://yourwebsite.com" />
-                <InputField label="Business Hours" name="business_hours" value={formData.business_hours} onChange={handleChange} placeholder="Monday-Friday 9AM-6PM" />
+                <InputField label="Business Hours" name="businessHours" value={formData.businessHours} onChange={handleChange} placeholder="Monday-Friday 9AM-6PM" />
               </div>
             </Section>
 
             {/* Financial Info */}
             <Section title="Scale" subtitle="A quick sense of size.">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <InputField label="Annual Revenue" type="number" name="annual_revenue" value={formData.annual_revenue} onChange={handleChange} placeholder="Annual revenue amount" />
-                <InputField label="Number of Employees" type="number" name="employee_count" value={formData.employee_count} onChange={handleChange} placeholder="Number of employees" />
+                <InputField label="Annual Revenue" type="number" name="anualRevenue" value={formData.anualRevenue} onChange={handleChange} placeholder="Annual revenue amount" />
+                <InputField label="Number of Employees" type="number" name="numberOfEmployees" value={formData.numberOfEmployees} onChange={handleChange} placeholder="Number of employees" />
               </div>
             </Section>
 
             {/* Payment Methods */}
             <Section title="Payments" subtitle="What do you accept?">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Accepted Payment Methods</label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {['Cash','Credit Card','Debit Card','Bank Transfer','Mobile Money','PayPal','Check','Crypto'].map(method => (
-                    <label key={method} className="flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-all">
-                      <input type="checkbox"  className="h-4 w-4 accent-brand-500 border-gray-300 rounded focus:ring-brand-500/40" name="payment_methods" value={method} checked={formData.payment_methods.includes(method)} onChange={handleChange} />
-                      <span className="ml-2 text-sm text-gray-700">{method}</span>
-                    </label>
-                  ))}
-                </div>
+                <SelectField label="Primary Payment Method" name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} options={['Cash','BankTransfer','MobileMoney','CreditCard','Other']} />
               </div>
             </Section>
 
             {/* Business Strategy */}
             <Section title="Strategy" subtitle="Who, and how will you serve them?">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <TextAreaField label="Target Market" name="target_market" value={formData.target_market} onChange={handleChange} placeholder="Describe your target market..." rows={2} />
+                <TextAreaField label="Target Market" name="targetMarket" value={formData.targetMarket} onChange={handleChange} placeholder="Describe your target market..." rows={2} />
                 <TextAreaField label="Competitors" name="competitors" value={formData.competitors} onChange={handleChange} placeholder="List your main competitors..." rows={2} />
               </div>
-              <TextAreaField label="Business Goals" name="business_goals" value={formData.business_goals} onChange={handleChange} placeholder="Short-term and long-term goals..." rows={3} />
+              <TextAreaField label="Business Goals" name="goals" value={formData.goals} onChange={handleChange} placeholder="Short-term and long-term goals..." rows={3} />
             </Section>
 
             {/* Buttons */}
@@ -160,6 +173,7 @@ const AfterSignup = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

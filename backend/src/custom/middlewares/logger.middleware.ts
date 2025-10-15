@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import * as path from 'path';
 import * as fs from 'fs';
-import chalk from 'chalk';
 
 export type TLogger = {
     duration: number;
@@ -31,12 +30,8 @@ export function loggerMiddleware() {
         const dataLength = req.socket.bytesRead;
         const statusCode = res.statusCode;
 
-        // Console logging with chalk
-        console.log(
-            `${chalk.blue(method)} ${chalk.green(url)} ` +
-            `${chalk.yellow(statusCode.toString())} ${chalk.magenta(duration + 'ms')} ` +
-            `${chalk.cyan(dataLength.toString())} bytes ${chalk.gray((req as any).user?.sub || '-')}`
-        );
+        // Console logging without chalk (avoid ESM import issues)
+        console.log(`${method} ${url} ${statusCode} ${duration}ms ${dataLength} bytes ${(req as any).user?.sub || '-'}`);
 
         // File logging
         const logMessage = `

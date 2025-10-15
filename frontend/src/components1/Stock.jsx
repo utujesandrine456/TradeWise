@@ -6,7 +6,8 @@ import EditModal from './modals/EditModal';
 import AddToCartButton from './buttons/AddToCartButton';
 import Cart from './Cart';
 import { useCart } from '../contexts/CartContext';
-import { mockStockItems, mockApiResponse } from '../__mock__';
+import { useQuery } from '@apollo/client';
+import { GET_STOCK } from '../graphql/queries';
 
 
 
@@ -29,31 +30,50 @@ const Stock = () => {
     outOfStock: 0
   });
 
+  const { data, loading: qLoading, error: qError, refetch } = useQuery(GET_STOCK, { fetchPolicy: 'cache-and-network', pollInterval: 5000, notifyOnNetworkStatusChange: true });
+
   useEffect(() => {
-    const fetchStockData = async () => {
-      try {
-        const response = await mockApiResponse(mockStockItems);
-        if (response.success) {
-          setStockItems(response.data);
-          
-
-          setStats({
-            totalProducts: response.data.length,
-            inStock: response.data.filter(item => item.status === 'In Stock').length,
-            lowStock: response.data.filter(item => item.status === 'Low Stock').length,
-            outOfStock: response.data.filter(item => item.status === 'Out of Stock').length
-          });
-        }
-      } catch (err) {
-        setError('Failed to load stock data');
-        console.error('Stock data error:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchStockData();
-  }, []);
+    setLoading(qLoading);
+    if (qError) setError('Failed to load stock data');
+    if (data?.getStock?.products || data?.getStock?.images) {
+      const base = (data.getStock.products || []).map((p, idx) => ({
+        id: p.id || idx,
+        name: p.name,
+        category: '—',
+        description: '',
+        purchase_price: p.price,
+        selling_price: p.price,
+        quantity: p.quantity,
+        supplier: '—',
+        min_stock_level: 0,
+        status: p.quantity <= 0 ? 'Out of Stock' : p.quantity <= 5 ? 'Low Stock' : 'In Stock',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }));
+      const fromImages = (data.getStock.images || []).map((img, idx) => ({
+        id: img.id || `img-${idx}`,
+        name: img.name,
+        category: img.unit,
+        description: '',
+        purchase_price: 0,
+        selling_price: 0,
+        quantity: img.quantity,
+        supplier: '—',
+        min_stock_level: 0,
+        status: img.quantity <= 0 ? 'Out of Stock' : img.quantity <= 5 ? 'Low Stock' : 'In Stock',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }));
+      const merged = [...fromImages, ...base];
+      setStockItems(merged);
+      setStats({
+        totalProducts: merged.length,
+        inStock: merged.filter(i=>i.status==='In Stock').length,
+        lowStock: merged.filter(i=>i.status==='Low Stock').length,
+        outOfStock: merged.filter(i=>i.status==='Out of Stock').length
+      });
+    }
+  }, [data, qLoading, qError]);
 
   const filteredItems = stockItems.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

@@ -76,73 +76,79 @@ export class TransactionService {
 
         const now = new Date();
 
-        //verify if all products have stockImages and create the products
-        const missingProducts: string[] = [];
+        
         const validatedProducts: MProduct[] = [];
+        const imageQuantityDeltas: Array<{ imageId: string; delta: number }> = [];
 
         for (const product of products) {
-            const stockImg = await this.prismaService.mStockImage.findUnique({
-                where: {
-                name_stockId: { name: product.name, stockId: stock.id },
-                },
+            const nameLower = (product.name || '').toLowerCase().trim();
+            const displayName = (product.name || '').trim();
+
+            const image = await this.prismaService.mStockImage.upsert({
+                where: { name_stockId: { name: nameLower, stockId: stock.id } },
+                update: {},
+                create: { name: nameLower, stockId: stock.id }, 
             });
 
-            if (!stockImg) {
-                missingProducts.push(product.name);
-            } else {
-                validatedProducts.push({
-                    id: generateUlid(),
-                    name: product.name,
-                    stockImageId: stockImg.id,
-                    quantity: product.quantity,
-                    price: product.price,
-                    brand: product.brand ?? null,
-                    createdAt: now,
-                    updatedAt: now,
-                });
-            }
-        }
-
-        if (missingProducts.length > 0) {
-            throw new BadRequestException(`The following products are missing stock images: ${missingProducts.join(", ")}. Please add them first.`);
-        }
-
-        const transaction = await this.prismaService.mTransaction.create({
-            data: {
+            validatedProducts.push({
                 id: generateUlid(),
-                type,
-                description,
-                secondParty,
-                stockId: stock.id,
-                products: {
-                    create: validatedProducts.map(({ id, name, stockImageId, quantity, price, brand, createdAt, updatedAt }) => ({
-                        id, name, price, brand,
-                        stockImageId, quantity,
-                        createdAt, updatedAt,
-                    })),
+                name: displayName,
+                stockImageId: image.id,
+                quantity: product.quantity,
+                price: product.price,
+                brand: product.brand ?? null,
+                createdAt: now,
+                updatedAt: now,
+            });
+
+            const delta = type === 'Purchase' ? product.quantity : -product.quantity;
+            imageQuantityDeltas.push({ imageId: image.id, delta });
+        }
+
+        // Persist everything atomically
+        const [transaction] = await this.prismaService.$transaction([
+            this.prismaService.mTransaction.create({
+                data: {
+                    id: generateUlid(),
+                    type,
+                    description,
+                    secondParty,
+                    stockId: stock.id,
+                    products: {
+                        create: validatedProducts.map(({ id, name, stockImageId, quantity, price, brand, createdAt, updatedAt }) => ({
+                            id, name, price, brand,
+                            stockImageId, quantity,
+                            createdAt, updatedAt,
+                        })),
+                    },
+                    financials: financialDetails 
+                        ? {
+                            create: {
+                                id: generateUlid(),
+                                type: financialDetails.type,
+                                amount: financialDetails.amount,
+                                description: financialDetails.description,
+                                collateral: financialDetails.collateral,
+                                deadline: financialDetails.deadline ?? undefined,
+                                stockId: stock.id,
+                            }
+                        } 
+                    : undefined,
                 },
-                financials: financialDetails 
-                    ? {
-                        create: {
-                            id: generateUlid(),
-                            type: financialDetails.type,
-                            amount: financialDetails.amount,
-                            description: financialDetails.description,
-                            collateral: financialDetails.collateral,
-                            deadline: financialDetails.deadline ?? undefined,
-                            stockId: stock.id,
-                        }
-                    } 
-                : undefined,
-            },
-            include: {
-                products: {
-                    orderBy: { createdAt: 'desc' }
+                include: {
+                    products: { orderBy: { createdAt: 'desc' } },
+                    stock: { include: { trader: true } },
+                    financials: true,
                 },
-                stock: { include: { trader: true } },
-                financials: true,
-            },
-        });
+            }),
+            // Apply quantity updates for each stock image
+            ...imageQuantityDeltas.map(({ imageId, delta }) =>
+                this.prismaService.mStockImage.update({
+                    where: { id: imageId },
+                    data: { quantity: { increment: delta } },
+                })
+            ),
+        ]);
 
         return transaction;
     }

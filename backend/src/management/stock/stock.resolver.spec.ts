@@ -1,15 +1,25 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Resolver } from './.resolver';
+import { StockResolver } from './stock.resolver';
+import { StockService } from './stock.service';
 
-describe('Resolver', () => {
-  let resolver: Resolver;
+describe('StockResolver', () => {
+  let resolver: StockResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [Resolver],
+      providers: [
+        StockResolver,
+        {
+          provide: StockService,
+          useValue: {
+            getAll: jest.fn(),
+            create: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
-    resolver = module.get<Resolver>(Resolver);
+    resolver = module.get<StockResolver>(StockResolver);
   });
 
   it('should be defined', () => {

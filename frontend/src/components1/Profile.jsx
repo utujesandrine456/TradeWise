@@ -1,10 +1,12 @@
 import React, { useMemo, useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../hooks/useAuth';
+import backendApi from '../utils/axiosInstance';
+import { toast } from 'react-toastify';
 import { CgProfile } from 'react-icons/cg';
 import { MdEdit, MdClose, MdCheck, MdShield, MdEmail, MdBusiness, MdCalendarToday } from 'react-icons/md';
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { trader: user } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState({
@@ -28,9 +30,17 @@ const Profile = () => {
     return (first + second).toUpperCase();
   }, [draft.company_name]);
 
-  const onSave = () => {
-    // UI-only demo; no persistence
-    setEditing(false);
+  const onSave = async () => {
+    try {
+      await backendApi.patch('/auth', { 
+        enterpriseName: draft.company_name,
+        email: draft.email,
+      });
+      toast.success('Profile updated');
+      setEditing(false);
+    } catch (e) {
+      toast.error(e.response?.data?.message || e.message || 'Update failed');
+    }
   };
 
   const onCancel = () => {
@@ -75,6 +85,7 @@ const Profile = () => {
         </div>
       </div>
 
+
       {/* Tabs */}
       <div className="flex flex-wrap gap-2">
         <TabButton active={activeTab==='overview'} onClick={()=>setActiveTab('overview')}>Overview</TabButton>
@@ -82,6 +93,7 @@ const Profile = () => {
         <TabButton active={activeTab==='security'} onClick={()=>setActiveTab('security')}>Security</TabButton>
         <TabButton active={activeTab==='preferences'} onClick={()=>setActiveTab('preferences')}>Preferences</TabButton>
       </div>
+
 
       {/* Overview */}
       {activeTab === 'overview' && (

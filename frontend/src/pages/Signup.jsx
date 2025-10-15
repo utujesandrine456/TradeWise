@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Loginimage from '../assets/Login.jpg';
 import { Eye, EyeOff, Sparkles, ArrowRight, Moon, Sun } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,9 +20,14 @@ const Signup = () => {
   const [dark, setDark] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (e.target.name === 'confirmPassword') setConfirmPassword(e.target.value);
+    const { name, value } = e.target;
+    if (name === 'confirmPassword') {
+      setConfirmPassword(value);
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,39 +35,70 @@ const Signup = () => {
     setError('');
     setSuccess('');
 
+
+    if(!document.getElementById('agree').checked){
+      toast.error("Please! Agree to the terms and conditions");
+      setError("Please! Agree to the terms and conditions");
+      setLoading(false);
+      return;
+    }
+
     if (formData.password !== confirmPassword) {
-      toast.error("Passwords do not match")
+      toast.error("Password do not match");
+      setError("Passwords do not match");
       setLoading(false);
       return;
     }
 
     if (formData.password.length < 6) {
       toast.error('Password must be at least 6 characters long');
+      setError('Password must be at least 6 characters long');
       setLoading(false);
       return;
     }
 
+    if (!formData.enterpriseName || !formData.email || !formData.password) {
+      toast.error('Please fill in all required fields');
+      setError('Please fill in all required fields');
+      setLoading(false);
+      return;
+    }
+
+
+    const signupData = {
+      enterpriseName: formData.enterpriseName,
+      email: formData.email,
+      password: formData.password
+    };
+
+
     try {
-      const success = await signup(formData);
-      if (success) {
-        toast.success('Account created successfully! Redirecting...');
-        setTimeout(() => navigate('/login'), 2000);
-      } else {
-        toast.error("Registration failed")
-      }
+      const response = await signup(signupData);
+      toast.success('Account created successfully! Please check your email for verification.');
+      setSuccess('Account created successfully! Please check your email for verification.');
+      
+
+      localStorage.setItem('pendingVerification', JSON.stringify({
+        email: formData.email,
+        enterpriseName: formData.enterpriseName,
+      }));
+      
+      setTimeout(() => navigate('/verify-email'), 2000);
     } catch (err) {
-      toast.error(err.message.includes('exists') ? 'A user with this email already exists' : 'Registration failed. Try again.')
+      console.error('Signup error:', err);
+      const message = err?.response?.data?.message || err.message || 'Registration failed. Try again.';
+      toast.error(message);
+      setError(message);
     } finally {
       setLoading(false);
     }
-
   };
+
 
   return (
   <>
     <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick pauseOnHover draggable theme="colored" />
 
-    
     <div className={`${dark ? 'dark' : ''}`}>
       <div className="min-h-screen flex items-center justify-center overflow-hidden relative bg-gradient-to-b from-white to-brand-50 dark:from-[#0B0B10] dark:to-[#0B0B10]">
         <div

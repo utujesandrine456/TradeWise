@@ -5,140 +5,119 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class StockService {
-    public constructor(
-        private readonly prismaService: PrismaService
-    ) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
-    public async getStockImages(traderId: string) {
-        return await this.prismaService.mStockImage.findMany({
-            where: { 
-                stock: {
-                    traderId
-                }
-            },
-            include: { 
-                stock: {
-                    include: {
-                        trader: true
-                    }
-                }
-            }
-        }) ?? [];
+
+  public async getStockImages(traderId: string) {
+    return this.prismaService.mStockImage.findMany({
+      where: { stock: { traderId } },
+      include: { stock: { include: { trader: true } } }
+    }) ?? [];
+  }
+
+
+
+  public async getStockImage(traderId: string, stockImgId: string) {
+    const stockImage = await this.prismaService.mStockImage.findFirst({
+      where: { id: stockImgId, stock: { traderId } },
+      include: { stock: { include: { trader: true } } }
+    });
+
+    if (!stockImage) throw new BadRequestException('Stock image not found');
+    return stockImage;
+  }
+
+
+
+  public async createStockImage(
+    details: { name: string; unit: EUnitType },
+    traderId: string
+  ) {
+    const { name, unit } = details;
+    const nameLower = name.toLowerCase();
+
+    const stock = await this.prismaService.mStock.findFirst({ where: { traderId } });
+    if (!stock) throw new BadRequestException('Stock not found');
+
+    try {
+      return await this.prismaService.mStockImage.create({
+        data: { name: nameLower, unit, stockId: stock.id },
+        include: { stock: { include: { trader: true } } }
+      });
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError && error.code === 'P2002') {
+        throw new BadRequestException('Stock image already exists');
+      }
+      throw error;
     }
+  }
 
-    public async getStockImage(traderId: string, stockImgId: string) {
-        return await this.prismaService.mStockImage.findUnique({ 
-            where: { 
-                id: stockImgId, 
-                stock: { traderId } 
-            },
-            include: {
-                stock: {
-                    include: {
-                        trader: true
-                    }
-                }
-            } 
-        });
-    }
 
-    public async createStockImage(details: { name: string, unit: EUnitType }, traderId: string) {
-        try {
-            const { name, unit } = details;
-            const nameLower = name.toLowerCase();
 
-            const stock = await this.prismaService.mStock.findUnique({
-                where: {
-                    traderId
-                }
-            });
-            if (!stock) throw new BadRequestException('Stock not found');
+  public async updateStockImage(
+    details: { name?: string; unit?: EUnitType },
+    traderId: string,
+    imgId: string
+  ) {
+    const stockImage = await this.prismaService.mStockImage.findFirst({
+      where: { id: imgId, stock: { traderId } }
+    });
+    if (!stockImage) throw new BadRequestException('Stock image not found');
 
-            const stockImage = await this.prismaService.mStockImage.create({
-                data: {
-                    name: nameLower,
-                    unit: unit,
-                    stockId: stock.id
-                },
-                include: {
-                    stock: {
-                        include: {
-                            trader: true
-                        }
-                    }
-                }
-            });
+    return this.prismaService.mStockImage.update({
+      where: { id: imgId },
+      data: { name: details.name, unit: details.unit },
+      include: { stock: { include: { trader: true } } }
+    });
+  }
 
-            return stockImage;
-        } catch (error) {
-            if (error instanceof PrismaClientKnownRequestError) {
-                if (error.code === 'P2002') {
-                    throw new BadRequestException('Stock image already exists');
-                }
-            }
-        }
-    }
 
-    public async updateStockImage(details: { name?: string, unit?: EUnitType}, traderId: string, imgId: string) {
-        try {
-            const stockImage = await this.prismaService.mStockImage.update({
-                where: {
-                    id: imgId,
-                    stock: { traderId }
-                },
-                data: {
-                    name: details.name,
-                    unit: details.unit
-                },
-                include: {
-                    stock: {
-                        include: {
-                            trader: true
-                        }
-                    }
-                }
-            });
 
-            return stockImage;
-        } catch (error) {
-            if (error instanceof PrismaClientKnownRequestError) 
-                if (error.code === 'P2025') 
-                    throw new BadRequestException('Product not found');
-        }
-    }
+  public async deleteStockImage(traderId: string, imgId: string) {
+    const stockImage = await this.prismaService.mStockImage.findFirst({
+      where: { id: imgId, stock: { traderId } }
+    });
+    if (!stockImage) throw new BadRequestException('Stock image not found');
 
-    public async deleteStockImage(traderId: string, imgId: string) {
-        try {
-            const stockImage = await this.prismaService.mStockImage.delete({
-                where: {
-                    id: imgId,
-                    stock: { traderId }
-                },
-                include: {
-                    stock: {
-                        include: {
-                            trader: true
-                        }
-                    }
-                }
-            });
+    return this.prismaService.mStockImage.delete({
+      where: { id: imgId },
+      include: { stock: { include: { trader: true } } }
+    });
+  }
 
-            return stockImage;
-        } catch (error) {
-            if (error instanceof PrismaClientKnownRequestError) 
-                if (error.code === 'P2025') 
-                    throw new BadRequestException('Product not found');
-        }
-    }
 
-    public async getStock(traderId: string) {
-        const stock = await this.prismaService.mStock.findMany({
-            where: { traderId },
-            include: { 
-                trader: true,
-                images: true
-            }
-        });
-        return stock;
-    }
+
+  public async getStock(traderId: string) {
+    return this.prismaService.mStock.findUnique({
+      where: { traderId },
+      include: {
+        trader: true,
+        images: { include: { products: true } },
+        transactions: { include: { products: true, financials: true } },
+        financials: true,
+        buyList: true,
+      }
+    });
+  }
+
+  public async createStock(
+      traderId: string,
+      data: { name: string; category: string; unit: EUnitType; quantity?: number }
+    ) {
+      
+      return this.prismaService.mStock.create({
+        data: {
+          ...data,
+          traderId,
+        },
+      });
+  }
+  
+  
+
+  public async getStockById(id: string) {
+    const stock = await this.prismaService.stock.findUnique({ where: { id } });
+    if (!stock) throw new BadRequestException('Stock not found');
+    return stock;
+  }
 }

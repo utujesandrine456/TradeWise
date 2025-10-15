@@ -7,7 +7,7 @@ export interface IEmailEnvs {
 }
 
 export interface IEmailOptions {
-    to: string, //to email
+    to: string,
     subject: string,
     text?: string,
     html?: string,

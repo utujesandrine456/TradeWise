@@ -9,3 +9,6 @@ export * from "./models/buylist.gql.model";
 export * from "./models/stockImage.gql.model";
 export * from "./models/soldstock.model";
 export * from "./models/analysis.gql.model";
+
+
+export { EPaymentMethod } from "generated/prisma";
