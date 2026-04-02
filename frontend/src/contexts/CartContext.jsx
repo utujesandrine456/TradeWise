@@ -2,6 +2,10 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 
 const CartContext = createContext();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 const cartReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_TO_CART':

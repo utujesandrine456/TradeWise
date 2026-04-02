@@ -5,11 +5,15 @@ import { CurrentUser } from 'src/custom/decorators/currentUser.decorator';
 import { IJwtPayload } from 'src/auth/auth.types';
 import { GqlTransactionCreateProductInput } from '../transaction/transaction.types';
 import { ENFinancialType } from 'generated/prisma';
+<<<<<<< HEAD
 import { UseGuards } from '@nestjs/common';
 import { VerifiedGuard } from 'src/custom/guards/verified/verified.guard';
 import { GqlFinancialUpdateInput } from './financials.types';
 
 @UseGuards(VerifiedGuard)
+=======
+
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 @Resolver()
 export class FinancialsResolver {
   public constructor(private readonly financialsService: FinancialsService) {}
@@ -46,6 +50,7 @@ export class FinancialsResolver {
   ) {
     return this.financialsService.markAsPaidBack(financialId, user.sub);
   }
+<<<<<<< HEAD
 
   @Mutation(() => MGqlFinancial)
   public updateFinancial(
@@ -55,4 +60,6 @@ export class FinancialsResolver {
   ) {
     return this.financialsService.updateFinancial(financialId, input, user.sub);
   }
+=======
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 }

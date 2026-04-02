@@ -6,6 +6,15 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import VerifyEmail from './pages/VerifyEmail'
 import DashboardLayout from "./components/DashboardLayout";
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Home from "./pages/Home";
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import VerifyEmail from './pages/VerifyEmail';
+import VerificationSuccess from './pages/VerificationSuccess';
+import DashboardLayout from "./components1/DashboardLayout";
+import Form from "./pages/SalesForm";
+import Pform from "./pages/PurchasesForm";
 import Onboarding from "./pages/AfterSignup";
 import { CartProvider } from "./contexts/CartContext";
 import Forgotpassword from "./pages/Forgotpassword";
@@ -16,8 +25,20 @@ import ProtectedRoute from './components/ProtectedRoute';
 function App() {
   return (
     <div>
-      <Router>
-        <Routes>
+    <ToastContainer />
+
+    <Router>
+      <Routes>
+          <Route path="/" element={ <Home />}></Route>
+          <Route path="/login" element={ <Login />}></Route>
+          <Route path="/signup" element={ <Signup />}></Route>
+          <Route path='/verify-email' element={<VerifyEmail />}></Route>
+          <Route path='/verification-success' element={<VerificationSuccess />}></Route>
+          <Route path='/stocks' element={
+            <ProtectedRoute>
+              <Stocks />
+            </ProtectedRoute>
+          }></Route>
           <Route path='/dashboard' element={
             <ProtectedRoute>
               <CartProvider>

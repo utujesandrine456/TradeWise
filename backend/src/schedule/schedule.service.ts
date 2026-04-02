@@ -1,8 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
+<<<<<<< HEAD
 import { Interval } from '@nestjs/schedule';
 import { NotificationService } from 'src/communication/notification/notification.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import axios from 'axios';
+=======
+import { Timeout } from '@nestjs/schedule';
+import { NotificationService } from 'src/communication/notification/notification.service';
+import { PrismaService } from 'src/prisma/prisma.service';
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 
 @Injectable()
 export class ScheduleService {
@@ -13,7 +19,11 @@ export class ScheduleService {
         private readonly notificationService: NotificationService,
     ) {}
 
+<<<<<<< HEAD
     @Interval(60 * 60 * 1_000)  // for testing, in production use every_hour
+=======
+    @Timeout(5 * 60 * 1_000)  // for testing, in production it is for every_hour
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
     public async sendingFinancials() {
         const now = new Date();
         const nextDay = new Date(now.getTime() + 24 * 60 * 60 * 1000);
@@ -50,6 +60,7 @@ export class ScheduleService {
                     sentNotifications++;
                 }
             }
+<<<<<<< HEAD
         }
 
         this.logger.log(`Sent ${sentNotifications} financial notifications.`);
@@ -125,5 +136,10 @@ export class ScheduleService {
         });
 
         this.logger.log(`Cleaned ${deleted.count} old read notifications.`);
+=======
+
+            this.logger.log(`Sent ${sentNotifications} financial notifications.`);
+        }
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
     }
 }

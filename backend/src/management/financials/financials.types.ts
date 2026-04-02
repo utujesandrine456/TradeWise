@@ -25,6 +25,7 @@ export class GqlFinancialCreateInput {
 
     @Field({ nullable: true })
     collateral?: string;
+<<<<<<< HEAD
 }
 
 @InputType()
@@ -40,4 +41,6 @@ export class GqlFinancialUpdateInput {
     
     @Field({ nullable: true })
     collateral?: string;
+=======
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 }

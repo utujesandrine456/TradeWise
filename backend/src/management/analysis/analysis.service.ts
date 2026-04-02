@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { BadRequestException, Injectable, Inject } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ENTransactionType, MProduct } from 'generated/prisma';
@@ -33,6 +34,23 @@ export class AnalysisService {
 
         const traderSettings = await this.prismaService.mTraderSettings.findUnique({ where: { traderId } });
         const evalPeriod = 7; // default 7 days
+=======
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { ENTransactionType, MProduct } from 'generated/prisma';
+import { PrismaService } from 'src/prisma/prisma.service';
+
+@Injectable()
+export class AnalysisService {
+    public constructor(
+        private readonly prismaService: PrismaService
+    ) {}
+
+    public async analyse(traderId: string, details: { start?: Date; end?: Date }) {
+        let { start, end } = details;
+
+        const traderSettings = await this.prismaService.mTraderSettings.findUnique({ where: { traderId } });
+        const evalPeriod = traderSettings?.evaluationPeriod || 7; // default 7 days
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 
         // Compute start and end safely
         const computedStart = start
@@ -98,7 +116,11 @@ export class AnalysisService {
             .reduce((sum, t) => sum + t.financials!.reduce((s, f) => s + (f.amount || 0), 0), 0);
 
         // Return analysis matching MGqlStockAnalysis
+<<<<<<< HEAD
         const analysisResult = {
+=======
+        return {
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
             analysisPeriod: { startDate: analysisStart, endDate: analysisEnd },
             stock,
             products,
@@ -108,11 +130,14 @@ export class AnalysisService {
             profit,
             finance: { credits, debits },
         };
+<<<<<<< HEAD
 
         // Cache for 15 minutes (analysis data changes frequently)
         await this.cacheManager.set(cacheKey, analysisResult, 900000);
         this.logger.log(`💾 CACHE SET: Analysis for trader ${traderId} cached for 15 minutes`);
         
         return analysisResult;
+=======
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
     }
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Link, useNavigate } from 'react-router-dom';
 import { Home, ArrowLeft, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -90,6 +91,28 @@ const NotFound = () => {
       <div className="absolute top-10 sm:top-20 left-4 sm:left-10 w-16 h-16 sm:w-20 sm:h-20 bg-brand-200 rounded-full blur-3xl opacity-50 animate-float"></div>
       <div className="absolute bottom-10 sm:bottom-20 right-4 sm:right-10 w-20 h-20 sm:w-32 sm:h-32 bg-amber-200 rounded-full blur-3xl opacity-50 animate-float" style={{ animationDelay: '1s' }}></div>
     </div>
+=======
+import React from "react";
+import styles from "./Notfound.module.css";
+import {Link} from 'react-router-dom';
+import not from '../assets/image1.png'
+
+const NotFound = () => {
+  return (
+    <>
+        <div className={styles.notfound_container}>
+            
+            <div className={styles.not404}>
+              <img src={not} alt="Page not found" />
+            </div>
+        </div>
+        <div className={styles.notfound_content}>
+            <h2>Page Not Available</h2>
+            <p>Sorry, this page isn't available<br></br> anymore or an error occured!</p>
+            <button className={styles.home_link}><Link to='/'>Go Back</Link></button>
+        </div>
+    </>
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   );
 };
 

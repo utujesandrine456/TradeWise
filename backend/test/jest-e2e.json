@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "moduleFileExtensions": ["js", "json", "ts"],
   "rootDir": ".",
@@ -7,3 +8,14 @@
     "^.+\\.(t|j)s$": "ts-jest"
   }
 }
+=======
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  }
+}
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68

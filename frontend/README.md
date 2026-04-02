@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+=======
+Environment
+
+Create a .env file in frontend with:
+
+VITE_API_URL=http://localhost:2009/api
+VITE_GRAPHQL_URL=http://localhost:2009/graphql
+
+Notes
+- Backend sets cookies; keep withCredentials=true in axios.
+- Adjust port if backend runs on a different port.
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

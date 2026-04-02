@@ -1,8 +1,20 @@
 import React, { useState, useMemo } from 'react';
+<<<<<<< HEAD
 import images from '../utils/images';
 import styles from './Home.module.css';
 import { Trash2, RotateCcw } from 'lucide-react';
 
+=======
+import { useMutation } from '@apollo/client';
+import { CREATE_TRANSACTION, CREATE_FINANCIAL } from '../graphql/queries';
+import { toast } from 'react-toastify';
+import logo from '../assets/logo.png';
+import styles from './Home.module.css';
+import { Trash2, RotateCcw } from 'lucide-react';
+
+
+
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 const Form = () => {
   const [trades, setTrades] = useState([]);
   const [draft, setDraft] = useState({ buyingPrice: '', sellingPrice: '', quantity: '' });
@@ -16,11 +28,20 @@ const Form = () => {
     return (selling - buying) * qty;
   }, [draft]);
 
+<<<<<<< HEAD
   const handleSubmit = (e) => {
+=======
+
+  const [createTransaction] = useMutation(CREATE_TRANSACTION);
+  const [createFinancial] = useMutation(CREATE_FINANCIAL);
+
+  const handleSubmit = async (e) => {
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
     e.preventDefault();
 
     const buyingPrice = parseFloat(e.target.buyingPrice.value);
     const sellingPrice = parseFloat(e.target.sellingPrice.value);
+<<<<<<< HEAD
     const quantity = parseFloat(e.target.quantity.value);
 
     const profitLoss = (sellingPrice - buyingPrice) * quantity;
@@ -36,10 +57,38 @@ const Form = () => {
     setTrades([...trades, newTrade]);
     setDraft({ buyingPrice: '', sellingPrice: '', quantity: '' });
     e.target.reset();
+=======
+    const quantity = parseInt(e.target.quantity.value, 10);
+    const itemName = e.target.itemSold.value;
+    const date = e.target.date.value;
+
+    const profitLoss = (sellingPrice - buyingPrice) * quantity;
+
+    try {
+      await createTransaction({
+        variables: {
+          type: 'Sale',
+          products: [{ name: itemName.trim(), price: sellingPrice, quantity }],
+          description: `Sale of ${itemName}`,
+          secondParty: 'Customer',
+          financialDetails: { amount: sellingPrice * quantity, description: `Sale for ${itemName}`, type: 'Credit' },
+        },
+      });
+      
+      
+      toast.success('Sale recorded');
+      setTrades([...trades, { date, item: itemName, type: 'Sale', quantity, profitLoss }]);
+      setDraft({ buyingPrice: '', sellingPrice: '', quantity: '' });
+      e.target.reset();
+    } catch (err) {
+      toast.error(err.message || 'Failed to record sale');
+    }
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   };
 
   return (
     <>
+<<<<<<< HEAD
       {/* Navbar */}
       <div className="bg-[#FC9E4F] flex justify-between items-center px-6">
         <div className="flex items-center space-x-1">
@@ -49,6 +98,16 @@ const Form = () => {
         <div className="flex items-center p-3 rounded-3xl bg-white bg-opacity-60">
           <h3 className="font-bold text-normal text-white">S</h3>
         </div>
+=======
+     
+      {/* Navbar */}
+      <div className="bg-[#BE741E] flex justify-between items-center px-6 py-3 shadow-md">
+        <div className="flex items-center space-x-1">
+          <img src={logo} alt="logo" className="w-10 h-10 rounded-full" />
+          <h1 className={styles.home_navbar_title}>TradeWise</h1>
+        </div>
+        <div className="bg-white/50 px-3 py-1 rounded-lg text-white font-semibold">S</div>
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
       </div>
 
       {/* Main Section */}
@@ -119,6 +178,7 @@ const Form = () => {
                 />
               </div>
 
+<<<<<<< HEAD
               {/* Item Type */}
               <div className="col-span-1">
                 <label className="block text-sm font-medium text-gray-700">Item Type</label>
@@ -132,6 +192,9 @@ const Form = () => {
                   <option value="cement">Cement</option>
                 </select>
               </div>
+=======
+              
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 
               {/* Notes - spans full width */}
               <div className="col-span-1 sm:col-span-2">

@@ -1,6 +1,15 @@
 import React, { useState, useMemo } from 'react';
+<<<<<<< HEAD
 import images from '../utils/images';
 import styles from './Home.module.css';
+=======
+import { useMutation } from '@apollo/client';
+import { CREATE_TRANSACTION, CREATE_FINANCIAL } from '../graphql/queries';
+import { toast } from 'react-toastify';
+import logo from '../assets/logo.png';
+import styles from './Home.module.css';
+import Dior from '../assets/Dior.jpg';
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 import { Trash2, RotateCcw } from 'lucide-react';
 
 const Pform = () => {
@@ -16,6 +25,7 @@ const Pform = () => {
     return (selling - buying) * qty;
   }, [draft]);
 
+<<<<<<< HEAD
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -36,14 +46,52 @@ const Pform = () => {
     setTrades([...trades, newTrade]);
     setDraft({ buyingPrice: '', sellingPrice: '', quantity: '' });
     e.target.reset();
+=======
+  const [createTransaction] = useMutation(CREATE_TRANSACTION);
+  const [createFinancial] = useMutation(CREATE_FINANCIAL);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const buyingPrice = parseFloat(e.target.buyingPrice.value);
+    const quantity = parseInt(e.target.quantity.value, 10);
+    const itemName = e.target.itemSold.value;
+    const date = e.target.date.value;
+
+    const profitLoss = 0 - (buyingPrice * quantity);
+
+    try {
+      await createTransaction({
+        variables: {
+          type: 'Purchase',
+          products: [{ name: itemName.trim(), price: buyingPrice, quantity }],
+          description: `Purchase of ${itemName}`,
+          secondParty: 'Supplier',
+          financialDetails: { amount: buyingPrice * quantity, description: `Purchase for ${itemName}`, type: 'Debit' },
+        }
+      });
+      toast.success('Purchase recorded');
+      setTrades([...trades, { date, item: itemName, type: 'Purchase', quantity, profitLoss }]);
+    setDraft({ buyingPrice: '', sellingPrice: '', quantity: '' });
+    e.target.reset();
+    } catch (err) {
+      toast.error(err.message || 'Failed to record purchase');
+    }
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   };
 
   return (
     <>
       {/* Navbar */}
+<<<<<<< HEAD
       <div className="bg-[#FC9E4F] flex justify-between items-center px-6">
         <div className="flex items-center space-x-1">
           <img src={images.logo} alt="logo" className={styles.home_navbar_logo} />
+=======
+      <div className="bg-[#BE741E] flex justify-between items-center px-6">
+        <div className="flex items-center space-x-1">
+          <img src={logo} alt="logo" className={styles.home_navbar_logo} />
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
           <h1 className={styles.home_navbar_title}>TradeWise</h1>
         </div>
         <div className="flex items-center p-3 rounded-3xl bg-white bg-opacity-60">
@@ -119,6 +167,7 @@ const Pform = () => {
                 />
               </div>
 
+<<<<<<< HEAD
               {/* Item Type */}
               <div className="col-span-1">
                 <label className="block text-sm font-medium text-gray-700">Item Type</label>
@@ -132,6 +181,9 @@ const Pform = () => {
                   <option value="cement">Cement</option>
                 </select>
               </div>
+=======
+              
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 
               {/* Notes - spans full width */}
               <div className="col-span-1 sm:col-span-2">

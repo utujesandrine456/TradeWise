@@ -58,5 +58,10 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 /generated/prisma
 
 #migration
+<<<<<<< HEAD
 generated/prisma/
 generated
+=======
+generated/
+prisma/migrations
+>>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
