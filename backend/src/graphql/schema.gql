@@ -1,0 +1,295 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Analysis {
+  analysisPeriod: PeriodMap!
+  finance: FinanceMap!
+  products: ProductMap!
+  profit: Float!
+  stock: MGqlStock!
+  totalPurchases: Float!
+  totalSales: Float!
+  transactions: [MGqlTransaction!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum ENFinancialType {
+  Credit
+  Debit
+}
+
+enum ENNotificationFilterType {
+  INFO
+  SUCCESS
+  WARNING
+}
+
+enum ENNotificationImpact {
+  High
+  Low
+  Medium
+}
+
+enum ENNotificationTimeFilters {
+  Old
+  Read
+  Recent
+  Unread
+}
+
+enum ENTransactionType {
+  Purchase
+  Sale
+}
+
+enum EPaymentMethod {
+  Bank_Transfer
+  Cash
+  Check
+  Credit_Card
+  Crypto
+  Debit_Card
+  Mobile_Money
+  PayPal
+}
+
+enum EUnitType {
+  Kilogram
+  Litre
+  Piece
+}
+
+type FinanceMap {
+  credits: Float!
+  debits: Float!
+}
+
+input GqlFinancialCreateInput {
+  amount: Float!
+  collateral: String
+  deadline: DateTime
+  description: String!
+  type: ENFinancialType!
+}
+
+input GqlFinancialUpdateInput {
+  amount: Float
+  collateral: String
+  deadline: DateTime
+  description: String
+}
+
+input GqlStockImageInput {
+  low_stock_quantity: Float
+  name: String!
+  unit: String!
+}
+
+input GqlTransactionCreateProductInput {
+  brand: String
+  name: String!
+  price: Float!
+  quantity: Int!
+}
+
+type MGqlBuyList {
+  createdAt: DateTime!
+  id: String!
+  name: String!
+  quantity: Float
+  stock: MGqlStock!
+  stockId: String!
+  updatedAt: DateTime!
+}
+
+type MGqlFinancial {
+  amount: Float!
+  collateral: String
+  createdAt: DateTime!
+  deadline: DateTime
+  description: String!
+  id: String!
+  isPaidBack: Float!
+  stock: MGqlStock!
+  stockId: String!
+  transaction: MGqlTransaction
+  transactionId: String!
+  type: ENFinancialType!
+  updatedAt: DateTime!
+}
+
+type MGqlNotification {
+  createdAt: DateTime!
+  filterType: ENNotificationFilterType!
+  id: String!
+  impact: ENNotificationImpact!
+  message: String!
+  read: Boolean!
+  title: String!
+  trader: MGqlTrader!
+  traderId: String!
+  type: String!
+  updatedAt: DateTime!
+}
+
+type MGqlProduct {
+  brand: String
+  createdAt: DateTime!
+  id: String!
+  name: String!
+  price: Float!
+  quantity: Float!
+  soldStock: [MGqlSoldStock!]!
+  stockImage: MGqlStockImage!
+  stockImageId: String!
+  updatedAt: DateTime!
+}
+
+type MGqlSoldStock {
+  createdAt: DateTime!
+  id: String!
+  products: [MGqlProduct!]!
+  stock: MGqlStock!
+  stockId: String!
+  updatedAt: DateTime!
+}
+
+type MGqlStock {
+  buyList: [MGqlBuyList!]!
+  createdAt: DateTime!
+  financials: [MGqlFinancial!]!
+  id: String!
+  images: [MGqlStockImage!]!
+  markAsBought: Boolean!
+  products: [MGqlProduct!]!
+  soldStock: [MGqlSoldStock!]!
+  trader: MGqlTrader!
+  traderId: String!
+  transactions: [MGqlTransaction!]!
+  updatedAt: DateTime!
+}
+
+type MGqlStockImage {
+  createdAt: DateTime!
+  id: String!
+  low_stock_quantity: Float!
+  name: String!
+  quantity: Float!
+  stock: MGqlStock!
+  stockId: String!
+  unit: EUnitType!
+  updatedAt: DateTime!
+}
+
+type MGqlTrader {
+  createdAt: DateTime!
+  email: String
+  enterpriseName: String!
+  id: String!
+  lastLogin: DateTime!
+  notifications: [MGqlNotification!]!
+  phone: String
+  resetPasswordExpires: DateTime!
+  resetPasswordToken: String!
+  settings: MGqlTraderSettings!
+  stock: MGqlStock!
+  updatedAt: DateTime!
+  verifyAccountExpires: DateTime!
+  verifyAccountToken: String!
+}
+
+type MGqlTraderSettings {
+  address: String
+  anualRevenue: Float
+  businessHours: String
+  businessType: String
+  competitors: String
+  createdAt: DateTime!
+  currency: String!
+  description: String
+  enterpriseDescription: String!
+  foundedYear: Float
+  goals: String
+  id: String!
+  industry: String
+  name: String!
+  numberOfEmployees: Float
+  paymentMethod: EPaymentMethod
+  phoneNumber: String
+  targetMarket: String
+  trader: MGqlTrader!
+  traderId: String!
+  updatedAt: DateTime!
+  website: String
+}
+
+type MGqlTransaction {
+  createdAt: DateTime!
+  description: String!
+  financials: [MGqlFinancial!]
+  id: String!
+  products: [MGqlProduct!]!
+  secondParty: String!
+  stock: MGqlStock!
+  stockId: String!
+  type: ENTransactionType!
+  updatedAt: DateTime!
+}
+
+type MGqlTransactionPagination {
+  data: [MGqlTransaction!]!
+  pagination: PaginationInfo!
+}
+
+type Mutation {
+  createFinancial(amount: Float!, collateral: String, deadline: DateTime, description: String!, type: ENFinancialType!): MGqlFinancial!
+  createMultipleStockImages(stockImages: [GqlStockImageInput!]!): [MGqlStockImage!]!
+  createStockImage(low_stock_quantity: Float, name: String!, unit: EUnitType!): MGqlStockImage!
+  createTransaction(description: String!, financialDetails: GqlFinancialCreateInput, products: [GqlTransactionCreateProductInput!]!, secondParty: String!, type: ENTransactionType!): MGqlTransaction!
+  deleteNotification(id: String!): Boolean!
+  deleteReadNotifications: Boolean!
+  deleteStockImage(stockImageId: String!): MGqlStockImage!
+  markAllAsRead: Boolean!
+  markAsPaidBack(financialId: String!): MGqlFinancial!
+  markAsRead(id: String!): MGqlNotification!
+  updateFinancial(financialId: String!, input: GqlFinancialUpdateInput!): MGqlFinancial!
+  updateStockImage(low_stock_quantity: Float, name: String, stockImageId: String!, unit: EUnitType): MGqlStockImage!
+}
+
+type PaginationInfo {
+  hasNext: Boolean!
+  hasPrev: Boolean!
+  limit: Int!
+  page: Int!
+  total: Int!
+  totalPages: Int!
+}
+
+type PeriodMap {
+  endDate: DateTime!
+  startDate: DateTime!
+}
+
+type ProductMap {
+  bought: [MGqlProduct!]!
+  sold: [MGqlProduct!]!
+}
+
+type Query {
+  getANotification(id: String!): MGqlNotification!
+  getAllTransactions(fields: [String!], limit: Float, page: Float, type: ENTransactionType): MGqlTransactionPagination!
+  getFinancial(financialId: String!): MGqlFinancial!
+  getFinancials: [MGqlFinancial!]!
+  getHello: String!
+  getNotifications(filters: ENNotificationFilterType, timeFilters: ENNotificationTimeFilters): [MGqlNotification!]!
+  getStock: MGqlStock
+  getStockImage(id: String!): MGqlStockImage
+  getStockImages: [MGqlStockImage!]
+  getTransaction(transactionId: String!): MGqlTransaction!
+  stockAnalysis(end: DateTime, start: DateTime): Analysis!
+}

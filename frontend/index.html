@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/x-icon"
+    href="https://res.cloudinary.com/dizkxmaoh/image/upload/logo_favicon_uezwjw.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TradeWise - Smart Trading & Inventory Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap"
+    rel="stylesheet">
+  <style>
+    #initial-loader {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      z-index: 9999;
+      transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+      font-family: 'Afacad', sans-serif;
+    }
+
+    #initial-loader.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-progress-container {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin-bottom: 2rem;
+    }
+
+    .loader-svg {
+      transform: rotate(-90deg);
+      width: 100%;
+      height: 100%;
+    }
+
+    .loader-circle-bg {
+      fill: none;
+      stroke: #ffedde;
+      stroke-width: 8;
+    }
+
+    .loader-circle-progress {
+      fill: none;
+      stroke: #fc9e4f;
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-dasharray: 282.7;
+      stroke-dashoffset: 282.7;
+      transition: stroke-dashoffset 0.1s linear;
+    }
+
+    .loader-percentage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      font-weight: 900;
+      color: #fc9e4f;
+    }
+
+    .loader-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fc9e4f;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="initial-loader">
+    <div class="loader-progress-container">
+      <svg class="loader-svg" viewBox="0 0 100 100">
+        <circle class="loader-circle-bg" cx="50" cy="50" r="45"></circle>
+        <circle class="loader-circle-progress" cx="50" cy="50" r="45" id="progress-circle"></circle>
+      </svg>
+      <div class="loader-percentage" id="loader-percent">0%</div>
+    </div>
+    <span class="loader-text" id="loader-text">Loading TradeWise</span>
+  </div>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+  <script>
+    let percent = 0;
+    const circumference = 282.7;
+    const circle = document.getElementById('progress-circle');
+    const percentLabel = document.getElementById('loader-percent');
+
+    const updateProgress = (val) => {
+      const offset = circumference - (val / 100) * circumference;
+      circle.style.strokeDashoffset = offset;
+      percentLabel.textContent = Math.round(val) + '%';
+    };
+
+    const percentInterval = setInterval(() => {
+      if (percent < 98) {
+        percent += 0.8;
+        if (percent > 98) percent = 98;
+        updateProgress(percent);
+      }
+    }, 30);
+
+    window.finishLoader = () => {
+      clearInterval(percentInterval);
+      updateProgress(100);
+      setTimeout(() => {
+        const loader = document.getElementById('initial-loader');
+        if (loader) loader.classList.add('fade-out');
+      }, 300);
+    };
+
+    setTimeout(() => {
+      if (percent < 100) window.finishLoader();
+    }, 5000);
+  </script>
+</body>
+
+</html>

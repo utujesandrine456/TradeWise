@@ -1,0 +1,13 @@
+.home_navbar_logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+.home_navbar_title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #FC9E4F;
+  line-height: 1.1;
+  font-family: 'Afacad', sans-serif;
+}
