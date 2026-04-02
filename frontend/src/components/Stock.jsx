@@ -241,8 +241,8 @@ const Stock = () => {
   if (loading && stockItems.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-40 animate-pulse font-afacad">
-        <div className="w-16 h-16 border-4 border-chocolate-100 border-t-chocolate-600 rounded-full animate-spin mb-6"></div>
-        <p className="text-xl font-bold text-chocolate-600">Synchronizing Inventory...</p>
+        <div className="w-16 h-16 border-4 border-gray-100 border-t-chocolate-600 rounded-full animate-spin mb-6"></div>
+        <p className="text-xl font-bold text-black">Synchronizing Inventory...</p>
       </div>
     );
   }
@@ -250,20 +250,20 @@ const Stock = () => {
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-afacad">
       {/* Header Section */}
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-white p-10 rounded-lg border border-chocolate-100 shadow-xl relative overflow-hidden group">
-        <div className="absolute inset-0 bg-chocolate-50/20 opacity-50 pointer-events-none" />
+      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-white p-10 rounded-lg border border-gray-100 shadow-xl relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gray-50/20 opacity-50 pointer-events-none" />
         <div className="flex items-center gap-8 relative z-10">
-          <div className="p-5 bg-chocolate-50 rounded-lg border border-chocolate-100 shadow-sm group-hover:rotate-12 transition-all duration-500">
-            <MdLayers className="text-5xl text-chocolate-600" />
+          <div className="p-5 bg-gray-50 rounded-lg border border-gray-100 shadow-sm group-hover:rotate-12 transition-all duration-500">
+            <MdLayers className="text-5xl text-black" />
           </div>
           <div>
-            <h2 className="text-4xl font-#FC9E4F text-chocolate-900 leading-none mb-3">Inventory Nexus</h2>
-            <p className="text-chocolate-500 text-lg font-medium">Orchestrate Product Stock And Threshold Management</p>
+            <h2 className="text-4xl font-bold text-black leading-none mb-3">Inventory Nexus</h2>
+            <p className="text-gray-500 text-lg font-medium">Orchestrate Product Stock And Threshold Management</p>
           </div>
         </div>
         <button
           onClick={() => setIsAddItemFormOpen(true)}
-          className="group relative px-12 py-5 bg-chocolate-600 text-white rounded-lg font-#FC9E4F transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg overflow-hidden text-lg"
+          className="group relative px-12 py-5 bg-chocolate-600 text-white rounded-lg font-bold transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg overflow-hidden text-lg"
         >
           <div className="flex items-center gap-3 relative z-10">
             <MdAdd className="text-2xl" />
@@ -280,23 +280,23 @@ const Stock = () => {
           { label: 'Critical Status', value: stats.lowStock, icon: MdSchedule, detail: 'Below Threshold', trend: 'down' },
           { label: 'Liquidated Assets', value: stats.outOfStock, icon: MdDelete, detail: 'Zero Availability', trend: 'down' }
         ].map((stat, i) => (
-          <div key={i} className="bg-white border border-chocolate-100 rounded-lg p-10 shadow-xl hover:shadow-2xl transition-all group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-chocolate-50 rounded-full -mr-20 -mt-20 group-hover:scale-125 transition-transform duration-700" />
+          <div key={i} className="bg-white border border-gray-100 rounded-lg p-10 shadow-xl hover:shadow-2xl transition-all group relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-40 h-40 bg-gray-50 rounded-full -mr-20 -mt-20 group-hover:scale-125 transition-transform duration-700" />
             <div className="relative z-10 flex flex-col h-full justify-between">
               <div className="flex items-center justify-between mb-8">
-                <div className={`p-4 rounded-lg border shadow-sm ${stat.trend === 'up' ? 'bg-green-50 text-green-700 border-green-100' : stat.trend === 'down' ? 'bg-red-50 text-red-700 border-red-100' : 'bg-chocolate-50 text-chocolate-600 border-chocolate-100'}`}>
+                <div className={`p-4 rounded-lg border shadow-sm ${stat.trend === 'up' ? 'bg-green-50 text-green-700 border-green-100' : stat.trend === 'down' ? 'bg-red-50 text-red-700 border-red-100' : 'bg-gray-50 text-black border-gray-100'}`}>
                   <stat.icon className="text-3xl" />
                 </div>
-                <div className="text-[10px] font-#FC9E4F text-chocolate-400 bg-chocolate-50/50 px-4 py-1.5 rounded-full border border-chocolate-50 shadow-sm uppercase tracking-widest">
+                <div className="text-[10px] font-bold text-gray-400 bg-gray-50/50 px-4 py-1.5 rounded-full border border-chocolate-50 shadow-sm uppercase tracking-widest">
                   Live Inventory
                 </div>
               </div>
               <div>
-                <p className="text-sm font-#FC9E4F text-chocolate-400 uppercase tracking-wider mb-2 px-1">{stat.label}</p>
-                <h4 className="text-4xl font-#FC9E4F text-chocolate-900 tracking-tight leading-none mb-3">
+                <p className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">{stat.label}</p>
+                <h4 className="text-4xl font-bold text-black tracking-tight leading-none mb-3">
                   {stat.value} <span className="text-lg opacity-40 font-medium tracking-widest">UNITS</span>
                 </h4>
-                <p className="text-xs text-chocolate-500 font-bold opacity-60 px-1">{stat.detail}</p>
+                <p className="text-xs text-gray-500 font-bold opacity-60 px-1">{stat.detail}</p>
               </div>
             </div>
           </div>
@@ -304,55 +304,55 @@ const Stock = () => {
       </div>
 
       {/* Main Inventory Table */}
-      <div className="bg-white border border-chocolate-100 rounded-lg shadow-xl overflow-hidden group/table">
+      <div className="bg-white border border-gray-100 rounded-lg shadow-xl overflow-hidden group/table">
         <div className="p-10 border-b border-chocolate-50 flex flex-col xl:flex-row justify-between items-center gap-8 relative overflow-hidden">
-          <div className="absolute inset-0 bg-chocolate-50/10 opacity-50 pointer-events-none" />
+          <div className="absolute inset-0 bg-gray-50/10 opacity-50 pointer-events-none" />
           <div className="relative z-10 flex items-center gap-4">
-            <MdFilterList className="text-3xl text-chocolate-600" />
-            <h3 className="text-2xl font-#FC9E4F text-chocolate-900 leading-none">Active Catalog</h3>
+            <MdFilterList className="text-3xl text-black" />
+            <h3 className="text-2xl font-bold text-black leading-none">Active Catalog</h3>
           </div>
           <div className="w-full xl:w-[500px] relative z-10 group/search">
-            <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-chocolate-300 text-2xl group-focus-within/search:text-chocolate-600 transition-colors" />
+            <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 text-2xl group-focus-within/search:text-black transition-colors" />
             <input
               type="text"
               placeholder="Filter Catalog By Product Name..."
               onChange={(e) => debouncedSearch(e.target.value)}
-              className="w-full pl-16 pr-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all text-lg italic shadow-sm"
+              className="w-full pl-16 pr-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all text-lg italic shadow-sm"
             />
           </div>
         </div>
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-chocolate-50/50">
-                <th className="px-10 py-6 text-left text-xs font-#FC9E4F text-chocolate-400 uppercase tracking-[0.2em]">Product Identity</th>
-                <th className="px-10 py-6 text-left text-xs font-#FC9E4F text-chocolate-400 uppercase tracking-[0.2em]">Measurement</th>
-                <th className="px-10 py-6 text-left text-xs font-#FC9E4F text-chocolate-400 uppercase tracking-[0.2em]">Available Qty</th>
-                <th className="px-10 py-6 text-left text-xs font-#FC9E4F text-chocolate-400 uppercase tracking-[0.2em]">Operational Status</th>
-                <th className="px-10 py-6 text-right text-xs font-#FC9E4F text-chocolate-400 uppercase tracking-[0.2em]">Record Actions</th>
+              <tr className="bg-gray-50/50">
+                <th className="px-10 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Product Identity</th>
+                <th className="px-10 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Measurement</th>
+                <th className="px-10 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Available Qty</th>
+                <th className="px-10 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Operational Status</th>
+                <th className="px-10 py-6 text-right text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Record Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-chocolate-50">
               {filteredItems.length > 0 ? (
                 filteredItems.map((item) => (
-                  <tr key={item.id} className="hover:bg-chocolate-50/30 transition-all group/row">
+                  <tr key={item.id} className="hover:bg-gray-50/30 transition-all group/row">
                     <td className="px-10 py-8">
-                      <p className="text-xl font-#FC9E4F text-chocolate-900 group-hover/row:text-chocolate-600 transition-colors">{item.name}</p>
-                      <p className="text-[10px] text-chocolate-300 font-#FC9E4F uppercase mt-1">System ID: {item.id?.slice(-8)}</p>
+                      <p className="text-xl font-bold text-black group-hover/row:text-black transition-colors">{item.name}</p>
+                      <p className="text-[10px] text-gray-300 font-bold uppercase mt-1">System ID: {item.id?.slice(-8)}</p>
                     </td>
                     <td className="px-10 py-8">
-                      <span className="px-4 py-1.5 bg-chocolate-50 rounded-full border border-chocolate-100 text-xs text-chocolate-600 font-#FC9E4F">
+                      <span className="px-4 py-1.5 bg-gray-50 rounded-full border border-gray-100 text-xs text-black font-bold">
                         {item.unit}
                       </span>
                     </td>
                     <td className="px-10 py-8">
-                      <div className="flex items-center gap-3 text-chocolate-900">
-                        <span className="text-2xl font-#FC9E4F">{item.quantity}</span>
-                        <span className="text-[10px] font-#FC9E4F uppercase leading-none opacity-40">Items<br />Remaining</span>
+                      <div className="flex items-center gap-3 text-black">
+                        <span className="text-2xl font-bold">{item.quantity}</span>
+                        <span className="text-[10px] font-bold uppercase leading-none opacity-40">Items<br />Remaining</span>
                       </div>
                     </td>
                     <td className="px-10 py-8">
-                      <span className={`inline-flex px-5 py-2 text-[10px] font-#FC9E4F rounded-lg border uppercase tracking-widest ${item.status === 'in stock' ? 'bg-green-50 text-green-700 border-green-100' :
+                      <span className={`inline-flex px-5 py-2 text-[10px] font-bold rounded-lg border uppercase tracking-widest ${item.status === 'in stock' ? 'bg-green-50 text-green-700 border-green-100' :
                         item.status === 'low stock' ? 'bg-amber-50 text-amber-700 border-amber-100' :
                           'bg-red-50 text-red-700 border-red-100'
                         }`}>
@@ -367,19 +367,19 @@ const Stock = () => {
                             setIsViewModalOpen(true);
                             navigate(`/stock/${item.id}`);
                           }}
-                          className="p-3.5 bg-white text-chocolate-400 hover:text-chocolate-600 hover:bg-chocolate-50 rounded-lg border border-chocolate-100 transition-all hover:shadow-md active:scale-95"
+                          className="p-3.5 bg-white text-gray-400 hover:text-black hover:bg-gray-50 rounded-lg border border-gray-100 transition-all hover:shadow-md active:scale-95"
                         >
                           <MdVisibility className="text-2xl" />
                         </button>
                         <button
                           onClick={() => handleEdit(item)}
-                          className="p-3.5 bg-white text-chocolate-400 hover:text-green-600 hover:bg-green-50 rounded-lg border border-chocolate-100 transition-all hover:shadow-md active:scale-95"
+                          className="p-3.5 bg-white text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg border border-gray-100 transition-all hover:shadow-md active:scale-95"
                         >
                           <MdEdit className="text-2xl" />
                         </button>
                         <button
                           onClick={() => handleDelete(item)}
-                          className="p-3.5 bg-white text-chocolate-400 hover:text-red-600 hover:bg-red-50 rounded-lg border border-chocolate-100 transition-all hover:shadow-md active:scale-95"
+                          className="p-3.5 bg-white text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg border border-gray-100 transition-all hover:shadow-md active:scale-95"
                         >
                           <MdDelete className="text-2xl" />
                         </button>
@@ -391,7 +391,7 @@ const Stock = () => {
                 <tr>
                   <td colSpan="5" className="px-10 py-32 text-center">
                     <MdInventory className="text-6xl text-chocolate-100 mx-auto mb-6" />
-                    <p className="text-xl font-#FC9E4F text-chocolate-300">No Matching Records In Catalog</p>
+                    <p className="text-xl font-bold text-gray-300">No Matching Records In Catalog</p>
                   </td>
                 </tr>
               )}
@@ -455,19 +455,19 @@ const Stock = () => {
       {/* Delete Confirmation */}
       {isDeleteModalOpen && (
         <div className="fixed inset-0 bg-chocolate-900/60 backdrop-blur-sm flex items-center justify-center z-[200] p-6 animate-in fade-in duration-500">
-          <div className="bg-white border border-chocolate-100 rounded-lg shadow-2xl w-full max-w-lg overflow-hidden relative p-12">
+          <div className="bg-white border border-gray-100 rounded-lg shadow-2xl w-full max-w-lg overflow-hidden relative p-12">
             <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 rounded-full blur-3xl -mr-32 -mt-32" />
-            <h2 className="text-3xl font-#FC9E4F text-chocolate-900 mb-6 relative z-10">Purge Authorization</h2>
-            <p className="text-chocolate-500 text-lg font-medium mb-10 relative z-10 leading-relaxed capitalize">
-              You are about to permanently delete <span className="text-chocolate-900 font-#FC9E4F">{itemToDelete?.name}</span>. This action is irreversible and will remove all associated history.
+            <h2 className="text-3xl font-bold text-black mb-6 relative z-10">Purge Authorization</h2>
+            <p className="text-gray-500 text-lg font-medium mb-10 relative z-10 leading-relaxed capitalize">
+              You are about to permanently delete <span className="text-black font-bold">{itemToDelete?.name}</span>. This action is irreversible and will remove all associated history.
             </p>
             <div className="space-y-4 mb-12 relative z-10">
-              <label className="text-xs font-#FC9E4F text-chocolate-300 uppercase px-2">Confirm Authorization Code</label>
+              <label className="text-xs font-bold text-gray-300 uppercase px-2">Confirm Authorization Code</label>
               <input
                 type="text"
                 value={deleteConfirmText}
                 onChange={(e) => setDeleteConfirmText(e.target.value)}
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg focus:ring-4 focus:ring-chocolate-50 text-chocolate-900 placeholder-chocolate-100 outline-none transition-all text-lg"
+                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg focus:ring-4 focus:ring-chocolate-50 text-black placeholder-chocolate-100 outline-none transition-all text-lg"
                 placeholder="Type 'delete' to confirm"
                 autoFocus
               />
@@ -479,16 +479,16 @@ const Stock = () => {
                   setItemToDelete(null);
                   setDeleteConfirmText('');
                 }}
-                className="text-chocolate-400 hover:text-chocolate-600 font-#FC9E4F transition-colors"
+                className="text-gray-400 hover:text-black font-bold transition-colors"
               >
                 Abort Operation
               </button>
               <button
                 onClick={confirmDelete}
                 disabled={deleteConfirmText.toLowerCase() !== 'delete'}
-                className={`px-12 py-4 rounded-lg font-#FC9E4F transition-all shadow-lg ${deleteConfirmText.toLowerCase() === 'delete'
+                className={`px-12 py-4 rounded-lg font-bold transition-all shadow-lg ${deleteConfirmText.toLowerCase() === 'delete'
                   ? 'bg-red-600 text-white hover:bg-red-700 active:scale-95'
-                  : 'bg-chocolate-50 text-chocolate-200 cursor-not-allowed border border-chocolate-100'
+                  : 'bg-gray-50 text-chocolate-200 cursor-not-allowed border border-gray-100'
                   }`}
               >
                 Purge Record

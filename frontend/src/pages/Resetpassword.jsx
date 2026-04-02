@@ -1,99 +1,119 @@
 import React, { useState } from 'react'
-<<<<<<< HEAD
 import images from '../utils/images';
-
-const Resetpassword = () => {
-  const [isloading, setIsloading] = useState(true);
-
-  return (
-    <div className='bg-#FC9E4F min-h-screen flex flex-col lg:flex-row'>
-      <div className='hidden lg:block lg:w-1/2 h-64 lg:h-screen flex items-center justify-center bg-gray-50'>
-        <img src={images.Login} alt="login" className='w-full h-full object-cover' />
-      </div>
-      
-      <div className='flex flex-col bg-white w-full lg:w-1/2 min-h-screen justify-center p-4 sm:p-6 lg:p-10'>
-        <div className='max-w-md mx-auto w-full'>
-          <h1 className='text-#FC9E4F text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold my-4 text-center mb-6 sm:mb-8 lg:mb-10'>
-            Welcome Back at <span className='text-[#FC9E4F]'>TradeWise</span>
-          </h1>
-          <p className='text-#FC9E4F/80 text-sm sm:text-base text-center mb-6 sm:mb-8 px-4'>
-            Please provide your current password and enter a new password to reset it.
-          </p>
-          <div className='flex flex-col space-y-4'>
-            <input 
-              type="password" 
-              placeholder="Current Password" 
-              className='w-full py-2.5 sm:py-3 px-4 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent' 
-            />
-            <input 
-              type="password" 
-              placeholder="New Password" 
-              className='w-full py-2.5 sm:py-3 px-4 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent' 
-            />
-            <input 
-              type="password" 
-              placeholder="Confirm Password" 
-              className='w-full py-2.5 sm:py-3 px-4 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent' 
-            />
-          </div>
-          <button 
-            type="submit" 
-            disabled={isloading} 
-            className="w-full sm:w-auto mx-auto flex justify-center py-2.5 sm:py-3 px-6 mt-6 bg-[#FC9E4F] text-sm text-white font-medium rounded-lg hover:bg-[#cc8b3a] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200" 
-          >
-            Reset Password
-          </button>
-        </div>
-=======
-import Signupimage from '../assets/Login.jpg'
 import backendApi from '../utils/axiosInstance'
-import { toast } from 'react-toastify'
+import { toast } from '../utils/toast'
+import { useNavigate } from 'react-router-dom';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Resetpassword = () => {
-  const [isloading, setIsloading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleReset = async () => {
+  const navigate = useNavigate();
+
+  const handleReset = async (e) => {
+    if (e) e.preventDefault();
     if (password !== confirm) {
       toast.error('Passwords do not match');
       return;
     }
-    setIsloading(true);
+    setIsLoading(true);
     try {
-      await backendApi.post('/auth/password/reset', { email, password, otp: localStorage.getItem('resetOtp') || '' });
+      const otp = localStorage.getItem('resetOtp') || '';
+      await backendApi.post('/auth/password/reset', { email, password, otp });
       toast.success('Password reset successfully');
+      navigate('/login');
     } catch (err) {
       toast.error(err.response?.data?.message || err.message || 'Reset failed');
     } finally {
-      setIsloading(false);
+      setIsLoading(false);
     }
   }
 
   return (
-    <div className='bg-black h-screen flex flex-1 justify-between'>
-      <div className='w-1/2 h-[100vh] flex items-center justify-center bg-gray-50'>
-        <img src={Signupimage} alt="login" className='w-full h-full object-cover' />
+    <div className='bg-[#FC9E4F] min-h-screen flex flex-col lg:flex-row font-afacad'>
+      <div className='hidden lg:block lg:w-1/2 h-screen'>
+        <img src={images.Login} alt="login" className='w-full h-full object-cover' />
       </div>
-      
-      <div className='flex flex-col bg-white pt-10'>
-        <h1 className='text-black text-5xl font-bold my-4 text-center mb-10'>Welcome Back at <span className='text-[#BE741E]'>TradeWise</span></h1>
-        <p className='text-black/80 text-normal text-center px-auto mb-4'>Please provide a valid email address so we can send you <br></br>  a code or link to reset your password.</p>
-        <div className='flex flex-col space-y-4 mx-10 my-4'>
-          <input value={email} onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="Email" className='w-100 py-2 px-4 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BE741E] focus:border-transparent' />
-          <input value={password} onChange={(e)=>setPassword(e.target.value)} type="password" placeholder="New Password" className='w-100 py-2 px-4 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BE741E] focus:border-transparent' />
-          <input value={confirm} onChange={(e)=>setConfirm(e.target.value)} type="password" placeholder="Confirm Password" className='w-100 py-2 px-4 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BE741E] focus:border-transparent' />
+
+      <div className='flex flex-col bg-white w-full lg:w-1/2 min-h-screen justify-center p-6 sm:p-10 lg:p-16'>
+        <div className='max-w-md mx-auto w-full'>
+          <h1 className='text-[#FC9E4F] text-4xl sm:text-5xl font-bold text-center mb-8'>
+            Reset Your <span className='text-[#FC9E4F]'>Password</span>
+          </h1>
+          <p className="text-black font-medium text-center mb-10 px-4">
+            Please enter your email and your new secure password.
+          </p>
+
+          <form onSubmit={handleReset} className='flex flex-col space-y-5'>
+            <div className="space-y-1">
+              <label className="text-sm font-bold text-black ml-1">Email Address</label>
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="name@enterprise.com"
+                className='w-full py-3 px-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent transition-all'
+                required
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-sm font-bold text-black ml-1">New Password</label>
+              <div className="relative">
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  className='w-full py-3 px-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent transition-all'
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#FC9E4F]"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-sm font-bold text-black ml-1">Confirm Password</label>
+              <input
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+                type="password"
+                placeholder="••••••••"
+                className='w-full py-3 px-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent transition-all'
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full py-3.5 mt-4 bg-[#FC9E4F] text-white font-bold rounded-xl hover:bg-[#cc8b3a] transition-all transform active:scale-[0.98] shadow-lg disabled:opacity-50"
+            >
+              {isLoading ? 'Resetting...' : 'Update Password'}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate('/login')}
+              className="text-[#FC9E4F] font-bold mt-4 hover:underline"
+            >
+              Back to Login
+            </button>
+          </form>
         </div>
-        <button onClick={handleReset} type="button" disabled={isloading} className="flex w-40 mx-auto text-center py-2 px-6 mt-4 bg-[#BE741E] text-sm text-white font-medium rounded-lg hover:bg-[#cc8b3a] disabled:opacity-50 disabled:cursor-not-allowed" >{isloading ? 'Resetting...' : 'Reset Password'}</button>
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
       </div>
     </div>
   )
 }
 
-<<<<<<< HEAD
 export default Resetpassword;
-=======
-export default Resetpassword;
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68

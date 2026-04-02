@@ -197,20 +197,20 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
 
   return (
     <div className="fixed inset-0 bg-chocolate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-6 font-afacad cursor-default">
-      <div className="bg-white border border-chocolate-100 rounded-lg shadow-2xl w-full max-w-5xl overflow-hidden relative animate-in fade-in zoom-in duration-300 flex flex-col max-h-[90vh]">
+      <div className="bg-white border border-gray-100 rounded-lg shadow-2xl w-full max-w-5xl overflow-hidden relative animate-in fade-in zoom-in duration-300 flex flex-col max-h-[90vh]">
         <div className="p-10 border-b border-chocolate-50 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <div className="bg-chocolate-50 p-4 rounded-lg border border-chocolate-100 shadow-sm">
-              <MdAttachMoney className="text-chocolate-600 text-3xl" />
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm">
+              <MdAttachMoney className="text-black text-3xl" />
             </div>
             <div>
-              <h2 className="text-4xl font-#FC9E4F text-chocolate-900 leading-tight">New Sale Transaction</h2>
-              <p className="text-sm text-chocolate-400 font-medium mt-1">Track Outbound Commerce Operations</p>
+              <h2 className="text-4xl font-bold text-black leading-tight">New Sale Transaction</h2>
+              <p className="text-sm text-gray-400 font-medium mt-1">Track Outbound Commerce Operations</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-4 text-chocolate-300 hover:text-chocolate-600 hover:bg-chocolate-50 rounded-lg transition-all hover:rotate-90"
+            className="p-4 text-gray-300 hover:text-black hover:bg-gray-50 rounded-lg transition-all hover:rotate-90"
           >
             <MdClose className="text-3xl" />
           </button>
@@ -220,22 +220,22 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
           {isLoadingProducts ? (
             <div className="flex flex-col items-center justify-center py-24 gap-6 text-center">
               <div className="relative">
-                <div className="w-16 h-16 border-4 border-chocolate-100 border-t-chocolate-600 rounded-full animate-spin" />
+                <div className="w-16 h-16 border-4 border-gray-100 border-t-chocolate-600 rounded-full animate-spin" />
               </div>
               <div>
-                <p className="text-xl font-#FC9E4F text-chocolate-900 capitalize">Loading Products...</p>
-                <p className="text-sm text-chocolate-500 mt-2">Fetching Available Inventory Items</p>
+                <p className="text-xl font-bold text-black capitalize">Loading Products...</p>
+                <p className="text-sm text-gray-500 mt-2">Fetching Available Inventory Items</p>
               </div>
             </div>
           ) : allProductsName.length === 0 ? (
-            <div className="bg-chocolate-50 border border-chocolate-100 p-16 rounded-lg text-center shadow-sm">
+            <div className="bg-gray-50 border border-gray-100 p-16 rounded-lg text-center shadow-sm">
               <div className="max-w-md mx-auto space-y-8">
-                <div className="bg-white w-24 h-24 rounded-full flex items-center justify-center mx-auto border border-chocolate-100 shadow-sm">
-                  <MdAttachMoney className="text-chocolate-300 text-5xl" />
+                <div className="bg-white w-24 h-24 rounded-full flex items-center justify-center mx-auto border border-gray-100 shadow-sm">
+                  <MdAttachMoney className="text-gray-300 text-5xl" />
                 </div>
                 <div className="space-y-3">
-                  <h4 className="text-2xl font-#FC9E4F text-chocolate-900 capitalize">No Products Found</h4>
-                  <p className="text-chocolate-500 leading-relaxed font-medium">Your inventory is empty. Please register products before creating sales.</p>
+                  <h4 className="text-2xl font-bold text-black capitalize">No Products Found</h4>
+                  <p className="text-gray-500 leading-relaxed font-medium">Your inventory is empty. Please register products before creating sales.</p>
                 </div>
                 <button
                   type="button"
@@ -243,7 +243,7 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                     onClose();
                     if (setActiveTab) setActiveTab('stock');
                   }}
-                  className="px-10 py-5 bg-chocolate-600 text-white rounded-lg font-#FC9E4F transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg"
+                  className="px-10 py-5 bg-chocolate-600 text-white rounded-lg font-bold transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg"
                 >
                   Go To Stock Management
                 </button>
@@ -252,47 +252,47 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
           ) : (
             <>
               <div className="space-y-8">
-                <h3 className="text-xl font-#FC9E4F text-chocolate-900 flex items-center gap-4">
+                <h3 className="text-xl font-bold text-black flex items-center gap-4">
                   <span className="w-3 h-3 bg-chocolate-600 rounded-full shadow-sm" />
                   Customer Information
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                   <div className="space-y-3">
-                    <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Transaction Description *</label>
+                    <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Transaction Description *</label>
                     <input
                       type="text"
                       name="description"
                       value={formData.description}
                       onChange={handleChange}
                       required
-                      className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
+                      className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
                       placeholder="e.g., Bulk Product Sale"
                     />
                   </div>
                   <div className="space-y-3">
-                    <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Customer Name *</label>
+                    <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Customer Name *</label>
                     <input
                       type="text"
                       name="secondParty"
                       value={formData.secondParty}
                       onChange={handleChange}
                       required
-                      className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
+                      className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
                       placeholder="e.g., Enterprise Solutions Ltd"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-chocolate-50 p-10 rounded-lg border border-chocolate-100 shadow-sm relative overflow-hidden group">
+              <div className="bg-gray-50 p-10 rounded-lg border border-gray-100 shadow-sm relative overflow-hidden group">
                 <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-6">
-                    <div className={`p-4 rounded-lg border transition-all duration-500 ${includeFinancialDetails ? 'bg-white border-chocolate-200 shadow-sm' : 'bg-white/50 border-chocolate-100'}`}>
-                      <MdSave className={`text-2xl transition-colors ${includeFinancialDetails ? 'text-chocolate-600' : 'text-chocolate-300'}`} />
+                    <div className={`p-4 rounded-lg border transition-all duration-500 ${includeFinancialDetails ? 'bg-white border-chocolate-200 shadow-sm' : 'bg-white/50 border-gray-100'}`}>
+                      <MdSave className={`text-2xl transition-colors ${includeFinancialDetails ? 'text-black' : 'text-gray-300'}`} />
                     </div>
                     <div>
-                      <h3 className="text-xl font-#FC9E4F text-chocolate-900">Financial Record</h3>
-                      <p className="text-sm text-chocolate-500 font-medium mt-1">Automatically Generate Credit Or Debit Entries</p>
+                      <h3 className="text-xl font-bold text-black">Financial Record</h3>
+                      <p className="text-sm text-gray-500 font-medium mt-1">Automatically Generate Credit Or Debit Entries</p>
                     </div>
                   </div>
                   <button
@@ -307,36 +307,36 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                 {includeFinancialDetails && (
                   <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10 animate-in fade-in slide-in-from-top-4 duration-500">
                     <div className="space-y-3">
-                      <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Financial Type</label>
+                      <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Financial Type</label>
                       <select
                         name="financialType"
                         value={formData.financialType}
                         onChange={handleChange}
-                        className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 focus:outline-none focus:ring-4 focus:ring-chocolate-50 appearance-none cursor-pointer shadow-sm transition-all"
+                        className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black focus:outline-none focus:ring-4 focus:ring-chocolate-50 appearance-none cursor-pointer shadow-sm transition-all"
                       >
                         <option value="Credit" className="bg-white">Credit</option>
                         <option value="Debit" className="bg-white">Debit</option>
                       </select>
                     </div>
                     <div className="space-y-3">
-                      <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Total Amount</label>
+                      <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Total Amount</label>
                       <input
                         type="number"
                         name="amount"
                         value={formData.amount}
                         onChange={handleChange}
-                        className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-#FC9E4F"
+                        className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-bold"
                         placeholder="Auto-calculates if empty"
                       />
                     </div>
                     <div className="space-y-3">
-                      <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Payment Deadline</label>
+                      <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Payment Deadline</label>
                       <input
                         type="date"
                         name="deadline"
                         value={formData.deadline}
                         onChange={handleChange}
-                        className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none shadow-sm"
+                        className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none shadow-sm"
                       />
                     </div>
                   </div>
@@ -346,14 +346,14 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
 
               <div className="space-y-8">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-#FC9E4F text-chocolate-900 flex items-center gap-4">
+                  <h3 className="text-xl font-bold text-black flex items-center gap-4">
                     <span className="w-3 h-3 bg-chocolate-600 rounded-full shadow-sm" />
                     Products List
                   </h3>
                   <button
                     type="button"
                     onClick={addProduct}
-                    className="flex items-center gap-3 px-8 py-4 bg-chocolate-50 text-chocolate-600 border border-chocolate-100 rounded-lg font-#FC9E4F hover:bg-chocolate-600 hover:text-white transition-all active:scale-95 shadow-sm group"
+                    className="flex items-center gap-3 px-8 py-4 bg-gray-50 text-black border border-gray-100 rounded-lg font-bold hover:bg-chocolate-600 hover:text-white transition-all active:scale-95 shadow-sm group"
                   >
                     <MdAdd className="text-xl group-hover:rotate-90 transition-transform" />
                     Add Line Item
@@ -361,26 +361,26 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                 </div>
 
                 {products.length > 0 && (
-                  <div className="bg-white border border-chocolate-100 rounded-lg shadow-sm overflow-hidden">
+                  <div className="bg-white border border-gray-100 rounded-lg shadow-sm overflow-hidden">
                     <div className="overflow-x-auto overflow-y-visible">
                       <table className="w-full">
                         <thead>
-                          <tr className="bg-chocolate-50">
-                            <th className="px-8 py-6 text-left text-xs font-#FC9E4F text-chocolate-400 uppercase tracking-widest">Product</th>
-                            <th className="px-8 py-6 text-center text-xs font-#FC9E4F text-chocolate-400 uppercase tracking-widest w-44">Unit Price</th>
-                            <th className="px-8 py-6 text-center text-xs font-#FC9E4F text-chocolate-400 uppercase tracking-widest w-32">Qty</th>
-                            <th className="px-8 py-6 text-right text-xs font-#FC9E4F text-chocolate-400 uppercase tracking-widest">Subtotal</th>
-                            <th className="px-8 py-6 text-center text-xs font-#FC9E4F text-chocolate-400 uppercase tracking-widest w-24">Actions</th>
+                          <tr className="bg-gray-50">
+                            <th className="px-8 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-widest">Product</th>
+                            <th className="px-8 py-6 text-center text-xs font-bold text-gray-400 uppercase tracking-widest w-44">Unit Price</th>
+                            <th className="px-8 py-6 text-center text-xs font-bold text-gray-400 uppercase tracking-widest w-32">Qty</th>
+                            <th className="px-8 py-6 text-right text-xs font-bold text-gray-400 uppercase tracking-widest">Subtotal</th>
+                            <th className="px-8 py-6 text-center text-xs font-bold text-gray-400 uppercase tracking-widest w-24">Actions</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-chocolate-50 text-chocolate-900">
+                        <tbody className="divide-y divide-chocolate-50 text-black">
                           {products.map((product, index) => (
-                            <tr key={index} className="hover:bg-chocolate-50/30 transition-all group/row">
+                            <tr key={index} className="hover:bg-gray-50/30 transition-all group/row">
                               <td className="px-8 py-6">
                                 <select
                                   value={product.name}
                                   onChange={(e) => handleProductChange(index, 'name', e.target.value)}
-                                  className="w-full px-6 py-4 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 text-sm focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium appearance-none cursor-pointer shadow-sm"
+                                  className="w-full px-6 py-4 bg-white border border-gray-100 rounded-lg text-black text-sm focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium appearance-none cursor-pointer shadow-sm"
                                 >
                                   <option value="" className="bg-white">Choose Item</option>
                                   {allProductsName.map((productOption) => (
@@ -396,7 +396,7 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                                   value={product.price}
                                   onChange={(e) => handleProductChange(index, 'price', e.target.value)}
                                   placeholder="0"
-                                  className="w-full px-6 py-4 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-#FC9E4F text-center"
+                                  className="w-full px-6 py-4 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-bold text-center"
                                 />
                               </td>
                               <td className="px-8 py-6">
@@ -406,11 +406,11 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                                   onChange={(e) => handleProductChange(index, 'quantity', e.target.value)}
                                   placeholder="0"
                                   min="1"
-                                  className="w-full px-6 py-4 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-#FC9E4F text-center"
+                                  className="w-full px-6 py-4 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-bold text-center"
                                 />
                               </td>
                               <td className="px-8 py-6 text-right">
-                                <span className="text-sm font-#FC9E4F text-chocolate-900 tabular-nums">
+                                <span className="text-sm font-bold text-black tabular-nums">
                                   {product.price && product.quantity ?
                                     formatCurrency(parseFloat(product.price) * parseInt(product.quantity)) :
                                     "0.00"
@@ -421,7 +421,7 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                                 <button
                                   type="button"
                                   onClick={() => removeProduct(index)}
-                                  className="p-4 text-chocolate-300 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all active:scale-75 hover:scale-110"
+                                  className="p-4 text-gray-300 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all active:scale-75 hover:scale-110"
                                 >
                                   <MdDelete className="text-2xl" />
                                 </button>
@@ -430,10 +430,10 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                           ))}
                         </tbody>
                         {products.length > 0 && products.some(p => p.name && p.price && p.quantity) && (
-                          <tfoot className="bg-chocolate-50/50">
+                          <tfoot className="bg-gray-50/50">
                             <tr>
-                              <td colSpan="3" className="px-8 py-8 text-right text-chocolate-400 font-bold capitalize">Calculated Grand Total</td>
-                              <td className="px-8 py-8 text-right font-#FC9E4F text-chocolate-900 text-2xl tabular-nums">
+                              <td colSpan="3" className="px-8 py-8 text-right text-gray-400 font-bold capitalize">Calculated Grand Total</td>
+                              <td className="px-8 py-8 text-right font-bold text-black text-2xl tabular-nums">
                                 {formatCurrency(products
                                   .filter(p => p.name && p.price && p.quantity)
                                   .reduce((sum, product) => sum + (parseFloat(product.price) * parseInt(product.quantity)), 0))} FRW
@@ -453,14 +453,14 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
             <button
               type="button"
               onClick={onClose}
-              className="px-10 py-5 text-chocolate-400 font-#FC9E4F hover:text-chocolate-600 bg-chocolate-50 rounded-lg border border-chocolate-100 transition-all active:scale-95"
+              className="px-10 py-5 text-gray-400 font-bold hover:text-black bg-gray-50 rounded-lg border border-gray-100 transition-all active:scale-95"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-10 py-5 bg-chocolate-600 text-white rounded-lg font-#FC9E4F transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg disabled:opacity-50 disabled:grayscale"
+              className="px-10 py-5 bg-chocolate-600 text-white rounded-lg font-bold transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg disabled:opacity-50 disabled:grayscale"
             >
               {isSubmitting ? 'Processing...' : 'Create Sale Transaction'}
             </button>

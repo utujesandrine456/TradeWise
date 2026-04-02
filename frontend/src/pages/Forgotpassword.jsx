@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState, useRef } from 'react'
 import images from '../utils/images';
 import backendApi from '../utils/axiosInstance'
@@ -44,19 +43,21 @@ const Forgotpassword = () => {
   // Step 2: OTP input
   const handleCodeChange = (index, value) => {
     const lastChar = value.slice(-1)
+    if (lastChar && !/^\d*$/.test(lastChar)) return
+
     const newCode = [...code]
     newCode[index] = lastChar
     setCode(newCode)
 
     if (lastChar && index < 5) inputRefs.current[index + 1]?.focus()
 
-    // Trigger spinner and move to Step 3 if all filled
+    // Trigger check and move to Step 3 if all filled
     if (newCode.every((c) => c !== '')) {
       setIsLoading(true)
       setTimeout(() => {
         setStep(3)
         setIsLoading(false)
-      }, 2000)
+      }, 1500)
     }
   }
 
@@ -72,7 +73,6 @@ const Forgotpassword = () => {
     }
     if (e.key === 'ArrowLeft' && index > 0) inputRefs.current[index - 1]?.focus()
     if (e.key === 'ArrowRight' && index < 5) inputRefs.current[index + 1]?.focus()
-    if (['Backspace', 'ArrowLeft', 'ArrowRight'].includes(e.key)) e.preventDefault()
   }
 
   const handlePaste = (e) => {
@@ -104,7 +104,7 @@ const Forgotpassword = () => {
       setTimeout(() => {
         setStep(3)
         setIsLoading(false)
-      }, 2000)
+      }, 1500)
     }
   }
 
@@ -125,255 +125,150 @@ const Forgotpassword = () => {
         password,
       })
       toast.success('Password reset successfully!')
-      setStep(1)
-      setEmail('')
-      setCode(['', '', '', '', '', ''])
-      setPassword('')
-      setConfirmPassword('')
       navigate('/login')
     } catch (error) {
       const { message } = handleError(error)
       toast.error(message || 'Invalid or expired OTP')
-      // Go back to step 2 to correct OTP
-      setStep(2)
+      setStep(2) // Go back to step 2 to correct OTP
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="bg-#FC9E4F min-h-screen flex flex-col lg:flex-row">
-      <div className="flex flex-col items-center justify-center bg-white w-full lg:w-1/2 p-4 sm:p-6 lg:p-8 min-h-screen">
-        <h1 className="text-#FC9E4F text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold my-4 text-center mb-6 sm:mb-8 lg:mb-10 px-4">
-          Welcome Back at <span className="text-[#FC9E4F]">TradeWise</span>
-        </h1>
+    <div className="bg-[#FC9E4F] min-h-screen flex flex-col lg:flex-row font-afacad">
+      <div className="flex flex-col items-center justify-center bg-white w-full lg:w-1/2 p-6 sm:p-10 min-h-screen">
+        <div className="max-w-md w-full">
+          <h1 className="text-[#FC9E4F] text-4xl sm:text-5xl font-bold text-center mb-8">
+            Welcome Back at <span className="text-[#FC9E4F]">TradeWise</span>
+          </h1>
 
-        {/* Step 1: Email input */}
-        {step === 1 && (
-          <form onSubmit={handleEmailSubmit} className="flex flex-col items-center space-y-4 w-full max-w-sm">
-            <p className="text-#FC9E4F/80 text-center mb-4 text-sm sm:text-base px-4">
-              Please provide a valid email address so we can send you a code.
-            </p>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full py-2.5 sm:py-3 px-4 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FC9E4F]"
-            />
-            <button
-              type="submit"
-              className="w-full sm:w-auto py-2.5 sm:py-3 px-6 bg-[#FC9E4F] text-sm text-white font-medium rounded-lg hover:bg-[#cc8b3a] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={isLoading}
-            >
-              {isLoading ? 'Sending...' : 'Submit'}
-            </button>
-          </form>
-        )}
-
-        {/* Step 2: OTP input */}
-        {step === 2 && (
-          <div className="relative flex flex-col items-center space-y-6 w-full max-w-md px-4">
-            <p className="text-#FC9E4F/80 text-center mb-4 text-sm sm:text-base">
-              Enter the 6-character OTP sent to your email.
-            </p>
-            <div
-              className="flex space-x-2 sm:space-x-3 lg:space-x-4 justify-center"
-              style={{ pointerEvents: isLoading ? 'none' : 'auto', opacity: isLoading ? 0.5 : 1 }}
-            >
-              {code.map((char, index) => (
-                <input
-                  key={index}
-                  ref={(el) => (inputRefs.current[index] = el)}
-                  type="text"
-                  maxLength="1"
-                  value={char}
-                  onChange={(e) => handleCodeChange(index, e.target.value)}
-                  onKeyDown={(e) => handleKeyDown(index, e)}
-                  onPaste={handlePaste}
-                  className="w-10 h-10 sm:w-12 sm:h-12 text-center text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FC9E4F]"
-                  required
-                  disabled={isLoading}
-                />
-              ))}
-            </div>
-            {isLoading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-white/50 rounded-lg">
-                <div className="loader border-t-[#FC9E4F] border-b-[#FC9E4F] border-gray-300 w-8 h-8 sm:w-10 sm:h-10 rounded-full animate-spin"></div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Step 3: Reset password */}
-        {step === 3 && (
-          <form onSubmit={handleResetPassword} className="flex flex-col items-center space-y-4 w-full max-w-sm">
-            <p className="text-#FC9E4F/80 text-center mb-4 text-sm sm:text-base px-4">
-              Enter your new password.
-            </p>
-
-            <div className="w-full space-y-3">
-              <div className="relative">
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="New Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full py-2.5 sm:py-3 px-4 pr-12 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FC9E4F]"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-[#FC9E4F] transition-colors duration-200"
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-
-              <div className="relative">
-                <input
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  placeholder="Confirm Password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full py-2.5 sm:py-3 px-4 pr-12 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FC9E4F]"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-[#FC9E4F] transition-colors duration-200"
-                >
-                  {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className="w-full sm:w-auto py-2.5 sm:py-3 px-6 bg-[#FC9E4F] text-sm text-white font-medium rounded-lg hover:bg-[#cc8b3a] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={isLoading}
-            >
-              {isLoading ? 'Resetting...' : 'Reset Password'}
-            </button>
-          </form>
-        )}
-      </div>
-
-      <div className="hidden lg:block lg:w-1/2 h-64 lg:h-full flex items-center justify-center bg-gray-50">
-        <img src={images.Login} alt="login" className="w-full h-full object-cover" />
-=======
-import {React, useState, useEffect} from 'react'
-import Signupimage from '../assets/Login.jpg'
-import backendApi from '../utils/axiosInstance'
-import { toast } from 'react-toastify'
-
-const Forgotpassword = () => {
-
-  const [email , setemail] = useState('');
-  const [code, setCode] = useState(['','','','','','']);
-  const [step, setStep]= useState(1);
-  const [isloading, setIsloading]= useState(1);
-
-  const handleEmailSubmit = async (e) => {
-    e.preventDefault();
-    setIsloading(true);
-    try {
-      await backendApi.post('/auth/password/forget', { email });
-      setStep(2);
-      toast.success('Reset code sent');
-    } catch (err) {
-      toast.error(err.response?.data?.message || err.message || 'Failed to send reset code');
-    } finally {
-      setIsloading(false);
-    }
-  };
-
-
-  const handleCodeChange = (index, value) => {
-      if(!/^\d*$/.test(value) ) return ;
-
-      const newCode = [...code];
-      newCode[index] = value;
-      setCode(newCode);
-
-
-      if(value && index < 5){
-        document.getElementById(`code-${index + 1}`).focus();
-      }
-  }
-
-
-
-  const handleCodeSubmit = async (e) => {
-    e.preventDefault();
-    setIsloading(true);
-    try {
-      const otp = code.join('');
-      await backendApi.post('/auth/password/reset', { email, otp, password: 'Temp@1234' });
-      toast.success('Code verified. Continue to reset your password.');
-    } catch (err) {
-      toast.error(err.response?.data?.message || err.message || 'Invalid code');
-    } finally {
-      setIsloading(false);
-    }
-  };
-
-  return (
-    <div className='bg-black h-screen flex flex-1 justify-between'>
-      <div className='flex flex-col items-center justify-center bg-white '>
-        <h1 className='text-black text-5xl font-bold my-4 text-center mb-10'>Welcome Back at <span className='text-[#BE741E]'>TradeWise</span></h1>
-        
-        {step === 1 ? 
-          <>
-            <p className='text-black/80 text-normal text-center px-auto mb-4'>Please provide a valid email address so we can send you <br></br>  a code or link to reset your password.</p>
-            <form onSubmit={handleEmailSubmit} className='space-x-4'>
-              <input value={email} onChange={(e)=>setemail(e.target.value)} type="email" placeholder="Email" className='w-100 py-2 px-4 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BE741E] focus:border-transparent' />
-              <button type="submit" className=" py-2 px-6 mt-4 bg-[#BE741E] text-sm text-white font-medium rounded-lg hover:bg-[#cc8b3a] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" >Submit</button>
+          {/* Step 1: Email input */}
+          {step === 1 && (
+            <form onSubmit={handleEmailSubmit} className="flex flex-col items-center space-y-6">
+              <p className="text-black font-medium text-center mb-2 text-base">
+                Please provide a valid email address so we can send you a verification code.
+              </p>
+              <input
+                type="email"
+                placeholder="Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full py-3 px-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent transition-all"
+                required
+              />
+              <button
+                type="submit"
+                className="w-full py-3 bg-[#FC9E4F] text-white font-bold rounded-xl hover:bg-[#cc8b3a] transition-all transform active:scale-[0.98] disabled:opacity-50"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Sending Code...' : 'Send Reset Code'}
+              </button>
             </form>
-          </>
+          )}
 
-          : 
-
-          <>
-            <p className='text-black/80 text-normal text-center mb-4'>
-              We've sent a 6-digit code to your email<br />
-              Please enter it below to reset your password.
-            </p>
-            <form onSubmit={handleCodeSubmit} className='space-x-4'>
-                <div className='flex flex-col items-center justify-center space-y-6'>
-                  <div className=' flex space-x-4'>
-                    {code.map((digit, index) => (
-                      <input key={index} id={`code-${index}`}
-                      type="text"
-                      maxLenght="1"
-                      value={digit}
-                      onChange={(e) => handleCodeChange(index , e.target.value)} className='w-12 h-12 text-center text-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#BE741E] focus:border-transparent' required />
-                    ))}
-                  </div>
-
-                  <button type='submit' className='w-full py-3 px-6 bg-[#BE741E] text-sm text-white font-medium rounded-lg hover:bg-[#cc8b3a] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed' disabled={ isloading || code.some(digit => digit === '')}>{isloading ? "Verifying" : "Verify Code"}</button>
-                  <button type="button" className='text-[#BE741E] text-sm hover:underline' onClick={() => setStep(1)} >Back To Email</button>
+          {/* Step 2: OTP input */}
+          {step === 2 && (
+            <div className="relative flex flex-col items-center space-y-8">
+              <p className="text-black font-medium text-center mb-2 text-base">
+                Enter the 6-digit synchronization code sent to your email.
+              </p>
+              <div
+                className="flex space-x-3 sm:space-x-4 justify-center"
+                style={{ pointerEvents: isLoading ? 'none' : 'auto', opacity: isLoading ? 0.5 : 1 }}
+              >
+                {code.map((char, index) => (
+                  <input
+                    key={index}
+                    ref={(el) => (inputRefs.current[index] = el)}
+                    type="text"
+                    maxLength="1"
+                    value={char}
+                    onChange={(e) => handleCodeChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(index, e)}
+                    onPaste={handlePaste}
+                    className="w-12 h-12 text-center text-xl font-bold border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent transition-all"
+                    required
+                    disabled={isLoading}
+                  />
+                ))}
+              </div>
+              {isLoading && (
+                <div className="absolute inset-0 flex items-center justify-center bg-white/50 rounded-xl">
+                  <div className="w-10 h-10 border-4 border-[#FC9E4F] border-t-transparent rounded-full animate-spin"></div>
                 </div>
+              )}
+              <button
+                onClick={() => setStep(1)}
+                className="text-[#FC9E4F] font-bold hover:underline"
+              >
+                Back to Email
+              </button>
+            </div>
+          )}
+
+          {/* Step 3: Reset password */}
+          {step === 3 && (
+            <form onSubmit={handleResetPassword} className="flex flex-col items-center space-y-6">
+              <p className="text-black font-medium text-center mb-2 text-base">
+                Create a secure new password for your account.
+              </p>
+
+              <div className="w-full space-y-4">
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="New Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full py-3 px-4 pr-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent transition-all"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#FC9E4F] transition-colors"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+
+                <div className="relative">
+                  <input
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    placeholder="Confirm New Password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="w-full py-3 px-4 pr-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent transition-all"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#FC9E4F] transition-colors"
+                  >
+                    {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-3 bg-[#FC9E4F] text-white font-bold rounded-xl hover:bg-[#cc8b3a] transition-all transform active:scale-[0.98] disabled:opacity-50"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Resetting Password...' : 'Complete Reset'}
+              </button>
             </form>
-          
-          </>
-          
-        }
-        
+          )}
+        </div>
       </div>
 
-      <div className='w-1/2 h-[100vh] flex items-center justify-center bg-gray-50'>
-        <img src={Signupimage} alt="login" className='w-full h-full object-cover' />
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
+      <div className="hidden lg:block lg:w-1/2 h-full">
+        <img src={images.Login} alt="login" className="w-full h-full object-cover" />
       </div>
     </div>
   )
 }
 
-<<<<<<< HEAD
-export default Forgotpassword
-=======
 export default Forgotpassword;
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68

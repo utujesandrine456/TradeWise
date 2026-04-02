@@ -47,7 +47,7 @@ const Header = () => {
                         alt="TradeWise Logo"
                         className="w-14 h-11 rounded-lg transition-transform group-hover:scale-110 shadow-sm"
                     />
-                    <h1 className={`text-2xl md:text-3xl font-#FC9E4F capitalize tracking-tight ${scrolled || mobileOpen ? 'text-chocolate-900' : 'text-white drop-shadow-sm'}`}>
+                    <h1 className={`text-2xl md:text-3xl font-bold capitalize tracking-tight ${scrolled || mobileOpen ? 'text-chocolate-900' : 'text-white drop-shadow-sm'}`}>
                         TradeWise
                     </h1>
                 </div>
@@ -61,7 +61,7 @@ const Header = () => {
                                 e.preventDefault();
                                 scrollToSection(item.toLowerCase());
                             }}
-                            className={`font-#FC9E4F capitalize transition-all relative group text-sm tracking-wide ${scrolled || mobileOpen ? 'text-chocolate-500 hover:text-chocolate-900' : 'text-white/80 hover:text-white drop-shadow-sm'}`}
+                            className={`font-bold capitalize transition-all relative group text-sm tracking-wide ${scrolled || mobileOpen ? 'text-chocolate-500 hover:text-chocolate-900' : 'text-white/80 hover:text-white drop-shadow-sm'}`}
                         >
                             {item}
                             <span className={`absolute -bottom-2 left-0 right-0 mx-auto h-1 w-1 rounded-full origin-center scale-0 transition-transform duration-300 group-hover:scale-100 ${scrolled || mobileOpen ? 'bg-chocolate-600' : 'bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]'}`}></span>
@@ -76,13 +76,13 @@ const Header = () => {
                         <>
                             <button
                                 onClick={() => navigate('/login')}
-                                className={`px-4 py-2 font-#FC9E4F capitalize transition-all text-sm ${scrolled || mobileOpen ? 'text-chocolate-600 hover:text-chocolate-900' : 'text-white hover:text-white/80 drop-shadow-sm'}`}
+                                className={`px-4 py-2 font-bold capitalize transition-all text-sm ${scrolled || mobileOpen ? 'text-chocolate-600 hover:text-chocolate-900' : 'text-white hover:text-white/80 drop-shadow-sm'}`}
                             >
                                 Login
                             </button>
                             <button
                                 onClick={() => navigate('/signup')}
-                                className="bg-chocolate-600 text-white px-8 py-3 text-sm font-#FC9E4F rounded-lg transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg capitalize active:shadow-sm hover:-translate-y-1"
+                                className="bg-chocolate-600 text-white px-8 py-3 text-sm font-bold rounded-lg transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg capitalize active:shadow-sm hover:-translate-y-1"
                             >
                                 Join Now
                             </button>
@@ -90,7 +90,7 @@ const Header = () => {
                     ) : (
                         <button
                             onClick={() => navigate('/dashboard')}
-                            className="bg-chocolate-600 hover:bg-chocolate-700 text-white px-8 py-3 rounded-lg font-#FC9E4F flex items-center gap-3 transition-all hover:-translate-y-1 active:scale-95 capitalize shadow-lg"
+                            className="bg-chocolate-600 hover:bg-chocolate-700 text-white px-8 py-3 rounded-lg font-bold flex items-center gap-3 transition-all hover:-translate-y-1 active:scale-95 capitalize shadow-lg"
                         >
                             <MdDashboard size={20} /> Dashboard
                         </button>
@@ -119,7 +119,7 @@ const Header = () => {
                                 <button
                                     key={item}
                                     onClick={() => scrollToSection(item.toLowerCase())}
-                                    className="text-chocolate-600 text-xl font-#FC9E4F text-left hover:text-chocolate-900 transition-all flex items-center justify-between group capitalize"
+                                    className="text-chocolate-600 text-xl font-bold text-left hover:text-chocolate-900 transition-all flex items-center justify-between group capitalize"
                                 >
                                     {item}
                                     <ChevronRight size={24} className="opacity-0 group-hover:opacity-100 transition-all text-chocolate-600 translate-x-4 group-hover:translate-x-0" />
@@ -135,7 +135,7 @@ const Header = () => {
                                             navigate('/login');
                                             setMobileOpen(false);
                                         }}
-                                        className="w-full bg-chocolate-50 text-chocolate-600 py-4 rounded-lg font-#FC9E4F hover:bg-chocolate-100 transition-all capitalize"
+                                        className="w-full bg-chocolate-50 text-chocolate-600 py-4 rounded-lg font-bold hover:bg-chocolate-100 transition-all capitalize"
                                     >
                                         Login
                                     </button>
@@ -144,7 +144,7 @@ const Header = () => {
                                             navigate('/signup');
                                             setMobileOpen(false);
                                         }}
-                                        className="w-full bg-chocolate-600 text-white py-4 rounded-lg font-#FC9E4F shadow-lg hover:-translate-y-1 active:scale-95 transition-all capitalize"
+                                        className="w-full bg-chocolate-600 text-white py-4 rounded-lg font-bold shadow-lg hover:-translate-y-1 active:scale-95 transition-all capitalize"
                                     >
                                         Get Started
                                     </button>
@@ -155,7 +155,7 @@ const Header = () => {
                                         navigate('/dashboard');
                                         setMobileOpen(false);
                                     }}
-                                    className="w-full bg-chocolate-600 text-white py-4 rounded-lg font-#FC9E4F shadow-lg flex items-center justify-center gap-3 hover:-translate-y-1 active:scale-95 transition-all capitalize"
+                                    className="w-full bg-chocolate-600 text-white py-4 rounded-lg font-bold shadow-lg flex items-center justify-center gap-3 hover:-translate-y-1 active:scale-95 transition-all capitalize"
                                 >
                                     <MdDashboard size={24} /> Open Dashboard
                                 </button>

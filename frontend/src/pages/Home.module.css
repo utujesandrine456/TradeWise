@@ -1,31 +1,30 @@
-<<<<<<< HEAD
-.home_navbar_logo {
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-}
-
-.home_navbar_title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #FC9E4F;
-  line-height: 1.1;
-  font-family: 'Afacad', sans-serif;
-}
-=======
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=Yeseva+One&display=swap');
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Work Sans', sans-serif;
 }
 
-.home_container{
+.home_navbar_logo {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.home_navbar_title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #FC9E4F;
+    line-height: 1.1;
+    font-family: 'Afacad', sans-serif;
+}
+
+.home_container {
     overflow: hidden;
 }
-.home_navbar{
+
+.home_navbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -36,22 +35,14 @@
     display: flex;
 }
 
-.home_navbar_logo{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin: 13px 5px;
-}
-
-.home_navbar_links{
+.home_navbar_links {
     display: flex;
     gap: 20px;
     list-style: none;
     margin: auto auto;
 }
 
-.home_navbar_links a{
+.home_navbar_links a {
     font-family: 'Work Sans', sans-serif;
     text-decoration: none;
     color: rgb(225, 225, 225);
@@ -61,7 +52,7 @@
     transition: 0.3s;
 }
 
-.home_navbar_links a::after{
+.home_navbar_links a::after {
     content: '';
     display: block;
     width: 0;
@@ -71,28 +62,21 @@
     transition: width 0.3s ease;
 }
 
-.home_navbar_links a:hover::after{
+.home_navbar_links a:hover::after {
     width: 100%;
 }
-    
-.home_navbar_links a:hover{
+
+.home_navbar_links a:hover {
     color: white;
 }
 
-.home_navbar_title{
-    font-family: 'Yeseva One', cursive;
-    color: white;
-    font-size: 28px;
-    margin: auto 0;
-}
-
-.home_navbar_buttons{
+.home_navbar_buttons {
     display: flex;
     gap: 10px;
     margin: auto 20px;
 }
 
-.home_navbar_buttons button{
+.home_navbar_buttons button {
     padding: 8px 20px;
     border-radius: 10px;
     border: none;
@@ -103,14 +87,14 @@
     transition: 0.4s;
 }
 
-.home_navbar_buttons button:hover{
+.home_navbar_buttons button:hover {
     background-color: #be741e;
     color: white;
-    cursor: pointer; 
+    cursor: pointer;
     transform: scale(1.05);
 }
 
-.home_content{  
+.home_content {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -120,22 +104,23 @@
     font-size: 20px;
 }
 
-.home_content h1{
+.home_content h1 {
     font-size: 50px;
 }
 
-.home_content p{
+.home_content p {
     margin-top: 25px;
     font-size: 16px;
 }
 
-.home_content_cards{
+.home_content_cards {
     display: flex;
     flex-direction: row;
     margin-top: -60px;
 }
 
-.home_content_cards h4, .home_content_how h4{
+.home_content_cards h4,
+.home_content_how h4 {
     font-size: 30px;
     font-weight: 600;
     margin-top: -20px;
@@ -145,12 +130,12 @@
     font-family: 'Work Sans', sans-serif;
 }
 
-.home_content_how h4{
+.home_content_how h4 {
     position: relative;
     left: 0;
 }
 
-.home_content_card{
+.home_content_card {
     width: 270px;
     height: 180px;
     background-color: white;
@@ -163,12 +148,13 @@
     padding-top: 15px;
 }
 
-.home_content_card h3, .home_content_how_card_content h3{
+.home_content_card h3,
+.home_content_how_card_content h3 {
     font-size: 19px;
     font-family: 'Work Sans', sans-serif;
 }
 
-.home_content_card pre{
+.home_content_card pre {
     width: 40px;
     height: 30px;
     border-top-left-radius: 20px;
@@ -179,20 +165,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size:20px;
+    font-size: 20px;
 }
 
-.home_content_card p, .home_content_how_card_content p{
+.home_content_card p,
+.home_content_how_card_content p {
     margin-top: 10px;
-    color: rgb(72, 72, 72);
+    color: black;
+    font-weight: 500;
     font-size: 17px;
 }
 
-.home_content_how{
+.home_content_how {
     margin-top: 80px;
 }
 
-.home_content_how_card{
+.home_content_how_card {
     display: flex;
     width: 70%;
     height: 250px;
@@ -205,28 +193,24 @@
     color: black;
     padding-top: 50px;
     padding-left: 20px;
-
 }
 
-.home_content_how_card_content{
+.home_content_how_card_content {
     width: 50%;
     height: 100%;
     background-color: white;
     border-right: 1.5px solid #FFB608;
-    padding:20px;
+    padding: 20px;
     margin: 0;
 }
 
-
-
-#home_content_how_card_content_right{
+#home_content_how_card_content_right {
     border-right: none;
-    padding: 20px 0;
+    padding: 20px;
     margin: 0;
-    padding:20px;
 }
 
-.home_content_how_card_content h5{
+.home_content_how_card_content h5 {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -239,8 +223,7 @@
     color: white;
 }
 
-
-.home_content .home_content_image{
+.home_content .home_content_image {
     padding: 25px;
     width: 100vw;
     height: 100vh;
@@ -248,7 +231,7 @@
     border-radius: 40px;
 }
 
-.home_content_text{
+.home_content_text {
     z-index: 100;
     text-align: left;
     margin-top: 0px;
@@ -256,35 +239,9 @@
     font-family: 'Work Sans', sans-serif;
 }
 
-.home_content_how h4{
+.home_content_how h4 {
     margin-left: 80px;
     text-align: center;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.5);
-        opacity: 0.5;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-@keyframes ripple {
-    0% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-    100% {
-        transform: scale(1.5);
-        opacity: 0;
-    }
 }
 
 .home_image_button {
@@ -306,8 +263,3 @@
     box-shadow: 0 6px 20px rgba(159, 113, 7, 0.4);
     transform: scale(1.05);
 }
-
-
-
-
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68

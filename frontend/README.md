@@ -1,25 +1,29 @@
-<<<<<<< HEAD
-=======
-Environment
+# TradeWise Frontend
 
-Create a .env file in frontend with:
+This is the frontend for the TradeWise application, built with React and Vite.
 
+## Environment Setup
+
+Create a `.env` file in the `frontend` directory with the following variables:
+
+```env
 VITE_API_URL=http://localhost:2009/api
 VITE_GRAPHQL_URL=http://localhost:2009/graphql
+```
 
-Notes
-- Backend sets cookies; keep withCredentials=true in axios.
-- Adjust port if backend runs on a different port.
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
-# React + Vite
+## Features
+- **Dashboard**: Unified view of business performance.
+- **Analytics**: Real-time sales and purchase data visualization using Recharts.
+- **Auth**: Secure authentication managed through a consolidated `useAuth` hook.
+- **Transactions**: Record sales and purchases with automatic profit/loss calculation.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Development
+```bash
+npm install
+npm run dev
+```
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Notes
+- The application uses both REST and GraphQL APIs.
+- Authentication state is shared across the application via `AuthProvider`.
+- Visual design follows a premium brand theme with custom gradients and glassmorphism.

@@ -209,11 +209,11 @@ const Profile = () => {
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent-400/10 rounded-full blur-[100px] -mr-48 -mt-48" />
           <div className="relative z-10 flex items-center justify-between">
             <div>
-              <h1 className="text-4xl font-#FC9E4F text-white lowercase italic mb-2 tracking-tighter">profile</h1>
+              <h1 className="text-4xl font-bold text-white lowercase italic mb-2 tracking-tighter">profile</h1>
               <p className="text-gray-400 font-medium lowercase italic">manage your business identity and account details</p>
             </div>
             <div className="flex items-center gap-4">
-              <div className="w-20 h-20 rounded-3xl bg-white/5 backdrop-blur-2xl flex items-center justify-center text-accent-400 text-3xl font-#FC9E4F border border-white/10 shadow-2xl lowercase">
+              <div className="w-20 h-20 rounded-3xl bg-white/5 backdrop-blur-2xl flex items-center justify-center text-accent-400 text-3xl font-bold border border-white/10 shadow-2xl lowercase">
                 {initials}
               </div>
             </div>
@@ -227,8 +227,8 @@ const Profile = () => {
           </div>
           <div className="mt-10">
             <div className="flex items-center justify-between mb-4 px-2">
-              <p className="text-xs font-#FC9E4F text-gray-500 lowercase italic">profile completeness</p>
-              <p className="text-xs font-#FC9E4F text-accent-400 lowercase italic">
+              <p className="text-xs font-bold text-gray-500 lowercase italic">profile completeness</p>
+              <p className="text-xs font-bold text-accent-400 lowercase italic">
                 {loading ? 'loading...' : `${completeness}%`}
               </p>
             </div>
@@ -262,12 +262,12 @@ const Profile = () => {
           {/* Header with Edit/Save buttons */}
           <div className="flex items-center justify-between mb-6 px-4">
             <div>
-              <h2 className="text-2xl font-#FC9E4F text-white lowercase italic">basic information</h2>
+              <h2 className="text-2xl font-bold text-white lowercase italic">basic information</h2>
               <p className="text-xs font-medium text-gray-500 lowercase italic">tell us about your business.</p>
             </div>
             {!editing ? (
               <button
-                className={`group flex items-center gap-3 px-6 py-3 rounded-2xl text-sm font-#FC9E4F transition-all ${loading
+                className={`group flex items-center gap-3 px-6 py-3 rounded-2xl text-sm font-bold transition-all ${loading
                   ? 'bg-white/5 text-gray-500 cursor-not-allowed'
                   : 'bg-accent-400 text-brand-950 hover:scale-105 active:scale-95 shadow-xl shadow-accent-400/20'
                   } lowercase`}
@@ -279,7 +279,7 @@ const Profile = () => {
             ) : (
               <div className="flex items-center gap-4">
                 <button
-                  className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-sm font-#FC9E4F transition-all ${hasChangesMemo
+                  className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold transition-all ${hasChangesMemo
                     ? 'bg-green-400 text-brand-950 hover:scale-105 active:scale-95 shadow-xl shadow-green-400/20'
                     : 'bg-white/5 text-gray-500 cursor-not-allowed'
                     } lowercase`}
@@ -289,7 +289,7 @@ const Profile = () => {
                   <MdCheck className="text-lg" /> save changes
                 </button>
                 <button
-                  className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/5 hover:bg-white/10 text-white text-sm font-#FC9E4F lowercase transition-all"
+                  className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/5 hover:bg-white/10 text-white text-sm font-bold lowercase transition-all"
                   onClick={onCancel}
                 >
                   <MdClose className="text-lg" /> cancel
@@ -624,7 +624,7 @@ const Section = ({ title, subtitle, children }) => (
   <div className="bg-brand-900/40 backdrop-blur-xl rounded-[2.5rem] p-8 border border-white/5 shadow-2xl relative overflow-hidden">
     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent-400/20 to-transparent" />
     <div className="mb-8 px-2">
-      <h3 className="text-xl font-#FC9E4F text-white lowercase italic mb-1">{title}</h3>
+      <h3 className="text-xl font-bold text-white lowercase italic mb-1">{title}</h3>
       {subtitle && <p className="text-xs font-medium text-gray-500 lowercase italic">{subtitle}</p>}
     </div>
     <div className="relative z-10">
@@ -636,9 +636,9 @@ const Section = ({ title, subtitle, children }) => (
 const TabButton = ({ active, onClick, children }) => (
   <button
     onClick={onClick}
-    className={`px-6 py-3 rounded-2xl text-sm font-#FC9E4F transition-all lowercase italic ${active
-        ? 'bg-accent-400 text-brand-950 shadow-lg shadow-accent-400/20'
-        : 'bg-transparent text-gray-500 hover:text-white hover:bg-white/5'
+    className={`px-6 py-3 rounded-2xl text-sm font-bold transition-all lowercase italic ${active
+      ? 'bg-accent-400 text-brand-950 shadow-lg shadow-accent-400/20'
+      : 'bg-transparent text-gray-500 hover:text-white hover:bg-white/5'
       }`}
   >
     {children}
@@ -648,13 +648,13 @@ const TabButton = ({ active, onClick, children }) => (
 // Input Component
 const InputField = ({ label, type = 'text', name, value, onChange, placeholder, required, min, max, disabled = false }) => (
   <div className="space-y-2">
-    <label className="block text-[10px] font-#FC9E4F text-gray-500 uppercase tracking-widest px-1 ml-1">{label}</label>
+    <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest px-1 ml-1">{label}</label>
     <input
       type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} required={required}
       min={min} max={max} disabled={disabled}
       className={`block w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white text-sm font-medium transition-all placeholder:text-gray-600 lowercase italic ${disabled
-          ? 'opacity-50 cursor-not-allowed bg-transparent'
-          : 'focus:outline-none focus:ring-2 focus:ring-accent-400/20 focus:border-accent-400/50 hover:border-white/20'
+        ? 'opacity-50 cursor-not-allowed bg-transparent'
+        : 'focus:outline-none focus:ring-2 focus:ring-accent-400/20 focus:border-accent-400/50 hover:border-white/20'
         }`}
     />
   </div>
@@ -662,12 +662,12 @@ const InputField = ({ label, type = 'text', name, value, onChange, placeholder, 
 
 const SelectField = ({ label, name, value, onChange, options, disabled = false }) => (
   <div className="space-y-2">
-    <label className="block text-[10px] font-#FC9E4F text-gray-500 uppercase tracking-widest px-1 ml-1">{label}</label>
+    <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest px-1 ml-1">{label}</label>
     <select
       name={name} value={value} onChange={onChange} disabled={disabled}
       className={`block w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white text-sm font-medium transition-all appearance-none cursor-pointer lowercase italic ${disabled
-          ? 'opacity-50 cursor-not-allowed bg-transparent'
-          : 'focus:outline-none focus:ring-2 focus:ring-accent-400/20 focus:border-accent-400/50 hover:border-white/20'
+        ? 'opacity-50 cursor-not-allowed bg-transparent'
+        : 'focus:outline-none focus:ring-2 focus:ring-accent-400/20 focus:border-accent-400/50 hover:border-white/20'
         }`}
     >
       <option value="" className="bg-brand-950 text-gray-500">select {label.toLowerCase()}</option>
@@ -684,20 +684,20 @@ const Badge = ({ icon, label, value }) => (
       </div>
     </div>
     <div className="min-w-0">
-      <p className="text-[10px] font-#FC9E4F text-gray-500 uppercase tracking-widest leading-none mb-1">{label}</p>
-      <p className="text-base font-#FC9E4F text-white lowercase italic truncate">{value}</p>
+      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest leading-none mb-1">{label}</p>
+      <p className="text-base font-bold text-white lowercase italic truncate">{value}</p>
     </div>
   </div>
 );
 
 const TextAreaField = ({ label, name, value, onChange, placeholder, rows = 3, disabled = false }) => (
   <div className="space-y-2">
-    <label className="block text-[10px] font-#FC9E4F text-gray-500 uppercase tracking-widest px-1 ml-1">{label}</label>
+    <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest px-1 ml-1">{label}</label>
     <textarea
       name={name} value={value} onChange={onChange} placeholder={placeholder} rows={rows} disabled={disabled}
       className={`block w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white text-sm font-medium transition-all placeholder:text-gray-600 lowercase italic resize-none ${disabled
-          ? 'opacity-50 cursor-not-allowed bg-transparent'
-          : 'focus:outline-none focus:ring-2 focus:ring-accent-400/20 focus:border-accent-400/50 hover:border-white/20'
+        ? 'opacity-50 cursor-not-allowed bg-transparent'
+        : 'focus:outline-none focus:ring-2 focus:ring-accent-400/20 focus:border-accent-400/50 hover:border-white/20'
         }`}
     />
   </div>

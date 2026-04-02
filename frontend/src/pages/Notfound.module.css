@@ -1,14 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap');
 
-
 .notfound_container {
-<<<<<<< HEAD
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-
 }
 
 .not404 {
@@ -19,154 +16,77 @@
 .not404 img {
   margin-top: -50px;
   width: 100%;
-=======
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    
-}
-
-.not404{
-    height: 678px;
-    overflow: hidden;
-}
-
-.not404 img{
-  margin-top: -50px;
-  width:100%;
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   height: 790px;
   object-fit: cover;
 }
 
-
 .notfound_content {
   display: block;
-<<<<<<< HEAD
   margin: -400px 0 0 480px;
   max-width: 600px;
   padding: 20px;
-
 }
 
-.notfound_content h2 {
-  font-size: 30px;
-  font-family: 'Afacad', sans-serif;
-=======
-  margin: -400px 0 0  480px;
-  max-width: 600px;
-  padding: 20px;
-  
-}
-  
 .notfound_content h2 {
   font-size: 30px;
   font-family: 'Yeseva One';
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   font-weight: 500;
   margin: 0;
   animation: slideDown 1s ease-in-out forwards;
-
-<<<<<<< HEAD
 }
-=======
-} 
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 
 .notfound_content p {
   font-size: 16px;
   font-weight: 400;
-<<<<<<< HEAD
-  color: #FC9E4F;
-  margin: 16px 0;
-  position: relative;
-  font-family: 'Afacad', sans-serif;
-=======
   color: #000000;
   margin: 16px 0;
   position: relative;
   font-family: 'Work sans', sans-serif;
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   left: 20px;
   animation: fadeIn 1s ease-in-out forwards;
 }
 
-<<<<<<< HEAD
 .home_link {
   width: 0;
   height: 0;
-=======
-.home_link{
-  width:0;
-  height:0;
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   background-color: none;
   border: none;
 }
 
-<<<<<<< HEAD
 .home_link a {
-=======
-.home_link a{
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   display: inline;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
   margin: 0 60px;
-<<<<<<< HEAD
-  font-family: 'Afacad', sans-serif;
-  border: 2px solid #FC9E4F;
-  padding: 8px 30px;
-  color: #FC9E4F;
-=======
   font-family: 'Work sans', sans-serif;
   border: 2px solid #cd7914;
   padding: 8px 30px;
-  color:#cd7914;
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
+  color: #cd7914;
   text-decoration: none;
   border-radius: 8px;
   transition: background 0.3s;
   font-size: 16px;
   font-weight: 500;
   animation: popUp 1s ease-in-out forwards;
-<<<<<<< HEAD
-
 }
 
 .home_link a:hover {
-  background-color: #FC9E4F;
-  color: #FC9E4F;
-  border: none;
-}
-=======
-  
-}
-
-.home_link a:hover {
-  background-color:#bb7826;
+  background-color: #bb7826;
   color: white;
   border: none;
-} 
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
+}
 
 @keyframes pop {
   0% {
     transform: scale(0.8);
     opacity: 0;
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   100% {
     transform: scale(1);
     opacity: 1;
   }
-<<<<<<< HEAD
 }
 
 @keyframes fadeIn {
@@ -202,22 +122,3 @@
     opacity: 1;
   }
 }
-=======
-}  
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideDown {
-  0% { transform: translateY(-20px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes popUp {
-  0% { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68

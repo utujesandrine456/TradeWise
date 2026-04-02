@@ -107,20 +107,20 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
 
   return (
     <div className="fixed inset-0 bg-chocolate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-6 font-afacad cursor-default">
-      <div className="bg-white border border-chocolate-100 rounded-lg shadow-2xl w-full max-w-2xl overflow-hidden relative animate-in fade-in zoom-in duration-300 flex flex-col">
+      <div className="bg-white border border-gray-100 rounded-lg shadow-2xl w-full max-w-2xl overflow-hidden relative animate-in fade-in zoom-in duration-300 flex flex-col">
         <div className="p-10 border-b border-chocolate-50 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <div className="bg-chocolate-50 p-4 rounded-lg border border-chocolate-100 shadow-sm">
-              <MdAccountBalance className="text-chocolate-600 text-3xl" />
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm">
+              <MdAccountBalance className="text-black text-3xl" />
             </div>
             <div>
-              <h2 className="text-4xl font-#FC9E4F text-chocolate-900 leading-tight">{isEdit ? 'Edit Financial' : 'New Financial'}</h2>
-              <p className="text-sm text-chocolate-400 font-medium mt-1">Record Manual Monetary Operations</p>
+              <h2 className="text-4xl font-bold text-black leading-tight">{isEdit ? 'Edit Financial' : 'New Financial'}</h2>
+              <p className="text-sm text-gray-400 font-medium mt-1">Record Manual Monetary Operations</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-4 text-chocolate-300 hover:text-chocolate-600 hover:bg-chocolate-50 rounded-lg transition-all hover:rotate-90"
+            className="p-4 text-gray-300 hover:text-black hover:bg-gray-50 rounded-lg transition-all hover:rotate-90"
           >
             <MdClose className="text-3xl" />
           </button>
@@ -129,13 +129,13 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
         <form onSubmit={handleSubmit} className="p-10 space-y-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="space-y-3">
-              <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Transaction Type *</label>
+              <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Transaction Type *</label>
               <select
                 name="type"
                 value={formData.type}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none cursor-pointer shadow-sm"
+                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none cursor-pointer shadow-sm"
               >
                 <option value="Credit" className="bg-white">Credit (Income)</option>
                 <option value="Debit" className="bg-white">Debit (Expense)</option>
@@ -143,7 +143,7 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
             </div>
 
             <div className="space-y-3">
-              <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Amount (FRW) *</label>
+              <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Amount (FRW) *</label>
               <input
                 type="number"
                 name="amount"
@@ -152,46 +152,46 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
                 required
                 min="0"
                 step="100"
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-#FC9E4F"
+                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-bold"
                 placeholder="100"
               />
             </div>
 
             <div className="md:col-span-2 space-y-3">
-              <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Description *</label>
+              <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Description *</label>
               <input
                 type="text"
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
+                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
                 placeholder="e.g., Loan to John Doe"
               />
             </div>
 
             <div className="space-y-3">
-              <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Collateral / Reference *</label>
+              <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Collateral / Reference *</label>
               <input
                 type="text"
                 name="collateral"
                 value={formData.collateral}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
+                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
                 placeholder="e.g., Equipment or ID Number"
               />
             </div>
 
             <div className="space-y-3">
-              <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Effective Deadline *</label>
+              <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Effective Deadline *</label>
               <input
                 type="datetime-local"
                 name="deadline"
                 value={formData.deadline}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none shadow-sm"
+                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none shadow-sm"
               />
             </div>
           </div>
@@ -200,13 +200,13 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
             <button
               type="button"
               onClick={onClose}
-              className="px-8 py-4 text-chocolate-400 hover:text-chocolate-600 transition-colors font-#FC9E4F tracking-widest"
+              className="px-8 py-4 text-gray-400 hover:text-black transition-colors font-bold tracking-widest"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="group relative px-12 py-5 bg-chocolate-600 text-white rounded-lg font-#FC9E4F transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative px-12 py-5 bg-chocolate-600 text-white rounded-lg font-bold transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={isSubmitting}
             >
               <div className="flex items-center gap-3 relative z-10">

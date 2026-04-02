@@ -93,7 +93,7 @@ const BuyingProducts = ({ setActiveTab }) => {
     return (
       <div className="flex flex-col items-center justify-center py-40 animate-pulse font-afacad space-y-6">
         <div className="w-16 h-16 border-4 border-accent-400/20 border-t-accent-400 rounded-full animate-spin"></div>
-        <p className="text-xl font-#FC9E4F text-gray-500 lowercase italic">accessing procurement manifests...</p>
+        <p className="text-xl font-bold text-gray-500 lowercase italic">accessing procurement manifests...</p>
       </div>
     );
   }
@@ -108,7 +108,7 @@ const BuyingProducts = ({ setActiveTab }) => {
             <MdShoppingCart className="text-5xl text-accent-400" />
           </div>
           <div>
-            <h1 className="text-4xl font-#FC9E4F text-white lowercase leading-none mb-3 italic tracking-tight">procurement</h1>
+            <h1 className="text-4xl font-bold text-white lowercase leading-none mb-3 italic tracking-tight">procurement</h1>
             <p className="text-gray-500 text-lg lowercase font-medium italic">inbound asset acquisition and supplier network management</p>
           </div>
         </div>
@@ -122,7 +122,7 @@ const BuyingProducts = ({ setActiveTab }) => {
           </button>
           <button
             onClick={() => setIsPurchaseOrderFormOpen(true)}
-            className="group/export relative px-10 py-5 bg-accent-400 text-brand-950 rounded-2xl font-#FC9E4F lowercase transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-accent-400/20 overflow-hidden text-lg italic tracking-wide"
+            className="group/export relative px-10 py-5 bg-accent-400 text-brand-950 rounded-2xl font-bold lowercase transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-accent-400/20 overflow-hidden text-lg italic tracking-wide"
           >
             <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/export:translate-y-0 transition-transform duration-300" />
             <div className="flex items-center gap-3 relative z-10">
@@ -186,9 +186,9 @@ const BuyingProducts = ({ setActiveTab }) => {
           <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
           <div className="flex items-center gap-4 relative z-10">
             <MdDescription className="text-3xl text-accent-400" />
-            <h3 className="text-2xl font-#FC9E4F text-white lowercase italic shadow-sm">procurement manifests</h3>
+            <h3 className="text-2xl font-bold text-white lowercase italic shadow-sm">procurement manifests</h3>
           </div>
-          <div className="px-6 py-2.5 bg-#FC9E4F/20 border border-white/5 shadow-inner rounded-full text-xs font-#FC9E4F text-gray-400 lowercase italic tracking-widest relative z-10">
+          <div className="px-6 py-2.5 bg-#FC9E4F/20 border border-white/5 shadow-inner rounded-full text-xs font-bold text-gray-400 lowercase italic tracking-widest relative z-10">
             displaying {visiblePurchases.length} records
           </div>
         </div>
@@ -197,12 +197,12 @@ const BuyingProducts = ({ setActiveTab }) => {
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-#FC9E4F/20 border-b border-white/5">
-                <th className="px-10 py-6 text-left text-[10px] font-#FC9E4F text-gray-500 lowercase italic tracking-[0.2em] w-1/3">cargo payload</th>
-                <th className="px-10 py-6 text-left text-[10px] font-#FC9E4F text-gray-500 lowercase italic tracking-[0.2em]">vendor entity</th>
-                <th className="px-10 py-6 text-left text-[10px] font-#FC9E4F text-gray-500 lowercase italic tracking-[0.2em]">volume</th>
-                <th className="px-10 py-6 text-left text-[10px] font-#FC9E4F text-gray-500 lowercase italic tracking-[0.2em]">capital allocation</th>
-                <th className="px-10 py-6 text-left text-[10px] font-#FC9E4F text-gray-500 lowercase italic tracking-[0.2em]">chronology marker</th>
-                <th className="px-10 py-6 text-center text-[10px] font-#FC9E4F text-gray-500 lowercase italic tracking-[0.2em]">status</th>
+                <th className="px-10 py-6 text-left text-[10px] font-bold text-gray-500 lowercase italic tracking-[0.2em] w-1/3">cargo payload</th>
+                <th className="px-10 py-6 text-left text-[10px] font-bold text-gray-500 lowercase italic tracking-[0.2em]">vendor entity</th>
+                <th className="px-10 py-6 text-left text-[10px] font-bold text-gray-500 lowercase italic tracking-[0.2em]">volume</th>
+                <th className="px-10 py-6 text-left text-[10px] font-bold text-gray-500 lowercase italic tracking-[0.2em]">capital allocation</th>
+                <th className="px-10 py-6 text-left text-[10px] font-bold text-gray-500 lowercase italic tracking-[0.2em]">chronology marker</th>
+                <th className="px-10 py-6 text-center text-[10px] font-bold text-gray-500 lowercase italic tracking-[0.2em]">status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -215,29 +215,29 @@ const BuyingProducts = ({ setActiveTab }) => {
                         <div className="p-3 bg-accent-400/10 rounded-xl border border-accent-400/20 text-accent-400 group-hover/row:scale-110 transition-transform">
                           <MdInventory className="text-xl" />
                         </div>
-                        <p className="text-base font-#FC9E4F text-white lowercase italic group-hover/row:text-accent-400 transition-colors leading-tight line-clamp-2">
+                        <p className="text-base font-bold text-white lowercase italic group-hover/row:text-accent-400 transition-colors leading-tight line-clamp-2">
                           {purchase.product}
                         </p>
                       </div>
                     </td>
                     <td className="px-10 py-8">
-                      <span className="text-sm font-#FC9E4F text-gray-400 lowercase italic bg-white/5 border border-white/5 px-4 py-2 rounded-2xl shadow-inner group-hover/row:bg-white/10 group-hover/row:text-white transition-all">
+                      <span className="text-sm font-bold text-gray-400 lowercase italic bg-white/5 border border-white/5 px-4 py-2 rounded-2xl shadow-inner group-hover/row:bg-white/10 group-hover/row:text-white transition-all">
                         {purchase.supplier}
                       </span>
                     </td>
                     <td className="px-10 py-8">
-                      <span className="text-xl font-#FC9E4F text-white lowercase tracking-tighter">
+                      <span className="text-xl font-bold text-white lowercase tracking-tighter">
                         {purchase.quantity} <span className="text-[10px] text-gray-500 tracking-widest italic ml-1">units</span>
                       </span>
                     </td>
                     <td className="px-10 py-8">
-                      <span className="text-xl font-#FC9E4F text-accent-400 lowercase tracking-tighter">
+                      <span className="text-xl font-bold text-accent-400 lowercase tracking-tighter">
                         {purchase.totalPrice.toLocaleString()} <span className="text-[10px] text-gray-500 tracking-widest italic ml-1">frw</span>
                       </span>
                     </td>
                     <td className="px-10 py-8">
                       <div className="flex flex-col">
-                        <span className="text-sm font-#FC9E4F text-white lowercase italic">
+                        <span className="text-sm font-bold text-white lowercase italic">
                           {purchase.date ? new Date(purchase.date).toLocaleDateString() : 'chronology error'}
                         </span>
                         <span className="text-[10px] text-gray-500 lowercase italic mt-1 font-bold">
@@ -247,7 +247,7 @@ const BuyingProducts = ({ setActiveTab }) => {
                     </td>
                     <td className="px-10 py-8 text-center">
                       <div className="inline-flex items-center justify-center relative">
-                        <span className={`text-xs font-#FC9E4F lowercase italic px-4 py-2 rounded-2xl border bg-green-500/10 text-green-500 border-green-500/20`}>
+                        <span className={`text-xs font-bold lowercase italic px-4 py-2 rounded-2xl border bg-green-500/10 text-green-500 border-green-500/20`}>
                           verified
                         </span>
                         {/* Hidden action icon that slides in */}
@@ -269,7 +269,7 @@ const BuyingProducts = ({ setActiveTab }) => {
                         </div>
                       </div>
                       <div>
-                        <h3 className="text-2xl font-#FC9E4F text-white lowercase italic mb-2 tracking-tight">no vendor contracts</h3>
+                        <h3 className="text-2xl font-bold text-white lowercase italic mb-2 tracking-tight">no vendor contracts</h3>
                         <p className="text-gray-500 lowercase italic font-medium max-w-sm mx-auto leading-relaxed">
                           {searchTerm
                             ? 'the specific operational parameters yielded zero recorded matches.'
@@ -334,13 +334,13 @@ const SummaryCard = ({ icon: Icon, label, value, trend, color }) => {
           <div className={`p-5 rounded-2xl border ${bgStyle} ${borderStyle} ${textColor} shadow-inner group-hover:scale-110 group-hover:rotate-[10deg] transition-all duration-500`}>
             <Icon className="text-3xl" />
           </div>
-          <span className={`text-[10px] font-#FC9E4F ${textColor} lowercase italic bg-#FC9E4F/40 px-4 py-2 rounded-full border border-white/5 shadow-inner`}>
+          <span className={`text-[10px] font-bold ${textColor} lowercase italic bg-#FC9E4F/40 px-4 py-2 rounded-full border border-white/5 shadow-inner`}>
             {trend}
           </span>
         </div>
         <div>
-          <p className="text-[10px] font-#FC9E4F text-gray-500 tracking-[0.2em] mb-3 lowercase italic">{label}</p>
-          <p className="text-4xl font-#FC9E4F text-white lowercase italic tracking-tighter leading-none">{value}</p>
+          <p className="text-[10px] font-bold text-gray-500 tracking-[0.2em] mb-3 lowercase italic">{label}</p>
+          <p className="text-4xl font-bold text-white lowercase italic tracking-tighter leading-none">{value}</p>
         </div>
       </div>
     </div>

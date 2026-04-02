@@ -1,26 +1,15 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { fetchUser } from "../features/auth/authThuck";
+import { useAuth } from "../hooks/useAuth";
 
-const ProtectedRoute = ({ 
-    children, 
-    requireAuth = true,
-    requireVerified = true,
+const ProtectedRoute = ({
+  children,
+  requireAuth = true,
+  requireVerified = true,
 }) => {
-  const user = useSelector((state) => state.auth.user);
-  const loading = useSelector((state) => state.auth.loading);
-  const dispatch = useDispatch();
-  const [fetched, setFetched] = useState(false);
+  const { trader: user, loading, checkAuth } = useAuth();
   const [progress, setProgress] = useState(0);
   const [loadingText, setLoadingText] = useState("Loading your workspace...");
-
-  useEffect(() => {
-    if (user === null && !fetched) {
-      dispatch(fetchUser());
-      setFetched(true);
-    }
-  }, [user, fetched, dispatch]);
 
   useEffect(() => {
     if (loading) {
@@ -35,7 +24,7 @@ const ProtectedRoute = ({
 
       setProgress(0);
       setLoadingText("Loading your workspace...");
-      
+
       const interval = setInterval(() => {
         setProgress((prev) => {
           if (prev >= 100) {
@@ -94,19 +83,19 @@ const ProtectedRoute = ({
               />
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-3xl sm:text-4xl font-bold text-brand-600">
+              <span className="text-3xl sm:text-4xl font-bold text-black">
                 {Math.round(progress)}%
               </span>
             </div>
           </div>
-          
+
           {/* Text and Progress Bar */}
           <div className="flex flex-col gap-2 w-full max-w-xs">
             <span className="text-lg sm:text-2xl font-bold text-gray-800 px-4">
               {loadingText}
             </span>
             <div className="w-full max-w-[200px] sm:max-w-xs mx-auto h-1.5 bg-brand-100 rounded-full overflow-hidden">
-              <div 
+              <div
                 className="h-full bg-gradient-to-r from-brand-400 to-brand-600 rounded-full transition-all duration-300 ease-out"
                 style={{ width: `${progress}%` }}
               />
