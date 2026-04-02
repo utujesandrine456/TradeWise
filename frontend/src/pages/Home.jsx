@@ -19,18 +19,18 @@ import Header from '../components/Header';
 const slides = [
     {
         image: images.TradeWise,
-        title: "Smart Trading Made Simple",
-        desc: "Easily track your products, sales, and stock levels without any manual work. Stay updated in real time so you always know exactly what’s happening in your business.",
+        title: "smart trading made simple",
+        desc: "easily track your products, sales, and stock levels without any manual work. stay updated in real time so you always know exactly what’s happening in your business.",
     },
     {
         image: images.Smile,
-        title: "Powerful Insights. Smarter Decisions.",
-        desc: "Get clear insights into your inventory, expenses, and performance through simple, visual analytics. Make smarter, faster decisions with data that’s organized and easy to understand.",
+        title: "powerful insights. smarter decisions.",
+        desc: "get clear insights into your inventory, expenses, and performance through simple, visual analytics. make smarter, faster decisions with data that’s organized and easy to understand.",
     },
     {
         image: images.Device,
-        title: "Run & Grow Your Business Seamlessly",
-        desc: "Manage all your transactions, records, and finances from one clean dashboard designed for speed and simplicity. Stay organized and focused on growth while the system handles the heavy work.",
+        title: "run & grow your business seamlessly",
+        desc: "manage all your transactions, records, and finances from one clean dashboard designed for speed and simplicity. stay organized and focused on growth while the system handles the heavy work.",
     },
 ];
 
@@ -61,24 +61,24 @@ const testimonials = [
 
 const faqs = [
     {
-        question: 'What is the Smart Calculator for Modern Traders',
-        answer: 'TradeWise is a smart trading calculator and portfolio tracker. It helps you calculate profits, losses, and ROI for your trades, and keeps all your trading activity organized in one place.'
+        question: 'what is the smart calculator for modern traders',
+        answer: 'tradewise is a smart trading calculator and portfolio tracker. it helps you calculate profits, losses, and roi for your trades, and keeps all your trading activity organized in one place.'
     },
     {
-        question: 'How do I use the app to track my profits?',
-        answer: 'Our calculator uses precise formulas and up-to-date market data to ensure your trading calculations are as accurate as possible.'
+        question: 'how do i use the app to track my profits?',
+        answer: 'our calculator uses precise formulas and up-to-date market data to ensure your trading calculations are as accurate as possible.'
     },
     {
-        question: 'Is the app free to use?',
-        answer: 'TradeWise supports multiple asset types, including stocks and crypto. You can track and analyze different types of trades in one unified dashboard.'
+        question: 'is the app free to use?',
+        answer: 'tradewise supports multiple asset types, including stocks and crypto. you can track and analyze different types of trades in one unified dashboard.'
     },
     {
-        question: 'What asset types does the app support?',
-        answer: 'You can view your trading performance over time, including during market events or high-volatility periods, with our analytics and reporting tools.'
+        question: 'what asset types does the app support?',
+        answer: 'you can view your trading performance over time, including during market events or high-volatility periods, with our analytics and reporting tools.'
     },
     {
-        question: 'How does the TradeWise protect my personal data?',
-        answer: 'Your data is stored securely and is never shared. Only you have access to your trading records, and we use strong encryption to protect your information.'
+        question: 'how does the tradewise protect my personal data?',
+        answer: 'your data is stored securely and is never shared. only you have access to your trading records, and we use strong encryption to protect your information.'
     }
 ];
 
@@ -159,7 +159,7 @@ const WorkStepCard = ({ number, title, description, index = 0 }) => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: index * 0.1, type: "spring", bounce: 0.4 }}
             whileHover={{ y: -10 }}
-            className="group relative flex-1"
+            className="group relative flex-1 cursor-pointer"
         >
             <div className="absolute inset-0 bg-gradient-to-br from-brand-500 to-brand-600 rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
             <div className="relative bg-white/80 backdrop-blur-md border border-brand-100 rounded-3xl p-10 h-full flex flex-col items-center text-center shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
@@ -171,11 +171,11 @@ const WorkStepCard = ({ number, title, description, index = 0 }) => {
                     </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-black mb-4 relative z-10">{title}</h3>
+                <h3 className="text-2xl font-bold text-black mb-4 relative z-10 lowercase">{title}</h3>
                 <p className="text-gray-600 leading-relaxed font-medium relative z-10">{description}</p>
 
                 <div className="mt-8 flex items-center text-brand-600 font-bold gap-2 group-hover:gap-4 transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0">
-                    <span>Learn More</span>
+                    <span className="lowercase">learn more</span>
                     <ArrowRight size={18} />
                 </div>
             </div>
@@ -219,13 +219,13 @@ const TestimonialCarousel = () => {
 
     return (
         <div className="relative w-full max-w-2xl px-12">
-            <button 
-                onClick={goPrev} 
+            <button
+                onClick={goPrev}
                 className="absolute left-0 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white shadow-lg border border-brand-100 flex items-center justify-center text-brand-600 hover:bg-brand-600 hover:text-white transition-all duration-300 z-20 group"
             >
                 <ChevronLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
             </button>
-            
+
             <div className={`relative bg-white rounded-[2.5rem] shadow-2xl p-12 border border-brand-50 transition-all duration-500 ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
                 <div className="absolute top-10 right-12 opacity-10">
                     <Quote size={80} className="text-brand-600" />
@@ -234,19 +234,19 @@ const TestimonialCarousel = () => {
                 <div className="flex flex-col items-center">
                     <div className="relative mb-8">
                         <div className="absolute inset-0 bg-brand-200 rounded-full blur-lg opacity-40 animate-pulse" />
-                        <img 
-                            src={testimonials[index].avatar} 
-                            alt={`${testimonials[index].name}`} 
-                            className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-xl relative z-10" 
+                        <img
+                            src={testimonials[index].avatar}
+                            alt={`${testimonials[index].name}`}
+                            className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-xl relative z-10"
                         />
                     </div>
 
                     <div className="flex gap-1 mb-6">
                         {Array(5).fill().map((_, i) => (
-                            <Star 
-                                key={i} 
-                                size={18} 
-                                className={`${i < testimonials[index].rating ? 'text-brand-500 fill-brand-500' : 'text-brand-200'}`} 
+                            <Star
+                                key={i}
+                                size={18}
+                                className={`${i < testimonials[index].rating ? 'text-brand-500 fill-brand-500' : 'text-brand-200'}`}
                             />
                         ))}
                     </div>
@@ -262,8 +262,8 @@ const TestimonialCarousel = () => {
                 </div>
             </div>
 
-            <button 
-                onClick={goNext} 
+            <button
+                onClick={goNext}
                 className="absolute right-0 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white shadow-lg border border-brand-100 flex items-center justify-center text-brand-600 hover:bg-brand-600 hover:text-white transition-all duration-300 z-20 group"
             >
                 <ChevronRight size={24} className="group-hover:translate-x-1 transition-transform" />
@@ -274,7 +274,7 @@ const TestimonialCarousel = () => {
                     <button
                         key={i}
                         onClick={() => setIndex(i)}
-                        className={`transition-all duration-500 rounded-full h-1.5 ${i === index ? 'bg-brand-600 w-12' : 'bg-brand-200 w-3 hover:bg-brand-300'}`}
+                        className={`transition-all duration-500 rounded-full h-1.5 cursor-pointer ${i === index ? 'bg-brand-600 w-12' : 'bg-brand-200 w-3 hover:bg-brand-300'}`}
                     />
                 ))}
             </div>
@@ -290,13 +290,13 @@ const FAQList = () => {
             {faqs.map((faq, idx) => {
                 const isOpen = openIndex === idx;
                 return (
-                    <div 
-                        key={idx} 
-                        className={`group relative overflow-hidden transition-all duration-500 rounded-[2rem] border ${isOpen ? 'bg-white border-brand-200 shadow-2xl' : 'bg-gray-50/50 border-brand-50 hover:border-brand-100 hover:bg-white hover:shadow-xl'}`}
+                    <div
+                        key={idx}
+                        className={`group relative overflow-hidden transition-all duration-500 rounded-[2rem] border cursor-pointer ${isOpen ? 'bg-white border-brand-200 shadow-xl' : 'bg-gray-50/20 border-brand-50 hover:border-brand-100 hover:bg-white hover:shadow-lg'}`}
                     >
-                        <button 
+                        <button
                             onClick={() => setOpenIndex(isOpen ? null : idx)}
-                            className="w-full px-10 py-8 flex items-center justify-between text-left transition-all"
+                            className="w-full px-10 py-8 flex items-center justify-between text-left transition-all cursor-pointer"
                         >
                             <span className={`text-xl lg:text-2xl font-bold transition-colors duration-300 ${isOpen ? 'text-black' : 'text-gray-700'}`}>
                                 {faq.question}
@@ -305,7 +305,7 @@ const FAQList = () => {
                                 <ChevronRight className={`transition-transform duration-500 ${isOpen ? 'rotate-90' : 'rotate-0'}`} />
                             </div>
                         </button>
-                        
+
                         <AnimatePresence>
                             {isOpen && (
                                 <motion.div
@@ -414,15 +414,15 @@ const Home = () => {
                     </div>
 
                     <div className="hidden md:flex items-center gap-10">
-                        {['Home', 'About', 'Services', 'Contact', 'Faq'].map((item) => (
+                        {['home', 'about', 'services', 'contact', 'faq'].map((item) => (
                             <a
                                 key={item}
-                                href={`#${item.toLowerCase()}`}
-                                onClick={(e) => { e.preventDefault(); scrollToSection(item.toLowerCase()); }}
-                                className={`font-brand-500 transition-all relative group text-lg ${scrolled ? 'text-black hover:text-black' : 'text-white/80 hover:text-white drop-shadow-sm'}`}
+                                href={`#${item}`}
+                                onClick={(e) => { e.preventDefault(); scrollToSection(item); }}
+                                className={`font-brand-500 transition-all relative group text-lg cursor-pointer ${scrolled ? 'text-black hover:text-black' : 'text-white/80 hover:text-white drop-shadow-sm'}`}
                             >
                                 {item}
-                                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 rounded-full transition-all group-hover:w-full ${scrolled ? 'bg-brand-600' : 'bg-white'}`}></span>
+                                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 rounded-full transition-all group-hover:w-full cursor-pointer ${scrolled ? 'bg-brand-600' : 'bg-white'}`}></span>
                             </a>
                         ))}
                     </div>
@@ -434,23 +434,23 @@ const Home = () => {
                             <>
                                 <button
                                     onClick={() => navigate('/login')}
-                                    className={`px-4 py-2 text-lg font-brand-500 transition-colors ${scrolled ? 'text-black hover:text-black' : 'text-white hover:text-white/80 drop-shadow-sm'}`}
+                                    className={`px-4 py-2 text-lg font-brand-500 transition-colors cursor-pointer lowercase ${scrolled ? 'text-black hover:text-black' : 'text-white hover:text-white/80 drop-shadow-sm'}`}
                                 >
-                                    Login
+                                    login
                                 </button>
                                 <button
                                     onClick={() => navigate('/signup')}
-                                    className="bg-brand-600 text-white px-8 py-2.5 text-lg rounded-lg font-brand-500 hover:bg-brand-700 transition-all transform hover:scale-105 shadow-lg active:scale-95"
+                                    className="bg-brand-600 text-white px-8 py-2.5 text-lg rounded-lg font-brand-500 hover:bg-brand-700 transition-all transform hover:scale-105 shadow-lg active:scale-95 cursor-pointer lowercase"
                                 >
-                                    Signup
+                                    signup
                                 </button>
                             </>
                         ) : (
                             <button
                                 onClick={() => navigate('/dashboard')}
-                                className="bg-brand-600 text-white px-8 py-3 rounded-lg font-brand-500 flex items-center gap-2 hover:bg-brand-700 transition-all shadow-lg active:scale-95"
+                                className="bg-brand-600 text-white px-8 py-3 rounded-lg font-brand-500 flex items-center gap-2 hover:bg-brand-700 transition-all shadow-lg active:scale-95 cursor-pointer lowercase"
                             >
-                                <MdDashboard size={20} /> Dashboard
+                                <MdDashboard size={20} /> dashboard
                             </button>
                         )}
                     </div>
@@ -495,7 +495,7 @@ const Home = () => {
                         </p>
                         <motion.button
                             onClick={() => navigate('/signup')}
-                            className="group relative inline-flex items-center gap-4 px-10 py-5 bg-white text-brand-700 rounded-lg text-lg font-brand-500 overflow-hidden transition-all hover:bg-brand-50 shadow-xl"
+                            className="group relative inline-flex items-center gap-4 px-10 py-5 bg-white text-brand-700 rounded-lg text-lg font-brand-500 overflow-hidden transition-all hover:bg-brand-50 shadow-xl cursor-pointer lowercase"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
@@ -538,28 +538,28 @@ const Home = () => {
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8, type: "spring" }}
                 >
-                    <div className="inline-block px-4 py-1.5 rounded-full bg-brand-50 text-black font-brand-500 text-sm tracking-widest mb-6 border border-brand-100 uppercase">
-                        Our Story
+                    <div className="inline-block px-4 py-1.5 rounded-full bg-brand-50 text-black font-brand-500 text-sm tracking-widest mb-6 border border-brand-100 lowercase">
+                        our story
                     </div>
-                    <h2 className="text-5xl lg:text-7xl font-brand-500 mb-10 leading-tight text-black capitalize">
-                        About <span className="text-black">TradeWise</span>
+                    <h2 className="text-5xl lg:text-7xl font-brand-500 mb-10 leading-tight text-black lowercase">
+                        about <span className="text-black">tradewise</span>
                     </h2>
 
-                    <p className="text-xl text-black leading-relaxed mb-8 font-medium">
-                        TradeWise is built to transform the way traders and small businesses manage their operations.
-                        We focus on delivering powerful insights without overwhelming you with complexity.
-                        Whether you're tracking inventory, calculating profit, or analyzing trends, TradeWise helps you work smarter, faster, and more accurately.
+                    <p className="text-xl text-black leading-relaxed mb-8 font-medium lowercase">
+                        tradewise is built to transform the way traders and small businesses manage their operations.
+                        we focus on delivering powerful insights without overwhelming you with complexity.
+                        whether you're tracking inventory, calculating profit, or analyzing trends, tradewise helps you work smarter, faster, and more accurately.
                     </p>
 
-                    <p className="text-xl text-black leading-relaxed mb-12 font-medium">
-                        Our platform brings together real-time analytics, automated calculations, and secure data handling —
-                        all wrapped in a clean, user-friendly interface. From beginners to experienced entrepreneurs,
-                        TradeWise empowers you to make confident decisions backed by reliable data.
+                    <p className="text-xl text-black leading-relaxed mb-12 font-medium lowercase">
+                        our platform brings together real-time analytics, automated calculations, and secure data handling —
+                        all wrapped in a clean, user-friendly interface. from beginners to experienced entrepreneurs,
+                        tradewise empowers you to make confident decisions backed by reliable data.
                     </p>
                     <div className="flex flex-wrap gap-8 mt-12 pb-12 overflow-x-auto scrollbar-hidden">
-                        <StatCard value={10000} suffix="+" label="Active Users" />
-                        <StatCard value={99} suffix="%" label="Accuracy Rate" />
-                        <StatCard value={24} suffix="/7" label="Support Availability" />
+                        <StatCard value={10000} suffix="+" label="active users" />
+                        <StatCard value={99} suffix="%" label="accuracy rate" />
+                        <StatCard value={24} suffix="/7" label="support availability" />
                     </div>
                 </motion.div>
 
@@ -571,10 +571,10 @@ const Home = () => {
                     transition={{ duration: 1, type: "spring", bounce: 0.3 }}
                 >
                     <motion.div
-                        className="absolute -top-6 -right-6 bg-brand-600 px-8 py-5 rounded-3xl shadow-xl z-20 flex items-center justify-center transform rotate-3"
+                        className="absolute -top-6 -right-6 bg-brand-600 px-8 py-5 rounded-3xl shadow-xl z-20 flex items-center justify-center transform rotate-3 cursor-pointer"
                         whileHover={{ rotate: 0, scale: 1.1 }}
                     >
-                        <span className="text-white text-lg font-brand-500 capitalize">Real-Time Analytics</span>
+                        <span className="text-white text-lg font-brand-500 lowercase">real-time analytics</span>
                     </motion.div>
 
                     <div className="relative p-4 bg-brand-50 rounded-[3rem] border border-brand-100 overflow-hidden">
@@ -601,8 +601,23 @@ const Home = () => {
 
             {/* Services Section */}
             <div id="services" className="py-32 bg-white relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,#FC9E4F08,transparent_50%),radial-gradient(circle_at_bottom_left,#FC9E4F08,transparent_50%)]" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:40px_40px]" />
+                {/* Unique Background for Worksteps: Floating Particles & Dynamic Lines */}
+                <div className="absolute inset-0 z-0">
+                    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_30%,#FC9E4F05,transparent_50%)]" />
+                    <svg className="absolute inset-0 w-full h-full opacity-[0.05]" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <pattern id="work-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FC9E4F" strokeWidth="0.5" />
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#work-grid)" />
+                        <motion.circle
+                            animate={{ cx: [100, 200, 100], cy: [100, 300, 100] }}
+                            transition={{ duration: 15, repeat: Infinity }}
+                            r="80" fill="#FC9E4F" className="blur-[100px] opacity-20"
+                        />
+                    </svg>
+                </div>
 
                 <motion.div
                     className="text-center mb-24 relative px-6 z-10"
@@ -611,14 +626,14 @@ const Home = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.7 }}
                 >
-                    <div className="inline-block px-6 py-2 rounded-full bg-brand-50 text-brand-600 font-bold text-xs tracking-[0.2em] mb-6 border border-brand-100 uppercase">
-                        Our Process
+                    <div className="inline-block px-6 py-2 rounded-full bg-brand-50 text-brand-600 font-bold text-xs tracking-[0.2em] mb-6 border border-brand-100 lowercase">
+                        our process
                     </div>
-                    <h4 className="text-black text-5xl lg:text-7xl font-bold mb-8 capitalize tracking-tight">
-                        Streamlined Workflow<br />For <span className="text-brand-600">Smart Traders</span>
+                    <h4 className="text-black text-5xl lg:text-7xl font-bold mb-8 tracking-tight lowercase">
+                        streamlined workflow<br />for <span className="text-brand-600">smart traders</span>
                     </h4>
-                    <p className="text-gray-500 text-xl max-w-2xl mx-auto leading-relaxed font-medium">
-                        Experience a seamless journey from data entry to deep insights with our optimized three-step workflow.
+                    <p className="text-gray-500 text-xl max-w-2xl mx-auto leading-relaxed font-medium lowercase">
+                        experience a seamless journey from data entry to deep insights with our optimized three-step workflow.
                     </p>
                 </motion.div>
 
@@ -646,7 +661,7 @@ const Home = () => {
 
             <div className="bg-white py-48 px-6 lg:px-24 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,#FC9E4F05,transparent_50%)]" />
-                
+
                 <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-24 relative z-10">
                     <motion.div
                         className="flex-1"
@@ -655,24 +670,24 @@ const Home = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-block px-6 py-2 rounded-full bg-brand-50 text-brand-600 font-bold text-xs tracking-[0.2em] mb-8 border border-brand-100 uppercase">
-                            Testimonials
+                        <div className="inline-block px-6 py-2 rounded-full bg-brand-50 text-brand-600 font-bold text-xs tracking-[0.2em] mb-8 border border-brand-100 lowercase">
+                            testimonials
                         </div>
-                        <h2 className="text-5xl lg:text-7xl font-bold text-black mb-10 leading-tight tracking-tight">
-                            Trusted By<br />Modern <span className="text-brand-600">Traders</span>
+                        <h2 className="text-5xl lg:text-7xl font-bold text-black mb-10 leading-tight tracking-tight lowercase">
+                            trusted by<br />modern <span className="text-brand-600">traders</span>
                         </h2>
-                        <div className="space-y-8 font-medium text-lg text-gray-600 leading-relaxed max-w-xl">
+                        <div className="space-y-8 font-medium text-lg text-gray-600 leading-relaxed max-w-xl lowercase">
                             <p>
-                                Join thousands of satisfied users who have transformed their trading desk with our institutional-grade toolkit.
+                                join thousands of satisfied users who have transformed their trading desk with our institutional-grade toolkit.
                             </p>
                             <div className="grid grid-cols-2 gap-8 pt-8 border-t border-brand-100">
-                                <div>
+                                <div className="cursor-pointer">
                                     <div className="text-3xl font-bold text-black mb-2">4.9/5</div>
-                                    <div className="text-sm text-brand-600 font-bold uppercase tracking-widest">Average Rating</div>
+                                    <div className="text-sm text-brand-600 font-bold tracking-widest lowercase">average rating</div>
                                 </div>
-                                <div>
+                                <div className="cursor-pointer">
                                     <div className="text-3xl font-bold text-black mb-2">50k+</div>
-                                    <div className="text-sm text-brand-600 font-bold uppercase tracking-widest">Active Accounts</div>
+                                    <div className="text-sm text-brand-600 font-bold tracking-widest lowercase">active accounts</div>
                                 </div>
                             </div>
                         </div>
@@ -691,162 +706,182 @@ const Home = () => {
             </div>
 
             {/* Contact Section */}
-            <div id="contact" className="py-32 bg-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#FC9E4F05,transparent_50%)]" />
-                
-                <div className="max-w-7xl mx-auto px-6 lg:px-24 relative z-10">
-                    <div className="flex flex-col lg:flex-row gap-20 items-start">
-                        {/* Info Column */}
-                        <motion.div 
-                            className="flex-1 space-y-12"
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <div>
-                                <div className="inline-block px-6 py-2 rounded-full bg-brand-50 text-brand-600 font-bold text-xs tracking-[0.2em] mb-8 border border-brand-100 uppercase">
-                                    Let's Connect
+            <div id="contact" className="py-48 bg-white relative overflow-hidden">
+                {/* Unique Background Design for Contact: Abstract Connection Mesh */}
+                <div className="absolute inset-0 z-0">
+                    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#FC9E4F0A,transparent_70%)]" />
+                    <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <pattern id="contact-mesh" width="100" height="100" patternUnits="userSpaceOnUse">
+                                <circle cx="50" cy="50" r="1" fill="#FC9E4F" />
+                                <path d="M50 0 L50 100 M0 50 L100 50" stroke="#FC9E4F" strokeWidth="0.5" />
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#contact-mesh)" />
+                    </svg>
+                    <motion.div
+                        animate={{
+                            scale: [1, 1.2, 1],
+                            rotate: [0, 90, 0],
+                            opacity: [0.1, 0.2, 0.1]
+                        }}
+                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                        className="absolute -top-1/4 -right-1/4 w-[800px] h-[800px] bg-brand-200/20 rounded-full blur-[120px]"
+                    />
+                    <motion.div
+                        animate={{
+                            scale: [1, 1.1, 1],
+                            rotate: [0, -90, 0],
+                            opacity: [0.05, 0.15, 0.05]
+                        }}
+                        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                        className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-brand-300/20 rounded-full blur-[100px]"
+                    />
+                </div>
+
+                <div className="max-w-4xl mx-auto px-6 relative z-10">
+                    <motion.div
+                        className="text-center mb-20"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <div className="inline-block px-8 py-3 rounded-2xl bg-brand-50 text-brand-600 font-bold text-xs tracking-[0.3em] mb-8 border border-brand-100 lowercase shadow-sm">
+                            innovation center
+                        </div>
+                        <h2 className="text-6xl lg:text-8xl font-bold text-black mb-10 leading-none tracking-tight lowercase">
+                            let's start a <br />
+                            <span className="text-brand-600 relative inline-block">
+                                conversation
+                                <svg className="absolute -bottom-4 left-0 w-full h-4 text-brand-200" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                    <path d="M0 5 Q 25 0, 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="4" />
+                                </svg>
+                            </span>
+                        </h2>
+                        <p className="text-gray-500 text-2xl font-medium max-w-2xl mx-auto leading-relaxed">
+                            Have an idea or a question? Our neural network of experts is ready to connect and elevate your trading game.
+                        </p>
+                    </motion.div>
+
+                    {/* One Column Innovative Form Hub - Simplified (No BG/Shadow) */}
+                    <motion.div
+                        className="relative"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <div className="relative bg-transparent p-0">
+                            <form className="grid grid-cols-1 md:grid-cols-2 gap-10" onSubmit={handleContactUs}>
+                                <div className="space-y-6">
+                                    <label className="text-xs font-black text-brand-600 tracking-[0.4em] ml-2 lowercase">identity</label>
+                                    <div className="relative group/input cursor-pointer">
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value={contactUsData.name}
+                                            onChange={handleContactUsDataChange}
+                                            placeholder="your full name"
+                                            className="w-full bg-transparent border-b-2 border-brand-100 focus:border-brand-600 py-4 px-2 text-black text-xl font-bold transition-all outline-none cursor-pointer placeholder-gray-300"
+                                            required
+                                        />
+                                        <FaUser className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-200 group-focus-within/input:text-brand-600 transition-colors" />
+                                    </div>
                                 </div>
-                                <h2 className="text-5xl lg:text-7xl font-bold text-black mb-8 leading-tight tracking-tight">
-                                    Have Questions?<br />We're Here To <span className="text-brand-600 underline underline-offset-8 decoration-brand-200">Help</span>.
-                                </h2>
-                                <p className="text-gray-500 text-xl leading-relaxed font-medium max-w-md">
-                                    Our experts are ready to assist you in optimizing your trading experience. Reach out via any of these channels.
-                                </p>
-                            </div>
 
-                            <div className="space-y-8">
-                                <div className="flex items-center gap-6 group">
-                                    <div className="w-16 h-16 rounded-2xl bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-all duration-300 shadow-sm">
-                                        <Mail size={28} />
-                                    </div>
-                                    <div>
-                                        <div className="text-sm font-bold text-brand-600 uppercase tracking-widest mb-1">Email Us</div>
-                                        <div className="text-xl font-bold text-black">support@tradewise.com</div>
+                                <div className="space-y-6">
+                                    <label className="text-xs font-black text-brand-600 tracking-[0.4em] ml-2 lowercase">channel</label>
+                                    <div className="relative group/input cursor-pointer">
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={contactUsData.email}
+                                            onChange={handleContactUsDataChange}
+                                            placeholder="your email address"
+                                            className="w-full bg-transparent border-b-2 border-brand-100 focus:border-brand-600 py-4 px-2 text-black text-xl font-bold transition-all outline-none cursor-pointer placeholder-gray-300"
+                                            required
+                                        />
+                                        <Mail className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-200 group-focus-within/input:text-brand-600 transition-colors" size={20} />
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-6 group">
-                                    <div className="w-16 h-16 rounded-2xl bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-all duration-300 shadow-sm">
-                                        <Phone size={28} />
-                                    </div>
-                                    <div>
-                                        <div className="text-sm font-bold text-brand-600 uppercase tracking-widest mb-1">Call Us</div>
-                                        <div className="text-xl font-bold text-black">+250 788 123 456</div>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-center gap-6 group">
-                                    <div className="w-16 h-16 rounded-2xl bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-all duration-300 shadow-sm">
-                                        <Clock size={28} />
-                                    </div>
-                                    <div>
-                                        <div className="text-sm font-bold text-brand-600 uppercase tracking-widest mb-1">Work Hours</div>
-                                        <div className="text-xl font-bold text-black">Mon - Fri: 9:00 AM - 6:00 PM</div>
+                                <div className="md:col-span-2 space-y-6">
+                                    <label className="text-xs font-black text-brand-600 tracking-[0.4em] ml-2 lowercase">message content</label>
+                                    <div className="relative group/input cursor-pointer">
+                                        <textarea
+                                            name="message"
+                                            value={contactUsData.message}
+                                            onChange={handleContactUsDataChange}
+                                            placeholder="tell us your thoughts..."
+                                            rows="3"
+                                            className="w-full bg-transparent border-b-2 border-brand-100 focus:border-brand-600 py-4 px-2 text-black text-xl font-bold transition-all outline-none cursor-pointer placeholder-gray-300 resize-none"
+                                            required
+                                        />
+                                        <MessageCircle className="absolute right-4 bottom-4 text-brand-200 group-focus-within/input:text-brand-600 transition-colors" size={20} />
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className="flex gap-4 pt-8 border-t border-brand-50">
-                                {[FaFacebook, FaTwitter, FaLinkedin, FaInstagram].map((Icon, idx) => (
-                                    <motion.button
-                                        key={idx}
-                                        whileHover={{ y: -5, scale: 1.1 }}
-                                        className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 hover:text-brand-600 hover:bg-brand-50 transition-all shadow-sm"
-                                    >
-                                        <Icon size={20} />
-                                    </motion.button>
-                                ))}
-                            </div>
-                        </motion.div>
-
-                        {/* Form Column */}
-                        <motion.div 
-                            className="flex-1 w-full relative group"
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <div className="absolute -inset-4 bg-gradient-to-r from-brand-500/10 to-brand-600/10 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                            <div className="relative bg-white rounded-[3rem] p-10 lg:p-14 shadow-2xl border border-brand-50">
-                                <form className="space-y-8" onSubmit={handleContactUs}>
-                                    <div className="space-y-4">
-                                        <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Full Name</label>
-                                        <div className="relative">
-                                            <FaUser className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300" />
-                                            <input 
-                                                type="text" 
-                                                name="name"
-                                                value={contactUsData.name}
-                                                onChange={handleContactUsDataChange}
-                                                placeholder="John Doe"
-                                                className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-600/20 focus:bg-white rounded-2xl py-5 pl-14 pr-6 text-black font-medium transition-all outline-none"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-4">
-                                        <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Email Address</label>
-                                        <div className="relative">
-                                            <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
-                                            <input 
-                                                type="email" 
-                                                name="email"
-                                                value={contactUsData.email}
-                                                onChange={handleContactUsDataChange}
-                                                placeholder="john@example.com"
-                                                className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-600/20 focus:bg-white rounded-2xl py-5 pl-14 pr-6 text-black font-medium transition-all outline-none"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-4">
-                                        <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Your Message</label>
-                                        <div className="relative">
-                                            <MessageCircle className="absolute left-6 top-6 text-gray-300" size={18} />
-                                            <textarea 
-                                                name="message"
-                                                value={contactUsData.message}
-                                                onChange={handleContactUsDataChange}
-                                                placeholder="Tell us what's on your mind..."
-                                                rows="5"
-                                                className="w-full bg-gray-50 border-2 border-transparent focus:border-brand-600/20 focus:bg-white rounded-2xl py-5 pl-14 pr-6 text-black font-medium transition-all outline-none resize-none"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-
+                                <div className="md:col-span-2 pt-6 flex justify-start">
                                     <motion.button
                                         type="submit"
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
                                         disabled={sending}
-                                        className="w-full py-6 bg-brand-600 hover:bg-brand-700 text-white rounded-2xl font-bold text-lg shadow-xl shadow-brand-100 transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-50"
+                                        className="px-12 py-5 bg-black hover:bg-brand-600 text-white rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-4 cursor-pointer disabled:opacity-50"
                                     >
                                         {sending ? (
-                                            <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                            <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin" />
                                         ) : (
                                             <>
-                                                <span>Send Message</span>
+                                                <span className="lowercase">deploy message</span>
                                                 <Send size={18} />
                                             </>
                                         )}
                                     </motion.button>
-                                </form>
-                            </div>
-                        </motion.div>
+                                </div>
+                            </form>
+                        </div>
+                    </motion.div>
+
+                    {/* Integrated Info Bubbles stacked below */}
+                    <div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[
+                            { icon: Mail, label: 'Fast Response', value: 'support@tradewise.com' },
+                            { icon: Phone, label: 'Phone Call', value: '+250 788 123 456' },
+                            { icon: MapPin, label: 'Vibe HQ', value: 'Innovation District, Kigali' }
+                        ].map((item, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: idx * 0.1 }}
+                                className="bg-gray-50/50 backdrop-blur-sm border border-brand-50 rounded-[2rem] p-8 flex flex-col items-center text-center group hover:bg-white hover:border-brand-100 hover:shadow-xl transition-all duration-500"
+                            >
+                                <div className="w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center text-brand-600 mb-6 group-hover:bg-brand-600 group-hover:text-white transition-all duration-500">
+                                    <item.icon size={28} />
+                                </div>
+                                <div className="text-xs font-black text-brand-600 uppercase tracking-widest mb-2">{item.label}</div>
+                                <div className="text-lg font-bold text-black">{item.value}</div>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </div>
 
+
             {/* FAQ Section */}
-            <div id="faq" className="bg-white py-32 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,#FC9E4F05,transparent_50%)]" />
-                
+            <div id="faq" className="bg-gray-50 py-48 relative overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#FC9E4F05_1px,transparent_1px),linear-gradient(to_bottom,#FC9E4F05_1px,transparent_1px)] bg-[size:80px_80px]" />
+                    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_0%_100%,#FC9E4F08,transparent_50%)]" />
+                    <svg className="absolute top-10 right-10 w-64 h-64 opacity-[0.05] text-brand-600" viewBox="0 0 100 100">
+                        <path d="M10 10 L90 10 L90 90 L10 90 Z" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                        <path d="M0 0 L100 100 M100 0 L0 100" stroke="currentColor" strokeWidth="0.2" />
+                    </svg>
+                    <div className="absolute bottom-1/4 left-10 w-96 h-96 bg-brand-100/10 rounded-[4rem] rotate-12 blur-3xl" />
+                </div>
+
                 <motion.div
                     className="max-w-7xl mx-auto px-6 lg:px-24 relative z-10"
                     initial={{ opacity: 0, y: 30 }}
@@ -856,34 +891,33 @@ const Home = () => {
                 >
                     <div className="text-center max-w-3xl mx-auto mb-20">
                         <div className="inline-block px-6 py-2 rounded-full bg-brand-50 text-brand-600 font-bold text-xs tracking-[0.2em] mb-6 border border-brand-100 uppercase">
-                            Common Questions
+                            Knowledge Base
                         </div>
                         <h2 className="text-black text-5xl lg:text-7xl font-bold mb-8 tracking-tight">
-                            Got Questions?<br /><span className="text-brand-600">We've Got Answers</span>
+                            got questions?<br /><span className="text-brand-600">we've got answers</span>
                         </h2>
                         <p className="text-gray-500 text-xl leading-relaxed font-medium">
-                            Explore our comprehensive FAQ to learn more about how TradeWise can elevate your trading strategy.
+                            Everything you need to know about TradeWise, detailed in our high-precision knowledge hub.
                         </p>
                     </div>
-                    
+
                     <FAQList />
 
                     <div className="mt-20 text-center relative">
-                        <div className="inline-flex flex-col sm:flex-row items-center gap-6 p-8 bg-gray-50 rounded-[2rem] border border-brand-50">
-                            <p className="text-gray-600 font-medium">Still have questions that aren't answered here?</p>
+                        <div className="inline-flex flex-col sm:flex-row items-center gap-6 p-8 bg-white/50 backdrop-blur-md rounded-[2.5rem] border border-brand-50 shadow-sm cursor-pointer hover:bg-white transition-all">
+                            <p className="text-gray-600 font-medium text-lg lowercase">still have questions that aren't answered here?</p>
                             <motion.button
                                 onClick={() => scrollToSection('contact')}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="px-8 py-4 bg-black text-white rounded-xl font-bold hover:bg-brand-600 transition-colors shadow-lg"
+                                className="px-10 py-5 bg-black text-white rounded-2xl font-bold hover:bg-brand-600 transition-colors shadow-2xl cursor-pointer lowercase"
                             >
-                                Contact Support
+                                contact support
                             </motion.button>
                         </div>
                     </div>
                 </motion.div>
             </div>
-
             <Footer />
         </div>
     );
