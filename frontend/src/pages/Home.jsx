@@ -5,7 +5,7 @@ import { MdEmail, MdDashboard } from 'react-icons/md';
 import { IoCall, IoLocationSharp } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, ArrowRight, Quote, Star, Mail, MapPin, Phone, Clock, Send, MessageCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, Quote, Star, Mail, MapPin, Phone, Clock, Send, MessageCircle, Globe } from "lucide-react";
 import { Typewriter } from 'react-simple-typewriter';
 import backendApi from '../utils/axiosInstance';
 import { toast } from '../utils/toast';
@@ -385,97 +385,14 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="text-brand-50 bg-brand-900 selection:bg-brand-400 selection:text-white overflow-x-hidden">
-            <motion.nav
-                initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                className={`fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[95%] max-w-7xl transition-all duration-500 rounded-2xl border ${scrolled
-                    ? 'bg-white/80 backdrop-blur-2xl shadow-premium border-brand-100 py-3'
-                    : 'bg-brand-950/20 backdrop-blur-md shadow-glass border-white/10 py-5'
-                    }`}
-            >
-                <div className="px-6 md:px-10 flex justify-between items-center">
-                    <div
-                        className="flex items-center gap-4 cursor-pointer group"
-                        onClick={() => scrollToSection('home')}
-                    >
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-brand-500 blur-lg opacity-20 group-hover:opacity-40 transition-opacity" />
-                            <img src={images.logo} alt="logo" className="w-10 h-10 rounded-xl transition-transform group-hover:scale-110 shadow-sm object-cover relative z-10" />
-                        </div>
-                        <h1 className={`text-2xl font-bold tracking-tight transition-colors ${scrolled ? 'text-brand-900' : 'text-white drop-shadow-md'}`}>Stocka</h1>
-                    </div>
+        <div className="text-brand-900 bg-white selection:bg-brand-500 selection:text-white overflow-x-hidden">
+            <Header />
 
-                    <div className="hidden md:flex items-center gap-10">
-                        {['Services', 'About'].map((item) => (
-                            <button
-                                key={item}
-                                onClick={() => scrollToSection(item)}
-                                className={`text-sm font-bold tracking-wide transition-all hover:scale-105 active:scale-95 ${scrolled ? 'text-brand-900/60 hover:text-brand-900' : 'text-white/60 hover:text-white'
-                                    }`}
-                            >
-                                {item}
-                            </button>
-                        ))}
-                        <button
-                            onClick={() => navigate('/login')}
-                            className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all active:scale-95 ${scrolled
-                                ? 'bg-brand-900 text-white hover:bg-brand-800 shadow-glow'
-                                : 'bg-white text-brand-900 hover:bg-brand-50 shadow-white-glow'
-                                }`}
-                        >
-                            Sign In
-                        </button>
-                    </div>
-
-                    <button
-                        className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10"
-                        onClick={() => setMobileOpen(!mobileOpen)}
-                    >
-                        {mobileOpen ? <X size={24} className={scrolled ? 'text-brand-900' : 'text-white'} /> : <Menu size={24} className={scrolled ? 'text-brand-900' : 'text-white'} />}
-                    </button>
-                </div>
-
-                {/* Mobile Menu Refinement */}
-                <AnimatePresence>
-                    {mobileOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="md:hidden bg-brand-950/95 backdrop-blur-3xl overflow-hidden mt-4 rounded-2xl mx-4 border border-white/10"
-                        >
-                            <div className="flex flex-col p-8 gap-8">
-                                {['Services', 'About'].map((item) => (
-                                    <button
-                                        key={item}
-                                        onClick={() => {
-                                            scrollToSection(item);
-                                            setMobileOpen(false);
-                                        }}
-                                        className="text-white/70 text-2xl font-bold text-left hover:text-brand-400 transition-colors"
-                                    >
-                                        {item}
-                                    </button>
-                                ))}
-                                <button
-                                    onClick={() => navigate('/login')}
-                                    className="w-full py-5 bg-brand-500 text-white rounded-xl text-xl font-bold shadow-glow"
-                                >
-                                    Login to Portal
-                                </button>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </motion.nav>
 
             {/* Hero Section Redesign */}
             <div id="home" className="relative w-full min-h-screen bg-brand-900 overflow-hidden flex items-center pt-24 pb-12">
-                {/* Background Patterns */}
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute top-0 left-0 w-full h-full bg-grid-pattern-dark opacity-20" />
-                    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1)_0%,transparent_70%)]" />
+                    <div className="absolute top-0 left-0 w-full h-full bg-brand-950 opacity-10" />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
@@ -566,10 +483,85 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* Services Section - Unique Circuit Background */}
-            <section id="Services" className="relative py-32 bg-[#f8fafc] overflow-hidden">
-                <div className="absolute inset-0 opacity-[0.03] bg-dot-pattern" />
-                <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-500/10 rounded-full blur-[120px]" />
+            {/* About Section - Unique Project Profile Layout (Now 2nd) */}
+            <section id="About" className="relative py-20 bg-white overflow-hidden border-b border-brand-100">
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    <div className="flex flex-col lg:flex-row items-stretch gap-12">
+                        {/* Metrics Column */}
+                        <div className="lg:w-1/3 flex flex-col gap-6">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                className="p-8 bg-brand-900 rounded-2xl text-white flex flex-col justify-between h-full"
+                            >
+                                <div className="space-y-4">
+                                    <div className="text-brand-400 font-bold text-xs tracking-widest uppercase">System Performance</div>
+                                    <h3 className="text-4xl font-black leading-tight">Elite Efficiency.</h3>
+                                </div>
+                                <div className="mt-12 space-y-8">
+                                    <div className="flex items-end justify-between border-b border-white/10 pb-4">
+                                        <span className="text-white/40 font-bold text-sm uppercase">Uptime</span>
+                                        <span className="text-3xl font-black">99.9%</span>
+                                    </div>
+                                    <div className="flex items-end justify-between border-b border-white/10 pb-4">
+                                        <span className="text-white/40 font-bold text-sm uppercase">Security</span>
+                                        <span className="text-3xl font-black">256-bit</span>
+                                    </div>
+                                    <div className="flex items-end justify-between border-b border-white/10 pb-4">
+                                        <span className="text-white/40 font-bold text-sm uppercase">Support</span>
+                                        <span className="text-3xl font-black">24/7/365</span>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </div>
+
+                        {/* Story & Visual Column */}
+                        <div className="lg:w-2/3 flex flex-col gap-6">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                className="p-12 bg-brand-50 rounded-2xl flex-1 border border-brand-100"
+                            >
+                                <div className="max-w-2xl">
+                                    <div className="inline-block px-4 py-1.5 rounded-md bg-brand-900 text-white font-bold text-xs tracking-wider mb-8">
+                                        OUR STORY
+                                    </div>
+                                    <h2 className="text-5xl lg:text-7xl font-black text-brand-900 mb-8 leading-tight">
+                                        Built for <br />
+                                        <span className="text-brand-500">Scale.</span>
+                                    </h2>
+                                    <p className="text-xl text-brand-900/70 leading-relaxed font-semibold">
+                                        Stocka was engineered to bridge the gap between high-frequency trading speed and enterprise stability. We provide the tools you need to manage your assets without the friction of legacy systems.
+                                    </p>
+                                </div>
+                            </motion.div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    className="p-8 bg-white border border-brand-100 rounded-2xl shadow-sm"
+                                >
+                                    <div className="text-brand-500 mb-4"><Star size={32} /></div>
+                                    <h4 className="text-xl font-bold text-brand-900 mb-2">Quality First</h4>
+                                    <p className="text-brand-900/50 font-medium">Every line of code is optimized for maximum reliability.</p>
+                                </motion.div>
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    className="p-8 bg-white border border-brand-100 rounded-2xl shadow-sm"
+                                >
+                                    <div className="text-brand-500 mb-4"><Globe size={32} /></div>
+                                    <h4 className="text-xl font-bold text-brand-900 mb-2">Global Reach</h4>
+                                    <p className="text-brand-900/50 font-medium">Deployed across 5 continents for zero-latency access.</p>
+                                </motion.div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Services Section */}
+            <section id="Services" className="relative py-20 bg-white overflow-hidden">
+                <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-500/5 rounded-full blur-[120px]" />
 
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="text-center mb-24">
@@ -585,142 +577,228 @@ const Home = () => {
                             Modern <span className="text-brand-500">Enterprises.</span>
                         </h2>
                     </div>
+                </div>
+            </section>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {services.map((service, index) => (
+            {/* Services Continued - Grid */}
+            <section className="py-20 bg-white border-t border-brand-100">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { title: "Real-time Metrics", icon: <Clock />, desc: "Track performance with millisecond precision." },
+                            { title: "Smart Analytics", icon: <Star />, desc: "AI-powered insights for strategic growth." },
+                            { title: "Global Security", icon: <Mail />, desc: "Enterprise-grade data protection protocol." },
+                            { title: "Asset Pipeline", icon: <ArrowRight />, desc: "Seamless inventory and sale management." }
+                        ].map((service, index) => (
                             <motion.div
                                 key={index}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1 }}
-                                whileHover={{ y: -10 }}
-                                    <div className="text-[10px] text-brand-500 font-bold tracking-[0.2em] uppercase">Avg Rating</div>
+                                className="group p-8 bg-white rounded-2xl border border-brand-100 hover:border-brand-500 transition-all duration-300"
+                            >
+                                <div className="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-500 mb-6 group-hover:bg-brand-900 group-hover:text-white transition-all duration-500">
+                                    {service.icon}
                                 </div>
-                    <div className="cursor-pointer group">
-                        <div className="text-4xl font-brand-500 text-brand-900 mb-2 group-hover:text-brand-500 transition-colors">50k+</div>
-                        <div className="text-[10px] text-brand-500 font-bold tracking-[0.2em] uppercase">Active Users</div>
+                                <h3 className="text-xl font-bold text-brand-900 mb-3 tracking-tight">
+                                    {service.title}
+                                </h3>
+                                <p className="text-brand-900/50 leading-relaxed font-semibold text-sm">
+                                    {service.desc}
+                                </p>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
-        </div>
-                    </motion.div >
+            </section>
 
-    <motion.div
-        className="flex-1 w-full flex justify-center lg:justify-end"
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-    >
-        <TestimonialCarousel />
-    </motion.div>
-                </div >
-            </div >
+            {/* Testimonials - Deep Contrast Background */}
+            <section className="relative py-20 bg-brand-900 overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-px bg-white/5" />
 
-            <div id="Contact" className="section-padding bg-brand-900 relative overflow-hidden bg-grid-pattern-dark">
-                <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,191,36,0.05)_0%,transparent_70%)] pointer-events-none" />
-
-                <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
-                    <motion.div
-                        className="mb-20"
-                        initial={{ opacity: 0, y: 30 }}
+                <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        className="text-4xl lg:text-6xl font-black text-white mb-16"
                     >
-                        <div className="inline-block px-5 py-2 rounded-full bg-white/5 text-white/60 font-semibold text-xs tracking-wide mb-8 border border-white/10">
-                            Contact Us
-                        </div>
-                        <h2 className="text-6xl lg:text-8xl font-bold text-white mb-8 leading-none tracking-tight">
-                            Let's <span className="text-brand-400">Connect</span>
-                        </h2>
-                        <p className="text-white/60 text-xl font-semibold max-w-2xl mx-auto leading-relaxed">
-                            Have questions? We're here to help you elevate your business management.
-                        </p>
-                    </motion.div>
+                        Success Stories from <br />
+                        Our <span className="text-brand-500">Global Partners.</span>
+                    </motion.h2>
 
-                    <motion.div
-                        className="relative max-w-3xl mx-auto"
-                        initial={{ opacity: 0, scale: 0.98 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                    >
-                        <form className="glass-card p-12 rounded-md shadow-premium grid grid-cols-1 md:grid-cols-2 gap-10" onSubmit={handleContactUs}>
-                            <div className="space-y-4 text-left">
-                                <label className="text-xs font-semibold text-brand-500 tracking-wide ml-2">Identity</label>
-                                <div className="relative group/input">
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value={contactUsData.name}
-                                        onChange={handleContactUsDataChange}
-                                        placeholder="Your Name"
-                                        className="w-full bg-white/50 border border-brand-100/50 focus:border-brand-500 py-4 px-6 rounded-md text-obsidian-800 text-lg transition-all outline-none placeholder-obsidian-200"
-                                        required
-                                    />
-                                    <FaUser className="absolute right-6 top-1/2 -translate-y-1/2 text-brand-100 group-focus-within/input:text-brand-500 transition-colors" />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                        {testimonials.map((testimonial, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.15 }}
+                                className="p-10 bg-white/5 backdrop-blur-3xl rounded-3xl border border-white/10 text-left hover:bg-white/[0.08] transition-all duration-500"
+                            >
+                                <div className="flex gap-1 mb-8">
+                                    {[...Array(testimonial.rating)].map((_, i) => (
+                                        <Star key={i} size={18} className="fill-brand-500 text-brand-500" />
+                                    ))}
                                 </div>
-                            </div>
-
-                            <div className="space-y-4 text-left">
-                                <label className="text-xs font-semibold text-brand-500 tracking-wide ml-2">Email</label>
-                                <div className="relative group/input">
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        value={contactUsData.email}
-                                        onChange={handleContactUsDataChange}
-                                        placeholder="you@example.com"
-                                        className="w-full bg-white/50 border border-brand-100/50 focus:border-brand-500 py-4 px-6 rounded-md text-obsidian-800 text-lg transition-all outline-none placeholder-obsidian-200"
-                                        required
-                                    />
-                                    <Mail className="absolute right-6 top-1/2 -translate-y-1/2 text-brand-100 group-focus-within/input:text-brand-500 transition-colors" size={20} />
+                                <p className="text-white/80 text-lg font-medium leading-relaxed mb-10 min-h-[120px]">
+                                    "{testimonial.review}"
+                                </p>
+                                <div className="flex items-center gap-4">
+                                    <div className="w-14 h-14 rounded-xl bg-brand-500/20 overflow-hidden">
+                                        <img src={testimonial.avatar} alt={testimonial.name} className="w-full h-full object-cover" />
+                                    </div>
+                                    <div>
+                                        <div className="text-white font-bold">{testimonial.name}</div>
+                                        <div className="text-white/40 text-[10px] font-bold tracking-widest uppercase">{testimonial.date}</div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div className="md:col-span-2 space-y-4 text-left">
-                                <label className="text-xs font-semibold text-brand-500 tracking-wide ml-2">Message</label>
-                                <div className="relative group/input">
-                                    <textarea
-                                        name="message"
-                                        value={contactUsData.message}
-                                        onChange={handleContactUsDataChange}
-                                        placeholder="How can we help?"
-                                        rows="4"
-                                        className="w-full bg-white/50 border border-brand-100/50 focus:border-brand-500 py-4 px-6 rounded-md text-obsidian-800 text-lg transition-all outline-none placeholder-obsidian-200 resize-none"
-                                        required
-                                    />
-                                    <MessageCircle className="absolute right-6 bottom-6 text-brand-100 group-focus-within/input:text-brand-500 transition-colors" size={20} />
-                                </div>
-                            </div>
-
-                            <div className="md:col-span-2 pt-4">
-                                <motion.button
-                                    type="submit"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    disabled={sending}
-                                    className="w-full py-5 bg-brand-500 hover:bg-brand-600 text-white rounded-md font-bold text-lg shadow-glow transition-all flex items-center justify-center gap-4 disabled:opacity-50"
-                                >
-                                    {sending ? <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-md animate-spin" /> : <span>Send Message</span>}
-                                </motion.button>
-                            </div>
-                        </form>
-                    </motion.div>
-                </div>
-            </div>
-
-            <div id="FAQ" className="section-padding bg-white relative overflow-hidden">
-                <div className="max-w-4xl mx-auto text-center mb-20 relative z-10">
-                    <div className="inline-block px-5 py-2 rounded-md bg-brand-50 text-brand-500 font-bold text-[10px] tracking-[0.3em] mb-8 border border-brand-100 uppercase">
-                        Common Questions
+                            </motion.div>
+                        ))}
                     </div>
-                    <h2 className="text-4xl lg:text-6xl font-brand-500 text-brand-900 mb-6">
-                        Frequently Asked <span className="text-brand-500">Questions</span>
+                </div>
+            </section>
+
+            {/* Contact Section - Innovation Focused Redesign */}
+            <section id="Contact" className="relative py-20 bg-white overflow-hidden">
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    <div className="bg-brand-900 rounded-[3rem] overflow-hidden shadow-2xl relative">
+
+                        <div className="flex flex-col lg:flex-row">
+                            {/* Left Side - Info */}
+                            <div className="lg:w-[45%] p-12 lg:p-20 relative z-10 bg-brand-950">
+                                <motion.div
+                                    initial={{ opacity: 0, x: -30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    className="space-y-12"
+                                >
+                                    <div>
+                                        <h2 className="text-4xl lg:text-6xl font-black text-white mb-6">
+                                            Let’s Scale <br />
+                                            Together.
+                                        </h2>
+                                        <p className="text-white/60 text-lg font-medium">
+                                            Our engineers are ready to help you integrate Stocka into your global workflow.
+                                        </p>
+                                    </div>
+
+                                    <div className="space-y-8">
+                                        <div className="flex items-center gap-6 group">
+                                            <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-brand-500 group-hover:border-brand-500 transition-all duration-500">
+                                                <Mail className="text-white" size={24} />
+                                            </div>
+                                            <div>
+                                                <div className="text-white font-bold">Email Inquiry</div>
+                                                <div className="text-white/40 font-semibold">support@stocka.com</div>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-6 group">
+                                            <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-brand-50 group-hover:border-white transition-all duration-500">
+                                                <Globe className="text-white group-hover:text-brand-900" size={24} />
+                                            </div>
+                                            <div>
+                                                <div className="text-white font-bold">Global HQ</div>
+                                                <div className="text-white/40 font-semibold">Silicon Valley, CA</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="pt-12">
+                                        <div className="text-white/20 font-black text-9xl absolute -bottom-10 -left-10 select-none">STOCKA</div>
+                                    </div>
+                                </motion.div>
+                            </div>
+
+                            {/* Right Side - Form */}
+                            <div className="flex-1 p-12 lg:p-20 bg-white relative">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    className="space-y-10"
+                                >
+                                    <form onSubmit={handleContactUs} className="space-y-8">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                            <div className="space-y-3">
+                                                <label className="text-brand-900 font-bold text-xs uppercase tracking-widest pl-1">Full Name</label>
+                                                <div className="relative group">
+                                                    <input
+                                                        type="text"
+                                                        name="name"
+                                                        value={contactUsData.name}
+                                                        onChange={handleContactUsDataChange}
+                                                        placeholder="Enter your name"
+                                                        className="w-full px-6 py-5 bg-brand-50 border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all font-bold text-brand-950 placeholder:text-brand-900/40"
+                                                        required
+                                                    />
+                                                    <FaUser className="absolute right-6 top-1/2 -translate-y-1/2 text-brand-200 group-focus-within:text-brand-500 transition-colors" />
+                                                </div>
+                                            </div>
+                                            <div className="space-y-3">
+                                                <label className="text-brand-900 font-bold text-xs uppercase tracking-widest pl-1">Business Email</label>
+                                                <div className="relative group">
+                                                    <input
+                                                        type="email"
+                                                        name="email"
+                                                        value={contactUsData.email}
+                                                        onChange={handleContactUsDataChange}
+                                                        placeholder="name@company.com"
+                                                        className="w-full px-6 py-5 bg-brand-50 border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all font-bold text-brand-950 placeholder:text-brand-900/40"
+                                                        required
+                                                    />
+                                                    <Mail className="absolute right-6 top-1/2 -translate-y-1/2 text-brand-200 group-focus-within:text-brand-500 transition-colors" size={20} />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-3">
+                                            <label className="text-brand-900 font-bold text-xs uppercase tracking-widest pl-1">Inquiry Details</label>
+                                            <div className="relative group">
+                                                <textarea
+                                                    name="message"
+                                                    value={contactUsData.message}
+                                                    onChange={handleContactUsDataChange}
+                                                    placeholder="Tell us about your requirements..."
+                                                    rows={4}
+                                                    className="w-full px-6 py-5 bg-brand-50 border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all font-bold text-brand-950 placeholder:text-brand-900/40 resize-none"
+                                                    required
+                                                />
+                                                <MessageCircle className="absolute right-6 bottom-6 text-brand-200 group-focus-within:text-brand-500 transition-colors" size={20} />
+                                            </div>
+                                        </div>
+
+                                        <button
+                                            type="submit"
+                                            disabled={sending}
+                                            className="w-full py-6 bg-brand-900 text-white rounded-2xl font-black text-lg hover:bg-brand-800 transition-all shadow-glow active:scale-95 flex items-center justify-center gap-4 disabled:opacity-50"
+                                        >
+                                            {sending ? <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-md animate-spin" /> : <>Transmit Message <ArrowRight size={22} /></>}
+                                        </button>
+                                    </form>
+                                </motion.div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="FAQ" className="relative py-20 bg-white overflow-hidden">
+                <div className="max-w-4xl mx-auto text-center mb-20 relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        className="inline-block px-5 py-2 rounded-md bg-brand-50 text-brand-500 font-bold text-[10px] tracking-[0.3em] mb-8 border border-brand-100 uppercase"
+                    >
+                        Common Questions
+                    </motion.div>
+                    <h2 className="text-4xl lg:text-6xl font-black text-brand-900 mb-6">
+                        Frequently Asked <br />
+                        <span className="text-brand-500">Questions.</span>
                     </h2>
                 </div>
                 <FAQList />
-            </div>
+            </section>
+
             <Footer />
-        </div >
+        </div>
     );
 }
 
