@@ -196,9 +196,9 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-chocolate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-6 font-afacad">
+    <div className="fixed inset-0 bg-brand-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-6 font-Urbanist">
       <div className="bg-white border border-gray-100 rounded-lg shadow-2xl w-full max-w-5xl overflow-hidden relative animate-in fade-in zoom-in duration-300 flex flex-col max-h-[90vh]">
-        <div className="p-10 border-b border-chocolate-50 flex items-center justify-between">
+        <div className="p-10 border-b border-brand-50 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm">
               <MdShoppingCart className="text-black text-3xl" />
@@ -220,7 +220,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
           {isLoadingProducts ? (
             <div className="flex flex-col items-center justify-center py-24 gap-6 text-center">
               <div className="relative">
-                <div className="w-16 h-16 border-4 border-gray-100 border-t-chocolate-600 rounded-full animate-spin" />
+                <div className="w-16 h-16 border-4 border-gray-100 border-t-brand-600 rounded-full animate-spin" />
               </div>
               <div>
                 <p className="text-xl font-bold text-black capitalize">Loading Products...</p>
@@ -243,7 +243,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                     onClose();
                     if (setActiveTab) setActiveTab('stock');
                   }}
-                  className="px-10 py-5 bg-chocolate-600 text-white rounded-lg font-bold transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg"
+                  className="px-10 py-5 bg-brand-600 text-white rounded-lg font-bold transition-all hover:bg-brand-700 active:scale-95 shadow-lg"
                 >
                   Go To Stock Management
                 </button>
@@ -253,7 +253,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
             <>
               <div className="space-y-8">
                 <h3 className="text-xl font-bold text-black flex items-center gap-4">
-                  <span className="w-3 h-3 bg-chocolate-600 rounded-full shadow-sm" />
+                  <span className="w-3 h-3 bg-brand-600 rounded-full shadow-sm" />
                   Merchant Information
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -265,7 +265,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                       value={formData.description}
                       onChange={handleChange}
                       required
-                      className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
+                      className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-medium"
                       placeholder="e.g., Quarterly Stock Replenishment"
                     />
                   </div>
@@ -277,7 +277,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                       value={formData.secondParty}
                       onChange={handleChange}
                       required
-                      className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
+                      className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-medium"
                       placeholder="e.g., Global Logistics Solutions"
                     />
                   </div>
@@ -287,7 +287,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
               <div className="bg-gray-50 p-10 rounded-lg border border-gray-100 shadow-sm relative overflow-hidden group">
                 <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-6">
-                    <div className={`p-4 rounded-lg border transition-all duration-500 ${includeFinancialDetails ? 'bg-white border-chocolate-200 shadow-sm' : 'bg-white/50 border-gray-100'}`}>
+                    <div className={`p-4 rounded-lg border transition-all duration-500 ${includeFinancialDetails ? 'bg-white border-brand-200 shadow-sm' : 'bg-white/50 border-gray-100'}`}>
                       <MdSave className={`text-2xl transition-colors ${includeFinancialDetails ? 'text-black' : 'text-gray-300'}`} />
                     </div>
                     <div>
@@ -298,7 +298,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                   <button
                     type="button"
                     onClick={() => setIncludeFinancialDetails(!includeFinancialDetails)}
-                    className={`relative w-20 h-10 rounded-full transition-all duration-500 focus:outline-none shadow-sm ${includeFinancialDetails ? 'bg-chocolate-600' : 'bg-chocolate-200'}`}
+                    className={`relative w-20 h-10 rounded-full transition-all duration-500 focus:outline-none shadow-sm ${includeFinancialDetails ? 'bg-brand-600' : 'bg-brand-200'}`}
                   >
                     <div className={`absolute top-1 left-1 w-8 h-8 rounded-full bg-white shadow-sm transition-transform duration-500 ${includeFinancialDetails ? 'translate-x-10' : 'translate-x-0'}`} />
                   </button>
@@ -312,7 +312,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                         name="financialType"
                         value={formData.financialType}
                         onChange={handleChange}
-                        className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black focus:outline-none focus:ring-4 focus:ring-chocolate-50 appearance-none cursor-pointer shadow-sm transition-all"
+                        className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black focus:outline-none focus:ring-4 focus:ring-brand-50 appearance-none cursor-pointer shadow-sm transition-all"
                       >
                         <option value="Debit" className="bg-white">Debit</option>
                         <option value="Credit" className="bg-white">Credit</option>
@@ -325,7 +325,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                         name="amount"
                         value={formData.amount}
                         onChange={handleChange}
-                        className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-bold"
+                        className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold"
                         placeholder="Auto-calculates if empty"
                       />
                     </div>
@@ -336,24 +336,24 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                         name="deadline"
                         value={formData.deadline}
                         onChange={handleChange}
-                        className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none shadow-sm"
+                        className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none shadow-sm"
                       />
                     </div>
                   </div>
                 )}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-chocolate-200/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-200/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
               </div>
 
               <div className="space-y-8">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-bold text-black flex items-center gap-4">
-                    <span className="w-3 h-3 bg-chocolate-600 rounded-full shadow-sm" />
+                    <span className="w-3 h-3 bg-brand-600 rounded-full shadow-sm" />
                     Products List
                   </h3>
                   <button
                     type="button"
                     onClick={addProduct}
-                    className="flex items-center gap-3 px-8 py-4 bg-gray-50 text-black border border-gray-100 rounded-lg font-bold hover:bg-chocolate-600 hover:text-white transition-all active:scale-95 shadow-sm group"
+                    className="flex items-center gap-3 px-8 py-4 bg-gray-50 text-black border border-gray-100 rounded-lg font-bold hover:bg-brand-600 hover:text-white transition-all active:scale-95 shadow-sm group"
                   >
                     <MdAdd className="text-xl group-hover:rotate-90 transition-transform" />
                     Add Line Item
@@ -366,21 +366,21 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                       <table className="w-full">
                         <thead>
                           <tr className="bg-gray-50">
-                            <th className="px-8 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-widest">Product</th>
-                            <th className="px-8 py-6 text-center text-xs font-bold text-gray-400 uppercase tracking-widest w-44">Cost Per Unit</th>
-                            <th className="px-8 py-6 text-center text-xs font-bold text-gray-400 uppercase tracking-widest w-32">Qty</th>
-                            <th className="px-8 py-6 text-right text-xs font-bold text-gray-400 uppercase tracking-widest">Subtotal</th>
-                            <th className="px-8 py-6 text-center text-xs font-bold text-gray-400 uppercase tracking-widest w-24">Actions</th>
+                            <th className="px-8 py-6 text-left text-xs font-bold text-gray-400 tracking-wide">Product</th>
+                            <th className="px-8 py-6 text-center text-xs font-bold text-gray-400 tracking-wide w-44">Cost Per Unit</th>
+                            <th className="px-8 py-6 text-center text-xs font-bold text-gray-400 tracking-wide w-32">Qty</th>
+                            <th className="px-8 py-6 text-right text-xs font-bold text-gray-400 tracking-wide">Subtotal</th>
+                            <th className="px-8 py-6 text-center text-xs font-bold text-gray-400 tracking-wide w-24">Actions</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-chocolate-50 text-black">
+                        <tbody className="divide-y divide-brand-50 text-black">
                           {products.map((product, index) => (
                             <tr key={index} className="hover:bg-gray-50/30 transition-all group/row">
                               <td className="px-8 py-6">
                                 <select
                                   value={product.name}
                                   onChange={(e) => handleProductChange(index, 'name', e.target.value)}
-                                  className="w-full px-6 py-4 bg-white border border-gray-100 rounded-lg text-black text-sm focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium appearance-none cursor-pointer shadow-sm"
+                                  className="w-full px-6 py-4 bg-white border border-gray-100 rounded-lg text-black text-sm focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-medium appearance-none cursor-pointer shadow-sm"
                                 >
                                   <option value="" className="bg-white">Choose Item</option>
                                   {allProductsName.map((productOption) => (
@@ -396,7 +396,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                                   value={product.price}
                                   onChange={(e) => handleProductChange(index, 'price', e.target.value)}
                                   placeholder="0"
-                                  className="w-full px-6 py-4 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-bold text-center"
+                                  className="w-full px-6 py-4 bg-white border border-gray-100 rounded-lg text-black placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-center"
                                 />
                               </td>
                               <td className="px-8 py-6">
@@ -406,7 +406,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                                   onChange={(e) => handleProductChange(index, 'quantity', e.target.value)}
                                   placeholder="0"
                                   min="1"
-                                  className="w-full px-6 py-4 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-bold text-center"
+                                  className="w-full px-6 py-4 bg-white border border-gray-100 rounded-lg text-black placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-center"
                                 />
                               </td>
                               <td className="px-8 py-6 text-right">
@@ -449,7 +449,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
               </div>
             </>
           )}
-          <div className="flex items-center justify-end gap-6 pt-10 border-t border-chocolate-50">
+          <div className="flex items-center justify-end gap-6 pt-10 border-t border-brand-50">
             <button
               type="button"
               onClick={onClose}
@@ -460,7 +460,7 @@ const PurchaseOrderForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-10 py-5 bg-chocolate-600 text-white rounded-lg font-bold transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg disabled:opacity-50 disabled:grayscale"
+              className="px-10 py-5 bg-brand-600 text-white rounded-lg font-bold transition-all hover:bg-brand-700 active:scale-95 shadow-lg disabled:opacity-50 disabled:grayscale"
             >
               {isSubmitting ? 'Processing...' : 'Create Purchase Order'}
             </button>

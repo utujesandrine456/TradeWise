@@ -29,13 +29,13 @@ const SalesChart = () => {
         label: 'Sales',
         data: [300, 450, 350, 600, 500, 700, 550],
         fill: true,
-        backgroundColor: 'rgba(255, 165, 0, 0.3)', 
-        borderColor: 'rgb(255, 140, 0)', 
+        backgroundColor: 'rgba(9, 17, 30, 0.3)',
+        borderColor: 'rgb(9, 17, 30)',
         tension: 0.4,
-        pointBackgroundColor: 'rgb(255, 140, 0)',
+        pointBackgroundColor: 'rgb(9, 17, 30)',
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgb(255, 140, 0)'
+        pointHoverBorderColor: 'rgb(9, 17, 30)'
       },
     ],
   };
@@ -46,7 +46,7 @@ const SalesChart = () => {
       legend: {
         position: 'top',
         labels: {
-            color: '#eee'
+          color: '#eee'
         }
       },
       title: {
@@ -56,31 +56,31 @@ const SalesChart = () => {
       },
     },
     scales: {
-        y: {
-            beginAtZero: true,
-            suggestedMax: 800, 
-            ticks: {
-                color: '#eee' 
-            },
-            grid: {
-                color: '#444' 
-            }
+      y: {
+        beginAtZero: true,
+        suggestedMax: 800,
+        ticks: {
+          color: '#eee'
         },
-        x: {
-            ticks: {
-                color: '#eee' 
-            },
-            grid: {
-                color: '#444' 
-            }
+        grid: {
+          color: '#444'
         }
+      },
+      x: {
+        ticks: {
+          color: '#eee'
+        },
+        grid: {
+          color: '#444'
+        }
+      }
     }
   };
 
   return (
-    <div className="bg-#FC9E4F p-6 rounded-lg shadow-lg text-white">
-        <h3 className="text-lg font-semibold mb-4 text-white">Sales</h3>
-        <Line data={data} options={options} />
+    <div className="bg-brand-500 p-6 rounded-lg shadow-lg text-white">
+      <h3 className="text-lg font-semibold mb-4 text-white">Sales</h3>
+      <Line data={data} options={options} />
     </div>
   );
 };

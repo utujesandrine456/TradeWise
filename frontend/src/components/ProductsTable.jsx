@@ -11,28 +11,28 @@ const ProductsTable = () => {
   ];
 
   return (
-    <div className="bg-#FC9E4F p-6 rounded-lg shadow-lg text-white ">
+    <div className="bg-#09111E p-6 rounded-lg shadow-lg text-white ">
       <h3 className="text-xl font-semibold mb-4 text-white">Highly Purchased Products</h3>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-700">
           <thead className="bg-gray-700">
             <tr>
-              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 lowercase italic">
+              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 italic">
                 name
               </th>
-              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 lowercase italic">
+              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 italic">
                 category
               </th>
-              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 lowercase italic">
+              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 italic">
                 quantity
               </th>
-              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 lowercase italic">
+              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 italic">
                 price
               </th>
-              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 lowercase italic">
+              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 italic">
                 threshold
               </th>
-              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 lowercase italic">
+              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 italic">
                 actions
               </th>
             </tr>

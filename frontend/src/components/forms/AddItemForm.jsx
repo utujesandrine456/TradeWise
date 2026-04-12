@@ -39,102 +39,107 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-chocolate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-6 font-afacad cursor-default">
-      <div className="bg-white border border-gray-100 rounded-lg shadow-2xl w-full max-w-2xl overflow-hidden relative animate-in fade-in zoom-in duration-300 flex flex-col">
-        <div className="p-10 border-b border-chocolate-50 flex items-center justify-between">
+    <div className="fixed inset-0 bg-brand-950/90 backdrop-blur-md flex items-center justify-center z-[100] p-6 font-Urbanist cursor-default animate-in fade-in duration-500">
+      <div className="bg-brand-900 border border-white/5 rounded-md shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] w-full max-w-2xl overflow-hidden relative flex flex-col">
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent-400/5 rounded-md blur-[80px] -mr-[200px] -mt-[200px] pointer-events-none" />
+
+        <div className="p-12 border-b border-white/5 flex items-center justify-between relative z-10">
           <div className="flex items-center gap-6">
-            <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm">
-              <MdInventory className="text-black text-3xl" />
+            <div className="bg-white/5 p-4 rounded-md border border-white/5 shadow-xl">
+              <MdInventory className="text-accent-400 text-3xl" />
             </div>
             <div>
-              <h2 className="text-4xl font-bold text-black leading-tight">Add New Item</h2>
-              <p className="text-sm text-gray-400 font-medium mt-1">Expand Your Commercial Inventory</p>
+              <h2 className="text-3xl font-bold text-white tracking-tight leading-none">Register Item</h2>
+              <p className="text-xs font-semibold text-brand-300 tracking-wide mt-3 opacity-60">Add new items to your digital inventory</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-4 text-gray-300 hover:text-black hover:bg-gray-50 rounded-lg transition-all hover:rotate-90"
+            className="p-4 text-brand-300 hover:text-white hover:bg-white/5 rounded-md transition-all shadow-sm hover:rotate-90"
           >
             <MdClose className="text-3xl" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-10 space-y-10">
+        <form onSubmit={handleSubmit} className="p-10 space-y-10 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="space-y-3">
-              <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Product Name *</label>
+            <div className="space-y-4">
+              <label className="block text-xs font-semibold text-brand-300 tracking-wide px-1 opacity-60">Product Name *</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
-                placeholder="e.g., MacBook Air M2"
+                className="w-full px-10 py-6 bg-white/5 border border-white/5 rounded-md text-white placeholder:text-brand-300/20 focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all font-semibold tracking-tight text-lg shadow-inner"
+                placeholder="Product name..."
               />
             </div>
 
-            <div className="space-y-3">
-              <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Measurement Unit *</label>
+            <div className="space-y-4">
+              <label className="block text-xs font-semibold text-brand-300 tracking-wide px-1 opacity-60">Unit of Measure *</label>
               <select
                 name="unit"
                 value={formData.unit}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none cursor-pointer shadow-sm"
+                className="w-full px-10 py-6 bg-white/5 border border-white/5 rounded-md text-white focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all appearance-none cursor-pointer shadow-inner font-semibold tracking-wide text-sm"
               >
-                <option value="" className="bg-white">Choose Unit</option>
-                <option value="Piece" className="bg-white">Piece (pc)</option>
-                <option value="Kilogram" className="bg-white">Kilogram (kg)</option>
-                <option value="Litre" className="bg-white">Litre (l)</option>
+                <option value="" className="bg-brand-900">Select Unit</option>
+                <option value="Piece" className="bg-brand-900">Piece (pc)</option>
+                <option value="Kilogram" className="bg-brand-900">Kilogram (kg)</option>
+                <option value="Litre" className="bg-brand-900">Litre (L)</option>
+                <option value="Sac" className="bg-brand-900">Sac</option>
+                <option value="Box" className="bg-brand-900">Box</option>
+                <option value="Bottle" className="bg-brand-900">Bottle</option>
               </select>
             </div>
 
             <div className="md:col-span-2">
-              <div className="p-8 bg-gray-50 border border-gray-100 rounded-lg relative overflow-hidden group">
-                <div className="flex items-start gap-6 relative z-10">
-                  <div className="bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
-                    <MdInfo className="text-black text-2xl" />
+              <div className="p-10 bg-white/5 border border-white/5 rounded-md relative overflow-hidden group">
+                <div className="flex items-start gap-8 relative z-10">
+                  <div className="bg-white/5 p-4 rounded-md border border-white/5 shadow-xl">
+                    <MdInfo className="text-accent-400 text-2xl" />
                   </div>
-                  <p className="text-sm text-black font-medium leading-relaxed">
-                    <span className="text-black font-bold italic mr-2 text-base">Professional Tip:</span>
-                    Maintain naming consistency for better reporting. Use singular nouns like <span className="text-black font-bold italic">"Office Chair"</span> rather than <span className="text-gray-400 line-through">"Chairs"</span>.
+                  <p className="text-xs text-brand-300 font-semibold tracking-wide leading-relaxed opacity-80">
+                    <span className="text-accent-400 font-bold mr-3">Tip:</span>
+                    Maintain consistent naming for accurate reporting. Use singular names for better inventory indexing.
                   </p>
                 </div>
-                <div className="absolute top-0 right-0 w-32 h-32 bg-chocolate-100/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700" />
               </div>
             </div>
 
-            <div className="md:col-span-2 space-y-3">
-              <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Low Stock Alert Threshold</label>
+            <div className="md:col-span-2 space-y-4">
+              <label className="block text-xs font-semibold text-brand-300 tracking-wide px-1 opacity-60">Shortage Threshold</label>
               <input
                 type="number"
                 name="low_stock_quantity"
                 value={formData.low_stock_quantity}
                 onChange={handleChange}
                 min="0"
-                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-bold"
+                className="w-full px-10 py-6 bg-white/5 border border-white/5 rounded-md text-white placeholder:text-brand-300/20 focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all font-semibold tracking-tight text-lg shadow-inner"
                 placeholder="5"
               />
-              <p className="text-[10px] text-gray-400 font-bold px-1 ml-1 opacity-70">Automated Notification When Inventory Levels Drop Below This Value</p>
+              <p className="text-xs text-brand-300 font-semibold px-1 opacity-40 tracking-wide">Trigger an alert when stock drops below this level</p>
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-8 pt-10 border-t border-chocolate-50">
+          <div className="flex items-center justify-end gap-10 pt-12 border-t border-white/5">
             <button
               type="button"
               onClick={onClose}
-              className="px-8 py-4 text-gray-400 hover:text-black transition-colors font-bold tracking-widest"
+              className="px-8 py-4 text-brand-300 hover:text-white transition-colors font-semibold tracking-wide text-xs"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="group relative px-12 py-5 bg-chocolate-600 text-white rounded-lg font-bold transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg overflow-hidden"
+              className="group relative px-12 py-5 bg-accent-400 text-brand-950 rounded-md font-bold tracking-wide text-xs transition-all active:scale-95 shadow-2xl overflow-hidden hover:scale-105"
             >
-              <div className="flex items-center gap-3 relative z-10">
-                <MdSave className="text-2xl" />
-                <span className="text-lg">Register New Item</span>
+              <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+              <div className="flex items-center gap-4 relative z-10">
+                <MdSave size={20} />
+                <span>Register Item</span>
               </div>
             </button>
           </div>

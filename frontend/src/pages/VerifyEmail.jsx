@@ -40,7 +40,7 @@ const VerifyEmail = () => {
         if (e) e.preventDefault();
 
         if (!otpCode || otpCode.length < 6) {
-            toast.error("Please enter the 6-digit code");
+            toast.error("Please Enter The 6-Digit Code");
             return;
         }
 
@@ -48,7 +48,7 @@ const VerifyEmail = () => {
         try {
             const email = user?.email || JSON.parse(localStorage.getItem('trader'))?.email;
             if (!email) {
-                toast.error("Missing verification context. Please try signing up again.");
+                toast.error("Missing Verification Context. Please Try Signing Up Again.");
                 navigate("/signup");
                 return;
             }
@@ -62,11 +62,11 @@ const VerifyEmail = () => {
 
             await checkAuth();
 
-            toast.success('Your account is now verified');
+            toast.success('Your Account Is Now Verified');
             navigate("/land");
         } catch (error) {
             console.error(error);
-            const msg = error.response?.data?.message || error.message || "Invalid code";
+            const msg = error.response?.data?.message || error.message || "Invalid Code";
             toast.error(msg);
         } finally {
             setLoading(false);
@@ -80,14 +80,14 @@ const VerifyEmail = () => {
         try {
             const email = user?.email || JSON.parse(localStorage.getItem('trader'))?.email;
             if (!email) {
-                toast.error("Missing verification context");
+                toast.error("Missing Verification Context");
                 return;
             }
 
             await backendApi.post("/auth/account/send", { email });
             setOtpCode("");
             setResendCooldown(60);
-            toast.success("Verification code resent. Check your email.");
+            toast.success("Verification Code Resent. Check Your Email.");
         } catch (error) {
             console.error(error);
             const msg = error.response?.data?.message || error.message || "Failed to resend code";
@@ -104,7 +104,7 @@ const VerifyEmail = () => {
     };
 
     return (
-        <div className={`${dark ? 'dark' : ''} font-afacad`}>
+        <div className={`${dark ? 'dark' : ''} font-Urbanist`}>
             <div className="min-h-screen flex items-center justify-center overflow-hidden relative bg-gradient-to-b from-white to-brand-50 dark:from-[#0B0B10] dark:to-[#0B0B10] px-4">
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-5">
@@ -128,17 +128,17 @@ const VerifyEmail = () => {
                     <MdArrowBack size={18} className="text-gray-700 dark:text-white" />
                 </button>
 
-                <div className="relative flex w-full max-w-2xl h-auto my-10 rounded-[3rem] shadow-2xl overflow-hidden bg-white/80 dark:bg-white/5 backdrop-blur-xl border border-white/30 dark:border-white/10">
+                <div className="relative flex w-full max-w-2xl h-auto my-10 rounded-md shadow-2xl overflow-hidden bg-white/80 dark:bg-white/5 backdrop-blur-xl border border-white/30 dark:border-white/10">
                     <div className="w-full flex flex-col justify-center p-8 sm:p-12 relative">
                         <div className="w-full max-w-md mx-auto flex flex-col gap-8">
                             <div className="text-center space-y-6">
-                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-white/90 mx-auto">
+                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-white/90 mx-auto">
                                     <Shield size={16} /> Secure Verification
                                 </div>
 
                                 <div className="flex justify-center">
                                     <div className="relative">
-                                        <div className="w-24 h-24 bg-gradient-to-r from-brand-500 to-amber-600 rounded-3xl flex items-center justify-center shadow-lg transform rotate-3">
+                                        <div className="w-24 h-24 bg-brand-500 rounded-md flex items-center justify-center shadow-lg transform rotate-3">
                                             <Mail size={40} className="text-white transform -rotate-3" />
                                         </div>
                                         <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center border-4 border-white dark:border-[#1a1a1a]">
@@ -147,11 +147,11 @@ const VerifyEmail = () => {
                                     </div>
                                 </div>
 
-                                <h2 className="text-4xl font-bold bg-gradient-to-r from-brand-500 to-amber-600 bg-clip-text text-transparent">
+                                <h2 className="text-4xl font-bold text-brand-900">
                                     Verify Your Email
                                 </h2>
                                 <p className="text-black font-medium text-base leading-relaxed">
-                                    We've sent a 6-digit synchronization code to<br />
+                                    We've Sent A 6-Digit Synchronization Code To<br />
                                     <span className="font-bold text-black underline underline-offset-4">
                                         {user?.email || JSON.parse(localStorage.getItem('trader') || '{}')?.email || 'your email'}
                                     </span>
@@ -167,20 +167,20 @@ const VerifyEmail = () => {
                                 <div className="flex items-center justify-center gap-2 text-sm text-black font-medium">
                                     <Clock size={16} />
                                     {resendCooldown > 0 ? (
-                                        <span>Resend available in: <span className="font-bold text-red-500">{resendCooldown}s</span></span>
+                                        <span>Resend Available In: <span className="font-bold text-red-500">{resendCooldown}s</span></span>
                                     ) : (
-                                        <span>Code is ready to resend</span>
+                                        <span>Code Is Ready To Resend</span>
                                     )}
                                 </div>
 
                                 <button
                                     onClick={handleVerifyEmail}
                                     disabled={loading || otpCode.length < 6}
-                                    className="w-full py-4 bg-gradient-to-r from-brand-500 to-amber-600 text-white font-bold rounded-2xl hover:from-amber-500 hover:to-brand-600 transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98] text-lg"
+                                    className="w-full py-4 bg-brand-500 text-white font-bold rounded-md hover:bg-brand-600 transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98] text-lg"
                                 >
                                     {loading ? (
                                         <span className="flex items-center justify-center gap-2">
-                                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-md animate-spin"></div>
                                             Verifying...
                                         </span>
                                     ) : (

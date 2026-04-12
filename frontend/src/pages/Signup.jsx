@@ -36,24 +36,24 @@ const Signup = () => {
     e.preventDefault();
 
     if (!document.getElementById('agree')?.checked) {
-      toast.error("Please! Agree to the terms and conditions");
+      toast.error("Please Agree To The Terms And Conditions");
       return;
     }
 
     if (formData.password !== confirmPassword) {
-      toast.error("Passwords do not match");
+      toast.error("Passwords Do Not Match");
       return;
     }
 
     if (formData.password.length < 6) {
-      toast.error('Password must be at least 6 characters long');
+      toast.error('Password Must Be At Least 6 Characters Long');
       return;
     }
 
     setIsSigningUp(true);
     try {
       await signup(formData);
-      toast.success('Account created successfully! Please check your email for verification.');
+      toast.success('Account Created Successfully! Please Check Your Email For Verification.');
 
       localStorage.setItem('pendingVerification', JSON.stringify({
         email: formData.email,
@@ -63,7 +63,7 @@ const Signup = () => {
       setTimeout(() => navigate('/verify-email'), 2000);
     } catch (err) {
       console.error('Signup error:', err);
-      const message = err?.response?.data?.message || err.message || 'Registration failed. Try again.';
+      const message = err?.response?.data?.message || err.message || 'Registration Failed. Try Again.';
       toast.error(message);
     } finally {
       setIsSigningUp(false);
@@ -88,7 +88,7 @@ const Signup = () => {
           <button
             onClick={() => navigate('/')}
             aria-label="Back to home"
-            className="p-2 rounded-full bg-white/80 dark:bg-#FC9E4F/40 backdrop-blur border border-white/40 dark:border-white/10 shadow-soft hover:shadow-glow transition text-gray-700 dark:text-white"
+            className="p-2 rounded-md bg-white/80 dark:bg-#09111E/40 backdrop-blur border border-white/40 dark:border-white/10 shadow-soft hover:shadow-glow transition text-gray-700 dark:text-white"
           >
             <ArrowLeft size={18} />
           </button>
@@ -97,24 +97,24 @@ const Signup = () => {
         <button
           onClick={() => setDark(!dark)}
           aria-label="Toggle theme"
-          className="z-10 fixed top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full bg-white/70 dark:bg-#FC9E4F/40 backdrop-blur border border-white/30 dark:border-white/10 shadow-soft hover:shadow-glow transition"
+          className="z-10 fixed top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-md bg-white/70 dark:bg-#09111E/40 backdrop-blur border border-white/30 dark:border-white/10 shadow-soft hover:shadow-glow transition"
         >
           {dark ? <Sun size={18} className="text-amber-300" /> : <Moon size={18} className="text-gray-700" />}
         </button>
 
-        <div className="relative flex flex-col lg:flex-row w-full max-w-6xl min-h-[85vh] lg:h-[90vh] rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden bg-white/80 dark:bg-white/5 backdrop-blur-xl border border-white/30 dark:border-white/10">
+        <div className="relative flex flex-col lg:flex-row w-full max-w-6xl min-h-[85vh] lg:h-[90vh] rounded-md shadow-2xl overflow-hidden bg-white/80 dark:bg-white/5 backdrop-blur-xl border border-white/30 dark:border-white/10">
           {/* Form Section */}
           <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 sm:p-8 lg:p-10 bg-gradient-to-b from-white/90 to-brand-50/60 dark:from-white/[0.06] dark:to-white/[0.02] relative border-r border-white/20">
             <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col gap-4 sm:gap-6">
               <div className="text-center space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-white/90 text-xs sm:text-sm">
-                  <Sparkles size={14} className="sm:w-4 sm:h-4" /> Let's build something brilliant
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-white/90 text-xs sm:text-sm">
+                  <Sparkles size={14} className="sm:w-4 sm:h-4" /> Let's Build Something Brilliant
                 </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-brand-500 to-amber-600 bg-clip-text text-transparent">
-                  Create your account
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-900">
+                  Create Your Account
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm">
-                  A few details and you're in.
+                  A Few Details And You're In.
                 </p>
               </div>
 
@@ -128,7 +128,7 @@ const Signup = () => {
                     required
                     value={formData.enterpriseName}
                     onChange={handleChange}
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent text-sm bg-white/80 dark:bg-white/5 dark:text-white"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-brand-100 dark:border-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent text-sm bg-white/80 dark:bg-white/5 dark:text-white"
                   />
                 </div>
 
@@ -141,7 +141,7 @@ const Signup = () => {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent text-sm bg-white/80 dark:bg-white/5 dark:text-white"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-brand-100 dark:border-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent text-sm bg-white/80 dark:bg-white/5 dark:text-white"
                   />
                 </div>
 
@@ -156,7 +156,7 @@ const Signup = () => {
                         required
                         value={formData.password}
                         onChange={handleChange}
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 pr-10 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent text-sm bg-white/80 dark:bg-white/5 dark:text-white"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 pr-10 border border-brand-100 dark:border-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent text-sm bg-white/80 dark:bg-white/5 dark:text-white"
                       />
                       <button
                         type="button"
@@ -178,7 +178,7 @@ const Signup = () => {
                         required
                         value={confirmPassword}
                         onChange={handleChange}
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 pr-10 border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent text-sm bg-white/80 dark:bg-white/5 dark:text-white"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 pr-10 border border-brand-100 dark:border-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent text-sm bg-white/80 dark:bg-white/5 dark:text-white"
                       />
                       <button
                         type="button"
@@ -198,7 +198,7 @@ const Signup = () => {
                     className="w-4 h-4 rounded border-gray-300 accent-brand-500 focus:ring-brand-500/40"
                   />
                   <label htmlFor="agree" className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 cursor-pointer select-none font-medium">
-                    I agree to the <span className="text-black font-bold underline">terms and conditions</span>
+                    I Agree To The <span className="text-black font-bold underline">Terms And Conditions</span>
                   </label>
                 </div>
               </div>
@@ -206,16 +206,16 @@ const Signup = () => {
               <button
                 type="submit"
                 disabled={isSigningUp}
-                className="w-full py-2.5 sm:py-3 mt-1 bg-gradient-to-r from-brand-500 to-amber-600 text-white font-semibold rounded-xl hover:from-amber-500 hover:to-brand-600 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98] text-sm sm:text-base"
+                className="w-full py-2.5 sm:py-3 mt-1 bg-brand-500 text-white font-semibold rounded-md hover:bg-brand-600 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98] text-sm sm:text-base"
               >
                 {isSigningUp ? (
                   <span className="flex items-center justify-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    Creating account...
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-md animate-spin"></div>
+                    Creating Account...
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-2">
-                    Create account <ArrowRight size={18} />
+                    Create Account <ArrowRight size={18} />
                   </span>
                 )}
               </button>
@@ -227,13 +227,13 @@ const Signup = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-3 pb-2">
-                <button type="button" className="py-2.5 rounded-xl bg-white/80 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-white hover:shadow-soft transition text-sm">Google</button>
-                <button type="button" className="py-2.5 rounded-xl bg-white/80 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-white hover:shadow-soft transition text-sm">Apple</button>
+                <button type="button" className="py-2.5 rounded-md bg-white/80 dark:bg-white/5 border border-brand-100 dark:border-white/10 text-gray-700 dark:text-white hover:shadow-soft transition text-sm">Google</button>
+                <button type="button" className="py-2.5 rounded-md bg-white/80 dark:bg-white/5 border border-brand-100 dark:border-white/10 text-gray-700 dark:text-white hover:shadow-soft transition text-sm">Apple</button>
               </div>
 
               <p className="text-center text-xs sm:text-sm text-gray-500 dark:text-gray-300">
-                Already have an account?{' '}
-                <Link to="/login" className="text-black font-bold underline hover:text-amber-600 transition-colors">
+                Already Have An Account?{' '}
+                <Link to="/login" className="text-black font-bold underline hover:text-brand-600 transition-colors">
                   Login
                 </Link>
               </p>
@@ -249,7 +249,7 @@ const Signup = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
             <div className="absolute bottom-10 left-10 text-white space-y-2">
-              <h3 className="text-2xl font-bold">TradeWise</h3>
+              <h3 className="text-2xl font-bold">Stocka</h3>
               <p className="text-sm opacity-80 max-w-xs">Your personal trading companion for smarter, faster, and better outcomes.</p>
             </div>
           </div>

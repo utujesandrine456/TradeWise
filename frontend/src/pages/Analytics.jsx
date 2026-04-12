@@ -29,34 +29,60 @@ const Analytics = () => {
     return { salesVsPurchases, productsPie };
   }, [data]);
 
-  const BRAND_COLORS = ['#FC9E4F', '#f97316', '#fbbf24', '#000000'];
+  const BRAND_COLORS = ['#09111E', '#1D2D44', '#3E5C76', '#748CAB'];
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 font-afacad">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-black">Business Analytics</h1>
-          <p className="text-gray-600 font-medium">Real-time performance overview</p>
+    <div className="min-h-screen bg-brand-50 p-8 font-Urbanist animate-in fade-in duration-700">
+      <div className="max-w-7xl mx-auto space-y-12">
+        <div className="bg-white p-10 rounded-md border border-brand-100 shadow-2xl relative overflow-hidden group">
+          <div className="absolute inset-0 bg-brand-50/10 opacity-50 pointer-events-none" />
+          <div className="relative z-10">
+            <h1 className="text-4xl font-bold text-brand-900 tracking-tight mb-2">Business Analytics</h1>
+            <p className="text-brand-400 font-semibold text-sm">Real-time performance and financial insights</p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Totals Bar Chart */}
-          <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 flex flex-col">
-            <h3 className="text-xl font-bold text-black mb-6">Revenue & Profit Overview</h3>
-            <div className="flex-1 min-h-[350px]">
+          <div className="bg-white rounded-md shadow-[0_40px_80px_-20px_rgba(9,17,30,0.1)] p-10 border border-brand-100 flex flex-col group relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-1 bg-brand-900 h-full" />
+            <h3 className="text-2xl font-bold text-brand-900 mb-8 tracking-tight">Revenue & Profit</h3>
+            <div className="flex-1 min-h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={charts.salesVsPurchases}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-                  <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: '#6b7280', fontSize: 12 }} />
-                  <YAxis axisLine={false} tickLine={false} tick={{ fill: '#6b7280', fontSize: 12 }} />
-                  <Tooltip
-                    contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                    cursor={{ fill: '#fef3c7' }}
+                <BarChart data={charts.salesVsPurchases} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                  <XAxis
+                    dataKey="label"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700, letterSpacing: '0.05em' }}
+                    dy={10}
                   />
-                  <Legend wrapperStyle={{ paddingTop: '20px' }} />
-                  <Bar dataKey="value" radius={[8, 8, 0, 0]}>
+                  <YAxis
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      borderRadius: '8px',
+                      border: '1px solid #e2e8f0',
+                      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                      backgroundColor: '#ffffff',
+                      padding: '12px'
+                    }}
+                    itemStyle={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.02em' }}
+                    cursor={{ fill: '#f8fafc' }}
+                  />
+                  <Legend
+                    verticalAlign="top"
+                    align="right"
+                    iconType="circle"
+                    wrapperStyle={{ paddingBottom: '30px', fontSize: '10px', fontWeight: 700, letterSpacing: '0.05em' }}
+                  />
+                  <Bar dataKey="value" radius={[6, 6, 0, 0]} barSize={40}>
                     {charts.salesVsPurchases.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.label === 'Net Profit' ? '#10b981' : '#FC9E4F'} />
+                      <Cell key={`cell-${index}`} fill={entry.label === 'Net Profit' ? '#10b981' : '#09111E'} />
                     ))}
                   </Bar>
                 </BarChart>
@@ -65,29 +91,43 @@ const Analytics = () => {
           </div>
 
           {/* Inventory Pie Chart */}
-          <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 flex flex-col">
-            <h3 className="text-xl font-bold text-black mb-6">Inventory Distribution</h3>
-            <div className="flex-1 min-h-[350px]">
+          <div className="bg-white rounded-md shadow-[0_40px_80px_-20px_rgba(9,17,30,0.1)] p-10 border border-brand-100 flex flex-col group relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-1 bg-brand-900 h-full" />
+            <h3 className="text-2xl font-bold text-brand-900 mb-8 tracking-tight">Resource Distribution</h3>
+            <div className="flex-1 min-h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={charts.productsPie}
                     cx="50%"
                     cy="50%"
-                    innerRadius={80}
-                    outerRadius={120}
-                    paddingAngle={5}
+                    innerRadius={100}
+                    outerRadius={140}
+                    paddingAngle={8}
                     dataKey="value"
                     label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    stroke="none"
                   >
                     {charts.productsPie.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={BRAND_COLORS[index % BRAND_COLORS.length]} />
+                      <Cell key={`cell-${index}`} fill={BRAND_COLORS[index % BRAND_COLORS.length]} className="hover:opacity-80 transition-opacity" />
                     ))}
                   </Pie>
                   <Tooltip
-                    contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                    contentStyle={{
+                      borderRadius: '8px',
+                      border: '1px solid #e2e8f0',
+                      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                      backgroundColor: '#ffffff',
+                      padding: '12px'
+                    }}
+                    itemStyle={{ fontSize: '12px', fontWeight: 700, letterSpacing: '0.02em' }}
                   />
-                  <Legend verticalAlign="bottom" height={36} />
+                  <Legend
+                    verticalAlign="bottom"
+                    height={40}
+                    iconType="circle"
+                    wrapperStyle={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.05em' }}
+                  />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -95,18 +135,21 @@ const Analytics = () => {
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          <div className="bg-brand-500 rounded-3xl p-6 text-white shadow-lg">
-            <p className="text-sm font-medium opacity-80 uppercase tracking-wider">Total Sales</p>
-            <h4 className="text-3xl font-bold mt-2">{(data?.stockAnalysis?.totalSales || 0).toLocaleString()} Frw</h4>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-brand-900 rounded-md p-10 text-white shadow-2xl relative overflow-hidden group hover:-translate-y-2 transition-all duration-500">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-md -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+            <p className="text-xs font-bold opacity-60 mb-4">Total Sales</p>
+            <h4 className="text-4xl font-bold tracking-tight">{(data?.stockAnalysis?.totalSales || 0).toLocaleString()} <span className="text-xs opacity-40 ml-2">Frw</span></h4>
           </div>
-          <div className="bg-white rounded-3xl p-6 border border-brand-100 shadow-lg">
-            <p className="text-sm font-bold text-black uppercase tracking-wider">Total Purchases</p>
-            <h4 className="text-3xl font-bold mt-2 text-black">{(data?.stockAnalysis?.totalPurchases || 0).toLocaleString()} Frw</h4>
+          <div className="bg-white border border-brand-100 rounded-md p-10 text-brand-900 shadow-2xl relative overflow-hidden group hover:-translate-y-2 transition-all duration-500">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-brand-50 rounded-md -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700 opacity-50" />
+            <p className="text-xs font-bold text-brand-300 mb-4">Total Purchases</p>
+            <h4 className="text-4xl font-bold tracking-tight">{(data?.stockAnalysis?.totalPurchases || 0).toLocaleString()} <span className="text-xs text-brand-200 ml-2">Frw</span></h4>
           </div>
-          <div className="bg-emerald-500 rounded-3xl p-6 text-white shadow-lg">
-            <p className="text-sm font-medium opacity-80 uppercase tracking-wider">Net Profit</p>
-            <h4 className="text-3xl font-bold mt-2">{(data?.stockAnalysis?.profit || 0).toLocaleString()} Frw</h4>
+          <div className="bg-emerald-600 rounded-md p-10 text-white shadow-2xl relative overflow-hidden group hover:-translate-y-2 transition-all duration-500">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-md -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+            <p className="text-xs font-bold opacity-60 mb-4">Net Profit</p>
+            <h4 className="text-4xl font-bold tracking-tight">{(data?.stockAnalysis?.profit || 0).toLocaleString()} <span className="text-xs opacity-40 ml-2">Frw</span></h4>
           </div>
         </div>
       </div>

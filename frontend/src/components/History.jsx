@@ -3,7 +3,7 @@ import {
   MdSearch, MdFilterList, MdCalendarToday, MdReceipt,
   MdShoppingCart, MdAttachMoney, MdAccountBalance,
   MdTrendingUp, MdVisibility, MdRefresh, MdDownload,
-  MdOutlineSwapHoriz, MdPendingActions, MdInfo, MdLayers
+  MdOutlineSwapHoriz, MdPendingActions, MdInfo, MdLayers, MdHistory
 } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { backendGqlApi } from '../utils/axiosInstance';
@@ -29,16 +29,16 @@ const History = () => {
       });
 
       if (response.data.errors) {
-        toast.error('audit log retrieval failed');
-        setError('system error: failed to load transactions');
+        toast.error('Audit Log Retrieval Failed');
+        setError('System Error: Failed To Load Transactions');
         return;
       }
 
       const transactionsData = response.data.data.transactions?.data || [];
       setTransactions(transactionsData);
     } catch (err) {
-      setError('network error: failed to load transactions');
-      toast.error('audit log retrieval failed');
+      setError('Network Error: Failed To Load Transactions');
+      toast.error('Audit Log Retrieval Failed');
     } finally {
       setLoading(false);
     }
@@ -82,10 +82,10 @@ const History = () => {
 
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
-      case 'completed': return 'bg-green-500/10 text-green-500 border-green-500/20';
-      case 'pending': return 'bg-amber-400/10 text-amber-400 border-amber-400/20';
-      case 'cancelled': return 'bg-red-500/10 text-red-500 border-red-500/20';
-      default: return 'bg-accent-400/10 text-accent-400 border-accent-400/20';
+      case 'completed': return 'bg-green-500/10 text-green-500 border-green-500/20 rounded-md px-2 py-0.5 text-xs font-bold';
+      case 'pending': return 'bg-amber-400/10 text-amber-400 border-amber-400/20 rounded-md px-2 py-0.5 text-xs font-bold';
+      case 'cancelled': return 'bg-red-500/10 text-red-500 border-red-500/20 rounded-md px-2 py-0.5 text-xs font-bold';
+      default: return 'bg-brand-400/10 text-brand-400 border-brand-400/20 rounded-md px-2 py-0.5 text-xs font-bold';
     }
   };
 
@@ -95,23 +95,23 @@ const History = () => {
 
   if (loading && transactions.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-afacad">
-        <div className="w-16 h-16 border-4 border-gray-100 border-t-chocolate-600 rounded-full animate-spin mb-6"></div>
-        <p className="text-xl font-bold text-black">Retrieving Audit Logs...</p>
+      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist">
+        <div className="w-16 h-16 border-4 border-brand-50 border-t-brand-900 rounded-md animate-spin mb-6"></div>
+        <p className="text-xl font-black text-brand-900 uppercase tracking-widest italic">Retrieving Audit Logs...</p>
       </div>
     );
   }
 
   if (error && transactions.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-40 space-y-6 font-afacad">
-        <div className="p-8 bg-gray-50 rounded-lg border border-gray-100 shadow-sm">
-          <MdInfo className="text-5xl text-black mx-auto mb-4" />
-          <p className="text-xl font-bold text-black">{error}</p>
+      <div className="flex flex-col items-center justify-center py-40 space-y-8 font-Urbanist">
+        <div className="p-10 bg-white rounded-md border border-brand-100 shadow-2xl text-center">
+          <MdInfo className="text-6xl text-brand-200 mx-auto mb-6" />
+          <p className="text-2xl font-black text-brand-900 uppercase tracking-tight">{error}</p>
         </div>
         <button
           onClick={fetchTransactions}
-          className="px-8 py-4 bg-chocolate-600 hover:bg-chocolate-700 text-white rounded-lg font-bold transition-all active:scale-95 shadow-lg"
+          className="px-12 py-5 bg-brand-900 text-white rounded-md font-black uppercase tracking-widest text-xs transition-all active:scale-95 shadow-xl hover:bg-brand-800"
         >
           Retry Connection
         </button>
@@ -120,31 +120,31 @@ const History = () => {
   }
 
   return (
-    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-afacad">
+    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header Section */}
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-white p-10 rounded-lg border border-gray-100 shadow-xl relative overflow-hidden group">
-        <div className="absolute inset-0 bg-gray-50/20 opacity-50 pointer-events-none" />
+      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
         <div className="flex items-center gap-8 relative z-10">
-          <div className="p-5 bg-gray-50 rounded-lg border border-gray-100 shadow-sm group-hover:-rotate-12 transition-all duration-500">
-            <MdHistory className="text-5xl text-black" />
+          <div className="p-5 bg-white/5 rounded-md border border-white/5 shadow-inner transition-transform group-hover:scale-110 duration-500">
+            <MdHistory className="text-5xl text-accent-400" />
           </div>
           <div>
-            <h1 className="text-4xl font-bold text-black leading-none mb-3 tracking-tight">Audit Ledger</h1>
-            <p className="text-gray-500 text-lg font-medium">Comprehensive Archive Of Organizational Transactions</p>
+            <h1 className="text-4xl font-black text-white leading-none mb-3 tracking-tight uppercase">Audit Ledger</h1>
+            <p className="text-brand-300 text-lg font-bold uppercase tracking-widest italic opacity-60">Comprehensive Archive Of Organizational Transactions</p>
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-4 relative z-10">
           <button
             onClick={fetchTransactions}
-            className="p-5 bg-white hover:bg-gray-50 text-gray-400 hover:text-black rounded-lg border border-gray-100 transition-all active:scale-95 shadow-sm group/btn"
-            title="Synchronize Ledgers"
+            className="p-5 bg-white/5 hover:bg-white/10 text-brand-300 hover:text-white rounded-md border border-white/5 transition-all active:scale-95 shadow-sm group/btn"
           >
             <MdRefresh className="text-2xl group-hover/btn:rotate-180 transition-transform duration-700" />
           </button>
           <button
-            className="group/export relative px-10 py-5 bg-chocolate-600 text-white rounded-lg font-bold transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg overflow-hidden text-lg tracking-wide"
+            className="group/export relative px-12 py-5 bg-accent-400 text-brand-950 rounded-md font-black uppercase tracking-widest text-[10px] transition-all hover:scale-105 active:scale-95 shadow-2xl overflow-hidden"
           >
-            <div className="flex items-center gap-3 relative z-10">
+            <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
+            <div className="flex items-center gap-3 relative z-10 font-black">
               <MdDownload className="text-2xl" />
               <span>Export Manifesto</span>
             </div>
@@ -154,58 +154,34 @@ const History = () => {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
-        <SummaryCard
-          icon={MdOutlineSwapHoriz}
-          label="Gross Operations"
-          value={stats.total}
-          trend="Recorded Actions"
-          color="chocolate"
-        />
-        <SummaryCard
-          icon={MdTrendingUp}
-          label="Inbound Revenue"
-          value={`${stats.sales.toLocaleString()} FRW`}
-          trend="Capital Injected"
-          color="green"
-        />
-        <SummaryCard
-          icon={MdAttachMoney}
-          label="Outbound Capital"
-          value={`${stats.purchases.toLocaleString()} FRW`}
-          trend="Capital Expedited"
-          color="red"
-        />
-        <SummaryCard
-          icon={MdAccountBalance}
-          label="Net Standing"
-          value={`${stats.net.toLocaleString()} FRW`}
-          trend="Fiscal Trajectory"
-          color="chocolate-light"
-        />
+        <SummaryCard icon={MdLayers} label="Records Indexed" value={stats.total} trend="Live Dataset" color="accent-400" />
+        <SummaryCard icon={MdTrendingUp} label="Total Inbound" value={`${(stats.sales / 1000000).toFixed(2)}M`} trend="Frw Acquired" color="green-500" />
+        <SummaryCard icon={MdAttachMoney} label="Total Outbound" value={`${(stats.purchases / 1000000).toFixed(2)}M`} trend="Frw Deployed" color="red-500" />
+        <SummaryCard icon={MdAccountBalance} label="Net Strategic Value" value={`${(stats.net / 1000000).toFixed(2)}M`} trend="Fiscal Balance" color="blue-400" />
       </div>
 
       {/* Tactical Console (Filters/Search) */}
-      <div className="bg-white p-10 rounded-lg border border-gray-100 shadow-xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gray-50 rounded-full blur-[100px] -mr-[200px] -mt-[200px] pointer-events-none" />
-        <div className="flex flex-col xl:flex-row gap-8 relative z-10">
-          <div className="flex-1 relative group/search">
-            <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 text-2xl group-focus-within/search:text-black transition-colors duration-300" />
+      <div className="bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-400/5 rounded-md blur-[100px] -mr-[200px] -mt-[200px] pointer-events-none" />
+        <div className="relative z-10 flex flex-col xl:flex-row gap-8 items-center">
+          <div className="flex-1 relative group/search w-full">
+            <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-brand-300 text-2xl group-focus-within/search:text-accent-400 transition-colors duration-300" />
             <input
               type="text"
-              placeholder="Query Internal Records By Identity Or Parameter..."
+              placeholder="Query internal records by identity or parameter..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-16 pr-8 py-5 bg-white border border-gray-100 rounded-lg focus:outline-none focus:ring-4 focus:ring-chocolate-50 text-black placeholder-chocolate-200 transition-all text-lg italic shadow-sm"
+              className="w-full pl-16 pr-8 py-5 bg-white/5 border border-white/5 rounded-md focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 text-white placeholder-brand-300/40 transition-all text-lg font-black uppercase tracking-tight shadow-inner"
             />
           </div>
-          <div className="flex flex-wrap gap-4 bg-gray-50 p-2 rounded-lg border border-gray-100 shadow-sm">
+          <div className="flex flex-wrap gap-4 bg-white/5 p-2 rounded-md border border-white/5 shadow-inner">
             {['all', 'sale', 'purchase'].map((filter) => (
               <button
                 key={filter}
                 onClick={() => setSelectedFilter(filter)}
-                className={`px-10 py-3 rounded-lg font-bold transition-all duration-300 capitalize ${selectedFilter === filter
-                  ? 'bg-chocolate-600 text-white shadow-lg tracking-wide'
-                  : 'text-gray-400 hover:text-black hover:bg-white'
+                className={`px-10 py-3 rounded-md font-black transition-all duration-300 uppercase tracking-widest text-[10px] ${selectedFilter === filter
+                  ? 'bg-accent-400 text-brand-950 shadow-xl'
+                  : 'text-brand-300 hover:text-white hover:bg-white/10'
                   }`}
               >
                 {filter === 'all' ? 'Global' : filter}
@@ -216,14 +192,16 @@ const History = () => {
       </div>
 
       {/* Main Ledger Table */}
-      <div className="bg-white border border-gray-100 rounded-lg shadow-xl overflow-hidden group/table relative">
-        <div className="p-10 border-b border-chocolate-50 flex items-center justify-between relative overflow-hidden">
-          <div className="absolute inset-0 bg-gray-50/10 pointer-events-none" />
-          <div className="flex items-center gap-4 relative z-10">
-            <MdLayers className="text-3xl text-black" />
-            <h2 className="text-2xl font-bold text-black shadow-sm">Transaction Records</h2>
+      <div className="bg-brand-900 border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
+        <div className="p-10 border-b border-white/5 flex items-center justify-between relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
+          <div className="flex items-center gap-6 relative z-10">
+            <div className="p-3 bg-white/5 rounded-md text-accent-400 border border-white/5 shadow-lg">
+              <MdLayers className="text-2xl" />
+            </div>
+            <h2 className="text-3xl font-black text-white uppercase tracking-tight">Transaction Records</h2>
           </div>
-          <div className="px-6 py-2.5 bg-gray-50 border border-gray-100 shadow-sm rounded-full text-xs font-bold text-black uppercase tracking-widest relative z-10">
+          <div className="px-6 py-2.5 bg-white/5 border border-white/5 shadow-inner rounded-md text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] relative z-10">
             Displaying {filteredTransactions.length} Operations
           </div>
         </div>
@@ -231,31 +209,31 @@ const History = () => {
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-gray-50/50 border-b border-chocolate-50">
-                <th className="px-10 py-6 text-left text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] w-32">Classification</th>
-                <th className="px-10 py-6 text-left text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">Description / Payload</th>
-                <th className="px-10 py-6 text-left text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">Financial Volume</th>
-                <th className="px-10 py-6 text-left text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">Temporal Marker</th>
-                <th className="px-10 py-6 text-center text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">Entity Protocol</th>
+              <tr className="bg-white/5">
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] w-40">Classification</th>
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Description / Payload</th>
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Financial Volume</th>
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Temporal Marker</th>
+                <th className="px-10 py-6 text-center text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Entity Protocol</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-chocolate-50">
+            <tbody className="divide-y divide-white/5">
               {filteredTransactions.length > 0 ? (
                 filteredTransactions.map((transaction) => (
                   <tr
                     key={transaction.id}
-                    className="hover:bg-gray-50/30 transition-colors cursor-pointer group/row relative"
+                    className="hover:bg-white/[0.03] transition-all cursor-pointer group/row relative"
                     onClick={() => handleTransactionClick(transaction)}
                   >
                     <td className="px-10 py-8 relative">
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-chocolate-600 group-hover/row:h-1/2 transition-all duration-300 rounded-r-full" />
-                      <div className="flex items-center gap-4">
-                        <div className={`p-4 rounded-lg border transition-all duration-300 group-hover/row:scale-110 shadow-md ${transaction.type?.toLowerCase() === 'sale' ? 'bg-green-50 border-green-100 text-green-700'
-                          : 'bg-red-50 border-red-100 text-red-700'
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-0 bg-accent-400 group-hover/row:h-1/2 transition-all duration-300 rounded-md" />
+                      <div className="flex items-center gap-5">
+                        <div className={`p-4 rounded-md border transition-all duration-300 group-hover/row:scale-110 shadow-lg ${transaction.type?.toLowerCase() === 'sale' ? 'bg-green-500/10 border-green-500/20 text-green-500'
+                          : 'bg-red-500/10 border-red-500/20 text-red-500'
                           }`}>
                           {getTypeIcon(transaction.type)}
                         </div>
-                        <span className={`text-sm font-bold capitalize ${transaction.type?.toLowerCase() === 'sale' ? 'text-green-600' : 'text-red-600'
+                        <span className={`text-[10px] font-black uppercase tracking-widest ${transaction.type?.toLowerCase() === 'sale' ? 'text-green-500' : 'text-red-500'
                           }`}>
                           {transaction.type}
                         </span>
@@ -263,31 +241,31 @@ const History = () => {
                     </td>
                     <td className="px-10 py-8">
                       <div className="max-w-md">
-                        <p className="text-base font-bold text-black group-hover/row:text-black transition-colors leading-tight line-clamp-2">
+                        <p className="text-lg font-black text-white group-hover/row:text-accent-400 transition-colors leading-tight uppercase tracking-tight line-clamp-2">
                           {transaction.products?.map(p => p.name).join(' + ') || transaction.description || 'Unidentified Payload'}
                         </p>
-                        <p className="text-[10px] font-bold text-gray-300 mt-2 uppercase tracking-widest">
-                          ID Hash: {transaction.id?.slice(-8)}
+                        <p className="text-[10px] font-black text-brand-300 mt-2 uppercase tracking-widest italic leading-none opacity-40">
+                          Reference Hash: {transaction.id?.slice(-12)}
                         </p>
                       </div>
                     </td>
                     <td className="px-10 py-8">
                       <div className="flex flex-col">
-                        <span className="text-xl font-bold text-black tracking-tighter">
-                          {(transaction.financials?.reduce((acc, f) => acc + (f.amount || 0), 0) || 0).toLocaleString()} <span className="text-[10px] text-gray-400 tracking-widest uppercase ml-1 select-none">FRW</span>
+                        <span className="text-2xl font-black text-white tracking-tighter uppercase">
+                          {(transaction.financials?.reduce((acc, f) => acc + (f.amount || 0), 0) || 0).toLocaleString()} <span className="text-[10px] text-brand-300 tracking-[0.2em] uppercase ml-2 opacity-40 italic">Frw</span>
                         </span>
                       </div>
                     </td>
                     <td className="px-10 py-8">
-                      <div className="flex items-center gap-4">
-                        <div className="p-3 bg-gray-50 rounded-lg border border-gray-100 opacity-50 group-hover/row:opacity-100 transition-opacity">
-                          <MdCalendarToday className="text-gray-400 text-lg group-hover/row:text-black transition-colors" />
+                      <div className="flex items-center gap-5">
+                        <div className="p-3 bg-white/5 rounded-md border border-white/5 opacity-50 group-hover/row:opacity-100 group-hover/row:shadow-xl transition-all">
+                          <MdCalendarToday className="text-brand-300 text-xl group-hover/row:text-white transition-colors" />
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-black">
+                          <p className="text-sm font-black text-white uppercase tracking-widest italic">
                             {transaction.createdAt ? new Date(transaction.createdAt).toLocaleDateString() : 'Chronology Error'}
                           </p>
-                          <p className="text-[10px] font-bold text-gray-400 mt-1 capitalize">
+                          <p className="text-[10px] font-black text-brand-300 mt-1 uppercase tracking-widest opacity-40">
                             {transaction.createdAt ? formatDistanceToNow(new Date(transaction.createdAt), { addSuffix: true }) : ''}
                           </p>
                         </div>
@@ -295,11 +273,11 @@ const History = () => {
                     </td>
                     <td className="px-10 py-8 text-center">
                       <div className="inline-flex items-center justify-center relative">
-                        <span className="text-sm font-bold text-gray-500 bg-gray-50 border border-gray-100 px-4 py-2 rounded-lg shadow-sm group-hover/row:bg-white group-hover/row:text-black transition-all">
+                        <span className="text-[10px] font-black text-brand-300 bg-white/5 border border-white/5 px-6 py-3 rounded-md shadow-inner group-hover/row:bg-accent-400 group-hover/row:text-brand-950 group-hover/row:shadow-xl transition-all uppercase tracking-[0.2em] italic">
                           {transaction.secondParty || 'Internal Protocol'}
                         </span>
-                        <div className="absolute -right-12 opacity-0 group-hover/row:opacity-100 group-hover/row:-right-4 transition-all duration-300 bg-chocolate-600 p-2 rounded-lg shadow-lg translate-x-4 group-hover/row:translate-x-0">
-                          <MdVisibility className="text-white text-lg" />
+                        <div className="absolute -right-16 opacity-0 group-hover/row:opacity-100 group-hover/row:-right-8 transition-all duration-500 bg-accent-400 text-brand-950 p-3 rounded-md shadow-2xl translate-x-10 group-hover/row:translate-x-0">
+                          <MdVisibility className="text-xl" />
                         </div>
                       </div>
                     </td>
@@ -307,22 +285,13 @@ const History = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="px-10 py-32">
-                    <div className="flex flex-col items-center justify-center space-y-6 text-center">
-                      <div className="relative group">
-                        <div className="absolute inset-0 bg-chocolate-100/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-700 opacity-50" />
-                        <div className="relative p-8 bg-white rounded-full border border-gray-100 shadow-xl">
-                          <MdReceipt className="text-6xl text-chocolate-100 group-hover:text-black transition-colors duration-500" />
-                        </div>
+                  <td colSpan="5" className="px-10 py-32 text-center">
+                    <div className="max-w-md mx-auto space-y-6">
+                      <div className="p-8 bg-white/5 rounded-md border border-white/5 w-fit mx-auto">
+                        <MdReceipt className="text-6xl text-brand-300 opacity-20" />
                       </div>
-                      <div>
-                        <h3 className="text-2xl font-bold text-black mb-2 tracking-tight">Void Repository</h3>
-                        <p className="text-gray-500 font-medium max-w-sm mx-auto leading-relaxed">
-                          {searchTerm || selectedFilter !== 'all'
-                            ? 'The specific operational parameters yielded zero recorded matches.'
-                            : 'The ledger remains pristine. Initiate protocols to generate initial records.'}
-                        </p>
-                      </div>
+                      <p className="text-2xl font-black text-white uppercase tracking-tighter">Void Repository</p>
+                      <p className="text-[10px] text-brand-300 font-black uppercase tracking-widest italic opacity-40">The specific operational parameters yielded zero recorded matches.</p>
                     </div>
                   </td>
                 </tr>
@@ -338,32 +307,30 @@ const History = () => {
 // Tactical Summary Component
 const SummaryCard = ({ icon: Icon, label, value, trend, color }) => {
   const colorMap = {
-    'chocolate': 'text-black bg-gray-50 border-gray-100 shadow-chocolate-100/20 from-chocolate-600',
-    'green': 'text-green-700 bg-green-50 border-green-100 shadow-green-100/20 from-green-600',
-    'red': 'text-red-700 bg-red-50 border-red-100 shadow-red-100/20 from-red-600',
-    'chocolate-light': 'text-gray-400 bg-gray-50/50 border-chocolate-50 shadow-chocolate-50/20 from-chocolate-400',
+    'accent-400': 'text-accent-400 bg-accent-400/10 border-accent-400/20 from-accent-400',
+    'green-500': 'text-green-500 bg-green-500/10 border-green-500/20 from-green-500',
+    'red-500': 'text-red-500 bg-red-500/10 border-red-500/20 from-red-500',
+    'blue-400': 'text-blue-400 bg-blue-400/10 border-blue-400/20 from-blue-400',
   };
 
-  const selectedColor = colorMap[color] || colorMap['chocolate'];
-  const [textColor, bgStyle, borderStyle, shadowStyle, gradStyle] = selectedColor.split(' ');
+  const selectedColor = colorMap[color] || colorMap['accent-400'];
+  const [textColor, bgStyle, borderStyle, gradStyle] = selectedColor.split(' ');
 
   return (
-    <div className="group bg-white p-10 rounded-lg border border-gray-100 shadow-xl relative overflow-hidden transition-all duration-500 hover:shadow-2xl">
-      <div className={`absolute top-0 right-0 w-48 h-48 rounded-full blur-[60px] opacity-10 -mr-24 -mt-24 transition-transform duration-700 group-hover:scale-150 ${bgStyle}`} />
-      <div className={`absolute left-0 top-0 w-1.5 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50 group-hover:opacity-100 transition-opacity`} />
-
+    <div className="group bg-brand-900 p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
+      <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50`} />
       <div className="relative z-10 flex flex-col h-full justify-between gap-10">
         <div className="flex items-center justify-between">
-          <div className={`p-5 rounded-lg border ${bgStyle} ${borderStyle} ${textColor} shadow-sm group-hover:scale-110 group-hover:rotate-[10deg] transition-all duration-500`}>
+          <div className={`p-5 rounded-md border ${bgStyle} ${borderStyle} ${textColor} shadow-inner group-hover:scale-110 duration-500`}>
             <Icon className="text-3xl" />
           </div>
-          <span className={`text-[10px] font-bold ${textColor} uppercase bg-white px-4 py-2 rounded-full border ${borderStyle} shadow-sm`}>
+          <span className={`text-[10px] font-black ${textColor} uppercase italic bg-white/5 px-4 py-2 rounded-md border border-white/5 shadow-inner tracking-widest`}>
             {trend}
           </span>
         </div>
         <div>
-          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-3">{label}</p>
-          <p className="text-4xl font-bold text-black tracking-tighter leading-none">{value}</p>
+          <p className="text-[10px] font-black text-brand-300 tracking-[0.2em] mb-3 uppercase italic opacity-60">{label}</p>
+          <p className="text-4xl font-black text-white uppercase tracking-tighter leading-none">{value}</p>
         </div>
       </div>
     </div>

@@ -71,20 +71,53 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Afacad', sans-serif;
+  font-family: 'Urbanist', sans-serif;
+  scroll-behavior: smooth;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-glass-card {
+  background: rgba(11, 11, 16, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.section-padding {
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+.text-gradient-navy {
+  background: linear-gradient(135deg, #09111E 0%, #667C9B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 :root,
 body,
 html {
-  font-family: 'Afacad', sans-serif;
+  font-family: 'Urbanist', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #ffffff;
-  color: #000000;
+  color: #09111E;
 }
 
-/* Ensure all elements inherit Afacad */
+/* Ensure all elements inherit Urbanist */
 h1,
 h2,
 h3,
@@ -103,7 +136,38 @@ label,
 li,
 td,
 th {
-  font-family: 'Afacad', sans-serif;
+  font-family: 'Urbanist', sans-serif;
+}
+
+/* Global Placeholder Visibility Fix - High Contrast */
+::placeholder {
+  color: #09111E;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+::-webkit-input-placeholder {
+  color: #09111E;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+::-moz-placeholder {
+  color: #09111E;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+:-ms-input-placeholder {
+  color: #09111E;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+::-ms-input-placeholder {
+  color: #09111E;
+  opacity: 0.8;
+  font-weight: 500;
 }
 
 
@@ -133,4 +197,53 @@ th {
 .content-scroll {
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+/* Modern Decorative Backgrounds */
+.bg-dot-pattern {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-dot-pattern-light {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.bg-grid-pattern {
+  background-image: linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.bg-grid-pattern-dark {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glow-effect {
+  position: relative;
+}
+
+.glow-effect::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(251, 191, 36, 0.1) 0%,
+      transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.glow-effect:hover::after {
+  opacity: 1;
 }

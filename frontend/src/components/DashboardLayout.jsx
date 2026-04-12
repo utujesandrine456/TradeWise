@@ -91,14 +91,14 @@ const DashboardLayout = () => {
     }));
 
   const tabs = [
-    { id: 'dashboard', name: 'dashboard', icon: <MdDashboard /> },
-    { id: 'stock', name: 'stock', icon: <MdStorage /> },
-    { id: 'history', name: 'history', icon: <MdHistory /> },
-    { id: 'buying', name: 'buying products', icon: <MdShoppingBag /> },
-    { id: 'selling', name: 'selling products', icon: <MdAttachMoney /> },
-    { id: 'notification', name: 'notification', icon: <MdNotifications /> },
-    { id: 'credits', name: 'credits/debit', icon: <MdCreditCard /> },
-    { id: 'profile', name: 'profile', icon: <CgProfile /> },
+    { id: 'dashboard', name: 'Dashboard', icon: <MdDashboard /> },
+    { id: 'stock', name: 'Stock', icon: <MdStorage /> },
+    { id: 'history', name: 'History', icon: <MdHistory /> },
+    { id: 'buying', name: 'Buying Products', icon: <MdShoppingBag /> },
+    { id: 'selling', name: 'Selling Products', icon: <MdAttachMoney /> },
+    { id: 'notification', name: 'Notification', icon: <MdNotifications /> },
+    { id: 'credits', name: 'Credits/Debit', icon: <MdCreditCard /> },
+    { id: 'profile', name: 'Profile', icon: <CgProfile /> },
   ];
 
   const handleLogout = async (e) => {
@@ -160,7 +160,7 @@ const DashboardLayout = () => {
     if (isSearchingTransaction) {
       return (
         <div className="flex items-center justify-center h-40">
-          <span className="text-gray-600 text-lg lowercase italic">fetching transaction records...</span>
+          <span className="text-brand-400 text-lg font-bold italic uppercase tracking-widest">Fetching Transaction Records...</span>
         </div>
       );
     }
@@ -179,11 +179,11 @@ const DashboardLayout = () => {
   };
 
   return (
-    <div className="flex h-screen bg-[#fdfcfb] text-black overflow-hidden font-afacad selection:bg-chocolate-100 selection:text-black">
+    <div className="flex h-screen bg-[#fdfcfb] text-black overflow-hidden font-Urbanist selection:bg-brand-100 selection:text-black">
       {/* mobile menu overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-chocolate-900/60 z-40 lg:hidden backdrop-blur-sm transition-all"
+          className="fixed inset-0 bg-brand-900/60 z-40 lg:hidden backdrop-blur-sm transition-all"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
@@ -192,18 +192,18 @@ const DashboardLayout = () => {
       <div className={`
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0 fixed lg:static inset-y-0 left-0 z-50
-        w-72 flex flex-col border-r border-chocolate-100 transition-transform duration-500 ease-in-out bg-white shadow-xl
+        w-72 flex flex-col border-r border-brand-100 transition-transform duration-500 ease-in-out bg-white shadow-xl
       `}>
-        <div className="p-8 border-b border-chocolate-50 flex items-center justify-between">
+        <div className="p-8 border-b border-brand-50 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-lg overflow-hidden shadow-md border border-chocolate-100 bg-chocolate-50 p-1">
+            <div className="w-10 h-10 rounded-md overflow-hidden shadow-md border border-brand-100 bg-brand-50 p-1">
               <img src={images.logo} alt="logo" className="w-full h-full object-contain" />
             </div>
-            <h1 className="text-2xl font-bold text-black">TradeWise</h1>
+            <h1 className="text-2xl font-black text-brand-900 uppercase tracking-tight">Stocka</h1>
           </div>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="lg:hidden text-black hover:text-black p-2 bg-chocolate-50 rounded-lg border border-chocolate-100"
+            className="lg:hidden text-brand-900 hover:text-brand-700 p-2 bg-brand-50 rounded-md border border-brand-100 transition-colors"
           >
             <MdClose size={20} />
           </button>
@@ -220,15 +220,15 @@ const DashboardLayout = () => {
                       setActiveTab(tab.id);
                       setIsMobileMenuOpen(false);
                     }}
-                    className={`w-full flex items-center py-4 px-6 rounded-lg transition-all duration-300 group ${activeTab === tab.id
-                      ? 'bg-chocolate-600 text-white shadow-lg shadow-chocolate-100'
-                      : 'text-black hover:text-black hover:bg-chocolate-50'
+                    className={`w-full flex items-center py-4 px-6 rounded-md transition-all duration-300 group ${activeTab === tab.id
+                      ? 'bg-brand-900 text-white shadow-xl shadow-brand-100 scale-[1.02]'
+                      : 'text-brand-500 hover:text-brand-900 hover:bg-brand-50'
                       }`}
                   >
-                    <span className={`mr-4 text-xl ${activeTab === tab.id ? 'text-white' : 'group-hover:text-black transition-colors'}`}>
+                    <span className={`mr-4 text-xl ${activeTab === tab.id ? 'text-white' : 'group-hover:text-brand-900 transition-colors'}`}>
                       {tab.icon}
                     </span>
-                    <span className="text-lg font-bold">{tabNameFormatted}</span>
+                    <span className="text-sm font-black uppercase tracking-widest">{tab.name}</span>
                   </button>
                 </li>
               );
@@ -236,13 +236,13 @@ const DashboardLayout = () => {
           </ul>
         </nav>
 
-        <div className="p-8 border-t border-chocolate-50">
+        <div className="p-8 border-t border-brand-50">
           <button
             onClick={handleLogout}
             disabled={isLoading}
-            className="w-full flex items-center py-5 px-6 text-black bg-chocolate-50 hover:bg-chocolate-100 rounded-lg transition-all duration-300 font-bold border border-chocolate-200 active:scale-95 disabled:opacity-50"
+            className="w-full flex items-center py-5 px-6 text-brand-900 bg-brand-50 hover:bg-brand-100 rounded-md transition-all duration-300 font-black uppercase tracking-widest text-xs border border-brand-200 active:scale-95 disabled:opacity-50"
           >
-            <MdLogout className="mr-4 text-xl text-black" />
+            <MdLogout className="mr-4 text-xl text-brand-900" />
             <span>{isLoading ? 'Processing...' : 'Terminate Session'}</span>
           </button>
         </div>
@@ -250,20 +250,20 @@ const DashboardLayout = () => {
 
       {/* main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 p-10 bg-white border-b border-chocolate-50 shadow-sm relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-chocolate-600 opacity-50" />
+        <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 p-10 bg-white border-b border-brand-50 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-brand-600 opacity-50" />
           <div className="flex items-center gap-6 relative z-10">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden text-black hover:text-black p-3 bg-chocolate-50 rounded-lg border border-chocolate-100 transition-all"
+              className="lg:hidden text-brand-900 hover:text-brand-700 p-3 bg-brand-50 rounded-md border border-brand-100 transition-all font-bold"
             >
               <MdMenu size={24} />
             </button>
             <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-black leading-tight">
-                Welcome Back, <span className="text-black">{user?.enterpriseName || 'Enterprise'}!</span>
+              <h2 className="text-3xl lg:text-4xl font-black text-brand-900 leading-tight uppercase tracking-tight">
+                Welcome Back, <span className="text-brand-900">{user?.enterpriseName || 'Enterprise'}!</span>
               </h2>
-              <p className="text-gray-400 text-sm mt-1 font-medium capitalize">
+              <p className="text-brand-400 text-[10px] font-black uppercase tracking-[0.2em] mt-2 italic">
                 Monitor Performance, Audit Records, And Optimize Operations.
               </p>
             </div>
@@ -272,16 +272,16 @@ const DashboardLayout = () => {
           <div className="flex items-center gap-6 relative z-10">
             <div className="flex items-center gap-4">
               <button
-                className="p-4 text-black hover:text-black bg-chocolate-50 rounded-lg border border-chocolate-100 transition-all hover:shadow-md"
+                className="p-4 text-brand-900 hover:bg-brand-100 bg-brand-50 rounded-md border border-brand-100 transition-all hover:shadow-md"
                 onClick={() => navigate('/')}
                 title="Landing Page"
               >
                 <MdHome size={24} />
               </button>
               <button
-                className={`p-4 rounded-lg border transition-all hover:shadow-md ${activeTab === 'profile'
-                  ? 'bg-chocolate-600 text-white border-chocolate-600'
-                  : 'text-black hover:text-black bg-chocolate-50 border-chocolate-100'
+                className={`p-4 rounded-md border transition-all hover:shadow-md ${activeTab === 'profile'
+                  ? 'bg-brand-900 text-white border-brand-900 shadow-xl'
+                  : 'text-brand-900 hover:bg-brand-100 bg-brand-50 border-brand-100'
                   }`}
                 onClick={() => setActiveTab('profile')}
                 title="User Profile"
@@ -290,40 +290,40 @@ const DashboardLayout = () => {
               </button>
             </div>
 
-            <div className="w-px h-10 bg-chocolate-100 hidden sm:block" />
+            <div className="w-px h-10 bg-brand-100 hidden sm:block" />
 
             <div className="relative" ref={notificationRef}>
               <button
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="p-4 text-black hover:text-black bg-chocolate-50 rounded-lg border border-chocolate-100 transition-all hover:shadow-md relative group"
+                className="p-4 text-brand-900 hover:bg-brand-100 bg-brand-50 rounded-md border border-brand-100 transition-all hover:shadow-md relative group/bell"
               >
                 <MdNotifications size={24} className={isConnected ? '' : 'opacity-30'} />
                 <span
-                  className={`absolute top-4 right-4 w-2.5 h-2.5 rounded-full ring-4 ring-white ${isConnected ? 'bg-green-500 shadow-sm' : 'bg-red-500'}`}
+                  className={`absolute top-4 right-4 w-2.5 h-2.5 rounded-md ring-4 ring-white ${isConnected ? 'bg-emerald-500 shadow-sm' : 'bg-red-500'}`}
                 />
                 {notifications.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-chocolate-600 text-white text-[10px] font-bold rounded-lg h-5 px-2 flex items-center justify-center border-2 border-white animate-bounce">
+                  <span className="absolute -top-1 -right-1 bg-brand-900 text-white text-[10px] font-black rounded-md h-5 px-2 flex items-center justify-center border-2 border-white animate-bounce">
                     {notifications.length > 9 ? '9+' : notifications.length}
                   </span>
                 )}
               </button>
 
               {showNotifications && (
-                <div className="absolute right-0 mt-6 w-96 bg-white border border-chocolate-100 rounded-lg shadow-2xl z-[100] overflow-hidden animate-in fade-in zoom-in duration-300">
+                <div className="absolute right-0 mt-6 w-96 bg-white border border-brand-100 rounded-md shadow-2xl z-[100] overflow-hidden animate-in fade-in zoom-in duration-300">
                   <div className="p-2" onClick={(e) => e.stopPropagation()}>
-                    <div className="px-8 py-6 border-b border-chocolate-50 flex items-center justify-between bg-chocolate-50/30">
-                      <div className="flex items-center gap-3">
-                        <MdNotifications className="text-black text-xl" />
-                        <h3 className="text-xl font-bold text-black leading-none">Notifications</h3>
+                    <div className="px-8 py-6 border-b border-brand-50 flex items-center justify-between bg-brand-50/50">
+                      <div className="flex items-center gap-4">
+                        <MdNotifications className="text-brand-900 text-xl" />
+                        <h3 className="text-lg font-black text-brand-900 uppercase tracking-tight">Notifications</h3>
                       </div>
-                      <span className="text-[10px] bg-chocolate-50 px-4 py-1.5 rounded-full text-black font-bold">{notifications.length} New Records</span>
+                      <span className="text-[10px] bg-brand-900 px-4 py-1.5 rounded-md text-white font-black uppercase tracking-widest">{notifications.length} New Records</span>
                     </div>
                     <div className="max-h-[30rem] overflow-y-auto custom-scrollbar">
                       {notifications.length > 0 ? (
                         notifications.map((notification) => (
                           <div
                             key={notification.id}
-                            className="px-8 py-7 hover:bg-chocolate-50 cursor-pointer border-b border-chocolate-50 last:border-b-0 transition-all group"
+                            className="px-8 py-7 hover:bg-brand-50 cursor-pointer border-b border-brand-50 last:border-b-0 transition-all group"
                             onClick={() => {
                               markNotificationAsRead(notification.id);
                               setShowNotifications(false);
@@ -331,14 +331,14 @@ const DashboardLayout = () => {
                           >
                             <div className="flex gap-6">
                               <div className="mt-2.5 flex-shrink-0">
-                                <div className={`w-3.5 h-3.5 rounded-full ring-4 ring-white shadow-sm ${notification.priority === 'high' ? 'bg-red-500' : notification.priority === 'medium' ? 'bg-chocolate-400' : 'bg-chocolate-200'}`}></div>
+                                <div className={`w-3 h-3 rounded-md ring-4 ring-white shadow-sm ${notification.priority === 'high' ? 'bg-red-500' : notification.priority === 'medium' ? 'bg-brand-400' : 'bg-brand-200'}`}></div>
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className="text-base font-bold text-black group-hover:text-black transition-colors leading-tight truncate">{notification.title}</p>
-                                <p className="text-sm text-gray-500 mt-2 line-clamp-2 leading-relaxed">{notification.message}</p>
-                                <div className="flex items-center gap-2 mt-4 opacity-60">
-                                  <MdHistory className="text-xs text-gray-400" />
-                                  <p className="text-[10px] font-bold text-gray-400 capitalize">{notification.timeAgo?.toLowerCase()}</p>
+                                <p className="text-base font-black text-brand-900 group-hover:text-brand-900 transition-colors leading-tight truncate uppercase tracking-tight">{notification.title}</p>
+                                <p className="text-sm text-brand-500 mt-2 font-bold line-clamp-2 leading-relaxed italic">{notification.message}</p>
+                                <div className="flex items-center gap-2 mt-4 opacity-100">
+                                  <MdHistory className="text-xs text-brand-300" />
+                                  <p className="text-[10px] font-black text-brand-300 uppercase tracking-widest">{notification.timeAgo}</p>
                                 </div>
                               </div>
                             </div>
@@ -346,20 +346,20 @@ const DashboardLayout = () => {
                         ))
                       ) : (
                         <div className="px-8 py-20 text-center flex flex-col items-center gap-4">
-                          <div className="bg-chocolate-50 p-6 rounded-lg">
-                            <MdNotifications className="text-4xl text-chocolate-200" />
+                          <div className="bg-brand-50 p-6 rounded-md">
+                            <MdNotifications className="text-4xl text-brand-200" />
                           </div>
-                          <p className="text-gray-400 font-bold italic">Workspace Inbox Is Empty</p>
+                          <p className="text-brand-300 font-black uppercase tracking-widest text-[10px] italic">Workspace Inbox Is Empty</p>
                         </div>
                       )}
                     </div>
-                    <div className="p-8 bg-chocolate-50/30 border-t border-chocolate-50">
+                    <div className="p-8 bg-brand-50/30 border-t border-brand-50">
                       <button
                         onClick={() => {
                           setActiveTab('notification');
                           setShowNotifications(false);
                         }}
-                        className="w-full py-5 text-sm text-white bg-chocolate-600 hover:bg-chocolate-700 rounded-lg transition-all font-bold shadow-lg active:scale-95"
+                        className="w-full py-5 text-xs text-white bg-brand-900 hover:bg-brand-800 rounded-md transition-all font-black uppercase tracking-widest shadow-xl active:scale-95"
                       >
                         Access Audit Logs
                       </button>

@@ -123,14 +123,13 @@ const CreditsDebit = () => {
       setIsConfirmPaidOpen(false);
       setFinancialToMarkPaid(null);
       setConfirmPaidText('');
-      fetchFinancials(); // Refresh the data
+      fetchFinancials();
     } catch (error) {
       console.error('Error marking financial as paid:', error);
-      toast.error('Failed to mark financial as paid');
+      toast.error('Failed To Mark Financial As Paid');
     }
   };
 
-  // Handle update financial
   const handleUpdateFinancial = async (updatedFinancial) => {
     try {
       const response = await backendGqlApi.post('/graphql', {
@@ -152,10 +151,10 @@ const CreditsDebit = () => {
       }
 
       toast.success('Financial updated successfully!');
-      fetchFinancials(); // Refresh the data
+      fetchFinancials(); 
     } catch (error) {
       console.error('Error updating financial:', error);
-      toast.error('Failed to update financial');
+      toast.error('Failed To Update Financial');
     }
   };
 
@@ -169,9 +168,7 @@ const CreditsDebit = () => {
 
   const filteredTransactions = useMemo(() =>
     financials.filter(t => {
-      // Filter by type
       const typeMatch = selectedFilter === 'all' || t.type.toLowerCase() === selectedFilter;
-      // Filter by search term (description)
       const searchMatch = searchTerm === '' || t.description.toLowerCase().includes(searchTerm.toLowerCase());
       return typeMatch && searchMatch;
     }), [financials, selectedFilter, searchTerm]
@@ -179,13 +176,11 @@ const CreditsDebit = () => {
 
   const visibleTransactions = filteredTransactions.slice(0, visibleCount);
 
-  // Debounced search handler
   const debouncedSearch = useMemo(
     () => debounce((value) => setSearchTerm(value), 300),
     []
   );
 
-  // Infinite scroll handler
   const handleScroll = throttle(() => {
     const bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 2;
     if (bottom && visibleCount < filteredTransactions.length) {
@@ -210,10 +205,10 @@ const CreditsDebit = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'completed': return 'bg-green-100 text-green-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'cancelled': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'completed': return 'bg-green-100 text-green-800 rounded-md';
+      case 'pending': return 'bg-yellow-100 text-yellow-800 rounded-md';
+      case 'cancelled': return 'bg-red-100 text-red-800 rounded-md';
+      default: return 'bg-brand-50 text-brand-700 rounded-md';
     }
   };
 
@@ -227,76 +222,68 @@ const CreditsDebit = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-40">
-        <span className="text-gray-600 text-lg">Loading financial data...</span>
+      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist">
+        <div className="w-16 h-16 border-4 border-brand-50 border-t-brand-900 rounded-md animate-spin mb-6"></div>
+        <p className="text-xl font-black text-brand-900 uppercase tracking-widest italic">Synchronizing Financial Data...</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-10 relative">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 bg-white border border-gray-100 shadow-xl">
-        <div>
-          <h2 className="text-3xl font-bold text-black lowercase">financial management</h2>
-          <p className="text-gray-500 font-medium mt-1">track your credits, debits, and financial transactions with absolute clarity</p>
+    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-10 bg-brand-900 border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
+        <div className="relative z-10">
+          <h2 className="text-4xl font-black text-white uppercase tracking-tight">Financial Management</h2>
+          <p className="text-brand-300 font-bold mt-2 uppercase tracking-widest text-[10px] italic opacity-60">Strategic Oversight Of Universal Credits, Debits, And Fiscal Assets</p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 relative z-10">
           <button
             onClick={() => setIsFinancialFormOpen(true)}
-            className="group relative px-8 py-4 bg-black text-white hover:bg-gray-800 transition-all shadow-lg"
+            className="group relative px-12 py-5 bg-accent-400 text-brand-950 font-black uppercase tracking-widest text-[10px] rounded-md shadow-2xl overflow-hidden hover:scale-105 transition-all active:scale-95"
           >
-            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-            <div className="flex items-center gap-2 relative z-10">
-              <MdAdd className="text-xl" />
-              <span>new financial record</span>
+            <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+            <div className="flex items-center gap-3 relative z-10">
+              <MdAdd className="text-2xl" />
+              <span>Initialize Fiscal Protocol</span>
             </div>
           </button>
         </div>
       </div>
 
       {/* Financial Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {[
-          { label: 'total credits', value: `${(totalCredits / 1000000).toFixed(1)}M`, icon: <MdTrendingDown />, color: 'red' },
-          { label: 'total debits', value: `${(totalDebits / 1000000).toFixed(1)}M`, icon: <MdTrendingUp />, color: 'green' },
-          { label: 'net balance', value: `${(netBalance / 1000000).toFixed(1)}M`, icon: <MdAccountBalanceWallet />, color: netBalance >= 0 ? 'accent' : 'red' },
-          { label: 'total activities', value: financials.length, icon: <MdReceipt />, color: 'accent' }
-        ].map((stat, i) => (
-          <div key={i} className="bg-white border border-gray-100 shadow-xl">
-            <div className="flex items-center justify-between relative z-10">
-              <div>
-                <p className="text-sm font-bold text-gray-400 lowercase italic mb-1">{stat.label}</p>
-                <p className={`text-3xl font-bold ${stat.color === 'red' && i === 2 ? 'text-red-500' : 'text-black'}`}>{stat.value}</p>
-              </div>
-              <div className={`p-4 rounded-2xl ${stat.color === 'red' ? 'bg-red-500/10 text-red-500' : stat.color === 'green' ? 'bg-green-500/10 text-green-500' : 'bg-accent-400/10 text-accent-400'} border border-white/5`}>
-                <stat.icon.type className="h-8 w-8" />
-              </div>
-            </div>
-            <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-transparent via-accent-400/20 to-transparent w-full scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
-          </div>
-        ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+        <SummaryCard icon={MdTrendingDown} label="Total Outbound" value={`${(totalCredits / 1000000).toFixed(2)}M`} trend="Credit Assets" color="red-500" />
+        <SummaryCard icon={MdTrendingUp} label="Total Inbound" value={`${(totalDebits / 1000000).toFixed(2)}M`} trend="Debit Assets" color="green-500" />
+        <SummaryCard icon={MdAccountBalanceWallet} label="Net Strategic Value" value={`${(netBalance / 1000000).toFixed(2)}M`} trend="Fiscal Equilibrium" color={netBalance >= 0 ? 'green-500' : 'red-500'} />
+        <SummaryCard icon={MdReceipt} label="Active Protocols" value={financials.length} trend="Total Records" color="accent-400" />
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white border border-gray-100 shadow-xl p-8">
-        <h3 className="text-xl font-bold text-black lowercase mb-8">quick actions</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="bg-brand-900 border border-white/5 shadow-2xl p-10 rounded-md relative overflow-hidden group/actions">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-400/5 rounded-md blur-[120px] -mr-[300px] -mt-[300px] pointer-events-none" />
+        <h3 className="text-2xl font-black text-white mb-10 uppercase tracking-tighter relative z-10">Operational Tactical Protocols</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
           {[
-            { label: 'record credit', sub: 'add incoming payment', icon: <MdTrendingUp />, color: 'green' },
-            { label: 'record debit', sub: 'add outgoing payment', icon: <MdTrendingDown />, color: 'red' },
-            { label: 'financial reports', sub: 'generate detailed reports', icon: <MdAttachMoney />, color: 'accent' }
+            { label: 'Record Inbound', sub: 'Authorize Incoming Value', icon: <MdTrendingUp />, color: 'green-500' },
+            { label: 'Record Outbound', sub: 'Authorize Outgoing Value', icon: <MdTrendingDown />, color: 'red-500' },
+            { label: 'Fiscal Analytics', sub: 'Generate Synthesis Report', icon: <MdAttachMoney />, color: 'accent-400' }
           ].map((action, i) => (
             <button
               key={i}
-              onClick={() => action.label.includes('report') ? null : setIsFinancialFormOpen(true)}
-              className="flex items-center gap-6 p-6 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 hover:border-white/10 transition-all group text-left"
+              onClick={() => action.label.includes('Analytics') ? null : setIsFinancialFormOpen(true)}
+              className="group/btn flex items-center gap-6 p-8 bg-white/5 border border-white/5 rounded-md hover:bg-white/10 hover:border-white/10 transition-all text-left shadow-inner relative overflow-hidden"
             >
-              <div className={`p-4 rounded-xl ${action.color === 'red' ? 'bg-red-500/10 text-red-500' : action.color === 'green' ? 'bg-green-500/10 text-green-500' : 'bg-accent-400/10 text-accent-400'} group-hover:scale-110 transition-transform`}>
-                <action.icon.type className="text-2xl" />
+              <div className="absolute left-0 top-0 w-1 h-0 bg-accent-400 group-hover/btn:h-full transition-all duration-300" />
+              <div className={`p-5 rounded-md shadow-lg transition-transform group-hover/btn:scale-110 ${
+                action.color === 'red-500' ? 'bg-red-500/10 text-red-500' : action.color === 'green-500' ? 'bg-green-500/10 text-green-500' : 'bg-accent-400/10 text-accent-400'
+              }`}>
+                <action.icon.type className="text-3xl" />
               </div>
               <div>
-                <p className="font-bold text-black lowercase">{action.label}</p>
-                <p className="text-xs text-gray-500 font-medium lowercase italic mt-1">{action.sub}</p>
+                <p className="font-black text-white transition-colors uppercase tracking-tight text-lg">{action.label}</p>
+                <p className="text-[10px] text-brand-300 font-bold italic mt-2 uppercase tracking-widest opacity-60">{action.sub}</p>
               </div>
             </button>
           ))}
@@ -304,111 +291,137 @@ const CreditsDebit = () => {
       </div>
 
       {/* Search and Filters */}
-      <div className="bg-white border border-gray-100 shadow-xl p-8">
-        <div className="flex flex-col sm:flex-row gap-6">
-          <div className="flex-1 relative">
-            <MdSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
+      <div className="bg-brand-900 border border-white/5 shadow-2xl p-10 rounded-md relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent-400/5 rounded-md -mr-48 -mt-48 opacity-30 blur-3xl pointer-events-none" />
+        <div className="flex flex-col sm:flex-row gap-8 relative z-10">
+          <div className="flex-1 relative group/search">
+            <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-brand-300 text-2xl group-focus-within/search:text-accent-400 transition-colors" />
             <input
               type="text"
-              placeholder="search by description..."
+              placeholder="Query repository by transaction description..."
               onChange={(e) => debouncedSearch(e.target.value)}
-              className="w-full pl-12 pr-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-accent-400/50 transition-all lowercase"
+              className="w-full pl-16 pr-8 py-5 bg-white/5 border border-white/5 rounded-md text-white font-black uppercase tracking-tight text-lg placeholder:text-brand-300/40 focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all shadow-inner"
             />
           </div>
-          <select
-            value={selectedFilter}
-            onChange={(e) => setSelectedFilter(e.target.value)}
-            className="px-8 py-4 bg-white/5 border border-white/10 rounded-2xl text-black focus:outline-none focus:ring-2 focus:ring-accent-400/50 transition-all lowercase appearance-none cursor-pointer font-bold"
-          >
-            <option value="all" className="bg-brand-900">all transactions</option>
-            <option value="credit" className="bg-brand-900">credits only</option>
-            <option value="debit" className="bg-brand-900">debits only</option>
-          </select>
+          <div className="relative group/select">
+            <MdFilterList className="absolute left-5 top-1/2 -translate-y-1/2 text-brand-300 text-2xl group-focus-within/select:text-accent-400 transition-colors pointer-events-none" />
+            <select
+              value={selectedFilter}
+              onChange={(e) => setSelectedFilter(e.target.value)}
+              className="pl-14 pr-10 py-5 bg-white/5 border border-white/5 rounded-md text-white focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all appearance-none cursor-pointer font-black uppercase tracking-widest text-[10px] shadow-inner min-w-[200px]"
+            >
+              <option value="all" className="bg-brand-900">Global Catalog</option>
+              <option value="credit" className="bg-brand-900">Credits Only</option>
+              <option value="debit" className="bg-brand-900">Debits Only</option>
+            </select>
+          </div>
         </div>
       </div>
 
       {/* Transactions Table */}
-      <div className="bg-white border border-gray-100 shadow-xl overflow-hidden">
-        <div className="p-8 border-b border-white/5">
-          <h3 className="text-xl font-bold text-black lowercase">recent transactions</h3>
+      <div className="bg-brand-900 border border-white/5 rounded-md shadow-2xl overflow-hidden transition-all group/table relative">
+        <div className="p-10 border-b border-white/5 flex items-center justify-between relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
+          <div className="flex items-center gap-5 relative z-10">
+            <div className="p-3 bg-white/5 rounded-md text-accent-400 border border-white/5 shadow-xl">
+              <MdReceipt className="text-2xl" />
+            </div>
+            <h3 className="text-2xl font-black text-white uppercase tracking-tight">Recent Ledger Entries</h3>
+          </div>
+          <div className="px-6 py-2.5 bg-white/5 border border-white/5 shadow-inner rounded-md text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] relative z-10">
+            {filteredTransactions.length} Matches Found
+          </div>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
+        <div className="overflow-x-auto custom-scrollbar">
+          <table className="w-full border-collapse">
             <thead>
               <tr className="bg-white/5">
-                <th className="px-8 py-5 text-left text-xs font-bold text-gray-400 lowercase tracking-widest italic">type</th>
-                <th className="px-8 py-5 text-left text-xs font-bold text-gray-400 lowercase tracking-widest italic">description</th>
-                <th className="px-8 py-5 text-left text-xs font-bold text-gray-400 lowercase tracking-widest italic">paid status</th>
-                <th className="px-8 py-5 text-left text-xs font-bold text-gray-400 lowercase tracking-widest italic">deadline</th>
-                <th className="px-8 py-5 text-left text-xs font-bold text-gray-400 lowercase tracking-widest italic">collateral</th>
-                <th className="px-8 py-5 text-left text-xs font-bold text-gray-400 lowercase tracking-widest italic">actions</th>
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] w-32">Classification</th>
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Description / Value</th>
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Paid Registry</th>
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Temporal Due Date</th>
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Collateral Asset</th>
+                <th className="px-10 py-6 text-right text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
               {filteredTransactions.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="px-8 py-16 text-center text-gray-500 lowercase italic font-medium">
-                    no financial records found for this criteria
+                  <td colSpan="6" className="px-10 py-32 text-center">
+                    <div className="p-10 bg-white/5 rounded-md border border-white/5 shadow-inner inline-block mb-6">
+                      <MdReceipt className="text-6xl text-brand-300 opacity-20" />
+                    </div>
+                    <p className="text-xl font-black text-white uppercase tracking-widest italic opacity-40">No Internal Records Detected</p>
                   </td>
                 </tr>
               ) : (
                 visibleTransactions.map((transaction) => (
-                  <tr key={transaction.id} className="hover:bg-white/5 transition-colors group">
-                    <td className="px-8 py-6">
-                      <div className="flex items-center gap-3">
-                        <div className={`p-2 rounded-lg ${transaction.type === 'Credit' ? 'bg-red-500/10 text-red-500' : 'bg-green-500/10 text-green-500'}`}>
-                          {transaction.type === 'Credit' ? <MdTrendingDown /> : <MdTrendingUp />}
+                  <tr key={transaction.id} className="hover:bg-white/[0.03] transition-all group/row relative">
+                    <td className="px-10 py-8 relative">
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-0 bg-accent-400 group-hover/row:h-1/2 transition-all duration-300 rounded-md" />
+                      <div className="flex items-center gap-4">
+                        <div className={`p-3 rounded-md shadow-md transition-all group-hover/row:scale-110 ${transaction.type === 'Credit' ? 'bg-red-500/10 text-red-500 border border-red-500/20' : 'bg-green-500/10 text-green-500 border border-green-500/20'}`}>
+                          {transaction.type === 'Credit' ? <MdTrendingDown className="text-xl" /> : <MdTrendingUp className="text-xl" />}
                         </div>
-                        <span className={`text-sm font-bold lowercase ${transaction.type === 'Credit' ? 'text-red-500' : 'text-green-500'
+                        <span className={`text-[10px] font-black uppercase tracking-widest ${transaction.type === 'Credit' ? 'text-red-500' : 'text-green-500'
                           }`}>
-                          {transaction.type.toLowerCase()}
+                          {transaction.type}
                         </span>
                       </div>
                     </td>
-                    <td className="px-8 py-6">
+                    <td className="px-10 py-8">
                       <div className="max-w-xs">
-                        <p className="text-sm text-black font-bold lowercase truncate">{transaction.description}</p>
-                        <p className={`text-xs font-bold mt-1 ${transaction.type === 'Credit' ? 'text-red-400' : 'text-green-400'
+                        <p className="text-base font-black text-white group-hover/row:text-accent-400 transition-colors uppercase tracking-tight truncate mb-2">{transaction.description}</p>
+                        <p className={`text-xl font-black tracking-tighter ${transaction.type === 'Credit' ? 'text-red-500' : 'text-green-500'
                           }`}>
-                          {transaction.type === 'Credit' ? '-' : '+'}{transaction.amount.toLocaleString()} frw
+                          {transaction.type === 'Credit' ? '-' : '+'}{transaction.amount.toLocaleString()} <span className="text-[10px] text-brand-300 opacity-40 uppercase tracking-widest ml-1 font-Urbanist italic font-bold">Frw</span>
                         </p>
                       </div>
                     </td>
-                    <td className="px-8 py-6">
-                      <span className={`inline-flex px-4 py-1.5 text-[10px] font-bold rounded-full lowercase border ${transaction.paid ? 'bg-green-500/10 text-green-500 border-green-500/20' : 'bg-amber-400/10 text-amber-400 border-amber-400/20'
+                    <td className="px-10 py-8">
+                      <span className={`inline-flex px-6 py-2.5 text-[9px] font-black rounded-md border uppercase tracking-widest shadow-sm ${transaction.paid ? 'bg-green-500/10 text-green-500 border-green-500/20' : 'bg-amber-400/10 text-amber-400 border-amber-400/20'
                         }`}>
-                        {transaction.paid ? 'paid' : 'unpaid'}
+                        {transaction.paid ? 'Completed' : 'Awaiting Payment'}
                       </span>
                     </td>
-                    <td className="px-8 py-6">
-                      <div className="flex items-center gap-3">
-                        <span className="text-sm text-gray-400 lowercase font-medium">
-                          {formatDeadline(transaction.deadline)}
-                        </span>
-                        {!transaction.paid && (isOverdue(transaction.deadline) || isDeadlineApproaching(transaction.deadline)) && (
-                          <MdWarning className={`${isOverdue(transaction.deadline) ? 'text-red-500' : 'text-amber-400'} text-lg animate-pulse`} />
-                        )}
+                    <td className="px-10 py-8">
+                      <div className="flex items-center gap-4">
+                        <div className="p-3 bg-white/5 rounded-md border border-white/5 opacity-60 group-hover/row:opacity-100 transition-all">
+                          <MdCalendarToday className={`text-xl ${!transaction.paid && isOverdue(transaction.deadline) ? 'text-red-500 rotate-12 animate-pulse' : 'text-brand-300'}`} />
+                        </div>
+                        <div>
+                          <p className="text-[11px] text-white font-black uppercase tracking-widest italic leading-none mb-1">
+                            {formatDeadline(transaction.deadline)}
+                          </p>
+                          {!transaction.paid && (isOverdue(transaction.deadline) || isDeadlineApproaching(transaction.deadline)) && (
+                            <p className={`text-[9px] font-black uppercase tracking-widest ${isOverdue(transaction.deadline) ? 'text-red-500' : 'text-amber-500'}`}>
+                              {isOverdue(transaction.deadline) ? 'System Overdue' : 'Due Imminent'}
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </td>
-                    <td className="px-8 py-6 text-sm text-gray-400 lowercase italic">
-                      {transaction.collateral || 'none recorded'}
+                    <td className="px-10 py-8">
+                      <p className="text-[10px] text-brand-300 font-bold uppercase tracking-widest italic group-hover/row:text-white transition-colors opacity-60 group-hover/row:opacity-100">
+                        {transaction.collateral || 'Unsecured Protocol'}
+                      </p>
                     </td>
-                    <td className="px-8 py-6">
-                      <div className="flex items-center gap-3">
+                    <td className="px-10 py-8 text-right">
+                      <div className="flex items-center justify-end gap-5">
                         <button
                           onClick={() => handleViewFinancial(transaction)}
-                          className="p-2.5 text-gray-400 hover:text-accent-400 bg-white/5 rounded-xl border border-white/5 transition-all hover:scale-110"
-                          title="view/edit details"
+                          className="p-4 text-brand-300 hover:text-accent-400 bg-white/5 hover:bg-white/10 rounded-md border border-white/5 transition-all hover:shadow-2xl active:scale-95"
+                          title="View/Edit Details"
                         >
-                          <MdEdit className="text-lg" />
+                          <MdEdit className="text-2xl" />
                         </button>
                         {!transaction.paid && (
                           <button
                             onClick={() => handleMarkAsPaid(transaction)}
-                            className="p-2.5 text-gray-400 hover:text-green-500 bg-white/5 rounded-xl border border-white/5 transition-all hover:scale-110"
-                            title="mark as paid"
+                            className="p-4 text-brand-300 hover:text-green-500 bg-white/5 hover:bg-white/10 rounded-md border border-white/5 transition-all hover:shadow-2xl active:scale-95"
+                            title="Mark As Paid"
                           >
-                            <MdCheckCircle className="text-lg" />
+                            <MdCheckCircle className="text-2xl" />
                           </button>
                         )}
                       </div>
@@ -443,55 +456,83 @@ const CreditsDebit = () => {
 
       {/* Confirm Mark as Paid Modal */}
       {isConfirmPaidOpen && (
-        <div className="fixed inset-0 bg-brand-950/80 backdrop-blur-md flex items-center justify-center z-[100] p-6">
-          <div className="bg-brand-900 border border-white/10 rounded-3xl shadow-2xl w-full max-w-md overflow-hidden relative">
-            <div className="p-8 border-b border-white/5">
-              <h2 className="text-xl font-bold text-black lowercase">confirm mark as paid</h2>
+        <div className="fixed inset-0 bg-brand-950/90 backdrop-blur-md flex items-center justify-center z-[100] p-6 animate-in fade-in duration-500">
+          <div className="bg-brand-900 border border-white/5 rounded-md shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] w-full max-w-lg overflow-hidden relative p-12">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-md blur-3xl -mr-32 -mt-32" />
+            <h2 className="text-3xl font-black text-white mb-8 uppercase tracking-tight">Authorization Logic</h2>
+            <p className="text-brand-300 text-sm font-bold leading-relaxed uppercase tracking-widest italic mb-10 opacity-60">
+              You Are About To Mark This Financial Record As <span className="text-green-500 font-black decoration-underline decoration-2 underline-offset-4">Completed</span>.
+              This Action Affects Your Universal Balance And <span className="text-red-500 font-black">Cannot Be Undone</span>.
+            </p>
+            <div className="space-y-4 mb-12">
+              <label className="text-[10px] font-black text-brand-300 uppercase px-2 tracking-[0.2em]">Confirm Protocol Code</label>
+              <input
+                type="text"
+                value={confirmPaidText}
+                onChange={(e) => setConfirmPaidText(e.target.value)}
+                className="w-full px-8 py-5 bg-white/5 border border-white/5 rounded-md text-white font-black uppercase tracking-widest text-lg placeholder:text-brand-300/20 focus:outline-none focus:ring-4 focus:ring-accent-400/10 transition-all shadow-inner"
+                placeholder="Type 'Mark As Paid'"
+                autoFocus
+              />
             </div>
-            <div className="p-8 space-y-6">
-              <p className="text-gray-400 text-sm lowercase font-medium leading-relaxed">
-                you are about to mark this financial record as <span className="text-accent-400 font-bold italic">paid back</span>.
-                this action affects your financial tracking and <span className="text-black font-bold">cannot be undone</span>.
-              </p>
-              <div>
-                <p className="text-xs text-gray-500 font-bold lowercase mb-3 italic">
-                  type <span className="text-accent-400">mark as paid</span> to confirm:
-                </p>
-                <input
-                  type="text"
-                  value={confirmPaidText}
-                  onChange={(e) => setConfirmPaidText(e.target.value)}
-                  className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-black focus:outline-none focus:ring-2 focus:ring-accent-400/50 transition-all lowercase italic"
-                  placeholder="type mark as paid"
-                  autoFocus
-                />
-              </div>
-            </div>
-            <div className="p-8 bg-white/5 border-t border-white/5 flex items-center justify-end gap-4">
+            <div className="flex items-center justify-end gap-10">
               <button
                 onClick={() => {
                   setIsConfirmPaidOpen(false);
                   setFinancialToMarkPaid(null);
                   setConfirmPaidText('');
                 }}
-                className="px-8 py-3 text-gray-400 hover:text-black transition-colors lowercase font-bold"
+                className="text-[10px] font-black text-brand-300 hover:text-white transition-colors uppercase tracking-widest"
               >
-                cancel
+                Abort Action
               </button>
               <button
                 onClick={confirmMarkAsPaid}
                 disabled={confirmPaidText.toLowerCase().trim() !== 'mark as paid'}
-                className={`px-8 py-3 rounded-2xl font-bold lowercase transition-all ${confirmPaidText.toLowerCase().trim() === 'mark as paid'
-                  ? 'bg-accent-400 text-brand-950 hover:scale-105 shadow-xl shadow-accent-400/20'
-                  : 'bg-white/5 text-gray-600 cursor-not-allowed border border-white/5'
+                className={`px-12 py-5 rounded-md font-black transition-all uppercase text-[10px] tracking-widest shadow-2xl ${confirmPaidText.toLowerCase().trim() === 'mark as paid'
+                  ? 'bg-accent-400 text-brand-950 hover:scale-105 active:scale-95'
+                  : 'bg-white/5 text-brand-300 cursor-not-allowed border border-white/5'
                   }`}
               >
-                confirm paid
+                Confirm Protocol
               </button>
             </div>
           </div>
         </div>
       )}
+    </div>
+  );
+};
+
+// Tactical Summary Component
+const SummaryCard = ({ icon: Icon, label, value, trend, color }) => {
+  const colorMap = {
+    'accent-400': 'text-accent-400 bg-accent-400/10 border-accent-400/20 from-accent-400',
+    'green-500': 'text-green-500 bg-green-500/10 border-green-500/20 from-green-500',
+    'red-500': 'text-red-500 bg-red-500/10 border-red-500/20 from-red-500',
+    'blue-400': 'text-blue-400 bg-blue-400/10 border-blue-400/20 from-blue-400',
+  };
+
+  const selectedColor = colorMap[color] || colorMap['accent-400'];
+  const [textColor, bgStyle, borderStyle, gradStyle] = selectedColor.split(' ');
+
+  return (
+    <div className="group bg-brand-900 p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
+      <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50`} />
+      <div className="relative z-10 flex flex-col h-full justify-between gap-10">
+        <div className="flex items-center justify-between">
+          <div className={`p-5 rounded-md border ${bgStyle} ${borderStyle} ${textColor} shadow-inner group-hover:scale-110 duration-500`}>
+            <Icon className="text-3xl" />
+          </div>
+          <span className={`text-[10px] font-black ${textColor} uppercase italic bg-white/5 px-4 py-2 rounded-md border border-white/5 shadow-inner tracking-widest`}>
+            {trend}
+          </span>
+        </div>
+        <div>
+          <p className="text-[10px] font-black text-brand-300 tracking-[0.2em] mb-3 uppercase italic opacity-60">{label}</p>
+          <p className="text-4xl font-black text-white uppercase tracking-tighter leading-none">{value}</p>
+        </div>
+      </div>
     </div>
   );
 };

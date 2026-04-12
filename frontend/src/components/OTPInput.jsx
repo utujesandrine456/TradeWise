@@ -86,7 +86,7 @@ const OTPInput = ({ length = 6, onComplete, time }) => {
                     onChange={(e) => handleChange(e, idx)}
                     onKeyDown={(e) => handleKeyDown(e, idx)}
                     ref={(el) => (inputsRef.current[idx] = el)}
-                    className="w-[50px] h-[50px] mx-2 font-bold text-2xl rounded-[5px] border border-gray-600 text-#FC9E4F text-center"
+                    className="w-[50px] h-[50px] mx-2 font-bold text-2xl rounded-[5px] border border-gray-600 text-#09111E text-center"
                 />
             ))}
         </div>

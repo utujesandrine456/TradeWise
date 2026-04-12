@@ -3,7 +3,6 @@ import backendApi from "../utils/axiosInstance";
 import { useAuth } from "../hooks/useAuth";
 import { MdAdd, MdDelete } from "react-icons/md";
 import logo from '../assets/logo.png';
-import styles from './Home.module.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
@@ -11,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const Stocks = ({ traderId }) => {
   const { trader } = useAuth();
-  const mainColor = "#BE741E";
+  const mainColor = "#09111E";
   const navigate = useNavigate();
 
   const [products, setProducts] = useState([
@@ -40,43 +39,45 @@ const Stocks = ({ traderId }) => {
     try {
       const currentTraderId = traderId || trader?.id;
       if (!currentTraderId) {
-        toast.error("Missing trader id. Please login again.");
+        toast.error("Missing Trader Id. Please Login Again.");
         return;
       }
       const cleanProducts = products.map(({ name, category, quantity, unit }) => {
-        if (!name || !category) throw new Error("Name and Category are required");
+        if (!name || !category) throw new Error("Name And Category Are Required");
         return { name, category, quantity: quantity ?? 0, unit };
       });
-  
+
       await backendApi.post("/stock/create-multiple", { traderId: currentTraderId, products: cleanProducts });
-      toast.success("Products added successfully!");
-      
+      toast.success("Products Added Successfully!");
+
       setTimeout(() => { navigate("/dashboard"); }, 2000);
     } catch (err) {
       console.error(err.response?.data || err.message);
-      toast.error("Failed to add products");
+      toast.error("Failed To Add Products");
     }
   };
-  
-  
+
+
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-brand-50 font-Urbanist animate-in fade-in duration-700">
       <ToastContainer />
-      
-      <div className="bg-[#BE741E] flex justify-between items-center px-6 py-3 shadow-md">
-        <div className="flex items-center space-x-1">
-          <img src={logo} alt="logo" className="w-10 h-10 rounded-full" />
-          <h1 className={styles.home_navbar_title}>TradeWise</h1>
+
+      <div className="bg-brand-900 flex justify-between items-center px-10 py-5 shadow-2xl relative z-20">
+        <div className="flex items-center space-x-4">
+          <img src={logo} alt="logo" className="w-10 h-10 rounded-md brightness-0 invert" />
+          <h1 className="text-white font-bold text-2xl tracking-tight">Stocka</h1>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <button
-            className="bg-[#BE741E] hover:bg-[#a66316] text-white px-4 py-2 rounded-lg shadow"
+            onClick={() => navigate("/dashboard")}
+            className="bg-white/10 hover:bg-white/20 text-white px-6 py-2.5 rounded-md font-bold text-xs border border-white/20 transition-all shadow-inner"
           >
             Dashboard
           </button>
           <button
-            className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg shadow"
+            onClick={() => navigate("/profile")}
+            className="bg-white/10 hover:bg-white/20 text-white px-6 py-2.5 rounded-md font-bold text-xs border border-white/20 transition-all shadow-inner"
           >
             Settings
           </button>
@@ -86,77 +87,79 @@ const Stocks = ({ traderId }) => {
 
 
       {/* Main Content */}
-      <main className="p-6">
-        <h2 className="text-3xl text-center font-bold mt-10 mb-4" style={{ color: mainColor }}>
-          Add Multiple Products
-        </h2>
-        <p className="mb-6 text-center text-gray-600">
-          Enter the products you want to add to your stock. You can add multiple rows and submit all at once.
-        </p>
+      <main className="max-w-7xl mx-auto p-12 space-y-12">
+        <div className="text-center space-y-4">
+          <h2 className="text-4xl font-bold text-brand-900 tracking-tight">
+            Bulk Inventory Entry
+          </h2>
+          <p className="text-sm font-semibold text-brand-400 max-w-2xl mx-auto leading-relaxed opacity-70">
+            Quickly add multiple items to your inventory. Fill in the product details below and save them all at once.
+          </p>
+        </div>
 
         {/* Product Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse shadow-md rounded-lg overflow-hidden">
-            <thead className="bg-[#BE741E] text-white">
+        <div className="overflow-hidden rounded-md border border-brand-100 shadow-2xl bg-white">
+          <table className="w-full border-collapse">
+            <thead className="bg-brand-900 text-white">
               <tr>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Category</th>
-                <th className="px-4 py-2">Quantity</th>
-                <th className="px-4 py-2">Unit</th>
-                <th className="px-4 py-2">Actions</th>
+                <th className="px-8 py-5 text-left text-xs font-bold tracking-wide opacity-60">Product Name</th>
+                <th className="px-8 py-5 text-left text-xs font-bold tracking-wide opacity-60">Category</th>
+                <th className="px-8 py-5 text-left text-xs font-bold tracking-wide opacity-60">Quantity</th>
+                <th className="px-8 py-5 text-left text-xs font-bold tracking-wide opacity-60">Unit</th>
+                <th className="px-8 py-5 text-center text-xs font-bold tracking-wide opacity-60">Actions</th>
               </tr>
             </thead>
             <tbody>
               {products.map((prod, i) => (
                 <tr
                   key={i}
-                  className="bg-white hover:bg-gray-100 transition"
+                  className="bg-white hover:bg-brand-50 transition-colors border-b border-brand-50 last:border-0 group"
                 >
-                  <td className="px-4 py-2">
+                  <td className="px-8 py-6">
                     <input
                       type="text"
                       value={prod.name}
-                      placeholder="Name"
+                      placeholder="Product Name"
                       onChange={(e) => handleChange(i, "name", e.target.value)}
-                      className="w-full border p-2 rounded"
+                      className="w-full border border-brand-100 p-3 rounded-md bg-brand-50/50 font-bold text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all placeholder:opacity-30"
                     />
                   </td>
-                  <td className="px-4 py-2">
+                  <td className="px-8 py-6">
                     <input
                       type="text"
                       value={prod.category}
                       placeholder="Category"
                       onChange={(e) => handleChange(i, "category", e.target.value)}
-                      className="w-full border p-2 rounded"
+                      className="w-full border border-brand-100 p-3 rounded-md bg-brand-50/50 font-bold text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all placeholder:opacity-30"
                     />
                   </td>
-                  <td className="px-2 py-2">
+                  <td className="px-8 py-6">
                     <input
                       type="number"
                       value={prod.quantity}
                       min={0}
                       onChange={(e) => handleChange(i, "quantity", Number(e.target.value))}
-                      className="w-25 border p-2 rounded"
+                      className="w-full border border-brand-100 p-3 rounded-md bg-brand-50/50 font-bold text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all"
                     />
                   </td>
-                  
-                  <td className="px-4 py-2">
+
+                  <td className="px-8 py-6">
                     <select
                       value={prod.unit}
                       onChange={(e) => handleChange(i, "unit", e.target.value)}
-                      className="border p-2 rounded"
+                      className="w-full border border-brand-100 p-3 rounded-md bg-brand-50/50 font-semibold text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all appearance-none cursor-pointer"
                     >
-                      <option value="Piece">Piece</option>
-                      <option value="Kilogram">Kilogram</option>
-                      <option value="Litre">Litre</option>
+                      <option value="Piece">Piece Units</option>
+                      <option value="Kilogram">Kilogram Mass</option>
+                      <option value="Litre">Litre Volume</option>
                     </select>
                   </td>
-                  <td className="px-4 py-2 text-center">
+                  <td className="px-8 py-6 text-center">
                     <button
                       onClick={() => removeProductRow(i)}
-                      className="text-red-600 hover:text-red-800 flex items-center justify-center gap-1"
+                      className="text-white hover:bg-rose-600 flex items-center justify-center gap-2 font-bold text-xs transition-all bg-rose-500 px-4 py-2 rounded-md shadow-md"
                     >
-                      <MdDelete /> Remove
+                      <MdDelete size={14} /> Remove
                     </button>
                   </td>
                 </tr>
@@ -166,18 +169,19 @@ const Stocks = ({ traderId }) => {
         </div>
 
         {/* Buttons */}
-        <div className="mt-4 flex gap-4">
+        <div className="flex justify-center gap-6 pt-12">
           <button
             onClick={addProductRow}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+            className="bg-white border-2 border-brand-900 text-brand-900 px-10 py-5 rounded-md font-bold text-sm flex items-center gap-4 hover:bg-brand-50 transition-all shadow-xl active:scale-95"
           >
-            <MdAdd /> Add Row
+            <MdAdd size={20} /> Add New Row
           </button>
           <button
             onClick={submitProducts}
-            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg"
+            className="bg-brand-900 text-white px-10 py-5 rounded-md font-bold text-sm flex items-center gap-4 hover:bg-brand-800 transition-all shadow-2xl active:scale-95 relative overflow-hidden group/sub"
           >
-            Submit All
+            <div className="absolute inset-0 bg-white/10 translate-x-full group-hover/sub:translate-x-0 transition-transform duration-500" />
+            <span className="relative z-10">Save All Products</span>
           </button>
         </div>
       </main>

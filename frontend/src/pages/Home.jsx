@@ -18,42 +18,32 @@ import Header from '../components/Header';
 
 const slides = [
     {
-        image: images.TradeWise,
-        title: "smart trading made simple",
-        desc: "easily track your products, sales, and stock levels without any manual work. stay updated in real time so you always know exactly what’s happening in your business.",
-    },
-    {
-        image: images.Smile,
-        title: "powerful insights. smarter decisions.",
-        desc: "get clear insights into your inventory, expenses, and performance through simple, visual analytics. make smarter, faster decisions with data that’s organized and easy to understand.",
-    },
-    {
-        image: images.Device,
-        title: "run & grow your business seamlessly",
-        desc: "manage all your transactions, records, and finances from one clean dashboard designed for speed and simplicity. stay organized and focused on growth while the system handles the heavy work.",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2000&auto=format&fit=crop",
+        title: "Smart Trading Management",
+        desc: "Easily track your products, sales, and stock levels without any manual work. Stay updated in real time so you always know exactly what’s happening in your business.",
     },
 ];
 
 const testimonials = [
     {
-        name: 'Alex M.',
-        avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+        name: 'Alice M.',
+        avatar: '/Profile1.jpg',
         rating: 5,
-        review: "TradeWise has helped me understand my trades with clear insights and reliable tools. It makes tracking performance simple, and I feel confident making decisions with it.",
+        review: "Stocka has helped me understand my trades with clear insights and reliable tools. It makes tracking performance simple, and I feel confident making decisions with it.",
         date: 'June 13, 2024'
     },
     {
         name: 'Sarah K.',
-        avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+        avatar: '/Profile3.jpg',
         rating: 3,
         review: "The platform offers clean analytics and helpful breakdowns that make my trading easier. I can quickly view my results and stay organized without feeling overwhelmed at all.",
         date: 'June 10, 2024'
     },
     {
         name: 'John D.',
-        avatar: 'https://randomuser.me/api/portraits/men/65.jpg',
+        avatar: '/Profile2.jpg',
         rating: 4,
-        review: "I really like how TradeWise protects my information while giving me meaningful insights. The system feels secure, and the organized data helps me evaluate trades comfortably.",
+        review: "I really like how Stocka protects my information while giving me meaningful insights. The system feels secure, and the organized data helps me evaluate trades comfortably.",
         date: 'June 7, 2024'
     }
 ];
@@ -61,24 +51,24 @@ const testimonials = [
 
 const faqs = [
     {
-        question: 'what is the smart calculator for modern traders',
-        answer: 'tradewise is a smart trading calculator and portfolio tracker. it helps you calculate profits, losses, and roi for your trades, and keeps all your trading activity organized in one place.'
+        question: 'What is the smart calculator for modern traders?',
+        answer: 'Stocka is a smart trading calculator and portfolio tracker. It helps you calculate profits, losses, and ROI for your trades, and keeps all your trading activity organized in one place.'
     },
     {
-        question: 'how do i use the app to track my profits?',
-        answer: 'our calculator uses precise formulas and up-to-date market data to ensure your trading calculations are as accurate as possible.'
+        question: 'How do I use the app to track my profits?',
+        answer: 'Our calculator uses precise formulas and up-to-date market data to ensure your trading calculations are as accurate as possible.'
     },
     {
-        question: 'is the app free to use?',
-        answer: 'tradewise supports multiple asset types, including stocks and crypto. you can track and analyze different types of trades in one unified dashboard.'
+        question: 'Is the app free to use?',
+        answer: 'Stocka supports multiple asset types, including stocks and crypto. You can track and analyze different types of trades in one unified dashboard.'
     },
     {
-        question: 'what asset types does the app support?',
-        answer: 'you can view your trading performance over time, including during market events or high-volatility periods, with our analytics and reporting tools.'
+        question: 'What asset types does the app support?',
+        answer: 'You can view your trading performance over time, including during market events or high-volatility periods, with our analytics and reporting tools.'
     },
     {
-        question: 'how does the tradewise protect my personal data?',
-        answer: 'your data is stored securely and is never shared. only you have access to your trading records, and we use strong encryption to protect your information.'
+        question: 'How does Stocka protect my personal data?',
+        answer: 'Your data is stored securely and is never shared. Only you have access to your trading records, and we use strong encryption to protect your information.'
     }
 ];
 
@@ -140,12 +130,12 @@ const StatCard = ({ value, suffix, label }) => {
     return (
         <div
             ref={cardRef}
-            className="bg-white p-8 rounded-lg shadow-sm flex-1 border border-brand-100 transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-lg"
+            className="glass-card p-8 rounded-md flex-1 border border-brand-100/20 transition-all duration-500 cursor-pointer hover:shadow-glow hover:-translate-y-2 group"
         >
-            <h3 className="text-4xl text-black mb-2 font-brand-500">
+            <h3 className="text-5xl lg:text-6xl text-obsidian-800 mb-2 font-semibold transition-colors group-hover:text-brand-600">
                 {formatNumber(count)}{suffix}
             </h3>
-            <p className="text-black text-lg font-bold capitalize">{label}</p>
+            <p className="text-obsidian-500 text-sm font-semibold tracking-wide">{label}</p>
         </div>
     );
 };
@@ -161,22 +151,17 @@ const WorkStepCard = ({ number, title, description, index = 0 }) => {
             whileHover={{ y: -10 }}
             className="group relative flex-1 cursor-pointer"
         >
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-500 to-brand-600 rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
-            <div className="relative bg-white/80 backdrop-blur-md border border-brand-100 rounded-3xl p-10 h-full flex flex-col items-center text-center shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                <div className="absolute -right-8 -top-8 w-32 h-32 bg-brand-50 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-700" />
+            <div className="absolute inset-0 bg-brand-500/10 rounded-md blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="relative glass-card border border-brand-100/20 rounded-md p-10 h-full flex flex-col items-start text-left shadow-premium hover:shadow-glow transition-all duration-500 overflow-hidden">
+                <div className="absolute -right-8 -top-8 w-32 h-32 bg-brand-50 rounded-md opacity-30 group-hover:scale-150 transition-transform duration-700" />
 
-                <div className="relative mb-8">
-                    <div className="w-20 h-20 bg-brand-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-brand-200 group-hover:rotate-6 transition-transform duration-300">
-                        {number}
-                    </div>
-                </div>
+                <div className="relative mb-8 text-7xl font-bold text-brand-100/50 group-hover:text-brand-500/20 transition-colors">{number}</div>
 
-                <h3 className="text-2xl font-bold text-black mb-4 relative z-10 lowercase">{title}</h3>
-                <p className="text-gray-600 leading-relaxed font-medium relative z-10">{description}</p>
+                <h3 className="text-2xl font-bold text-obsidian-800 mb-4 relative z-10">{title}</h3>
+                <p className="text-obsidian-500 leading-relaxed font-medium relative z-10">{description}</p>
 
-                <div className="mt-8 flex items-center text-brand-600 font-bold gap-2 group-hover:gap-4 transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0">
-                    <span className="lowercase">learn more</span>
-                    <ArrowRight size={18} />
+                <div className="mt-auto pt-8">
+                    <div className="w-10 h-1 bg-brand-100 group-hover:w-20 group-hover:bg-brand-500 transition-all duration-500 rounded-md" />
                 </div>
             </div>
         </motion.div>
@@ -221,52 +206,52 @@ const TestimonialCarousel = () => {
         <div className="relative w-full max-w-2xl px-12">
             <button
                 onClick={goPrev}
-                className="absolute left-0 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white shadow-lg border border-brand-100 flex items-center justify-center text-brand-600 hover:bg-brand-600 hover:text-white transition-all duration-300 z-20 group"
+                className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-md bg-white shadow-premium border border-brand-100/20 flex items-center justify-center text-brand-600 hover:bg-brand-600 hover:text-white transition-all duration-300 z-20 group"
             >
-                <ChevronLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
+                <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
             </button>
 
-            <div className={`relative bg-white rounded-[2.5rem] shadow-2xl p-12 border border-brand-50 transition-all duration-500 ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-                <div className="absolute top-10 right-12 opacity-10">
+            <div className={`relative glass-card rounded-md shadow-premium p-12 border border-white transition-all duration-500 ${isTransitioning ? 'opacity-0 scale-95 blur-md' : 'opacity-100 scale-100 blur-0'}`}>
+                <div className="absolute top-10 right-12 opacity-5">
                     <Quote size={80} className="text-brand-600" />
                 </div>
 
                 <div className="flex flex-col items-center">
                     <div className="relative mb-8">
-                        <div className="absolute inset-0 bg-brand-200 rounded-full blur-lg opacity-40 animate-pulse" />
+                        <div className="absolute inset-0 bg-brand-500 rounded-md blur-xl opacity-20 animate-pulse" />
                         <img
                             src={testimonials[index].avatar}
                             alt={`${testimonials[index].name}`}
-                            className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-xl relative z-10"
+                            className="w-20 h-20 rounded-md object-cover border-4 border-white shadow-glass relative z-10"
                         />
                     </div>
 
-                    <div className="flex gap-1 mb-6">
+                    <div className="flex gap-1.5 mb-6">
                         {Array(5).fill().map((_, i) => (
                             <Star
                                 key={i}
-                                size={18}
-                                className={`${i < testimonials[index].rating ? 'text-brand-500 fill-brand-500' : 'text-brand-200'}`}
+                                size={16}
+                                className={`${i < testimonials[index].rating ? 'text-brand-500 fill-brand-500' : 'text-brand-100'}`}
                             />
                         ))}
                     </div>
 
-                    <p className="text-xl text-gray-700 italic text-center mb-8 leading-relaxed font-medium">
+                    <p className="text-xl text-obsidian-600 italic text-center mb-8 leading-relaxed font-medium">
                         "{testimonials[index].review}"
                     </p>
 
                     <div className="text-center">
-                        <div className="text-2xl font-bold text-black mb-1">{testimonials[index].name}</div>
-                        <div className="text-brand-600 font-bold text-sm tracking-widest uppercase">{testimonials[index].date}</div>
+                        <div className="text-2xl font-bold text-obsidian-800 mb-1">{testimonials[index].name}</div>
+                        <div className="text-brand-500 font-semibold text-xs tracking-wide">{testimonials[index].date}</div>
                     </div>
                 </div>
             </div>
 
             <button
                 onClick={goNext}
-                className="absolute right-0 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white shadow-lg border border-brand-100 flex items-center justify-center text-brand-600 hover:bg-brand-600 hover:text-white transition-all duration-300 z-20 group"
+                className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-md bg-white shadow-premium border border-brand-100/20 flex items-center justify-center text-brand-600 hover:bg-brand-600 hover:text-white transition-all duration-300 z-20 group"
             >
-                <ChevronRight size={24} className="group-hover:translate-x-1 transition-transform" />
+                <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </button>
 
             <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 flex gap-3">
@@ -274,7 +259,7 @@ const TestimonialCarousel = () => {
                     <button
                         key={i}
                         onClick={() => setIndex(i)}
-                        className={`transition-all duration-500 rounded-full h-1.5 cursor-pointer ${i === index ? 'bg-brand-600 w-12' : 'bg-brand-200 w-3 hover:bg-brand-300'}`}
+                        className={`transition-all duration-500 rounded-md h-1.5 cursor-pointer ${i === index ? 'bg-brand-500 w-10' : 'bg-brand-100 w-2.5 hover:bg-brand-200'}`}
                     />
                 ))}
             </div>
@@ -286,23 +271,23 @@ const TestimonialCarousel = () => {
 const FAQList = () => {
     const [openIndex, setOpenIndex] = useState(null);
     return (
-        <div className="flex flex-col gap-6 w-full max-w-4xl mx-auto">
+        <div className="flex flex-col gap-5 w-full max-w-4xl mx-auto px-6">
             {faqs.map((faq, idx) => {
                 const isOpen = openIndex === idx;
                 return (
                     <div
                         key={idx}
-                        className={`group relative overflow-hidden transition-all duration-500 rounded-[2rem] border cursor-pointer ${isOpen ? 'bg-white border-brand-200 shadow-xl' : 'bg-gray-50/20 border-brand-50 hover:border-brand-100 hover:bg-white hover:shadow-lg'}`}
+                        className={`group relative overflow-hidden transition-all duration-500 rounded-md border cursor-pointer ${isOpen ? 'bg-white border-brand-200 shadow-premium' : 'bg-white border-brand-50 hover:border-brand-100'}`}
                     >
                         <button
                             onClick={() => setOpenIndex(isOpen ? null : idx)}
-                            className="w-full px-10 py-8 flex items-center justify-between text-left transition-all cursor-pointer"
+                            className="w-full px-8 py-7 flex items-center justify-between text-left transition-all cursor-pointer"
                         >
-                            <span className={`text-xl lg:text-2xl font-bold transition-colors duration-300 ${isOpen ? 'text-black' : 'text-gray-700'}`}>
+                            <span className={`text-xl font-brand-500 transition-colors duration-300 ${isOpen ? 'text-obsidian-800' : 'text-obsidian-600'}`}>
                                 {faq.question}
                             </span>
-                            <div className={`flex-shrink-0 ml-8 w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-500 ${isOpen ? 'bg-brand-600 border-brand-600 text-white rotate-180' : 'border-brand-100 text-brand-600 group-hover:border-brand-200'}`}>
-                                <ChevronRight className={`transition-transform duration-500 ${isOpen ? 'rotate-90' : 'rotate-0'}`} />
+                            <div className={`flex-shrink-0 ml-8 w-10 h-10 rounded-md border flex items-center justify-center transition-all duration-500 ${isOpen ? 'bg-brand-500 border-brand-500 text-white rotate-180' : 'border-brand-50 text-brand-500 group-hover:border-brand-200'}`}>
+                                <ChevronRight size={18} className={`transition-transform duration-500 ${isOpen ? 'rotate-90' : 'rotate-0'}`} />
                             </div>
                         </button>
 
@@ -312,11 +297,11 @@ const FAQList = () => {
                                     initial={{ height: 0, opacity: 0 }}
                                     animate={{ height: 'auto', opacity: 1 }}
                                     exit={{ height: 0, opacity: 0 }}
-                                    transition={{ duration: 0.5, type: "spring", bounce: 0 }}
+                                    transition={{ duration: 0.4, ease: "easeInOut" }}
                                 >
-                                    <div className="px-10 pb-10">
-                                        <div className="w-full h-px bg-brand-50 mb-8" />
-                                        <p className="text-lg text-gray-500 leading-relaxed font-medium">
+                                    <div className="px-8 pb-8 pt-0">
+                                        <div className="w-full h-px bg-brand-50 mb-6" />
+                                        <p className="text-base text-obsidian-500 leading-relaxed font-medium">
                                             {faq.answer}
                                         </p>
                                     </div>
@@ -400,526 +385,342 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="text-brand-50 bg-brand-900 selection:bg-accent-400 selection:text-brand-950 overflow-x-hidden">
+        <div className="text-brand-50 bg-brand-900 selection:bg-brand-400 selection:text-white overflow-x-hidden">
             <motion.nav
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/90 backdrop-blur-xl py-4 shadow-sm border-b border-brand-50' : 'bg-transparent py-8'}`}
-                initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className={`fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[95%] max-w-7xl transition-all duration-500 rounded-2xl border ${scrolled
+                    ? 'bg-white/80 backdrop-blur-2xl shadow-premium border-brand-100 py-3'
+                    : 'bg-brand-950/20 backdrop-blur-md shadow-glass border-white/10 py-5'
+                    }`}
             >
-                <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-                    <div className="flex items-center gap-3 cursor-pointer group" onClick={() => scrollToSection('home')}>
-                        <img src={images.logo} alt="logo" className="w-12 h-10 rounded-lg transition-transform group-hover:scale-110 shadow-sm object-cover" />
-                        <h1 className={`text-3xl font-brand-500 tracking-tight ${scrolled ? 'text-black' : 'text-white drop-shadow-md'}`}>TradeWise</h1>
+                <div className="px-6 md:px-10 flex justify-between items-center">
+                    <div
+                        className="flex items-center gap-4 cursor-pointer group"
+                        onClick={() => scrollToSection('home')}
+                    >
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-brand-500 blur-lg opacity-20 group-hover:opacity-40 transition-opacity" />
+                            <img src={images.logo} alt="logo" className="w-10 h-10 rounded-xl transition-transform group-hover:scale-110 shadow-sm object-cover relative z-10" />
+                        </div>
+                        <h1 className={`text-2xl font-bold tracking-tight transition-colors ${scrolled ? 'text-brand-900' : 'text-white drop-shadow-md'}`}>Stocka</h1>
                     </div>
 
                     <div className="hidden md:flex items-center gap-10">
-                        {['home', 'about', 'services', 'contact', 'faq'].map((item) => (
-                            <a
+                        {['Services', 'About'].map((item) => (
+                            <button
                                 key={item}
-                                href={`#${item}`}
-                                onClick={(e) => { e.preventDefault(); scrollToSection(item); }}
-                                className={`font-brand-500 transition-all relative group text-lg cursor-pointer ${scrolled ? 'text-black hover:text-black' : 'text-white/80 hover:text-white drop-shadow-sm'}`}
+                                onClick={() => scrollToSection(item)}
+                                className={`text-sm font-bold tracking-wide transition-all hover:scale-105 active:scale-95 ${scrolled ? 'text-brand-900/60 hover:text-brand-900' : 'text-white/60 hover:text-white'
+                                    }`}
                             >
                                 {item}
-                                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 rounded-full transition-all group-hover:w-full cursor-pointer ${scrolled ? 'bg-brand-600' : 'bg-white'}`}></span>
-                            </a>
+                            </button>
                         ))}
+                        <button
+                            onClick={() => navigate('/login')}
+                            className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all active:scale-95 ${scrolled
+                                ? 'bg-brand-900 text-white hover:bg-brand-800 shadow-glow'
+                                : 'bg-white text-brand-900 hover:bg-brand-50 shadow-white-glow'
+                                }`}
+                        >
+                            Sign In
+                        </button>
                     </div>
 
-                    <div className="flex items-center gap-6">
-                        {loading ? (
-                            <div className="animate-pulse w-20 h-6 bg-brand-100 rounded-lg"></div>
-                        ) : !user ? (
-                            <>
+                    <button
+                        className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10"
+                        onClick={() => setMobileOpen(!mobileOpen)}
+                    >
+                        {mobileOpen ? <X size={24} className={scrolled ? 'text-brand-900' : 'text-white'} /> : <Menu size={24} className={scrolled ? 'text-brand-900' : 'text-white'} />}
+                    </button>
+                </div>
+
+                {/* Mobile Menu Refinement */}
+                <AnimatePresence>
+                    {mobileOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="md:hidden bg-brand-950/95 backdrop-blur-3xl overflow-hidden mt-4 rounded-2xl mx-4 border border-white/10"
+                        >
+                            <div className="flex flex-col p-8 gap-8">
+                                {['Services', 'About'].map((item) => (
+                                    <button
+                                        key={item}
+                                        onClick={() => {
+                                            scrollToSection(item);
+                                            setMobileOpen(false);
+                                        }}
+                                        className="text-white/70 text-2xl font-bold text-left hover:text-brand-400 transition-colors"
+                                    >
+                                        {item}
+                                    </button>
+                                ))}
                                 <button
                                     onClick={() => navigate('/login')}
-                                    className={`px-4 py-2 text-lg font-brand-500 transition-colors cursor-pointer lowercase ${scrolled ? 'text-black hover:text-black' : 'text-white hover:text-white/80 drop-shadow-sm'}`}
+                                    className="w-full py-5 bg-brand-500 text-white rounded-xl text-xl font-bold shadow-glow"
                                 >
-                                    login
+                                    Login to Portal
                                 </button>
-                                <button
-                                    onClick={() => navigate('/signup')}
-                                    className="bg-brand-600 text-white px-8 py-2.5 text-lg rounded-lg font-brand-500 hover:bg-brand-700 transition-all transform hover:scale-105 shadow-lg active:scale-95 cursor-pointer lowercase"
-                                >
-                                    signup
-                                </button>
-                            </>
-                        ) : (
-                            <button
-                                onClick={() => navigate('/dashboard')}
-                                className="bg-brand-600 text-white px-8 py-3 rounded-lg font-brand-500 flex items-center gap-2 hover:bg-brand-700 transition-all shadow-lg active:scale-95 cursor-pointer lowercase"
-                            >
-                                <MdDashboard size={20} /> dashboard
-                            </button>
-                        )}
-                    </div>
-                </div>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </motion.nav>
 
-            <div id="home" className="relative w-full h-screen overflow-hidden bg-brand-500">
-                <AnimatePresence mode='wait'>
-                    <motion.div
-                        key={current}
-                        className="absolute inset-0 bg-cover bg-center"
-                        style={{ backgroundImage: `url(${slides[current].image})` }}
-                        initial={{ scale: 1.1, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                    >
-                        <div className="absolute inset-0 bg-black/60" />
-                    </motion.div>
-                </AnimatePresence>
+            {/* Hero Section Redesign */}
+            <div id="home" className="relative w-full min-h-screen bg-brand-900 overflow-hidden flex items-center pt-24 pb-12">
+                {/* Background Patterns */}
+                <div className="absolute inset-0 z-0">
+                    <div className="absolute top-0 left-0 w-full h-full bg-grid-pattern-dark opacity-20" />
+                    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1)_0%,transparent_70%)]" />
+                </div>
 
-                <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-                    <motion.div
-                        key={`text-${current}`}
-                        initial={{ y: 30, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.3, duration: 0.5 }}
-                    >
-                        <h1 className="text-4xl sm:text-5xl md:text-7xl font-brand-500 text-white mb-8 leading-tight tracking-tight drop-shadow-2xl">
-                            <span className="block">
-                                <Typewriter
-                                    words={[slides[current].title]}
-                                    loop={1}
-                                    typeSpeed={70}
-                                    deleteSpeed={50}
-                                    delaySpeed={1000}
-                                />
-                            </span>
-                        </h1>
-                        <p className="text-xl sm:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
-                            {slides[current].desc}
-                        </p>
-                        <motion.button
-                            onClick={() => navigate('/signup')}
-                            className="group relative inline-flex items-center gap-4 px-10 py-5 bg-white text-brand-700 rounded-lg text-lg font-brand-500 overflow-hidden transition-all hover:bg-brand-50 shadow-xl cursor-pointer lowercase"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
+                    <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+                        {/* Text Content */}
+                        <motion.div
+                            className="flex-1 text-left"
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
                         >
-                            Get Started
-                            <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                        </motion.button>
-                    </motion.div>
-                </div>
-
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4 z-20">
-                    {slides.map((_, idx) => (
-                        <button
-                            key={idx}
-                            onClick={() => setCurrent(idx)}
-                            className={`h-2 rounded-full transition-all duration-500 ${idx === current ? 'bg-white w-12' : 'bg-white/40 w-4 hover:bg-white/60'}`}
-                        />
-                    ))}
-                </div>
-
-                <button
-                    onClick={prevSlide}
-                    className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-md p-4 sm:p-5 rounded-full transition-all duration-300 shadow-xl hover:-translate-x-1 active:scale-95 border border-white/20"
-                >
-                    <ChevronLeft size={32} className="text-white" strokeWidth={2} />
-                </button>
-                <button
-                    onClick={nextSlide}
-                    className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-md p-4 sm:p-5 rounded-full transition-all duration-300 shadow-xl hover:translate-x-1 active:scale-95 border border-white/20"
-                >
-                    <ChevronRight size={32} className="text-white" strokeWidth={2} />
-                </button>
-            </div>
-
-            {/* About Section */}
-            <div id="about" className="flex flex-col lg:flex-row justify-between items-center gap-20 py-32 px-8 lg:px-24 bg-white relative overflow-hidden bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
-                <motion.div
-                    className="flex-1 relative z-10"
-                    initial={{ opacity: 0, x: -60 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.8, type: "spring" }}
-                >
-                    <div className="inline-block px-4 py-1.5 rounded-full bg-brand-50 text-black font-brand-500 text-sm tracking-widest mb-6 border border-brand-100 lowercase">
-                        our story
-                    </div>
-                    <h2 className="text-5xl lg:text-7xl font-brand-500 mb-10 leading-tight text-black lowercase">
-                        about <span className="text-black">tradewise</span>
-                    </h2>
-
-                    <p className="text-xl text-black leading-relaxed mb-8 font-medium lowercase">
-                        tradewise is built to transform the way traders and small businesses manage their operations.
-                        we focus on delivering powerful insights without overwhelming you with complexity.
-                        whether you're tracking inventory, calculating profit, or analyzing trends, tradewise helps you work smarter, faster, and more accurately.
-                    </p>
-
-                    <p className="text-xl text-black leading-relaxed mb-12 font-medium lowercase">
-                        our platform brings together real-time analytics, automated calculations, and secure data handling —
-                        all wrapped in a clean, user-friendly interface. from beginners to experienced entrepreneurs,
-                        tradewise empowers you to make confident decisions backed by reliable data.
-                    </p>
-                    <div className="flex flex-wrap gap-8 mt-12 pb-12 overflow-x-auto scrollbar-hidden">
-                        <StatCard value={10000} suffix="+" label="active users" />
-                        <StatCard value={99} suffix="%" label="accuracy rate" />
-                        <StatCard value={24} suffix="/7" label="support availability" />
-                    </div>
-                </motion.div>
-
-                <motion.div
-                    className="flex-1 relative max-w-2xl z-10"
-                    initial={{ opacity: 0, x: 60, rotate: -5 }}
-                    whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 1, type: "spring", bounce: 0.3 }}
-                >
-                    <motion.div
-                        className="absolute -top-6 -right-6 bg-brand-600 px-8 py-5 rounded-3xl shadow-xl z-20 flex items-center justify-center transform rotate-3 cursor-pointer"
-                        whileHover={{ rotate: 0, scale: 1.1 }}
-                    >
-                        <span className="text-white text-lg font-brand-500 lowercase">real-time analytics</span>
-                    </motion.div>
-
-                    <div className="relative p-4 bg-brand-50 rounded-[3rem] border border-brand-100 overflow-hidden">
-                        <motion.img
-                            src={images.TradeWise}
-                            alt="TradeWise Demo"
-                            className="w-full h-auto rounded-[2.5rem] shadow-lg"
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.5 }}
-                        />
-                    </div>
-
-                    <motion.div
-                        className="absolute -bottom-6 -left-6 bg-white rounded-3xl shadow-xl px-8 py-5 z-20 flex items-center justify-center border border-brand-100"
-                        whileHover={{ y: -10 }}
-                    >
-                        <div className="flex items-center gap-4">
-                            <div className="w-4 h-4 bg-brand-500 rounded-full animate-pulse shadow-sm"></div>
-                            <span className="text-black text-lg font-brand-500 capitalize">Live Market Data</span>
-                        </div>
-                    </motion.div>
-                </motion.div>
-            </div>
-
-            {/* Services Section */}
-            <div id="services" className="py-32 bg-white relative overflow-hidden">
-                {/* Unique Background for Worksteps: Floating Particles & Dynamic Lines */}
-                <div className="absolute inset-0 z-0">
-                    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_30%,#FC9E4F05,transparent_50%)]" />
-                    <svg className="absolute inset-0 w-full h-full opacity-[0.05]" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <pattern id="work-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FC9E4F" strokeWidth="0.5" />
-                            </pattern>
-                        </defs>
-                        <rect width="100%" height="100%" fill="url(#work-grid)" />
-                        <motion.circle
-                            animate={{ cx: [100, 200, 100], cy: [100, 300, 100] }}
-                            transition={{ duration: 15, repeat: Infinity }}
-                            r="80" fill="#FC9E4F" className="blur-[100px] opacity-20"
-                        />
-                    </svg>
-                </div>
-
-                <motion.div
-                    className="text-center mb-24 relative px-6 z-10"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7 }}
-                >
-                    <div className="inline-block px-6 py-2 rounded-full bg-brand-50 text-brand-600 font-bold text-xs tracking-[0.2em] mb-6 border border-brand-100 lowercase">
-                        our process
-                    </div>
-                    <h4 className="text-black text-5xl lg:text-7xl font-bold mb-8 tracking-tight lowercase">
-                        streamlined workflow<br />for <span className="text-brand-600">smart traders</span>
-                    </h4>
-                    <p className="text-gray-500 text-xl max-w-2xl mx-auto leading-relaxed font-medium lowercase">
-                        experience a seamless journey from data entry to deep insights with our optimized three-step workflow.
-                    </p>
-                </motion.div>
-
-                <div className="flex flex-col lg:flex-row justify-between gap-12 px-6 lg:px-24 relative max-w-7xl mx-auto z-10">
-                    <WorkStepCard
-                        index={0}
-                        number="01"
-                        title="Seamless Data Input"
-                        description="Record your trades with millisecond precision using our optimized quick-entry system."
-                    />
-                    <WorkStepCard
-                        index={1}
-                        number="02"
-                        title="Intelligent Analysis"
-                        description="Watch as our neural engines calculate risk, ROI, and performance metrics in real-time."
-                    />
-                    <WorkStepCard
-                        index={2}
-                        number="03"
-                        title="Actionable Insights"
-                        description="Receive personalized strategies backed by historical data to maximize your future returns."
-                    />
-                </div>
-            </div>
-
-            <div className="bg-white py-48 px-6 lg:px-24 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,#FC9E4F05,transparent_50%)]" />
-
-                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-24 relative z-10">
-                    <motion.div
-                        className="flex-1"
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <div className="inline-block px-6 py-2 rounded-full bg-brand-50 text-brand-600 font-bold text-xs tracking-[0.2em] mb-8 border border-brand-100 lowercase">
-                            testimonials
-                        </div>
-                        <h2 className="text-5xl lg:text-7xl font-bold text-black mb-10 leading-tight tracking-tight lowercase">
-                            trusted by<br />modern <span className="text-brand-600">traders</span>
-                        </h2>
-                        <div className="space-y-8 font-medium text-lg text-gray-600 leading-relaxed max-w-xl lowercase">
-                            <p>
-                                join thousands of satisfied users who have transformed their trading desk with our institutional-grade toolkit.
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.2 }}
+                                className="inline-block px-4 py-1.5 rounded-md bg-brand-500/10 border border-brand-500/20 text-brand-400 font-bold text-xs tracking-wider mb-8"
+                            >
+                                NEW PLATFORM VERSION 2.0
+                            </motion.div>
+                            <h1 className="text-5xl sm:text-6xl md:text-8xl font-black text-white mb-8 leading-[1.05] tracking-tight">
+                                Manage Your <br />
+                                <span className="text-brand-500">Inventory</span> with <br />
+                                Absolute <span className="text-white/40">Precision.</span>
+                            </h1>
+                            <p className="text-xl text-white/60 mb-12 max-w-xl leading-relaxed font-semibold">
+                                Stocka is the professional management system built for speed, accuracy, and growth. Track every asset in real-time.
                             </p>
-                            <div className="grid grid-cols-2 gap-8 pt-8 border-t border-brand-100">
-                                <div className="cursor-pointer">
-                                    <div className="text-3xl font-bold text-black mb-2">4.9/5</div>
-                                    <div className="text-sm text-brand-600 font-bold tracking-widest lowercase">average rating</div>
-                                </div>
-                                <div className="cursor-pointer">
-                                    <div className="text-3xl font-bold text-black mb-2">50k+</div>
-                                    <div className="text-sm text-brand-600 font-bold tracking-widest lowercase">active accounts</div>
-                                </div>
+                            <div className="flex flex-wrap gap-6">
+                                <button
+                                    onClick={() => navigate('/signup')}
+                                    className="px-10 py-5 bg-brand-500 text-white rounded-md font-bold text-lg hover:bg-brand-600 transition-all shadow-glow active:scale-95 flex items-center gap-3"
+                                >
+                                    Start Free Trial <ArrowRight size={20} />
+                                </button>
+                                <button
+                                    onClick={() => scrollToSection('Services')}
+                                    className="px-10 py-5 bg-white/5 border border-white/10 text-white rounded-md font-bold text-lg hover:bg-white/10 transition-all active:scale-95"
+                                >
+                                    View Features
+                                </button>
                             </div>
-                        </div>
-                    </motion.div>
+                        </motion.div>
 
-                    <motion.div
-                        className="flex-1 w-full flex justify-center lg:justify-end"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1 }}
-                    >
-                        <TestimonialCarousel />
-                    </motion.div>
+                        {/* Visual Content - Floating Mockup */}
+                        <motion.div
+                            className="flex-1 relative"
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, delay: 0.4 }}
+                        >
+                            <div className="relative group">
+                                {/* Glow Effect */}
+                                <div className="absolute inset-0 bg-brand-500 blur-[100px] opacity-20 animate-pulse" />
+
+                                <motion.div
+                                    animate={{ y: [0, -20, 0] }}
+                                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                                    className="relative z-10 p-4 bg-white/5 backdrop-blur-3xl rounded-md border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]"
+                                >
+                                    <img
+                                        src={images.Stocka}
+                                        alt="Dashboard Mockup"
+                                        className="w-full h-auto rounded-md shadow-2xl grayscale-[0.2] brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700"
+                                    />
+
+                                    {/* Overlay elements for interactivity */}
+                                    <motion.div
+                                        className="absolute -top-6 -left-6 bg-brand-500 p-6 rounded-md shadow-glow border border-brand-400/50"
+                                        whileHover={{ scale: 1.1, rotate: -3 }}
+                                    >
+                                        <div className="text-white font-bold text-2xl">+42%</div>
+                                        <div className="text-white/60 text-[10px] font-bold">Growth Velocity</div>
+                                    </motion.div>
+
+                                    <motion.div
+                                        className="absolute -bottom-6 -right-6 glass-card p-6 rounded-md shadow-premium border border-white/10"
+                                        whileHover={{ scale: 1.1, rotate: 3 }}
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-3 h-3 bg-emerald-500 rounded-sm animate-pulse" />
+                                            <div className="text-brand-900 font-bold text-sm">System Online</div>
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </div>
 
-            {/* Contact Section */}
-            <div id="contact" className="py-48 bg-white relative overflow-hidden">
-                {/* Unique Background Design for Contact: Abstract Connection Mesh */}
-                <div className="absolute inset-0 z-0">
-                    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#FC9E4F0A,transparent_70%)]" />
-                    <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <pattern id="contact-mesh" width="100" height="100" patternUnits="userSpaceOnUse">
-                                <circle cx="50" cy="50" r="1" fill="#FC9E4F" />
-                                <path d="M50 0 L50 100 M0 50 L100 50" stroke="#FC9E4F" strokeWidth="0.5" />
-                            </pattern>
-                        </defs>
-                        <rect width="100%" height="100%" fill="url(#contact-mesh)" />
-                    </svg>
-                    <motion.div
-                        animate={{
-                            scale: [1, 1.2, 1],
-                            rotate: [0, 90, 0],
-                            opacity: [0.1, 0.2, 0.1]
-                        }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        className="absolute -top-1/4 -right-1/4 w-[800px] h-[800px] bg-brand-200/20 rounded-full blur-[120px]"
-                    />
-                    <motion.div
-                        animate={{
-                            scale: [1, 1.1, 1],
-                            rotate: [0, -90, 0],
-                            opacity: [0.05, 0.15, 0.05]
-                        }}
-                        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                        className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-brand-300/20 rounded-full blur-[100px]"
-                    />
-                </div>
+            {/* Services Section - Unique Circuit Background */}
+            <section id="Services" className="relative py-32 bg-[#f8fafc] overflow-hidden">
+                <div className="absolute inset-0 opacity-[0.03] bg-dot-pattern" />
+                <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-500/10 rounded-full blur-[120px]" />
 
-                <div className="max-w-4xl mx-auto px-6 relative z-10">
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    <div className="text-center mb-24">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            className="inline-block px-4 py-1.5 rounded-md bg-brand-500/10 border border-brand-500/20 text-brand-700 font-bold text-xs tracking-wider mb-6"
+                        >
+                            OUR ECOSYSTEM
+                        </motion.div>
+                        <h2 className="text-5xl lg:text-7xl font-black text-brand-900 leading-tight">
+                            The Full Suite for <br />
+                            Modern <span className="text-brand-500">Enterprises.</span>
+                        </h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {services.map((service, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                                whileHover={{ y: -10 }}
+                                    <div className="text-[10px] text-brand-500 font-bold tracking-[0.2em] uppercase">Avg Rating</div>
+                                </div>
+                    <div className="cursor-pointer group">
+                        <div className="text-4xl font-brand-500 text-brand-900 mb-2 group-hover:text-brand-500 transition-colors">50k+</div>
+                        <div className="text-[10px] text-brand-500 font-bold tracking-[0.2em] uppercase">Active Users</div>
+                    </div>
+                </div>
+        </div>
+                    </motion.div >
+
+    <motion.div
+        className="flex-1 w-full flex justify-center lg:justify-end"
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+    >
+        <TestimonialCarousel />
+    </motion.div>
+                </div >
+            </div >
+
+            <div id="Contact" className="section-padding bg-brand-900 relative overflow-hidden bg-grid-pattern-dark">
+                <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,191,36,0.05)_0%,transparent_70%)] pointer-events-none" />
+
+                <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
                     <motion.div
-                        className="text-center mb-20"
+                        className="mb-20"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <div className="inline-block px-8 py-3 rounded-2xl bg-brand-50 text-brand-600 font-bold text-xs tracking-[0.3em] mb-8 border border-brand-100 lowercase shadow-sm">
-                            innovation center
+                        <div className="inline-block px-5 py-2 rounded-full bg-white/5 text-white/60 font-semibold text-xs tracking-wide mb-8 border border-white/10">
+                            Contact Us
                         </div>
-                        <h2 className="text-6xl lg:text-8xl font-bold text-black mb-10 leading-none tracking-tight lowercase">
-                            let's start a <br />
-                            <span className="text-brand-600 relative inline-block">
-                                conversation
-                                <svg className="absolute -bottom-4 left-0 w-full h-4 text-brand-200" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                    <path d="M0 5 Q 25 0, 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="4" />
-                                </svg>
-                            </span>
+                        <h2 className="text-6xl lg:text-8xl font-bold text-white mb-8 leading-none tracking-tight">
+                            Let's <span className="text-brand-400">Connect</span>
                         </h2>
-                        <p className="text-gray-500 text-2xl font-medium max-w-2xl mx-auto leading-relaxed">
-                            Have an idea or a question? Our neural network of experts is ready to connect and elevate your trading game.
+                        <p className="text-white/60 text-xl font-semibold max-w-2xl mx-auto leading-relaxed">
+                            Have questions? We're here to help you elevate your business management.
                         </p>
                     </motion.div>
 
-                    {/* One Column Innovative Form Hub - Simplified (No BG/Shadow) */}
                     <motion.div
-                        className="relative"
-                        initial={{ opacity: 0, scale: 0.95 }}
+                        className="relative max-w-3xl mx-auto"
+                        initial={{ opacity: 0, scale: 0.98 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
                     >
-                        <div className="relative bg-transparent p-0">
-                            <form className="grid grid-cols-1 md:grid-cols-2 gap-10" onSubmit={handleContactUs}>
-                                <div className="space-y-6">
-                                    <label className="text-xs font-black text-brand-600 tracking-[0.4em] ml-2 lowercase">identity</label>
-                                    <div className="relative group/input cursor-pointer">
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            value={contactUsData.name}
-                                            onChange={handleContactUsDataChange}
-                                            placeholder="your full name"
-                                            className="w-full bg-transparent border-b-2 border-brand-100 focus:border-brand-600 py-4 px-2 text-black text-xl font-bold transition-all outline-none cursor-pointer placeholder-gray-300"
-                                            required
-                                        />
-                                        <FaUser className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-200 group-focus-within/input:text-brand-600 transition-colors" />
-                                    </div>
+                        <form className="glass-card p-12 rounded-md shadow-premium grid grid-cols-1 md:grid-cols-2 gap-10" onSubmit={handleContactUs}>
+                            <div className="space-y-4 text-left">
+                                <label className="text-xs font-semibold text-brand-500 tracking-wide ml-2">Identity</label>
+                                <div className="relative group/input">
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={contactUsData.name}
+                                        onChange={handleContactUsDataChange}
+                                        placeholder="Your Name"
+                                        className="w-full bg-white/50 border border-brand-100/50 focus:border-brand-500 py-4 px-6 rounded-md text-obsidian-800 text-lg transition-all outline-none placeholder-obsidian-200"
+                                        required
+                                    />
+                                    <FaUser className="absolute right-6 top-1/2 -translate-y-1/2 text-brand-100 group-focus-within/input:text-brand-500 transition-colors" />
                                 </div>
+                            </div>
 
-                                <div className="space-y-6">
-                                    <label className="text-xs font-black text-brand-600 tracking-[0.4em] ml-2 lowercase">channel</label>
-                                    <div className="relative group/input cursor-pointer">
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            value={contactUsData.email}
-                                            onChange={handleContactUsDataChange}
-                                            placeholder="your email address"
-                                            className="w-full bg-transparent border-b-2 border-brand-100 focus:border-brand-600 py-4 px-2 text-black text-xl font-bold transition-all outline-none cursor-pointer placeholder-gray-300"
-                                            required
-                                        />
-                                        <Mail className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-200 group-focus-within/input:text-brand-600 transition-colors" size={20} />
-                                    </div>
+                            <div className="space-y-4 text-left">
+                                <label className="text-xs font-semibold text-brand-500 tracking-wide ml-2">Email</label>
+                                <div className="relative group/input">
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={contactUsData.email}
+                                        onChange={handleContactUsDataChange}
+                                        placeholder="you@example.com"
+                                        className="w-full bg-white/50 border border-brand-100/50 focus:border-brand-500 py-4 px-6 rounded-md text-obsidian-800 text-lg transition-all outline-none placeholder-obsidian-200"
+                                        required
+                                    />
+                                    <Mail className="absolute right-6 top-1/2 -translate-y-1/2 text-brand-100 group-focus-within/input:text-brand-500 transition-colors" size={20} />
                                 </div>
+                            </div>
 
-                                <div className="md:col-span-2 space-y-6">
-                                    <label className="text-xs font-black text-brand-600 tracking-[0.4em] ml-2 lowercase">message content</label>
-                                    <div className="relative group/input cursor-pointer">
-                                        <textarea
-                                            name="message"
-                                            value={contactUsData.message}
-                                            onChange={handleContactUsDataChange}
-                                            placeholder="tell us your thoughts..."
-                                            rows="3"
-                                            className="w-full bg-transparent border-b-2 border-brand-100 focus:border-brand-600 py-4 px-2 text-black text-xl font-bold transition-all outline-none cursor-pointer placeholder-gray-300 resize-none"
-                                            required
-                                        />
-                                        <MessageCircle className="absolute right-4 bottom-4 text-brand-200 group-focus-within/input:text-brand-600 transition-colors" size={20} />
-                                    </div>
+                            <div className="md:col-span-2 space-y-4 text-left">
+                                <label className="text-xs font-semibold text-brand-500 tracking-wide ml-2">Message</label>
+                                <div className="relative group/input">
+                                    <textarea
+                                        name="message"
+                                        value={contactUsData.message}
+                                        onChange={handleContactUsDataChange}
+                                        placeholder="How can we help?"
+                                        rows="4"
+                                        className="w-full bg-white/50 border border-brand-100/50 focus:border-brand-500 py-4 px-6 rounded-md text-obsidian-800 text-lg transition-all outline-none placeholder-obsidian-200 resize-none"
+                                        required
+                                    />
+                                    <MessageCircle className="absolute right-6 bottom-6 text-brand-100 group-focus-within/input:text-brand-500 transition-colors" size={20} />
                                 </div>
+                            </div>
 
-                                <div className="md:col-span-2 pt-6 flex justify-start">
-                                    <motion.button
-                                        type="submit"
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        disabled={sending}
-                                        className="px-12 py-5 bg-black hover:bg-brand-600 text-white rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-4 cursor-pointer disabled:opacity-50"
-                                    >
-                                        {sending ? (
-                                            <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin" />
-                                        ) : (
-                                            <>
-                                                <span className="lowercase">deploy message</span>
-                                                <Send size={18} />
-                                            </>
-                                        )}
-                                    </motion.button>
-                                </div>
-                            </form>
-                        </div>
+                            <div className="md:col-span-2 pt-4">
+                                <motion.button
+                                    type="submit"
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    disabled={sending}
+                                    className="w-full py-5 bg-brand-500 hover:bg-brand-600 text-white rounded-md font-bold text-lg shadow-glow transition-all flex items-center justify-center gap-4 disabled:opacity-50"
+                                >
+                                    {sending ? <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-md animate-spin" /> : <span>Send Message</span>}
+                                </motion.button>
+                            </div>
+                        </form>
                     </motion.div>
-
-                    {/* Integrated Info Bubbles stacked below */}
-                    <div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {[
-                            { icon: Mail, label: 'Fast Response', value: 'support@tradewise.com' },
-                            { icon: Phone, label: 'Phone Call', value: '+250 788 123 456' },
-                            { icon: MapPin, label: 'Vibe HQ', value: 'Innovation District, Kigali' }
-                        ].map((item, idx) => (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="bg-gray-50/50 backdrop-blur-sm border border-brand-50 rounded-[2rem] p-8 flex flex-col items-center text-center group hover:bg-white hover:border-brand-100 hover:shadow-xl transition-all duration-500"
-                            >
-                                <div className="w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center text-brand-600 mb-6 group-hover:bg-brand-600 group-hover:text-white transition-all duration-500">
-                                    <item.icon size={28} />
-                                </div>
-                                <div className="text-xs font-black text-brand-600 uppercase tracking-widest mb-2">{item.label}</div>
-                                <div className="text-lg font-bold text-black">{item.value}</div>
-                            </motion.div>
-                        ))}
-                    </div>
                 </div>
             </div>
 
-
-            {/* FAQ Section */}
-            <div id="faq" className="bg-gray-50 py-48 relative overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#FC9E4F05_1px,transparent_1px),linear-gradient(to_bottom,#FC9E4F05_1px,transparent_1px)] bg-[size:80px_80px]" />
-                    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_0%_100%,#FC9E4F08,transparent_50%)]" />
-                    <svg className="absolute top-10 right-10 w-64 h-64 opacity-[0.05] text-brand-600" viewBox="0 0 100 100">
-                        <path d="M10 10 L90 10 L90 90 L10 90 Z" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                        <path d="M0 0 L100 100 M100 0 L0 100" stroke="currentColor" strokeWidth="0.2" />
-                    </svg>
-                    <div className="absolute bottom-1/4 left-10 w-96 h-96 bg-brand-100/10 rounded-[4rem] rotate-12 blur-3xl" />
+            <div id="FAQ" className="section-padding bg-white relative overflow-hidden">
+                <div className="max-w-4xl mx-auto text-center mb-20 relative z-10">
+                    <div className="inline-block px-5 py-2 rounded-md bg-brand-50 text-brand-500 font-bold text-[10px] tracking-[0.3em] mb-8 border border-brand-100 uppercase">
+                        Common Questions
+                    </div>
+                    <h2 className="text-4xl lg:text-6xl font-brand-500 text-brand-900 mb-6">
+                        Frequently Asked <span className="text-brand-500">Questions</span>
+                    </h2>
                 </div>
-
-                <motion.div
-                    className="max-w-7xl mx-auto px-6 lg:px-24 relative z-10"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <div className="text-center max-w-3xl mx-auto mb-20">
-                        <div className="inline-block px-6 py-2 rounded-full bg-brand-50 text-brand-600 font-bold text-xs tracking-[0.2em] mb-6 border border-brand-100 uppercase">
-                            Knowledge Base
-                        </div>
-                        <h2 className="text-black text-5xl lg:text-7xl font-bold mb-8 tracking-tight">
-                            got questions?<br /><span className="text-brand-600">we've got answers</span>
-                        </h2>
-                        <p className="text-gray-500 text-xl leading-relaxed font-medium">
-                            Everything you need to know about TradeWise, detailed in our high-precision knowledge hub.
-                        </p>
-                    </div>
-
-                    <FAQList />
-
-                    <div className="mt-20 text-center relative">
-                        <div className="inline-flex flex-col sm:flex-row items-center gap-6 p-8 bg-white/50 backdrop-blur-md rounded-[2.5rem] border border-brand-50 shadow-sm cursor-pointer hover:bg-white transition-all">
-                            <p className="text-gray-600 font-medium text-lg lowercase">still have questions that aren't answered here?</p>
-                            <motion.button
-                                onClick={() => scrollToSection('contact')}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="px-10 py-5 bg-black text-white rounded-2xl font-bold hover:bg-brand-600 transition-colors shadow-2xl cursor-pointer lowercase"
-                            >
-                                contact support
-                            </motion.button>
-                        </div>
-                    </div>
-                </motion.div>
+                <FAQList />
             </div>
             <Footer />
-        </div>
+        </div >
     );
 }
 

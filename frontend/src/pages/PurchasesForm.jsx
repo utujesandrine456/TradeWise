@@ -64,105 +64,110 @@ const Pform = () => {
   };
 
   return (
-    <div className="font-afacad min-h-screen bg-gray-50 flex flex-col">
+    <div className="font-Urbanist min-h-screen bg-brand-50 flex flex-col animate-in fade-in duration-700">
       {/* Navbar */}
-      <div className="bg-[#FC9E4F] flex justify-between items-center px-6 py-2 shadow-md">
-        <div className="flex items-center space-x-2">
-          <img src={images.logo} alt="logo" className="w-12 h-12 object-contain" />
-          <h1 className={styles.home_navbar_title} style={{ color: 'white' }}>TradeWise</h1>
+      <div className="bg-brand-900 flex justify-between items-center px-10 py-4 shadow-2xl relative z-20">
+        <div className="flex items-center space-x-4">
+          <img src={images.logo} alt="logo" className="w-10 h-10 object-contain brightness-0 invert" />
+          <h1 className="text-xl font-bold text-white tracking-tight">Stocka</h1>
         </div>
-        <div className="flex items-center p-2 rounded-xl bg-white/20 backdrop-blur-sm border border-white/30">
-          <h3 className="font-bold text-white px-2">PURCHASES</h3>
+        <div className="flex items-center px-6 py-2.5 rounded-md bg-white/10 backdrop-blur-md border border-white/20 shadow-inner">
+          <h3 className="font-bold text-white tracking-wide text-xs">Supply Ledger</h3>
         </div>
       </div>
 
       {/* Main Section */}
       <div className="flex flex-col lg:flex-row flex-1 overflow-auto">
-        {/* Left: Form */}
-        <div className="flex-1 py-8 px-4 md:px-8 flex justify-center items-start">
-          <div className="bg-white rounded-3xl p-8 w-full max-w-2xl shadow-xl border border-gray-100">
-            <div className="flex items-center justify-between mb-8">
+        <div className="flex-1 py-12 px-6 md:px-12 flex justify-center items-start lg:overflow-y-auto">
+          <div className="bg-white rounded-md p-10 w-full max-w-2xl shadow-2xl border border-brand-100 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-brand-50 rounded-md -mr-24 -mt-24 group-hover:scale-150 transition-transform duration-1000 opacity-50 blur-3xl" />
+            <div className="flex items-center justify-between mb-10 relative z-10">
               <div>
-                <h2 className="text-2xl font-bold text-black">Add Daily Purchases</h2>
-                <p className="text-sm text-gray-500 font-medium">Enter your supply data for today</p>
+                <h2 className="text-2xl font-bold text-brand-900 tracking-tight">Add Daily Purchases</h2>
+                <p className="text-xs text-brand-400 font-semibold mt-1">Record your inventory intake details here</p>
               </div>
-              <div className="text-right text-lg font-bold text-red-600">
-                {isNaN(draftPL) ? '0.00' : draftPL.toLocaleString()} Frw
+              <div className="text-right text-xl font-black text-rose-600 bg-rose-50 px-6 py-3 rounded-md border border-rose-100 shadow-inner">
+                {isNaN(draftPL) ? '0.00' : Math.abs(draftPL).toLocaleString()} <span className="text-[10px] opacity-40 ml-1">Frw</span>
               </div>
             </div>
 
-            <form className="grid grid-cols-1 sm:grid-cols-2 gap-6" onSubmit={handleSubmit}>
+            <form className="grid grid-cols-1 sm:grid-cols-2 gap-8 relative z-10" onSubmit={handleSubmit}>
               <div className="col-span-1">
-                <label className="block text-sm font-bold text-black mb-1">Date</label>
+                <label className="block text-xs font-bold text-brand-300 mb-3 px-1">Date</label>
                 <input
                   type="date"
                   name="date"
-                  className="w-full border border-gray-300 text-black rounded-xl p-3 focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent transition-all font-medium"
+                  className="w-full border border-brand-100 text-brand-900 rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all font-semibold text-sm bg-brand-50 shadow-inner"
                   required
                 />
               </div>
 
               <div className="col-span-1">
-                <label className="block text-sm font-bold text-black mb-1">Item Bought</label>
+                <label className="block text-xs font-bold text-brand-300 mb-3 px-1">Product Name</label>
                 <input
                   type="text"
                   name="itemSold"
                   placeholder="e.g., Cement, Oil"
-                  className="w-full border border-gray-300 text-black rounded-xl p-3 focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent transition-all font-medium"
+                  className="w-full border border-brand-100 text-brand-900 rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all font-semibold text-sm bg-brand-50 shadow-inner placeholder:text-brand-200"
                   required
                 />
               </div>
 
               <div className="col-span-1">
-                <label className="block text-sm font-bold text-black mb-1">Unit Price (Frw)</label>
+                <label className="block text-xs font-bold text-brand-300 mb-3 px-1">Unit Cost (Frw)</label>
                 <input
                   type="number"
                   name="buyingPrice"
                   onChange={(e) => setDraft(d => ({ ...d, buyingPrice: e.target.value }))}
-                  className="w-full border border-gray-300 text-black rounded-xl p-3 focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent transition-all font-medium"
+                  className="w-full border border-brand-100 text-brand-900 rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all font-semibold text-sm bg-brand-50 shadow-inner"
                   required
                 />
               </div>
 
               <div className="col-span-1">
-                <label className="block text-sm font-bold text-black mb-1">Quantity</label>
+                <label className="block text-xs font-bold text-brand-300 mb-3 px-1">Quantity</label>
                 <input
                   type="number"
                   name="quantity"
                   onChange={(e) => setDraft(d => ({ ...d, quantity: e.target.value }))}
-                  className="w-full border border-gray-300 text-black rounded-xl p-3 focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent transition-all font-medium"
+                  className="w-full border border-brand-100 text-brand-900 rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all font-semibold text-sm bg-brand-50 shadow-inner"
                   required
                 />
               </div>
 
               <div className="col-span-1">
-                <label className="block text-sm font-bold text-black mb-1">Item Type</label>
-                <select
-                  name="itemType"
-                  className="w-full border border-gray-300 text-black rounded-xl p-3 focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent transition-all bg-white font-medium"
-                >
-                  <option value="General">Select Type</option>
-                  <option value="Construction">Construction</option>
-                  <option value="Metal">Metal</option>
-                  <option value="Cement">Cement</option>
-                </select>
+                <label className="block text-xs font-bold text-brand-300 mb-3 px-1">Type</label>
+                <div className="relative group/sel">
+                  <select
+                    name="itemType"
+                    className="w-full border border-brand-100 text-brand-900 rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all bg-brand-50 shadow-inner font-semibold text-sm appearance-none cursor-pointer"
+                  >
+                    <option value="General">Select Type</option>
+                    <option value="Construction">Construction</option>
+                    <option value="Metal">Metal</option>
+                    <option value="Cement">Cement</option>
+                  </select>
+                </div>
               </div>
 
               <div className="col-span-1 sm:col-span-2">
-                <label className="block text-sm font-bold text-black mb-1">Notes (Optional)</label>
+                <label className="block text-xs font-bold text-brand-300 mb-3 px-1">Additional Notes</label>
                 <textarea
-                  placeholder="Add any additional note..."
-                  className="w-full border border-gray-300 text-black rounded-xl p-3 focus:ring-2 focus:ring-[#FC9E4F] focus:border-transparent transition-all"
+                  placeholder="Provide context for this purchase..."
+                  className="w-full border border-brand-100 text-brand-900 rounded-md p-5 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all bg-brand-50 shadow-inner font-semibold text-sm placeholder:text-brand-200/50"
                   rows="3"
                 ></textarea>
               </div>
 
-              <div className="col-span-1 sm:col-span-2 pt-2">
+              <div className="col-span-1 sm:col-span-2 pt-6">
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-[#FC9E4F] to-amber-600 text-white py-4 px-6 rounded-2xl font-bold hover:shadow-lg transition-all transform active:scale-[0.98]"
+                  className="w-full bg-brand-900 text-white py-6 px-10 rounded-md font-bold hover:bg-brand-800 transition-all shadow-2xl text-sm relative overflow-hidden group/btn"
                 >
-                  + Record Purchase Record
+                  <div className="absolute inset-0 bg-white/10 translate-x-full group-hover/btn:translate-x-0 transition-transform duration-500" />
+                  <span className="relative z-10 flex items-center justify-center gap-4">
+                    <RotateCcw className="text-xl animate-spin-slow" /> Finalize Purchase
+                  </span>
                 </button>
               </div>
             </form>
@@ -170,63 +175,65 @@ const Pform = () => {
         </div>
 
         {/* Right: Records */}
-        <div className="w-full lg:w-[450px] bg-white border-l border-gray-100 p-8 flex flex-col h-full shadow-inner lg:shadow-none">
-          <div className="flex justify-between items-center mb-8">
+        <div className="w-full lg:w-[450px] bg-white border-l border-brand-100 p-10 flex flex-col h-full shadow-[inset_20px_0_40px_-20px_rgba(9,17,30,0.05)] relative overflow-hidden">
+          <div className="flex justify-between items-center mb-12 relative z-10">
             <div>
-              <h2 className="text-xl font-bold text-black flex items-center gap-2">
-                <RotateCcw className="text-[#FC9E4F]" size={24} />
+              <h2 className="text-2xl font-bold text-brand-900 flex items-center gap-4 tracking-tight">
+                <RotateCcw className="text-brand-900" size={28} />
                 Recent Purchases
               </h2>
-              <p className="text-sm text-gray-500 font-medium">Your supply history for this session</p>
+              <p className="text-xs text-brand-300 font-semibold mt-1">Audit log of your daily acquisitions</p>
             </div>
             <button
               onClick={clearAll}
-              className="flex items-center text-red-500 hover:text-red-600 font-bold text-sm bg-red-50 px-3 py-1.5 rounded-lg"
+              className="flex items-center text-rose-500 hover:text-white font-bold text-xs bg-rose-50 px-5 py-2.5 rounded-md border border-rose-100 transition-all hover:bg-rose-500 shadow-sm"
             >
-              <Trash2 size={16} className="mr-1" /> Clear
+              <Trash2 size={16} className="mr-2" /> Clear List
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
-              <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Total Purchases</p>
-              <p className="text-2xl font-bold text-[#FC9E4F]">{trades.length}</p>
+          <div className="grid grid-cols-2 gap-6 mb-12 relative z-10">
+            <div className="bg-brand-50 rounded-md p-6 border border-brand-100 shadow-inner">
+              <p className="text-xs text-brand-300 font-bold mb-3">Count</p>
+              <p className="text-4xl font-bold text-brand-900 tracking-tight">{trades.length}</p>
             </div>
-            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
-              <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Total Cost</p>
-              <p className="text-xl font-bold text-red-600">
-                {Math.abs(totalPL).toLocaleString()} Frw
+            <div className="bg-rose-50 rounded-md p-6 border border-rose-100 shadow-inner">
+              <p className="text-xs text-rose-400 font-bold mb-3">Total Expense</p>
+              <p className="text-2xl font-bold text-rose-600 tracking-tight">
+                {Math.abs(totalPL).toLocaleString()} <span className="text-[10px] opacity-40 ml-1">Frw</span>
               </p>
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto pr-2 space-y-4">
+          <div className="flex-1 overflow-y-auto pr-4 space-y-6 custom-scrollbar relative z-10">
             {trades.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-64 text-gray-400">
-                <RotateCcw size={48} className="mb-4 opacity-20" />
-                <p className="font-bold">No purchases recorded yet</p>
-                <p className="text-sm">Add your first record to start tracking.</p>
+              <div className="flex flex-col items-center justify-center h-64 text-brand-200">
+                <div className="p-8 bg-brand-50 rounded-md border border-brand-100 shadow-inner mb-6">
+                  <RotateCcw size={48} className="opacity-20 animate-pulse" />
+                </div>
+                <p className="font-bold text-sm">No transaction yet</p>
+                <p className="text-xs font-medium italic mt-2">Start recording purchases to see logs</p>
               </div>
             ) : (
               trades.slice().reverse().map((trade, index) => (
                 <div
                   key={index}
-                  className="flex justify-between items-center bg-gray-50 p-4 rounded-2xl border border-gray-100 hover:shadow-md transition-all"
+                  className="flex justify-between items-center bg-white p-6 rounded-md border border-brand-100 hover:border-brand-900 hover:shadow-2xl transition-all duration-500 group/row shadow-sm hover:-translate-y-1"
                 >
                   <div className="flex-1">
-                    <p className="font-bold text-gray-900">
+                    <p className="font-bold text-brand-900 tracking-tight text-lg leading-none mb-3">
                       {trade.item}
                     </p>
-                    <div className="flex items-center gap-2 text-xs text-gray-500 mt-1 font-medium">
-                      <span className="bg-white px-2 py-0.5 rounded-full border border-gray-100">{trade.type}</span>
-                      <span>• Qty: {trade.quantity}</span>
+                    <div className="flex items-center gap-4 text-xs text-brand-300 font-semibold italic">
+                      <span className="bg-brand-50 text-brand-900 px-3 py-1 rounded-md border border-brand-100 shadow-inner">{trade.type}</span>
+                      <span className="flex items-center gap-1">Qty: <span className="text-brand-900 font-bold">{trade.quantity}</span></span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-red-600">
+                    <p className="font-bold text-rose-600 text-xl tracking-tight">
                       -{Math.abs(trade.profitLoss).toLocaleString()}
                     </p>
-                    <p className="text-[10px] text-gray-400 mt-1">{trade.date}</p>
+                    <p className="text-xs text-brand-200 mt-2 font-semibold">{trade.date}</p>
                   </div>
                 </div>
               ))

@@ -8,7 +8,7 @@ const NotFound = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-brand-50 via-white to-brand-100 flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden font-afacad">
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 via-white to-brand-100 flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden font-Urbanist">
       <div className="max-w-4xl w-full text-center relative z-10">
         <motion.div
           initial={{ scale: 0.5, opacity: 0 }}
@@ -16,7 +16,7 @@ const NotFound = () => {
           transition={{ duration: 0.5 }}
           className="mb-6 sm:mb-8"
         >
-          <h1 className="text-[100px] xs:text-[120px] sm:text-[150px] md:text-[180px] lg:text-[220px] xl:text-[250px] font-bold text-brand-500 leading-none drop-shadow-2xl">
+          <h1 className="text-[100px] xs:text-[120px] sm:text-[150px] md:text-[180px] lg:text-[220px] xl:text-[250px] font-bold text-brand-900 leading-none drop-shadow-2xl">
             404
           </h1>
         </motion.div>
@@ -28,10 +28,10 @@ const NotFound = () => {
           className="space-y-6"
         >
           <div className="space-y-3 px-4">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-brand-900 tracking-tight">
               Page Not Found
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-black font-medium max-w-2xl mx-auto px-4">
+            <p className="text-base sm:text-lg md:text-xl text-brand-600 font-semibold max-w-2xl mx-auto px-4 tracking-wide leading-relaxed italic opacity-80">
               Oops! The page you're looking for doesn't exist or has been moved.
               Let's get you back on track.
             </p>
@@ -46,24 +46,25 @@ const NotFound = () => {
           >
             <button
               onClick={() => navigate(-1)}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-500 to-amber-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-900 text-white px-8 sm:px-10 py-3 sm:py-4 rounded-md font-bold text-base sm:text-lg shadow-xl hover:bg-brand-800 transition-all duration-300 tracking-wide relative overflow-hidden group"
             >
-              <ArrowLeft size={20} className="sm:w-6 sm:h-6" />
-              Go Back
+              <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
+              <ArrowLeft size={20} className="sm:w-6 sm:h-6 relative z-10" />
+              <span className="relative z-10">Go Back</span>
             </button>
 
             <Link
               to="/"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-brand-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 border-brand-200"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-brand-900 px-8 sm:px-10 py-3 sm:py-4 rounded-md font-bold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-brand-100 tracking-wide"
             >
               <Home size={20} className="sm:w-6 sm:h-6" />
-              Go to Homepage
+              Go To Homepage
             </Link>
 
             {user && (
               <Link
                 to="/dashboard"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-400 to-brand-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-500 text-white px-8 sm:px-10 py-3 sm:py-4 rounded-md font-bold text-base sm:text-lg shadow-lg hover:bg-brand-600 transition-all duration-300 tracking-wide"
               >
                 <ArrowLeft size={20} className="sm:w-6 sm:h-6" />
                 Dashboard
@@ -76,10 +77,10 @@ const NotFound = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9, duration: 0.5 }}
-            className="mt-8 sm:mt-12 flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-black font-bold px-4"
+            className="mt-8 sm:mt-12 flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-brand-400 font-semibold px-4 tracking-wide italic opacity-60"
           >
             <Search size={18} className="sm:w-5 sm:h-5" />
-            <p className="text-xs sm:text-sm text-center">
+            <p className="text-[10px] sm:text-xs text-center">
               Looking for something specific? Try searching from the homepage.
             </p>
           </motion.div>

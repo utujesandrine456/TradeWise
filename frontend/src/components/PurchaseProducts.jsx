@@ -31,25 +31,22 @@ const PurchaseProducts = () => {
         }
 
         const transactions = response.data.data.transactions || [];
-        console.log("Transactions: ", transactions);
-        
+
         // Transform the transaction data to match the expected format
         const transformedPurchases = transactions.map(transaction => ({
           id: transaction.id,
-          product: transaction.products.map(p => p.name).join(', '), // for search/filter only
-          products: transaction.products || [], // for modal table
-          supplier: transaction.secondParty,
+          product: transaction.products.map(p => p.name).join(', ') || 'Unspecified Cargo',
+          products: transaction.products || [],
+          supplier: transaction.secondParty || 'Undisclosed Entity',
           quantity: transaction.products.reduce((sum, p) => sum + p.quantity, 0),
-          unitPrice: transaction.products.length > 0 ? transaction.products[0].price : 0,
           totalPrice: transaction.products.reduce((sum, p) => sum + (p.price * p.quantity), 0),
-          date: new Date(transaction.createdAt).toISOString().split('T')[0],
-          paymentMethod: transaction.financials && transaction.financials.length > 0 ? 'Recorded' : 'Not Recorded'
+          date: transaction.createdAt,
+          paymentMethod: transaction.financials && transaction.financials.length > 0 ? 'Settled' : 'Pending'
         }));
 
         setPurchases(transformedPurchases);
       } catch (error) {
         console.error('Error fetching purchases:', error);
-        toast.error(`Error loading purchases: ${error.message}`);
       } finally {
         setLoading(false);
       }
@@ -60,7 +57,7 @@ const PurchaseProducts = () => {
 
   const filteredPurchases = purchases.filter(purchase => {
     const matchesSearch = purchase.product?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         purchase.supplier?.toLowerCase().includes(searchTerm.toLowerCase());
+      purchase.supplier?.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesSearch;
   });
 
@@ -80,233 +77,175 @@ const PurchaseProducts = () => {
   }, [visibleCount, filteredPurchases.length]);
 
   const totalSpent = purchases.reduce((sum, purchase) => sum + purchase.totalPrice, 0);
+  const totalVolume = purchases.reduce((sum, p) => sum + p.quantity, 0);
+  const uniqueSuppliers = new Set(purchases.map(p => p.supplier)).size;
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-40">
-        <span className="text-gray-600 text-lg">Loading purchases...</span>
+      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist space-y-6">
+        <div className="w-16 h-16 border-4 border-accent-400/20 border-t-accent-400 rounded-md animate-spin"></div>
+        <p className="text-xl font-black text-brand-300 uppercase tracking-widest italic">Accessing Procurement Records...</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 overflow-auto" >
+    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-800">Purchase Management</h2>
-          <p className="text-gray-600">Manage your product purchases and supplier relationships</p>
+      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
+        <div className="flex items-center gap-8 relative z-10">
+          <div className="p-5 bg-white/5 rounded-md border border-white/5 shadow-inner transition-transform group-hover:scale-110 duration-500">
+            <MdShoppingCart className="text-5xl text-accent-400" />
+          </div>
+          <div>
+            <h1 className="text-4xl font-black text-white leading-none mb-3 uppercase tracking-tighter">Purchase Management</h1>
+            <p className="text-brand-300 text-lg font-bold italic opacity-60">Manage your product purchases and supplier relationships</p>
+          </div>
         </div>
-        <button 
+        <button
           onClick={() => setIsPurchaseOrderFormOpen(true)}
-          className="bg-#FC9E4F text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition duration-200 flex items-center gap-2"
+          className="group/btn relative px-10 py-5 bg-accent-400 text-brand-950 rounded-md font-black uppercase transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-accent-400/20 overflow-hidden text-lg tracking-tight z-10"
         >
-          <MdAdd className="text-xl" />
-          New Purchase 
+          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
+          <div className="flex items-center gap-3 relative z-10">
+            <MdAdd className="text-2xl" />
+            <span>New Purchase</span>
+          </div>
         </button>
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-[#FC9E4F] text-white p-6 rounded-xl">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-white">Total Purchases</p>
-              <p className="text-3xl font-bold">{purchases.length}</p>
-            </div>
-            <div className="text-4xl opacity-80"><MdInventory className="text-6xl" /></div>
-          </div>
-        </div>
-        <div className="bg-[#FC9E4F] text-white p-6 rounded-xl">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-white">Total Products</p>
-              <p className="text-3xl font-bold">{purchases.reduce((sum, p) => sum + p.quantity, 0)}</p>
-            </div>
-            <div className="text-4xl opacity-80"><MdInventory className="text-6xl" /></div>
-          </div>
-        </div>
-        <div className="bg-[#FC9E4F] text-white p-6 rounded-xl">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-white">Suppliers</p>
-              <p className="text-3xl font-bold">{new Set(purchases.map(p => p.supplier)).size}</p>
-            </div>
-            <div className="text-4xl opacity-80"><MdAccountBalance className="text-6xl" /></div>
-          </div>
-        </div>
-        <div className="bg-[#FC9E4F] text-white p-6 rounded-xl">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-white">Total Spent</p>
-              <p className="text-2xl font-bold">{(totalSpent / 1000000).toFixed(1)}M</p>
-            </div>
-            <div className="text-4xl opacity-80"><MdAccountBalance className="text-6xl" /></div>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+        <StatsCard icon={MdInventory} label="Total Purchases" value={purchases.length} color="accent-400" />
+        <StatsCard icon={MdInventory} label="Total Products" value={totalVolume} color="blue-400" />
+        <StatsCard icon={MdAccountBalance} label="Suppliers" value={uniqueSuppliers} color="green-500" />
+        <StatsCard icon={MdAttachMoney} label="Total Spent" value={`${(totalSpent / 1000000).toFixed(1)}M Frw`} color="red-500" />
       </div>
 
-      {/* Quick Actions */}
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <button className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-200">
-            <div className="bg-blue-100 p-2 rounded-lg">
-              <MdShoppingCart className="text-blue-600 text-xl" />
-            </div>
-            <div className="text-left">
-              <p className="font-medium text-gray-800">Create Purchase Order</p>
-              <p className="text-sm text-gray-600">Add new products to inventory</p>
-            </div>
-          </button>
-          <button className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-200">
-            <div className="bg-green-100 p-2 rounded-lg">
-              <MdAttachMoney className="text-green-600 text-xl" />
-            </div>
-            <div className="text-left">
-              <p className="font-medium text-gray-800">Record Payment</p>
-              <p className="text-sm text-gray-600">Mark purchase as paid</p>
-            </div>
-          </button>
-          <button className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-200">
-            <div className="bg-purple-100 p-2 rounded-lg">
-              <MdTrendingUp className="text-purple-600 text-xl" />
-            </div>
-            <div className="text-left">
-              <p className="font-medium text-gray-800">Purchase Report</p>
-              <p className="text-sm text-gray-600">View detailed analytics</p>
-            </div>
-          </button>
-        </div>
-      </div>
-
-      {/* Search and Filters */}
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-        <div className="flex flex-col sm:flex-row gap-4">
-          <div className="flex-1 relative">
-            <MdSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-#FC9E4F focus:border-transparent"
-            />
-          </div>
+      {/* Search Console */}
+      <div className="bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+        <div className="relative group/search max-w-4xl z-10">
+          <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-brand-300 text-2xl group-focus-within/search:text-accent-400 transition-colors duration-300" />
+          <input
+            type="text"
+            placeholder="Search products or suppliers..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-16 pr-8 py-5 bg-white/5 border border-white/5 rounded-md focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 text-white placeholder-brand-300/40 transition-all text-lg font-black uppercase tracking-tight shadow-inner"
+          />
         </div>
       </div>
 
       {/* Purchases Table */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="p-6 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-800">Purchase Orders</h3>
+      <div className="bg-brand-900 border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
+        <div className="p-10 border-b border-white/5 flex items-center justify-between relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
+          <h3 className="text-2xl font-black text-white uppercase tracking-tighter relative z-10">Purchase Orders</h3>
+          <div className="px-6 py-2.5 bg-white/5 border border-white/5 shadow-inner rounded-md text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] relative z-10">
+            Displaying {visiblePurchases.length} Records
+          </div>
         </div>
-        <div className="overflow-x-auto scrollbar-hidden">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">Product</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">Supplier</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">Quantity</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">Unit Price</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">Total</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">Date</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">Payment</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-700">Actions</th>
+        <div className="overflow-x-auto custom-scrollbar">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="bg-white/5">
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Product</th>
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Supplier</th>
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Quantity</th>
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Total Price</th>
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Date</th>
+                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Status</th>
+                <th className="px-10 py-6 text-center text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-white/5">
               {visiblePurchases.map((purchase) => (
-                <tr key={purchase.id} className="hover:bg-gray-50 transition duration-150">
-                  <td className="px-6 py-4 text-sm text-gray-900 font-medium">{purchase.product}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{purchase.supplier}</td>
-                  <td className="px-6 py-4 text-sm text-gray-900">{purchase.quantity}</td>
-                  <td className="px-6 py-4 text-sm text-gray-900">{purchase.unitPrice.toLocaleString()} Frw</td>
-                  <td className="px-6 py-4 text-sm text-gray-900 font-semibold">{purchase.totalPrice.toLocaleString()} Frw</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{new Date(purchase.date).toLocaleDateString()}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{purchase.paymentMethod}</td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2">
-                      <button className="text-blue-600 hover:text-blue-800 p-1" onClick={() => {
-                        setSelectedPurchase(purchase);
-                        setIsViewModalOpen(true);
-                      }}>
-                        <MdVisibility className="text-lg" />
-                      </button>
-                    </div>
+                <tr key={purchase.id} className="hover:bg-white/[0.03] transition-colors cursor-pointer group/row relative" onClick={() => {
+                  setSelectedPurchase(purchase);
+                  setIsViewModalOpen(true);
+                }}>
+                  <td className="px-10 py-8 relative">
+                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-accent-400 group-hover/row:h-1/2 transition-all duration-300 rounded-md" />
+                    <p className="text-base font-black text-white uppercase tracking-tight group-hover/row:text-accent-400 transition-colors leading-tight">{purchase.product}</p>
+                  </td>
+                  <td className="px-10 py-8">
+                    <span className="text-xs font-black text-brand-300 uppercase italic bg-white/5 border border-white/5 px-4 py-2 rounded-md shadow-inner group-hover/row:bg-white/10 group-hover/row:text-white transition-all">
+                      {purchase.supplier}
+                    </span>
+                  </td>
+                  <td className="px-10 py-8">
+                    <span className="text-xl font-black text-white tracking-tighter uppercase">{purchase.quantity} <span className="text-[10px] text-brand-300 tracking-[0.2em] uppercase italic ml-1">Units</span></span>
+                  </td>
+                  <td className="px-10 py-8">
+                    <span className="text-xl font-black text-accent-400 tracking-tighter uppercase">{purchase.totalPrice.toLocaleString()} <span className="text-[10px] text-brand-300 tracking-[0.2em] uppercase italic ml-1">Frw</span></span>
+                  </td>
+                  <td className="px-10 py-8">
+                    <span className="text-sm font-black text-white uppercase tracking-tight">{new Date(purchase.date).toLocaleDateString()}</span>
+                  </td>
+                  <td className="px-10 py-8">
+                    <span className={`text-[10px] font-black uppercase italic px-4 py-2 rounded-md border ${purchase.paymentMethod === 'Settled' ? 'bg-green-500/10 text-green-500 border-green-500/20' : 'bg-red-500/10 text-red-500 border-red-500/20'} tracking-widest`}>
+                      {purchase.paymentMethod}
+                    </span>
+                  </td>
+                  <td className="px-10 py-8 text-center">
+                    <button className="text-brand-300 hover:text-accent-400 p-2 bg-white/5 rounded-md border border-white/5 transition-all hover:scale-110">
+                      <MdVisibility className="text-xl" />
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        {visibleCount < filteredPurchases.length && (
-          <div className="p-4 text-center">
-            <span className="text-gray-500">Scroll down to load more...</span>
-          </div>
-        )}
-        {visibleCount >= filteredPurchases.length && filteredPurchases.length > 0 && (
-          <div className="p-4 text-center">
-            <span className="text-gray-500">No more purchases!</span>
-          </div>
-        )}
       </div>
 
-      {/* Purchase Order Form */}
-      <PurchaseOrderForm 
+      <PurchaseOrderForm
         isOpen={isPurchaseOrderFormOpen}
         onClose={() => setIsPurchaseOrderFormOpen(false)}
       />
 
-      {/* View Transaction Modal */}
       <ViewModal
         isOpen={isViewModalOpen}
         onClose={() => setIsViewModalOpen(false)}
         data={selectedPurchase}
         title="Purchase Details"
         fields={[
-          {
-            key: 'products',
-            label: 'Products',
-            fullWidth: true,
-            render: (products, data) => {
-              const productList = data?.products || [];
-              return (
-                <div className="overflow-x-auto col-span-2">
-                  <table className="min-w-full border border-gray-200 rounded-lg">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th className="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase">Product Name</th>
-                        <th className="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase">Quantity</th>
-                        <th className="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase">Unit Price</th>
-                        <th className="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase">Total</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200">
-                      {productList.length > 0 ? productList.map((product, idx) => (
-                        <tr key={idx} className="hover:bg-gray-50">
-                          <td className="px-3 py-2 text-gray-900 font-medium">{product.name || 'N/A'}</td>
-                          <td className="px-3 py-2 text-gray-700">{product.quantity || 0}</td>
-                          <td className="px-3 py-2 text-gray-700">{product.price?.toLocaleString() || '0'} Frw</td>
-                          <td className="px-3 py-2 font-semibold text-gray-900">{((product.price || 0) * (product.quantity || 0)).toLocaleString()} Frw</td>
-                        </tr>
-                      )) : (
-                        <tr>
-                          <td colSpan="4" className="px-3 py-4 text-center text-gray-500">No products found</td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              );
-            },
-          },
-          { key: 'supplier', label: 'Supplier' },
-          { key: 'totalPrice', label: 'Total Price', render: v => v?.toLocaleString() + ' Frw' },
-          { key: 'date', label: 'Date', render: v => v ? new Date(v).toLocaleDateString() : '' },
-          { key: 'paymentMethod', label: 'Payment Method' },
+          { key: 'product', label: 'Cargo Payload' },
+          { key: 'supplier', label: 'Vendor Entity' },
+          { key: 'quantity', label: 'Volume Metric' },
+          { key: 'totalPrice', label: 'Capital Required', render: v => v?.toLocaleString() + ' Frw' },
+          { key: 'date', label: 'Execution Timestamp', render: v => v ? new Date(v).toLocaleDateString() : '' },
+          { key: 'paymentMethod', label: 'Settlement Condition' },
         ]}
       />
+    </div>
+  );
+};
+
+// Internal StatsCard for localized use
+const StatsCard = ({ icon: Icon, label, value, color }) => {
+  const colorMap = {
+    'accent-400': 'text-accent-400 bg-accent-400/10 border-accent-400/20 from-accent-400',
+    'green-500': 'text-green-500 bg-green-500/10 border-green-500/20 from-green-500',
+    'red-500': 'text-red-500 bg-red-500/10 border-red-500/20 from-red-500',
+    'blue-400': 'text-blue-400 bg-blue-400/10 border-blue-400/20 from-blue-400',
+  };
+  const selected = colorMap[color] || colorMap['accent-400'];
+  const [textColor, bgStyle, borderStyle, gradStyle] = selected.split(' ');
+
+  return (
+    <div className="group bg-brand-900 p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
+      <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50`} />
+      <div className="relative z-10 flex flex-col gap-10">
+        <div className={`p-5 w-fit rounded-md border ${bgStyle} ${borderStyle} ${textColor} shadow-inner`}>
+          <Icon className="text-3xl" />
+        </div>
+        <div>
+          <p className="text-[10px] font-black text-brand-300 tracking-[0.2em] mb-3 uppercase italic opacity-60">{label}</p>
+          <p className="text-4xl font-black text-white uppercase tracking-tighter leading-none">{value}</p>
+        </div>
+      </div>
     </div>
   );
 };

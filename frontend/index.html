@@ -6,12 +6,18 @@
   <link rel="icon" type="image/x-icon"
     href="https://res.cloudinary.com/dizkxmaoh/image/upload/logo_favicon_uezwjw.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TradeWise - Smart Trading & Inventory Management</title>
+  <title>Stocka - Professional Business Management</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
   <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #09111E;
+    }
+
     #initial-loader {
       position: fixed;
       inset: 0;
@@ -19,109 +25,208 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: #ffffff;
+      background: #09111E;
       z-index: 9999;
-      transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1);
-      font-family: 'Afacad', sans-serif;
+      transition: opacity 1s cubic-bezier(0.7, 0, 0.3, 1), visibility 1s;
+      font-family: 'Urbanist', sans-serif;
     }
 
     #initial-loader.fade-out {
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
     }
 
-    .loader-progress-container {
+    .loader-content {
       position: relative;
-      width: 150px;
-      height: 150px;
-      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
     }
 
-    .loader-svg {
-      transform: rotate(-90deg);
+    /* Modern Orbit Loader */
+    .orbit-container {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .orbit-ring {
+      position: absolute;
       width: 100%;
       height: 100%;
+      border: 2px solid rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
     }
 
-    .loader-circle-bg {
-      fill: none;
-      stroke: #ffedde;
-      stroke-width: 8;
+    .orbit-path {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 2px solid transparent;
+      border-top-color: #fbbf24;
+      /* accent-400 equivalent */
+      border-radius: 50%;
+      animation: orbit-rotate 2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     }
 
-    .loader-circle-progress {
-      fill: none;
-      stroke: #fc9e4f;
-      stroke-width: 8;
-      stroke-linecap: round;
-      stroke-dasharray: 282.7;
-      stroke-dashoffset: 282.7;
-      transition: stroke-dashoffset 0.1s linear;
-    }
-
-    .loader-percentage {
+    .orbit-path::after {
+      content: '';
       position: absolute;
       top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2rem;
-      font-weight: 900;
-      color: #fc9e4f;
+      right: -4px;
+      width: 8px;
+      height: 8px;
+      background: #fbbf24;
+      border-radius: 50%;
+      box-shadow: 0 0 15px #fbbf24;
     }
 
-    .loader-text {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: #fc9e4f;
+    .inner-core {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #fbbf24, #d97706);
+      border-radius: 12px;
+      transform: rotate(45deg);
+      animation: core-pulse 2s ease-in-out infinite;
+      box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+    }
+
+    @keyframes orbit-rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes core-pulse {
+
+      0%,
+      100% {
+        transform: rotate(45deg) scale(0.9);
+        opacity: 0.8;
+      }
+
+      50% {
+        transform: rotate(225deg) scale(1.1);
+        opacity: 1;
+      }
+    }
+
+    .loader-info {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .loader-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .loader-subtitle {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: none;
+      /* explicitly no uppercase */
+      letter-spacing: 0.05em;
+    }
+
+    .progress-bar-container {
+      width: 200px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #fbbf24, #d97706);
+      transition: width 0.3s ease;
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
     }
   </style>
 </head>
 
 <body>
   <div id="initial-loader">
-    <div class="loader-progress-container">
-      <svg class="loader-svg" viewBox="0 0 100 100">
-        <circle class="loader-circle-bg" cx="50" cy="50" r="45"></circle>
-        <circle class="loader-circle-progress" cx="50" cy="50" r="45" id="progress-circle"></circle>
-      </svg>
-      <div class="loader-percentage" id="loader-percent">0%</div>
+    <div class="loader-content">
+      <div class="orbit-container">
+        <div class="orbit-ring"></div>
+        <div class="orbit-path"></div>
+        <div class="inner-core"></div>
+      </div>
+      <div class="loader-info">
+        <h1 class="loader-title">Stocka</h1>
+        <p class="loader-subtitle" id="loader-status">Initializing secure modules...</p>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="loader-progress"></div>
+        </div>
+      </div>
     </div>
-    <span class="loader-text" id="loader-text">Loading TradeWise</span>
   </div>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
   <script>
-    let percent = 0;
-    const circumference = 282.7;
-    const circle = document.getElementById('progress-circle');
-    const percentLabel = document.getElementById('loader-percent');
+    const progressFill = document.getElementById('loader-progress');
+    const statusText = document.getElementById('loader-status');
+    const statuses = [
+      'Synchronizing market data...',
+      'Verifying identity protocols...',
+      'Optimizing dashboard assets...',
+      'Finalizing secure connection...'
+    ];
 
-    const updateProgress = (val) => {
-      const offset = circumference - (val / 100) * circumference;
-      circle.style.strokeDashoffset = offset;
-      percentLabel.textContent = Math.round(val) + '%';
-    };
+    let currentPercent = 0;
 
-    const percentInterval = setInterval(() => {
-      if (percent < 98) {
-        percent += 0.8;
-        if (percent > 98) percent = 98;
-        updateProgress(percent);
+    const interval = setInterval(() => {
+      if (currentPercent < 90) {
+        currentPercent += Math.random() * 5;
+        if (currentPercent > 90) currentPercent = 90;
+        updateUI(currentPercent);
       }
-    }, 30);
+    }, 400);
+
+    function updateUI(percent) {
+      progressFill.style.width = percent + '%';
+      const statusIndex = Math.floor((percent / 100) * statuses.length);
+      if (statuses[statusIndex]) {
+        statusText.textContent = statuses[statusIndex];
+      }
+    }
 
     window.finishLoader = () => {
-      clearInterval(percentInterval);
-      updateProgress(100);
+      clearInterval(interval);
+      updateUI(100);
+      statusText.textContent = 'System ready';
       setTimeout(() => {
         const loader = document.getElementById('initial-loader');
-        if (loader) loader.classList.add('fade-out');
-      }, 300);
+        if (loader) {
+          loader.classList.add('fade-out');
+          setTimeout(() => loader.remove(), 1000);
+        }
+      }, 500);
     };
 
+    // Auto-fallback if it takes too long
     setTimeout(() => {
-      if (percent < 100) window.finishLoader();
-    }, 5000);
+      if (currentPercent < 100) window.finishLoader();
+    }, 3000);
   </script>
 </body>
 

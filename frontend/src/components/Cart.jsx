@@ -25,7 +25,7 @@ const Cart = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-#FC9E4F bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-#09111E bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
@@ -130,7 +130,7 @@ const Cart = ({ isOpen, onClose }) => {
 
         
         {isCheckoutOpen && (
-          <div className="fixed inset-0 bg-#FC9E4F bg-opacity-50 flex items-center justify-center z-60">
+          <div className="fixed inset-0 bg-#09111E bg-opacity-50 flex items-center justify-center z-60">
             <div className="bg-white rounded-xl p-8 text-center">
               <div className="text-green-500 text-6xl mb-4">✓</div>
               <h3 className="text-xl font-medium text-gray-900 mb-2">Order Placed Successfully!</h3>

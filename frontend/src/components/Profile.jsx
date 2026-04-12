@@ -202,40 +202,40 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header Card */}
-      <div className="bg-brand-900/50 backdrop-blur-xl rounded-[2rem] border border-white/10 overflow-hidden shadow-2xl shadow-#FC9E4F/40">
-        <div className="bg-gradient-to-br from-brand-800/80 to-accent-400/20 px-8 py-10 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-accent-400/10 rounded-full blur-[100px] -mr-48 -mt-48" />
+      <div className="bg-brand-900 rounded-md border border-white/5 overflow-hidden shadow-2xl relative">
+        <div className="bg-brand-950/50 px-10 py-16 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-400/5 rounded-md blur-[120px] -mr-[300px] -mt-[300px] pointer-events-none" />
           <div className="relative z-10 flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold text-white lowercase italic mb-2 tracking-tighter">profile</h1>
-              <p className="text-gray-400 font-medium lowercase italic">manage your business identity and account details</p>
+            <div className="space-y-4">
+              <h1 className="text-5xl font-bold text-white tracking-tight mb-2">Profile Settings</h1>
+              <p className="text-brand-300 font-semibold text-lg opacity-60">Manage your business profile and account preferences</p>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="w-20 h-20 rounded-3xl bg-white/5 backdrop-blur-2xl flex items-center justify-center text-accent-400 text-3xl font-bold border border-white/10 shadow-2xl lowercase">
+            <div className="flex items-center gap-6">
+              <div className="w-24 h-24 rounded-md bg-white/5 border border-white/10 backdrop-blur-3xl flex items-center justify-center text-accent-400 text-4xl font-bold shadow-2xl">
                 {initials}
               </div>
             </div>
           </div>
         </div>
-        <div className="p-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Badge icon={<MdBusiness className="text-accent-400" />} label="company" value={profileData?.name || formData.name || '—'} />
-            <Badge icon={<MdEmail className="text-accent-400" />} label="currency" value={profileData?.currency || formData.currency || '—'} />
-            <Badge icon={<MdShield className="text-accent-400" />} label="industry" value={profileData?.industry || formData.industry || '—'} />
+        <div className="p-10 bg-brand-900">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Badge icon={<MdBusiness className="text-accent-400" />} label="Corporate Identity" value={profileData?.name || formData.name || '—'} />
+            <Badge icon={<MdEmail className="text-accent-400" />} label="Operational Currency" value={profileData?.currency || formData.currency || '—'} />
+            <Badge icon={<MdShield className="text-accent-400" />} label="Industry Sector" value={profileData?.industry || formData.industry || '—'} />
           </div>
-          <div className="mt-10">
-            <div className="flex items-center justify-between mb-4 px-2">
-              <p className="text-xs font-bold text-gray-500 lowercase italic">profile completeness</p>
-              <p className="text-xs font-bold text-accent-400 lowercase italic">
-                {loading ? 'loading...' : `${completeness}%`}
+          <div className="mt-12 bg-white/5 p-8 rounded-md border border-white/5 shadow-inner">
+            <div className="flex items-center justify-between mb-5 px-1">
+              <p className="text-xs font-bold text-brand-300 opacity-60">Setup Progress</p>
+              <p className="text-xs font-bold text-brand-500">
+                {loading ? 'Loading...' : `${completeness}% complete`}
               </p>
             </div>
             {!loading && (
-              <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden border border-white/5 p-[2px]">
+              <div className="w-full h-4 bg-brand-950 border border-white/5 rounded-md overflow-hidden p-1 shadow-inner">
                 <div
-                  className="h-full bg-gradient-to-r from-accent-400 to-amber-500 rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(251,191,36,0.3)]"
+                  className="h-full bg-accent-400 rounded-md transition-all duration-1000 shadow-[0_0_15px_rgba(96,165,250,0.5)]"
                   style={{ width: `${completeness}%` }}
                 />
               </div>
@@ -244,55 +244,59 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex flex-wrap gap-3 p-2 bg-brand-900/40 backdrop-blur-md rounded-3xl border border-white/5">
-        <TabButton active={activeTab === 'basic'} onClick={() => setActiveTab('basic')}>basic info</TabButton>
-        <TabButton active={activeTab === 'description'} onClick={() => setActiveTab('description')}>description</TabButton>
-        <TabButton active={activeTab === 'contacts'} onClick={() => setActiveTab('contacts')}>contacts</TabButton>
-        <TabButton active={activeTab === 'scale'} onClick={() => setActiveTab('scale')}>scale & operations</TabButton>
-        <TabButton active={activeTab === 'payments'} onClick={() => setActiveTab('payments')}>payments</TabButton>
-        <TabButton active={activeTab === 'strategy'} onClick={() => setActiveTab('strategy')}>strategy</TabButton>
-        <TabButton active={activeTab === 'security'} onClick={() => setActiveTab('security')}>security</TabButton>
-        <TabButton active={activeTab === 'preferences'} onClick={() => setActiveTab('preferences')}>preferences</TabButton>
+      {/* Navigation Protocols (Tabs) */}
+      <div className="flex flex-wrap gap-3 p-3 bg-brand-900 rounded-md border border-white/5 shadow-2xl relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
+        <TabButton active={activeTab === 'basic'} onClick={() => setActiveTab('basic')}>Identity</TabButton>
+        <TabButton active={activeTab === 'description'} onClick={() => setActiveTab('description')}>Manifesto</TabButton>
+        <TabButton active={activeTab === 'contacts'} onClick={() => setActiveTab('contacts')}>Communication</TabButton>
+        <TabButton active={activeTab === 'scale'} onClick={() => setActiveTab('scale')}>Operations</TabButton>
+        <TabButton active={activeTab === 'payments'} onClick={() => setActiveTab('payments')}>Settlement</TabButton>
+        <TabButton active={activeTab === 'strategy'} onClick={() => setActiveTab('strategy')}>Strategy</TabButton>
+        <TabButton active={activeTab === 'security'} onClick={() => setActiveTab('security')}>Encryption</TabButton>
+        <TabButton active={activeTab === 'preferences'} onClick={() => setActiveTab('preferences')}>Configurations</TabButton>
       </div>
 
       {/* Basic Info Tab */}
       {activeTab === 'basic' && (
-        <div className="space-y-6">
+        <div className="space-y-6 animate-in fade-in duration-500">
           {/* Header with Edit/Save buttons */}
-          <div className="flex items-center justify-between mb-6 px-4">
-            <div>
-              <h2 className="text-2xl font-bold text-white lowercase italic">basic information</h2>
-              <p className="text-xs font-medium text-gray-500 lowercase italic">tell us about your business.</p>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-10 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
+            <div className="relative z-10">
+              <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">General Information</h2>
+              <p className="text-xs font-semibold text-brand-300 opacity-60">Manage your core business identity and presence</p>
             </div>
             {!editing ? (
               <button
-                className={`group flex items-center gap-3 px-6 py-3 rounded-2xl text-sm font-bold transition-all ${loading
-                  ? 'bg-white/5 text-gray-500 cursor-not-allowed'
-                  : 'bg-accent-400 text-brand-950 hover:scale-105 active:scale-95 shadow-xl shadow-accent-400/20'
-                  } lowercase`}
+                className={`group relative flex items-center gap-4 px-10 py-5 rounded-md text-sm font-bold transition-all shadow-2xl overflow-hidden active:scale-95 ${loading
+                  ? 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
+                  : 'bg-brand-900 text-white hover:scale-105'
+                  }`}
                 onClick={loading ? undefined : () => setEditing(true)}
                 disabled={loading}
               >
-                <MdEdit className="text-lg" />{loading ? 'loading...' : 'edit profile'}
+                <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
+                <MdEdit className="text-xl relative z-10" />
+                <span className="relative z-10">{loading ? 'Loading...' : 'Edit Profile'}</span>
               </button>
             ) : (
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 relative z-10">
                 <button
-                  className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-sm font-bold transition-all ${hasChangesMemo
-                    ? 'bg-green-400 text-brand-950 hover:scale-105 active:scale-95 shadow-xl shadow-green-400/20'
-                    : 'bg-white/5 text-gray-500 cursor-not-allowed'
-                    } lowercase`}
+                  className={`flex items-center gap-4 px-10 py-5 rounded-md text-sm font-bold transition-all shadow-2xl active:scale-95 ${hasChangesMemo
+                    ? 'bg-emerald-600 text-white'
+                    : 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
+                    }`}
                   onClick={hasChangesMemo ? onSave : undefined}
                   disabled={!hasChangesMemo}
                 >
-                  <MdCheck className="text-lg" /> save changes
+                  <MdCheck className="text-xl" /> Save Changes
                 </button>
                 <button
-                  className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/5 hover:bg-white/10 text-white text-sm font-bold lowercase transition-all"
+                  className="flex items-center gap-4 px-10 py-5 rounded-md bg-white/5 border border-white/10 text-brand-300 text-sm font-bold transition-all hover:bg-white/10 hover:text-white shadow-xl active:scale-95"
                   onClick={onCancel}
                 >
-                  <MdClose className="text-lg" /> cancel
+                  <MdClose className="text-xl" /> Cancel
                 </button>
               </div>
             )}
@@ -314,45 +318,9 @@ const Profile = () => {
 
       {/* Description Tab */}
       {activeTab === 'description' && (
-        <div className="space-y-6">
-          {/* Header with Edit/Save buttons */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900">Description</h2>
-              <p className="text-sm text-gray-500">What do you do?</p>
-            </div>
-            {!editing ? (
-              <button
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition ${loading
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                  }`}
-                onClick={loading ? undefined : () => setEditing(true)}
-                disabled={loading}
-              >
-                <MdEdit />{loading ? 'Loading...' : 'Edit'}
-              </button>
-            ) : (
-              <div className="flex items-center gap-2">
-                <button
-                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition ${hasChangesMemo
-                    ? 'bg-green-600 text-white hover:bg-green-700'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    }`}
-                  onClick={hasChangesMemo ? onSave : undefined}
-                  disabled={!hasChangesMemo}
-                >
-                  <MdCheck /> Save
-                </button>
-                <button className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm" onClick={onCancel}>
-                  <MdClose /> Cancel
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Description Section */}
-          <Section title="Description" subtitle="What do you do?">
+        <div className="space-y-6 animate-in fade-in duration-500">
+          <TabHeader title="Business Summary" subtitle="Define your business mission and vision" editing={editing} loading={loading} hasChanges={hasChangesMemo} onEdit={() => setEditing(true)} onSave={onSave} onCancel={onCancel} />
+          <Section title="Business Manifesto" subtitle="Articulate your strategic vision and purpose.">
             <TextAreaField label="Business Description" name="description" value={formData.description} onChange={handleChange} placeholder="Describe your business, products, and services..." disabled={!editing} />
           </Section>
         </div>
@@ -360,47 +328,11 @@ const Profile = () => {
 
       {/* Contacts Tab */}
       {activeTab === 'contacts' && (
-        <div className="space-y-6">
-          {/* Header with Edit/Save buttons */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900">Contact Information</h2>
-              <p className="text-sm text-gray-500">How can customers reach you?</p>
-            </div>
-            {!editing ? (
-              <button
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition ${loading
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                  }`}
-                onClick={loading ? undefined : () => setEditing(true)}
-                disabled={loading}
-              >
-                <MdEdit />{loading ? 'Loading...' : 'Edit'}
-              </button>
-            ) : (
-              <div className="flex items-center gap-2">
-                <button
-                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition ${hasChangesMemo
-                    ? 'bg-green-600 text-white hover:bg-green-700'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    }`}
-                  onClick={hasChangesMemo ? onSave : undefined}
-                  disabled={!hasChangesMemo}
-                >
-                  <MdCheck /> Save
-                </button>
-                <button className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm" onClick={onCancel}>
-                  <MdClose /> Cancel
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Contact Information Section */}
-          <Section title="Contact Information" subtitle="How can customers reach you?">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <TextAreaField label="Address" name="address" value={formData.address} onChange={handleChange} placeholder="Business address" rows={2} disabled={!editing} />
+        <div className="space-y-6 animate-in fade-in duration-500">
+          <TabHeader title="Contact Information" subtitle="Manage your communication channels and presence" editing={editing} loading={loading} hasChanges={hasChangesMemo} onEdit={() => setEditing(true)} onSave={onSave} onCancel={onCancel} />
+          <Section title="Contact Infrastructure" subtitle="How can clients and partners reach your enterprise?">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <TextAreaField label="Physical Address" name="address" value={formData.address} onChange={handleChange} placeholder="Business address" rows={2} disabled={!editing} />
               <InputField label="Phone Number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Business phone number" disabled={!editing} />
               <InputField label="Website" name="website" value={formData.website} onChange={handleChange} type="url" placeholder="https://yourwebsite.com" disabled={!editing} />
               <InputField label="Business Hours" name="businessHours" value={formData.businessHours} onChange={handleChange} placeholder="Monday-Friday 9AM-6PM" disabled={!editing} />
@@ -411,48 +343,12 @@ const Profile = () => {
 
       {/* Scale & Operations Tab */}
       {activeTab === 'scale' && (
-        <div className="space-y-6">
-          {/* Header with Edit/Save buttons */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900">Scale & Operations</h2>
-              <p className="text-sm text-gray-500">A quick sense of size.</p>
-            </div>
-            {!editing ? (
-              <button
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition ${loading
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                  }`}
-                onClick={loading ? undefined : () => setEditing(true)}
-                disabled={loading}
-              >
-                <MdEdit />{loading ? 'Loading...' : 'Edit'}
-              </button>
-            ) : (
-              <div className="flex items-center gap-2">
-                <button
-                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition ${hasChangesMemo
-                    ? 'bg-green-600 text-white hover:bg-green-700'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    }`}
-                  onClick={hasChangesMemo ? onSave : undefined}
-                  disabled={!hasChangesMemo}
-                >
-                  <MdCheck /> Save
-                </button>
-                <button className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm" onClick={onCancel}>
-                  <MdClose /> Cancel
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Scale & Operations Section */}
-          <Section title="Scale & Operations" subtitle="A quick sense of size.">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="space-y-6 animate-in fade-in duration-500">
+          <TabHeader title="Business Scale" subtitle="Define your operational capacity and fiscal metrics" editing={editing} loading={loading} hasChanges={hasChangesMemo} onEdit={() => setEditing(true)} onSave={onSave} onCancel={onCancel} />
+          <Section title="Scale Metrics" subtitle="Organizational size and fiscal throughput.">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <InputField label="Annual Revenue" name="anualRevenue" value={formData.anualRevenue} onChange={handleChange} type="number" placeholder="Annual revenue amount" disabled={!editing} />
-              <InputField label="Number of Employees" name="numberOfEmployees" value={formData.numberOfEmployees} onChange={handleChange} type="number" placeholder="Number of employees" disabled={!editing} />
+              <InputField label="Workforce Headcount" name="numberOfEmployees" value={formData.numberOfEmployees} onChange={handleChange} type="number" placeholder="Number of employees" disabled={!editing} />
             </div>
           </Section>
         </div>
@@ -460,47 +356,11 @@ const Profile = () => {
 
       {/* Payments Tab */}
       {activeTab === 'payments' && (
-        <div className="space-y-6">
-          {/* Header with Edit/Save buttons */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900">Payments</h2>
-              <p className="text-sm text-gray-500">What do you accept?</p>
-            </div>
-            {!editing ? (
-              <button
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition ${loading
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                  }`}
-                onClick={loading ? undefined : () => setEditing(true)}
-                disabled={loading}
-              >
-                <MdEdit />{loading ? 'Loading...' : 'Edit'}
-              </button>
-            ) : (
-              <div className="flex items-center gap-2">
-                <button
-                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition ${hasChangesMemo
-                    ? 'bg-green-600 text-white hover:bg-green-700'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    }`}
-                  onClick={hasChangesMemo ? onSave : undefined}
-                  disabled={!hasChangesMemo}
-                >
-                  <MdCheck /> Save
-                </button>
-                <button className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm" onClick={onCancel}>
-                  <MdClose /> Cancel
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Payments Section */}
-          <Section title="Payments" subtitle="What do you accept?">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <SelectField label="Payment Method" name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} options={['Cash', 'Credit_Card', 'Debit_Card', 'Bank_Transfer', 'Mobile_Money', 'PayPal', 'Check', 'Crypto']} disabled={!editing} />
+        <div className="space-y-6 animate-in fade-in duration-500">
+          <TabHeader title="Payment Options" subtitle="Configure your preferred financial transaction methods" editing={editing} loading={loading} hasChanges={hasChangesMemo} onEdit={() => setEditing(true)} onSave={onSave} onCancel={onCancel} />
+          <Section title="Financial Settlement" subtitle="What instruments does your enterprise accept?">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <SelectField label="Primary Settlement Method" name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} options={['Cash', 'Credit_Card', 'Debit_Card', 'Bank_Transfer', 'Mobile_Money', 'PayPal', 'Check', 'Crypto']} disabled={!editing} />
             </div>
           </Section>
         </div>
@@ -508,77 +368,39 @@ const Profile = () => {
 
       {/* Strategy Tab */}
       {activeTab === 'strategy' && (
-        <div className="space-y-6">
-          {/* Header with Edit/Save buttons */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900">Strategy</h2>
-              <p className="text-sm text-gray-500">Who, and how will you serve them?</p>
+        <div className="space-y-6 animate-in fade-in duration-500">
+          <TabHeader title="Market Strategy" subtitle="Define your market position and competitive landscape" editing={editing} loading={loading} hasChanges={hasChangesMemo} onEdit={() => setEditing(true)} onSave={onSave} onCancel={onCancel} />
+          <Section title="Market Intelligence" subtitle="Who will you serve and how will you dominate?">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <TextAreaField label="Target Market" name="targetMarket" value={formData.targetMarket} onChange={handleChange} placeholder="Describe your target market..." rows={3} disabled={!editing} />
+              <TextAreaField label="Competitive Landscape" name="competitors" value={formData.competitors} onChange={handleChange} placeholder="List your main competitors..." rows={3} disabled={!editing} />
             </div>
-            {!editing ? (
-              <button
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition ${loading
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                  }`}
-                onClick={loading ? undefined : () => setEditing(true)}
-                disabled={loading}
-              >
-                <MdEdit />{loading ? 'Loading...' : 'Edit'}
-              </button>
-            ) : (
-              <div className="flex items-center gap-2">
-                <button
-                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition ${hasChangesMemo
-                    ? 'bg-green-600 text-white hover:bg-green-700'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    }`}
-                  onClick={hasChangesMemo ? onSave : undefined}
-                  disabled={!hasChangesMemo}
-                >
-                  <MdCheck /> Save
-                </button>
-                <button className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm" onClick={onCancel}>
-                  <MdClose /> Cancel
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Strategy Section */}
-          <Section title="Strategy" subtitle="Who, and how will you serve them?">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <TextAreaField label="Target Market" name="targetMarket" value={formData.targetMarket} onChange={handleChange} placeholder="Describe your target market..." rows={2} disabled={!editing} />
-              <TextAreaField label="Competitors" name="competitors" value={formData.competitors} onChange={handleChange} placeholder="List your main competitors..." rows={2} disabled={!editing} />
-            </div>
-            <TextAreaField label="Goals" name="goals" value={formData.goals} onChange={handleChange} placeholder="Short-term and long-term goals..." rows={3} disabled={!editing} />
-            <TextAreaField label="Message" name="sendMessage" value={formData.sendMessage} onChange={handleChange} placeholder="Any additional message..." rows={2} disabled={!editing} />
+            <TextAreaField label="Strategic Goals" name="goals" value={formData.goals} onChange={handleChange} placeholder="Short-term and long-term goals..." rows={4} disabled={!editing} />
+            <TextAreaField label="Additional Directives" name="sendMessage" value={formData.sendMessage} onChange={handleChange} placeholder="Any additional message..." rows={2} disabled={!editing} />
           </Section>
         </div>
       )}
 
       {/* Security Tab */}
       {activeTab === 'security' && (
-        <div className="space-y-6">
-          {/* Header */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900">Security</h2>
-              <p className="text-sm text-gray-500">Manage your security settings.</p>
+        <div className="space-y-6 animate-in fade-in duration-500">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-4 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
+            <div className="relative z-10">
+              <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">Security Settings</h2>
+              <p className="text-xs font-semibold text-brand-300 opacity-60">Manage your account authentication and security protocols</p>
             </div>
-            <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700">UI only</span>
+            <span className="text-xs font-bold text-brand-500 bg-brand-500/10 border border-brand-500/20 px-6 py-3 rounded-md shadow-inner relative z-10">Settings View</span>
           </div>
-
-          {/* Security Section */}
-          <Section title="Security Settings" subtitle="Account security and authentication.">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="flex items-center justify-between border border-gray-200 rounded-xl px-3 py-2 bg-white/80">
-                <span className="text-gray-800 text-sm">Two-Factor Authentication</span>
-                <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-700">Disabled</span>
+          <Section title="Security Protocols" subtitle="Account authentication and access control.">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="flex items-center justify-between bg-white/5 border border-white/5 rounded-md px-8 py-6 shadow-inner">
+                <span className="text-lg font-bold text-white">Two-Factor Authentication</span>
+                <span className="text-xs font-bold px-4 py-2 rounded-md bg-red-500/10 text-red-500 border border-red-500/20">Disabled</span>
               </div>
-              <div className="flex items-center justify-between border border-gray-200 rounded-xl px-3 py-2 bg-white/80">
-                <span className="text-gray-800 text-sm">Password</span>
-                <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700">Last updated —</span>
+              <div className="flex items-center justify-between bg-white/5 border border-white/5 rounded-md px-8 py-6 shadow-inner">
+                <span className="text-lg font-bold text-white">Account Password</span>
+                <span className="text-xs font-bold px-4 py-2 rounded-md bg-white/5 text-brand-300 border border-white/5">Last Updated —</span>
               </div>
             </div>
           </Section>
@@ -587,29 +409,27 @@ const Profile = () => {
 
       {/* Preferences Tab */}
       {activeTab === 'preferences' && (
-        <div className="space-y-6">
-          {/* Header */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900">Preferences</h2>
-              <p className="text-sm text-gray-500">Customize your experience.</p>
+        <div className="space-y-6 animate-in fade-in duration-500">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
+            <div className="relative z-10">
+              <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">System Preferences</h2>
+              <p className="text-xs font-semibold text-brand-300 opacity-60">Personalize your application experience and alert settings</p>
             </div>
           </div>
-
-          {/* Preferences Section */}
-          <Section title="Notification Preferences" subtitle="Choose what you want to be notified about.">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <label className="flex items-center justify-between border border-gray-200 rounded-xl px-3 py-2 bg-white/80 cursor-pointer">
-                <span className="text-gray-800 text-sm">Email notifications</span>
-                <input type="checkbox" defaultChecked className="accent-[#FC9E4F] w-4 h-4" />
+          <Section title="Notification Matrix" subtitle="Configure your alert and communication preferences.">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <label className="flex items-center justify-between bg-white/5 border border-white/5 rounded-md px-8 py-6 cursor-pointer hover:bg-white/[0.08] transition-all group shadow-inner">
+                <span className="text-lg font-bold text-white tracking-tight group-hover:text-brand-500 transition-colors">Email Notifications</span>
+                <input type="checkbox" defaultChecked className="accent-accent-400 w-5 h-5 cursor-pointer" />
               </label>
-              <label className="flex items-center justify-between border border-gray-200 rounded-xl px-3 py-2 bg-white/80 cursor-pointer">
-                <span className="text-gray-800 text-sm">Weekly summary</span>
-                <input type="checkbox" className="accent-[#FC9E4F] w-4 h-4" />
+              <label className="flex items-center justify-between bg-white/5 border border-white/5 rounded-md px-8 py-6 cursor-pointer hover:bg-white/[0.08] transition-all group shadow-inner">
+                <span className="text-lg font-bold text-white tracking-tight group-hover:text-brand-500 transition-colors">Weekly Reports</span>
+                <input type="checkbox" className="accent-accent-400 w-5 h-5 cursor-pointer" />
               </label>
-              <label className="flex items-center justify-between border border-gray-200 rounded-xl px-3 py-2 bg-white/80 cursor-pointer">
-                <span className="text-gray-800 text-sm">Product updates</span>
-                <input type="checkbox" className="accent-[#FC9E4F] w-4 h-4" />
+              <label className="flex items-center justify-between bg-white/5 border border-white/5 rounded-md px-8 py-6 cursor-pointer hover:bg-white/[0.08] transition-all group shadow-inner">
+                <span className="text-lg font-bold text-white tracking-tight group-hover:text-brand-500 transition-colors">System Updates</span>
+                <input type="checkbox" className="accent-accent-400 w-5 h-5 cursor-pointer" />
               </label>
             </div>
           </Section>
@@ -619,13 +439,57 @@ const Profile = () => {
   );
 };
 
-// ...
+// Reusable Tab Header with Edit/Save/Cancel Controls
+const TabHeader = ({ title, subtitle, editing, loading, hasChanges, onEdit, onSave, onCancel }) => (
+  <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-4 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+    <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
+    <div className="relative z-10">
+      <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">{title}</h2>
+      <p className="text-xs font-semibold text-brand-300 opacity-60">{subtitle}</p>
+    </div>
+    {!editing ? (
+      <button
+        className={`group flex items-center gap-4 px-10 py-5 rounded-md text-sm font-bold transition-all shadow-2xl overflow-hidden active:scale-95 relative z-10 ${loading
+          ? 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
+          : 'bg-brand-900 text-white hover:scale-105'
+          }`}
+        onClick={loading ? undefined : onEdit}
+        disabled={loading}
+      >
+        <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
+        <MdEdit className="text-xl relative z-10" />
+        <span className="relative z-10">{loading ? 'Loading...' : 'Edit Section'}</span>
+      </button>
+    ) : (
+      <div className="flex items-center gap-4 relative z-10">
+        <button
+          className={`flex items-center gap-4 px-10 py-5 rounded-md text-sm font-bold transition-all shadow-2xl active:scale-95 ${hasChanges
+            ? 'bg-emerald-600 text-white'
+            : 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
+            }`}
+          onClick={hasChanges ? onSave : undefined}
+          disabled={!hasChanges}
+        >
+          <MdCheck className="text-xl" /> Save
+        </button>
+        <button
+          className="flex items-center gap-4 px-10 py-5 rounded-md bg-white/5 border border-white/10 text-brand-300 text-sm font-bold transition-all hover:bg-white/10 hover:text-white shadow-xl active:scale-95"
+          onClick={onCancel}
+        >
+          <MdClose className="text-xl" /> Cancel
+        </button>
+      </div>
+    )}
+  </div>
+);
+
+// Helper Components
 const Section = ({ title, subtitle, children }) => (
-  <div className="bg-brand-900/40 backdrop-blur-xl rounded-[2.5rem] p-8 border border-white/5 shadow-2xl relative overflow-hidden">
-    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent-400/20 to-transparent" />
-    <div className="mb-8 px-2">
-      <h3 className="text-xl font-bold text-white lowercase italic mb-1">{title}</h3>
-      {subtitle && <p className="text-xs font-medium text-gray-500 lowercase italic">{subtitle}</p>}
+  <div className="bg-brand-900 rounded-md p-12 border border-white/5 shadow-2xl relative overflow-hidden group/section">
+    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-400 to-transparent group-hover/section:translate-x-full transition-transform duration-1000 opacity-50" />
+    <div className="mb-12 relative z-10">
+      <h3 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">{title}</h3>
+      {subtitle && <p className="text-xs font-semibold text-brand-300 opacity-40">{subtitle}</p>}
     </div>
     <div className="relative z-10">
       {children}
@@ -636,9 +500,9 @@ const Section = ({ title, subtitle, children }) => (
 const TabButton = ({ active, onClick, children }) => (
   <button
     onClick={onClick}
-    className={`px-6 py-3 rounded-2xl text-sm font-bold transition-all lowercase italic ${active
-      ? 'bg-accent-400 text-brand-950 shadow-lg shadow-accent-400/20'
-      : 'bg-transparent text-gray-500 hover:text-white hover:bg-white/5'
+    className={`px-10 py-4 rounded-md text-xs font-bold tracking-wider transition-all duration-500 ${active
+      ? 'bg-brand-500 text-white shadow-lg scale-105'
+      : 'bg-white/5 text-brand-300 hover:text-white hover:bg-white/10'
       }`}
   >
     {children}
@@ -647,57 +511,60 @@ const TabButton = ({ active, onClick, children }) => (
 
 // Input Component
 const InputField = ({ label, type = 'text', name, value, onChange, placeholder, required, min, max, disabled = false }) => (
-  <div className="space-y-2">
-    <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest px-1 ml-1">{label}</label>
+  <div className="space-y-4">
+    <label className="block text-xs font-bold text-brand-300 px-2 opacity-60">{label}</label>
     <input
       type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} required={required}
       min={min} max={max} disabled={disabled}
-      className={`block w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white text-sm font-medium transition-all placeholder:text-gray-600 lowercase italic ${disabled
-        ? 'opacity-50 cursor-not-allowed bg-transparent'
-        : 'focus:outline-none focus:ring-2 focus:ring-accent-400/20 focus:border-accent-400/50 hover:border-white/20'
+      className={`block w-full bg-white/5 border border-white/5 rounded-md px-6 py-5 text-white text-lg font-bold transition-all placeholder:text-brand-300/20 shadow-inner ${disabled
+        ? 'opacity-30 cursor-not-allowed bg-transparent border-white/5'
+        : 'focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50'
         }`}
     />
   </div>
 );
 
 const SelectField = ({ label, name, value, onChange, options, disabled = false }) => (
-  <div className="space-y-2">
-    <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest px-1 ml-1">{label}</label>
-    <select
-      name={name} value={value} onChange={onChange} disabled={disabled}
-      className={`block w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white text-sm font-medium transition-all appearance-none cursor-pointer lowercase italic ${disabled
-        ? 'opacity-50 cursor-not-allowed bg-transparent'
-        : 'focus:outline-none focus:ring-2 focus:ring-accent-400/20 focus:border-accent-400/50 hover:border-white/20'
-        }`}
-    >
-      <option value="" className="bg-brand-950 text-gray-500">select {label.toLowerCase()}</option>
-      {options.map(opt => <option key={opt} value={opt} className="bg-brand-950 text-white">{opt.toLowerCase()}</option>)}
-    </select>
+  <div className="space-y-4">
+    <label className="block text-xs font-bold text-brand-300 px-2 opacity-60">{label}</label>
+    <div className="relative">
+      <select
+        name={name} value={value} onChange={onChange} disabled={disabled}
+        className={`block w-full bg-white/5 border border-white/5 rounded-md px-6 py-5 text-white text-lg font-bold transition-all appearance-none cursor-pointer shadow-inner ${disabled
+          ? 'opacity-30 cursor-not-allowed bg-transparent border-white/5'
+          : 'focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50'
+          }`}
+      >
+        <option value="" className="bg-brand-900 text-brand-300">Select {label}</option>
+        {options.map(opt => <option key={opt} value={opt} className="bg-brand-900 text-white">{opt}</option>)}
+      </select>
+    </div>
   </div>
 );
 
 const Badge = ({ icon, label, value }) => (
-  <div className="flex items-center gap-4 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[1.5rem] p-5 shadow-xl transition-all hover:border-white/20 hover:scale-[1.02] group">
-    <div className="w-14 h-14 rounded-2xl bg-brand-900/80 flex items-center justify-center border border-white/5 shadow-inner transition-colors group-hover:bg-accent-400/10">
-      <div className="text-2xl transition-transform group-hover:scale-110">
+  <div className="flex items-center gap-6 bg-white/5 rounded-md border border-white/5 p-8 shadow-2xl transition-all hover:border-accent-400/30 hover:bg-white/[0.08] group relative overflow-hidden">
+    <div className="absolute top-0 right-0 w-24 h-24 bg-accent-400/5 rounded-md blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
+    <div className="w-16 h-16 rounded-md bg-white/5 flex items-center justify-center border border-white/5 transition-all group-hover:bg-brand-500 group-hover:text-white shadow-inner">
+      <div className="text-3xl transition-transform group-hover:scale-110">
         {icon}
       </div>
     </div>
-    <div className="min-w-0">
-      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest leading-none mb-1">{label}</p>
-      <p className="text-base font-bold text-white lowercase italic truncate">{value}</p>
+    <div className="min-w-0 relative z-10">
+      <p className="text-xs font-bold text-brand-300 leading-none mb-3 opacity-60">{label}</p>
+      <p className="text-xl font-bold text-white truncate">{value}</p>
     </div>
   </div>
 );
 
 const TextAreaField = ({ label, name, value, onChange, placeholder, rows = 3, disabled = false }) => (
-  <div className="space-y-2">
-    <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest px-1 ml-1">{label}</label>
+  <div className="space-y-4">
+    <label className="block text-xs font-bold text-brand-300 px-2 opacity-60">{label}</label>
     <textarea
       name={name} value={value} onChange={onChange} placeholder={placeholder} rows={rows} disabled={disabled}
-      className={`block w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white text-sm font-medium transition-all placeholder:text-gray-600 lowercase italic resize-none ${disabled
-        ? 'opacity-50 cursor-not-allowed bg-transparent'
-        : 'focus:outline-none focus:ring-2 focus:ring-accent-400/20 focus:border-accent-400/50 hover:border-white/20'
+      className={`block w-full bg-white/5 border border-white/5 rounded-md px-6 py-5 text-white text-lg font-bold transition-all placeholder:text-brand-300/20 shadow-inner resize-none ${disabled
+        ? 'opacity-30 cursor-not-allowed bg-transparent border-white/5'
+        : 'focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50'
         }`}
     />
   </div>

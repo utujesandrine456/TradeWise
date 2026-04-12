@@ -45,7 +45,7 @@ const Stock = () => {
         name: item.name,
         quantity: item.quantity,
         low_stock_quantity: item.low_stock_quantity || 5,
-        status: item.quantity <= 0 ? 'out of stock' : item.quantity < (item.low_stock_quantity || 5) ? 'low stock' : 'in stock',
+        status: item.quantity <= 0 ? 'Out Of Stock' : item.quantity < (item.low_stock_quantity || 5) ? 'Low Stock' : 'In Stock',
         unit: item.unit,
         createdAt: item.createdAt,
         updatedAt: item.updatedAt
@@ -55,9 +55,9 @@ const Stock = () => {
 
       setStats({
         totalProducts: transformedData.length,
-        inStock: transformedData.filter(item => item.status === 'in stock').length,
-        lowStock: transformedData.filter(item => item.status === 'low stock').length,
-        outOfStock: transformedData.filter(item => item.status === 'out of stock').length
+        inStock: transformedData.filter(item => item.status === 'In Stock').length,
+        lowStock: transformedData.filter(item => item.status === 'Low Stock').length,
+        outOfStock: transformedData.filter(item => item.status === 'Out Of Stock').length
       });
 
     } catch (err) {
@@ -86,7 +86,7 @@ const Stock = () => {
           name: item.name,
           quantity: item.quantity,
           low_stock_quantity: item.low_stock_quantity || 5,
-          status: item.quantity <= 0 ? 'out of stock' : item.quantity < (item.low_stock_quantity || 5) ? 'low stock' : 'in stock',
+          status: item.quantity <= 0 ? 'Out Of Stock' : item.quantity < (item.low_stock_quantity || 5) ? 'Low Stock' : 'In Stock',
           unit: item.unit,
           createdAt: item.createdAt,
           updatedAt: item.updatedAt
@@ -151,7 +151,7 @@ const Stock = () => {
               unit: updated.unit,
               low_stock_quantity: updated.low_stock_quantity,
               quantity: updated.quantity,
-              status: updated.quantity <= 0 ? 'out of stock' : updated.quantity < (updated.low_stock_quantity || 5) ? 'low stock' : 'in stock',
+              status: updated.quantity <= 0 ? 'Out Of Stock' : updated.quantity < (updated.low_stock_quantity || 5) ? 'Low Stock' : 'In Stock',
               updatedAt: updated.updatedAt
             } : item
           )
@@ -221,7 +221,7 @@ const Stock = () => {
           unit: created.unit,
           quantity: created.quantity,
           low_stock_quantity: created.low_stock_quantity,
-          status: created.quantity <= 0 ? 'out of stock' : created.quantity < (created.low_stock_quantity || 5) ? 'low stock' : 'in stock',
+          status: created.quantity <= 0 ? 'Out Of Stock' : created.quantity < (created.low_stock_quantity || 5) ? 'Low Stock' : 'In Stock',
           createdAt: created.createdAt,
           updatedAt: created.updatedAt
         };
@@ -240,34 +240,35 @@ const Stock = () => {
 
   if (loading && stockItems.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-afacad">
-        <div className="w-16 h-16 border-4 border-gray-100 border-t-chocolate-600 rounded-full animate-spin mb-6"></div>
-        <p className="text-xl font-bold text-black">Synchronizing Inventory...</p>
+      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist">
+        <div className="w-16 h-16 border-4 border-brand-100 border-t-brand-900 rounded-md animate-spin mb-6"></div>
+        <p className="text-xl font-bold text-brand-900 tracking-wide italic">Synchronizing Inventory...</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-afacad">
+    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header Section */}
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-white p-10 rounded-lg border border-gray-100 shadow-xl relative overflow-hidden group">
-        <div className="absolute inset-0 bg-gray-50/20 opacity-50 pointer-events-none" />
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-10 bg-brand-900 border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
         <div className="flex items-center gap-8 relative z-10">
-          <div className="p-5 bg-gray-50 rounded-lg border border-gray-100 shadow-sm group-hover:rotate-12 transition-all duration-500">
-            <MdLayers className="text-5xl text-black" />
+          <div className="p-5 bg-white/5 rounded-md border border-white/5 shadow-xl group-hover:rotate-12 transition-all duration-500">
+            <MdLayers className="text-5xl text-accent-400" />
           </div>
           <div>
-            <h2 className="text-4xl font-bold text-black leading-none mb-3">Inventory Nexus</h2>
-            <p className="text-gray-500 text-lg font-medium">Orchestrate Product Stock And Threshold Management</p>
+            <h2 className="text-4xl font-bold text-white leading-none mb-3 tracking-tight">Inventory Management</h2>
+            <p className="text-brand-300 text-xs font-semibold mt-1 opacity-60">Manage your product levels and restock thresholds</p>
           </div>
         </div>
         <button
           onClick={() => setIsAddItemFormOpen(true)}
-          className="group relative px-12 py-5 bg-chocolate-600 text-white rounded-lg font-bold transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg overflow-hidden text-lg"
+          className="group relative px-12 py-5 bg-accent-400 text-brand-950 rounded-md font-bold transition-all hover:scale-105 active:scale-95 shadow-2xl overflow-hidden text-xs"
         >
+          <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
           <div className="flex items-center gap-3 relative z-10">
             <MdAdd className="text-2xl" />
-            <span>Register Item</span>
+            <span>Add New Product</span>
           </div>
         </button>
       </div>
@@ -275,111 +276,98 @@ const Stock = () => {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {[
-          { label: 'Catalog Volume', value: stats.totalProducts, icon: MdInventory, detail: 'Registered Items', trend: 'neutral' },
-          { label: 'Operational Stock', value: stats.inStock, icon: MdCheckCircle, detail: 'Optimal Levels', trend: 'up' },
-          { label: 'Critical Status', value: stats.lowStock, icon: MdSchedule, detail: 'Below Threshold', trend: 'down' },
-          { label: 'Liquidated Assets', value: stats.outOfStock, icon: MdDelete, detail: 'Zero Availability', trend: 'down' }
+          { label: 'Total Products', value: stats.totalProducts, icon: MdInventory, detail: 'Unique registered items', color: 'accent-400' },
+          { label: 'In Stock', value: stats.inStock, icon: MdCheckCircle, detail: 'Available for sale', color: 'green-500' },
+          { label: 'Low Stock', value: stats.lowStock, icon: MdSchedule, detail: 'Below restock point', color: 'amber-400' },
+          { label: 'Out of Stock', value: stats.outOfStock, icon: MdDelete, detail: 'Restock required', color: 'red-500' }
         ].map((stat, i) => (
-          <div key={i} className="bg-white border border-gray-100 rounded-lg p-10 shadow-xl hover:shadow-2xl transition-all group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-gray-50 rounded-full -mr-20 -mt-20 group-hover:scale-125 transition-transform duration-700" />
-            <div className="relative z-10 flex flex-col h-full justify-between">
-              <div className="flex items-center justify-between mb-8">
-                <div className={`p-4 rounded-lg border shadow-sm ${stat.trend === 'up' ? 'bg-green-50 text-green-700 border-green-100' : stat.trend === 'down' ? 'bg-red-50 text-red-700 border-red-100' : 'bg-gray-50 text-black border-gray-100'}`}>
-                  <stat.icon className="text-3xl" />
-                </div>
-                <div className="text-[10px] font-bold text-gray-400 bg-gray-50/50 px-4 py-1.5 rounded-full border border-chocolate-50 shadow-sm uppercase tracking-widest">
-                  Live Inventory
-                </div>
-              </div>
-              <div>
-                <p className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2 px-1">{stat.label}</p>
-                <h4 className="text-4xl font-bold text-black tracking-tight leading-none mb-3">
-                  {stat.value} <span className="text-lg opacity-40 font-medium tracking-widest">UNITS</span>
-                </h4>
-                <p className="text-xs text-gray-500 font-bold opacity-60 px-1">{stat.detail}</p>
-              </div>
-            </div>
-          </div>
+          <InventoryStatCard key={i} {...stat} />
         ))}
       </div>
 
       {/* Main Inventory Table */}
-      <div className="bg-white border border-gray-100 rounded-lg shadow-xl overflow-hidden group/table">
-        <div className="p-10 border-b border-chocolate-50 flex flex-col xl:flex-row justify-between items-center gap-8 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gray-50/10 opacity-50 pointer-events-none" />
-          <div className="relative z-10 flex items-center gap-4">
-            <MdFilterList className="text-3xl text-black" />
-            <h3 className="text-2xl font-bold text-black leading-none">Active Catalog</h3>
+      <div className="bg-brand-900 border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
+        <div className="p-12 border-b border-white/5 flex flex-col xl:flex-row justify-between items-center gap-8 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
+          <div className="relative z-10 flex items-center gap-6">
+            <div className="p-3 bg-white/5 rounded-md text-accent-400 border border-white/5 shadow-lg">
+              <MdFilterList className="text-2xl" />
+            </div>
+            <h3 className="text-3xl font-bold text-white tracking-tight">Product Catalog</h3>
           </div>
           <div className="w-full xl:w-[500px] relative z-10 group/search">
-            <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 text-2xl group-focus-within/search:text-black transition-colors" />
+            <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-brand-300 text-2xl group-focus-within/search:text-accent-400 transition-colors" />
             <input
               type="text"
-              placeholder="Filter Catalog By Product Name..."
+              placeholder="Filter catalog by product name..."
               onChange={(e) => debouncedSearch(e.target.value)}
-              className="w-full pl-16 pr-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all text-lg italic shadow-sm"
+              className="w-full pl-16 pr-8 py-5 bg-white/5 border border-white/5 rounded-md text-white font-semibold tracking-tight text-lg placeholder:text-brand-300/40 focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all shadow-inner"
             />
           </div>
         </div>
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-gray-50/50">
-                <th className="px-10 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Product Identity</th>
-                <th className="px-10 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Measurement</th>
-                <th className="px-10 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Available Qty</th>
-                <th className="px-10 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Operational Status</th>
-                <th className="px-10 py-6 text-right text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Record Actions</th>
+              <tr className="bg-white/5">
+                <th className="px-10 py-6 text-left text-xs font-bold text-brand-300 tracking-wider">Product Name</th>
+                <th className="px-10 py-6 text-left text-xs font-bold text-brand-300 tracking-wider">Unit</th>
+                <th className="px-10 py-6 text-left text-xs font-bold text-brand-300 tracking-wider">Stock Level</th>
+                <th className="px-10 py-6 text-left text-xs font-bold text-brand-300 tracking-wider">Status</th>
+                <th className="px-10 py-6 text-right text-xs font-bold text-brand-300 tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-chocolate-50">
+            <tbody className="divide-y divide-white/5">
               {filteredItems.length > 0 ? (
                 filteredItems.map((item) => (
-                  <tr key={item.id} className="hover:bg-gray-50/30 transition-all group/row">
-                    <td className="px-10 py-8">
-                      <p className="text-xl font-bold text-black group-hover/row:text-black transition-colors">{item.name}</p>
-                      <p className="text-[10px] text-gray-300 font-bold uppercase mt-1">System ID: {item.id?.slice(-8)}</p>
+                  <tr key={item.id} className="hover:bg-white/[0.03] transition-all group/row relative">
+                    <td className="px-10 py-8 relative">
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-0 bg-accent-400 group-hover/row:h-1/2 transition-all duration-300 rounded-md" />
+                      <p className="text-xl font-bold text-white group-hover/row:text-accent-400 transition-colors tracking-tight">{item.name}</p>
+                      <p className="text-[10px] text-brand-300 font-bold uppercase mt-2 tracking-widest italic opacity-40">System Id: {item.id?.slice(-8)}</p>
                     </td>
                     <td className="px-10 py-8">
-                      <span className="px-4 py-1.5 bg-gray-50 rounded-full border border-gray-100 text-xs text-black font-bold">
+                      <span className="px-5 py-2 bg-white/5 rounded-md border border-white/5 text-xs text-brand-300 font-bold">
                         {item.unit}
                       </span>
                     </td>
                     <td className="px-10 py-8">
-                      <div className="flex items-center gap-3 text-black">
-                        <span className="text-2xl font-bold">{item.quantity}</span>
-                        <span className="text-[10px] font-bold uppercase leading-none opacity-40">Items<br />Remaining</span>
+                      <div className="flex items-center gap-4 text-white">
+                        <span className="text-3xl font-bold tracking-tight">{item.quantity}</span>
+                        <span className="text-[9px] font-bold leading-tight opacity-40 uppercase tracking-wider italic">Items<br />Remaining</span>
                       </div>
                     </td>
                     <td className="px-10 py-8">
-                      <span className={`inline-flex px-5 py-2 text-[10px] font-bold rounded-lg border uppercase tracking-widest ${item.status === 'in stock' ? 'bg-green-50 text-green-700 border-green-100' :
-                        item.status === 'low stock' ? 'bg-amber-50 text-amber-700 border-amber-100' :
-                          'bg-red-50 text-red-700 border-red-100'
+                      <span className={`inline-flex px-6 py-2.5 text-[10px] font-bold rounded-md border uppercase tracking-widest shadow-sm ${item.status === 'In Stock' ? 'bg-green-500/10 text-green-500 border-green-500/20' :
+                        item.status === 'Low Stock' ? 'bg-amber-400/10 text-amber-400 border-amber-400/20' :
+                          'bg-red-500/10 text-red-500 border-red-500/20'
                         }`}>
                         {item.status}
                       </span>
                     </td>
                     <td className="px-10 py-8">
-                      <div className="flex items-center justify-end gap-4 opacity-40 group-hover/row:opacity-100 transition-opacity">
+                      <div className="flex items-center justify-end gap-5">
                         <button
                           onClick={() => {
                             setSelectedItem(item);
                             setIsViewModalOpen(true);
                             navigate(`/stock/${item.id}`);
                           }}
-                          className="p-3.5 bg-white text-gray-400 hover:text-black hover:bg-gray-50 rounded-lg border border-gray-100 transition-all hover:shadow-md active:scale-95"
+                          className="p-4 bg-white/5 text-brand-300 hover:text-accent-400 hover:bg-white/10 rounded-md border border-white/5 transition-all hover:shadow-2xl active:scale-95"
+                          title="View Details"
                         >
                           <MdVisibility className="text-2xl" />
                         </button>
                         <button
                           onClick={() => handleEdit(item)}
-                          className="p-3.5 bg-white text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg border border-gray-100 transition-all hover:shadow-md active:scale-95"
+                          className="p-4 bg-white/5 text-brand-300 hover:text-green-500 hover:bg-white/10 rounded-md border border-white/5 transition-all hover:shadow-2xl active:scale-95"
+                          title="Modify Record"
                         >
                           <MdEdit className="text-2xl" />
                         </button>
                         <button
                           onClick={() => handleDelete(item)}
-                          className="p-3.5 bg-white text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg border border-gray-100 transition-all hover:shadow-md active:scale-95"
+                          className="p-4 bg-white/5 text-brand-300 hover:text-red-500 hover:bg-white/10 rounded-md border border-white/5 transition-all hover:shadow-2xl active:scale-95"
+                          title="Purge Record"
                         >
                           <MdDelete className="text-2xl" />
                         </button>
@@ -390,8 +378,10 @@ const Stock = () => {
               ) : (
                 <tr>
                   <td colSpan="5" className="px-10 py-32 text-center">
-                    <MdInventory className="text-6xl text-chocolate-100 mx-auto mb-6" />
-                    <p className="text-xl font-bold text-gray-300">No Matching Records In Catalog</p>
+                    <div className="p-10 bg-white/5 rounded-md border border-white/5 shadow-inner inline-block mb-6">
+                      <MdInventory className="text-6xl text-brand-300 opacity-20" />
+                    </div>
+                    <p className="text-xl font-bold text-white tracking-wide opacity-40">No items found in your catalog</p>
                   </td>
                 </tr>
               )}
@@ -400,7 +390,7 @@ const Stock = () => {
         </div>
       </div>
 
-      {/* Modals placeholders - The actual form components will need to be refactored too */}
+      {/* Modals placeholders */}
       <AddItemForm
         isOpen={isAddItemFormOpen}
         onClose={() => setIsAddItemFormOpen(false)}
@@ -415,17 +405,17 @@ const Stock = () => {
           navigate('/dashboard');
         }}
         data={selectedItem}
-        title="Record Inspection"
+        title="Asset Inspection"
         onEdit={handleEdit}
         onDelete={handleDelete}
         fields={[
-          { key: 'name', label: 'Identification' },
-          { key: 'unit', label: 'Measurement Unit' },
-          { key: 'quantity', label: 'Available Quantity' },
-          { key: 'low_stock_quantity', label: 'Alert Threshold' },
-          { key: 'status', label: 'Operational Status' },
-          { key: 'createdAt', label: 'Epoch Creation', render: (v) => v ? formatDistanceToNow(new Date(v), { addSuffix: true }) : 'N/A' },
-          { key: 'updatedAt', label: 'Last Refresh', render: (v) => v ? formatDistanceToNow(new Date(v), { addSuffix: true }) : 'N/A' }
+          { key: 'name', label: 'Product Name' },
+          { key: 'unit', label: 'Unit of Measure' },
+          { key: 'quantity', label: 'In Stock' },
+          { key: 'low_stock_quantity', label: 'Low Stock Alert' },
+          { key: 'status', label: 'Current Status' },
+          { key: 'createdAt', label: 'Registry Date', render: (v) => v ? formatDistanceToNow(new Date(v), { addSuffix: true }) : 'N/A' },
+          { key: 'updatedAt', label: 'Synchronized', render: (v) => v ? formatDistanceToNow(new Date(v), { addSuffix: true }) : 'N/A' }
         ]}
       />
 
@@ -436,15 +426,18 @@ const Stock = () => {
           setSelectedItem(null);
         }}
         data={selectedItem}
-        title="Modify Record"
+        title="Calibrate Record"
         onSave={handleUpdateItem}
         fields={[
           { key: 'name', label: 'Product Identity', required: true, placeholder: 'Enter Record Name' },
           {
-            key: 'unit', label: 'Measurement Unit', required: true, type: 'select', options: [
+            key: 'unit', label: 'Measurement Metric', required: true, type: 'select', options: [
               { value: 'Piece', label: 'Piece' },
               { value: 'Kilogram', label: 'Kilogram' },
-              { value: 'Litre', label: 'Litre' }
+              { value: 'Litre', label: 'Litre' },
+              { value: 'Sac', label: 'Sac' },
+              { value: 'Box', label: 'Box' },
+              { value: 'Bottle', label: 'Bottle' }
             ]
           },
           { key: 'quantity', label: 'Current Quantity', type: 'number', disabled: true },
@@ -452,51 +445,42 @@ const Stock = () => {
         ]}
       />
 
-      {/* Delete Confirmation */}
-      {isDeleteModalOpen && (
-        <div className="fixed inset-0 bg-chocolate-900/60 backdrop-blur-sm flex items-center justify-center z-[200] p-6 animate-in fade-in duration-500">
-          <div className="bg-white border border-gray-100 rounded-lg shadow-2xl w-full max-w-lg overflow-hidden relative p-12">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 rounded-full blur-3xl -mr-32 -mt-32" />
-            <h2 className="text-3xl font-bold text-black mb-6 relative z-10">Purge Authorization</h2>
-            <p className="text-gray-500 text-lg font-medium mb-10 relative z-10 leading-relaxed capitalize">
-              You are about to permanently delete <span className="text-black font-bold">{itemToDelete?.name}</span>. This action is irreversible and will remove all associated history.
-            </p>
-            <div className="space-y-4 mb-12 relative z-10">
-              <label className="text-xs font-bold text-gray-300 uppercase px-2">Confirm Authorization Code</label>
-              <input
-                type="text"
-                value={deleteConfirmText}
-                onChange={(e) => setDeleteConfirmText(e.target.value)}
-                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg focus:ring-4 focus:ring-chocolate-50 text-black placeholder-chocolate-100 outline-none transition-all text-lg"
-                placeholder="Type 'delete' to confirm"
-                autoFocus
-              />
-            </div>
-            <div className="flex items-center justify-end gap-8 relative z-10">
-              <button
-                onClick={() => {
-                  setIsDeleteModalOpen(false);
-                  setItemToDelete(null);
-                  setDeleteConfirmText('');
-                }}
-                className="text-gray-400 hover:text-black font-bold transition-colors"
-              >
-                Abort Operation
-              </button>
-              <button
-                onClick={confirmDelete}
-                disabled={deleteConfirmText.toLowerCase() !== 'delete'}
-                className={`px-12 py-4 rounded-lg font-bold transition-all shadow-lg ${deleteConfirmText.toLowerCase() === 'delete'
-                  ? 'bg-red-600 text-white hover:bg-red-700 active:scale-95'
-                  : 'bg-gray-50 text-chocolate-200 cursor-not-allowed border border-gray-100'
-                  }`}
-              >
-                Purge Record
-              </button>
-            </div>
+    </div>
+  );
+};
+
+// Tactical Inventory Summary Component
+const InventoryStatCard = ({ label, value, icon: Icon, detail, color }) => {
+  const colorMap = {
+    'accent-400': 'text-accent-400 bg-accent-400/10 border-accent-400/20 from-accent-400',
+    'green-500': 'text-green-500 bg-green-500/10 border-green-500/20 from-green-500',
+    'amber-400': 'text-amber-400 bg-amber-400/10 border-amber-400/20 from-amber-400',
+    'red-500': 'text-red-500 bg-red-500/10 border-red-500/20 from-red-500',
+  };
+
+  const selectedColor = colorMap[color] || colorMap['accent-400'];
+  const [textColor, bgStyle, borderStyle, gradStyle] = selectedColor.split(' ');
+
+  return (
+    <div className="group bg-brand-900 p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
+      <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50`} />
+      <div className="relative z-10 flex flex-col h-full justify-between gap-10">
+        <div className="flex items-center justify-between">
+          <div className={`p-5 rounded-md border ${bgStyle} ${borderStyle} ${textColor} shadow-inner group-hover:scale-110 duration-500`}>
+            <Icon className="text-3xl" />
           </div>
+          <span className={`text-[10px] font-bold ${textColor} bg-white/5 px-4 py-2 rounded-md border border-white/5 shadow-inner tracking-wider`}>
+            Stock Status
+          </span>
         </div>
-      )}
+        <div>
+          <p className="text-xs font-bold text-brand-300 mb-3 opacity-60">{label}</p>
+          <h4 className="text-4xl font-bold text-white tracking-tight leading-none mb-3">
+            {value} <span className="text-lg opacity-40 font-bold ml-2">Units</span>
+          </h4>
+          <p className="text-xs text-brand-300 font-semibold opacity-60">{detail}</p>
+        </div>
+      </div>
     </div>
   );
 };

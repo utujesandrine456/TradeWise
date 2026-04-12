@@ -1,8 +1,8 @@
 export const mockDashboardData = {
   user: {
     id: 1,
-    company_name: 'TradeWise Inc.',
-    email: 'admin@tradewise.com',
+    company_name: 'Stocka Inc.',
+    email: 'admin@stocka.com',
     role: 'admin'
   },
   today: {

@@ -23,10 +23,10 @@ const ViewNotificationModal = ({ isOpen, onClose, notification, onMarkAsRead }) 
 
   const getImpactColor = (impact) => {
     switch (impact) {
-      case 'High': return 'text-red-700 bg-red-50 border-red-100 shadow-sm';
-      case 'Medium': return 'text-black bg-gray-50 border-gray-100 shadow-sm';
-      case 'Low': return 'text-gray-400 bg-gray-50/50 border-chocolate-50 shadow-sm';
-      default: return 'text-gray-400 bg-gray-50 border-gray-100';
+      case 'High': return 'text-rose-700 bg-rose-50 border-rose-100 shadow-sm';
+      case 'Medium': return 'text-brand-900 bg-brand-50 border-brand-100 shadow-sm';
+      case 'Low': return 'text-brand-300 bg-brand-50/50 border-brand-50 shadow-sm';
+      default: return 'text-brand-400 bg-brand-50/30 border-brand-100';
     }
   };
 
@@ -41,40 +41,42 @@ const ViewNotificationModal = ({ isOpen, onClose, notification, onMarkAsRead }) 
   };
 
   return (
-    <div className="fixed inset-0 bg-chocolate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-6 font-afacad cursor-default">
-      <div className="bg-white border border-gray-100 rounded-lg shadow-2xl w-full max-w-2xl overflow-hidden relative animate-in fade-in zoom-in duration-300 flex flex-col">
-        <div className="p-10 border-b border-chocolate-50 flex items-center justify-between">
+    <div className="fixed inset-0 bg-brand-900/80 backdrop-blur-md flex items-center justify-center z-[100] p-6 font-Urbanist cursor-default animate-in fade-in duration-500">
+      <div className="bg-white border border-brand-100 rounded-md shadow-[0_50px_100px_-20px_rgba(9,17,30,0.3)] w-full max-w-2xl overflow-hidden relative flex flex-col">
+        <div className="p-12 border-b border-brand-50 flex items-center justify-between bg-brand-50/30">
           <div className="flex items-center gap-6">
-            <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm">
-              <MdNotifications className="text-black text-3xl" />
+            <div className="bg-white p-4 rounded-md border border-brand-100 shadow-xl">
+              <MdNotifications className="text-brand-900 text-3xl" />
             </div>
             <div>
-              <h2 className="text-4xl font-bold text-black leading-tight">Notification Details</h2>
-              <p className="text-sm text-gray-400 font-medium mt-1">Critical System Communication</p>
+              <h2 className="text-4xl font-black text-brand-900 uppercase tracking-tighter leading-none">Intelligence Feed</h2>
+              <p className="text-[10px] font-black text-brand-300 uppercase tracking-[0.3em] mt-3 italic">Critical System Pulse</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-4 text-gray-300 hover:text-black hover:bg-gray-50 rounded-lg transition-all hover:rotate-90"
+            className="p-4 text-brand-200 hover:text-brand-900 hover:bg-white rounded-md transition-all shadow-sm hover:rotate-90"
           >
             <MdClose className="text-3xl" />
           </button>
         </div>
 
-        <div className="p-10 space-y-10 max-h-[70vh] overflow-y-auto custom-scrollbar">
-          <div className="flex items-start gap-8">
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-100 shadow-sm scale-110">
-              {getNotificationIcon(notification.filterType || notification.type)}
+        <div className="p-12 space-y-12 max-h-[70vh] overflow-y-auto custom-scrollbar">
+          <div className="flex items-start gap-10">
+            <div className="bg-brand-900 p-8 rounded-md shadow-2xl scale-110">
+              <div className="brightness-0 invert opacity-80">
+                {getNotificationIcon(notification.filterType || notification.type)}
+              </div>
             </div>
-            <div className="flex-1 space-y-4">
-              <h3 className="text-3xl font-bold text-black leading-tight capitalize">{notification.title}</h3>
-              <div className="flex items-center gap-4">
-                <span className={`px-6 py-1.5 text-xs font-bold rounded-full border uppercase tracking-wider ${getImpactColor(notification.impact)}`}>
-                  {notification.impact} Severity
+            <div className="flex-1 space-y-6">
+              <h3 className="text-4xl font-black text-brand-900 uppercase tracking-tighter leading-none">{notification.title}</h3>
+              <div className="flex items-center gap-6">
+                <span className={`px-8 py-2 text-[10px] font-black rounded-md border uppercase tracking-[0.2em] ${getImpactColor(notification.impact)}`}>
+                  {notification.impact} SEVERITY_LEVEL
                 </span>
                 {!notification.read && (
-                  <span className="px-6 py-1.5 text-xs font-bold rounded-full bg-red-50 text-red-600 border border-red-100 uppercase animate-pulse">
-                    Urgent / Unread
+                  <span className="px-8 py-2 text-[10px] font-black rounded-md bg-rose-50 text-rose-600 border border-rose-100 uppercase tracking-[0.2em] animate-pulse">
+                    URGENT_UNREAD
                   </span>
                 )}
               </div>
@@ -82,31 +84,31 @@ const ViewNotificationModal = ({ isOpen, onClose, notification, onMarkAsRead }) 
           </div>
 
           {notification.read && (
-            <div className="bg-gray-50/50 border border-gray-100 rounded-lg p-8 shadow-sm relative overflow-hidden group">
-              <div className="flex items-start gap-6 relative z-10">
-                <div className="bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
-                  <MdWarning className="text-black text-2xl" />
+            <div className="bg-brand-50/50 border border-brand-100 rounded-md p-10 shadow-inner relative overflow-hidden group">
+              <div className="flex items-start gap-8 relative z-10">
+                <div className="bg-white p-4 rounded-md border border-brand-100 shadow-xl text-brand-900">
+                  <MdWarning size={24} />
                 </div>
                 <div>
-                  <h4 className="text-base font-bold text-black mb-1 transition-colors">Archival Scheduled</h4>
-                  <p className="text-sm text-gray-500 font-medium leading-relaxed">
-                    This message has been acknowledged and is currently queued for automated cleanup to maintain workspace efficiency.
+                  <h4 className="text-[10px] font-black text-brand-900 uppercase tracking-[0.2em] mb-2">Protocol Acknowledged</h4>
+                  <p className="text-[10px] text-brand-300 font-black uppercase tracking-widest leading-relaxed opacity-60">
+                    This transmission has been successfully synchronized and is currently queued for automated secure purge to maintain operational efficiency.
                   </p>
                 </div>
               </div>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-chocolate-100/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-900/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-700" />
             </div>
           )}
 
-          <div className="bg-gray-50 border border-gray-100 rounded-lg p-10 shadow-sm relative overflow-hidden">
-            <div className="relative z-10 space-y-6">
-              <div className="flex items-center gap-3 opacity-40">
-                <MdInfo className="text-xl text-black" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Transmission Content</span>
+          <div className="bg-brand-50/50 border border-brand-100 rounded-md p-12 shadow-inner relative overflow-hidden">
+            <div className="relative z-10 space-y-8">
+              <div className="flex items-center gap-4 opacity-40 italic">
+                <MdInfo className="text-xl text-brand-900" />
+                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Transmission Payload Content</span>
               </div>
-              <p className="text-black text-xl font-medium leading-relaxed italic">{notification.message}</p>
+              <p className="text-brand-900 text-2xl font-black uppercase tracking-tight leading-none italic">{notification.message}</p>
             </div>
-            <div className="absolute bottom-0 right-0 w-64 h-64 bg-chocolate-100/10 rounded-full blur-[100px] translate-y-1/2 translate-x-1/4" />
+            <div className="absolute bottom-0 right-0 w-64 h-64 bg-brand-900/5 rounded-full blur-[100px] translate-y-1/2 translate-x-1/4" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -126,23 +128,24 @@ const ViewNotificationModal = ({ isOpen, onClose, notification, onMarkAsRead }) 
           </div>
         </div>
 
-        <div className="p-10 border-t border-chocolate-50 bg-gray-50/30 flex items-center justify-end gap-8">
+        <div className="p-12 border-t border-brand-50 bg-brand-50/20 flex items-center justify-end gap-10">
           {!notification.read && (
             <button
               onClick={() => onMarkAsRead && onMarkAsRead(notification.id)}
-              className="group relative px-10 py-5 bg-green-600 text-white rounded-lg font-bold transition-all active:scale-95 shadow-lg overflow-hidden"
+              className="group relative px-12 py-5 bg-emerald-600 text-white rounded-md font-black uppercase tracking-[0.2em] text-[10px] transition-all active:scale-95 shadow-2xl overflow-hidden"
             >
-              <div className="flex items-center gap-3 relative z-10">
-                <MdMarkEmailRead className="text-2xl" />
-                <span className="text-lg">Acknowledge Receipt</span>
+              <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+              <div className="flex items-center gap-4 relative z-10">
+                <MdMarkEmailRead size={20} />
+                <span>Confirm Synchronization</span>
               </div>
             </button>
           )}
           <button
             onClick={onClose}
-            className="px-12 py-5 bg-white border border-gray-100 text-black rounded-lg font-bold transition-all hover:bg-gray-50 active:scale-95 shadow-sm"
+            className="px-12 py-5 bg-white border border-brand-100 text-brand-900 rounded-md font-black uppercase tracking-[0.2em] text-[10px] transition-all hover:bg-brand-50 active:scale-95 shadow-sm"
           >
-            Dismiss Alert
+            Dismiss Transmission
           </button>
         </div>
       </div>

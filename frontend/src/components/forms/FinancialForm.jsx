@@ -106,21 +106,23 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-chocolate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-6 font-afacad cursor-default">
-      <div className="bg-white border border-gray-100 rounded-lg shadow-2xl w-full max-w-2xl overflow-hidden relative animate-in fade-in zoom-in duration-300 flex flex-col">
-        <div className="p-10 border-b border-chocolate-50 flex items-center justify-between">
+    <div className="fixed inset-0 bg-brand-900/80 backdrop-blur-md flex items-center justify-center z-[100] p-6 font-Urbanist cursor-default animate-in fade-in duration-500">
+      <div className="bg-white border border-brand-100 rounded-md shadow-[0_50px_100px_-20px_rgba(9,17,30,0.3)] w-full max-w-2xl overflow-hidden relative flex flex-col">
+        <div className="p-12 border-b border-brand-50 flex items-center justify-between bg-brand-50/30">
           <div className="flex items-center gap-6">
-            <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm">
-              <MdAccountBalance className="text-black text-3xl" />
+            <div className="bg-white p-4 rounded-md border border-brand-100 shadow-xl">
+              <MdAccountBalance className="text-brand-900 text-3xl" />
             </div>
             <div>
-              <h2 className="text-4xl font-bold text-black leading-tight">{isEdit ? 'Edit Financial' : 'New Financial'}</h2>
-              <p className="text-sm text-gray-400 font-medium mt-1">Record Manual Monetary Operations</p>
+              <div className="space-y-4">
+                <h2 className="text-4xl font-bold text-brand-900 tracking-tight leading-none">{isEdit ? 'Edit Transaction' : 'New Transaction'}</h2>
+                <p className="text-sm font-semibold text-brand-400 opacity-60">Record or modify financial transaction data</p>
+              </div>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-4 text-gray-300 hover:text-black hover:bg-gray-50 rounded-lg transition-all hover:rotate-90"
+            className="p-4 text-brand-200 hover:text-brand-900 hover:bg-white rounded-md transition-all shadow-sm hover:rotate-90"
           >
             <MdClose className="text-3xl" />
           </button>
@@ -128,22 +130,22 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
 
         <form onSubmit={handleSubmit} className="p-10 space-y-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="space-y-3">
-              <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Transaction Type *</label>
+            <div className="space-y-4">
+              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Category *</label>
               <select
                 name="type"
                 value={formData.type}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none cursor-pointer shadow-sm"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none cursor-pointer shadow-sm font-bold text-sm"
               >
-                <option value="Credit" className="bg-white">Credit (Income)</option>
-                <option value="Debit" className="bg-white">Debit (Expense)</option>
+                <option value="Credit" className="bg-white">PROTOCOL_CREDIT</option>
+                <option value="Debit" className="bg-white">PROTOCOL_DEBIT</option>
               </select>
             </div>
 
-            <div className="space-y-3">
-              <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Amount (FRW) *</label>
+            <div className="space-y-4">
+              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Amount (FRW) *</label>
               <input
                 type="number"
                 name="amount"
@@ -152,68 +154,69 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
                 required
                 min="0"
                 step="100"
-                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-bold"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm"
                 placeholder="100"
               />
             </div>
 
-            <div className="md:col-span-2 space-y-3">
-              <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Description *</label>
+            <div className="md:col-span-2 space-y-4">
+              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Description *</label>
               <input
                 type="text"
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
-                placeholder="e.g., Loan to John Doe"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm"
+                placeholder="E.G. TRANS_REF_ALFA"
               />
             </div>
 
-            <div className="space-y-3">
-              <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Collateral / Reference *</label>
+            <div className="space-y-4">
+              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Collector Name *</label>
               <input
                 type="text"
                 name="collateral"
                 value={formData.collateral}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
-                placeholder="e.g., Equipment or ID Number"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm"
+                placeholder="SEC_IDENTIFIER"
               />
             </div>
 
-            <div className="space-y-3">
-              <label className="block text-sm font-bold text-gray-400 px-1 capitalize">Effective Deadline *</label>
+            <div className="space-y-4">
+              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Due Date *</label>
               <input
                 type="datetime-local"
                 name="deadline"
                 value={formData.deadline}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-gray-100 rounded-lg text-black focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none shadow-sm"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none shadow-sm font-bold text-sm"
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-8 pt-10 border-t border-chocolate-50">
+          <div className="flex items-center justify-end gap-10 pt-12 border-t border-brand-50">
             <button
               type="button"
               onClick={onClose}
-              className="px-8 py-4 text-gray-400 hover:text-black transition-colors font-bold tracking-widest"
+              className="px-8 py-4 text-brand-300 hover:text-brand-900 transition-colors font-bold text-sm"
             >
-              Cancel
+              Abort
             </button>
             <button
               type="submit"
-              className="group relative px-12 py-5 bg-chocolate-600 text-white rounded-lg font-bold transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative px-12 py-5 bg-brand-900 text-white rounded-md font-bold text-sm transition-all active:scale-95 shadow-2xl overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={isSubmitting}
             >
-              <div className="flex items-center gap-3 relative z-10">
+              <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+              <div className="flex items-center gap-4 relative z-10">
                 {isSubmitting ? (
-                  <div className="w-6 h-6 border-4 border-white/20 border-t-white rounded-full animate-spin" />
-                ) : <MdSave className="text-2xl" />}
-                <span className="text-lg">{isSubmitting ? (isEdit ? 'Updating...' : 'Saving...') : (isEdit ? 'Update Financial' : 'Save Financial')}</span>
+                  <div className="w-5 h-5 border-4 border-white/20 border-t-white rounded-full animate-spin" />
+                ) : <MdSave size={20} />}
+                <span>{isSubmitting ? (isEdit ? 'SYNCHRONIZING...' : 'RECORDING...') : (isEdit ? 'CONFIRM_UPDATE' : 'SYNCHRONIZE_VAULT')}</span>
               </div>
             </button>
           </div>

@@ -25,135 +25,137 @@ const ViewFinancialModal = ({ isOpen, onClose, financial, onMarkAsPaid, onUpdate
   };
 
   return (
-    <div className="fixed inset-0 bg-chocolate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-6 font-afacad cursor-default">
-      <div className="bg-white border border-gray-100 rounded-lg shadow-2xl w-full max-w-2xl overflow-hidden relative animate-in fade-in zoom-in duration-300 flex flex-col">
-        <div className="p-10 border-b border-chocolate-50 flex items-center justify-between">
+    <div className="fixed inset-0 bg-brand-900/80 backdrop-blur-md flex items-center justify-center z-[100] p-6 font-Urbanist cursor-default animate-in fade-in duration-500">
+      <div className="bg-white border border-brand-100 rounded-md shadow-[0_50px_100px_-20px_rgba(9,17,30,0.3)] w-full max-w-2xl overflow-hidden relative flex flex-col">
+        <div className="p-12 border-b border-brand-50 flex items-center justify-between bg-brand-50/30">
           <div className="flex items-center gap-6">
-            <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 shadow-sm">
-              <MdAccountBalance className="text-black text-3xl" />
+            <div className="bg-white p-4 rounded-md border border-brand-100 shadow-xl">
+              <MdAccountBalance className="text-brand-900 text-3xl" />
             </div>
             <div>
-              <h2 className="text-4xl font-bold text-black leading-tight">Financial Details</h2>
-              <p className="text-sm text-gray-400 font-medium mt-1">Comprehensive Audit Record</p>
+              <h2 className="text-4xl font-black text-brand-900 uppercase tracking-tighter leading-none">Financial Audit</h2>
+              <p className="text-[10px] font-black text-brand-300 uppercase tracking-[0.3em] mt-3 italic">Comprehensive Transaction Log</p>
             </div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             {!financial.paid && (
               <>
                 <button
                   onClick={() => setIsEditMode(true)}
-                  className="p-4 text-gray-400 hover:text-black hover:bg-gray-50 rounded-lg transition-all shadow-sm"
-                  title="Edit Financial"
+                  className="p-4 text-brand-400 hover:text-brand-900 hover:bg-white rounded-md transition-all shadow-sm"
+                  title="Modify Entry"
                 >
-                  <MdEdit className="text-2xl" />
+                  <MdEdit size={24} />
                 </button>
                 <button
                   onClick={() => {
                     onMarkAsPaid && onMarkAsPaid(financial);
                     onClose();
                   }}
-                  className="p-4 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-all shadow-sm"
-                  title="Mark As Paid"
+                  className="p-4 text-emerald-300 hover:text-emerald-600 hover:bg-emerald-50 rounded-md transition-all shadow-sm"
+                  title="Authorize Settlement"
                 >
-                  <MdCheckCircle className="text-2xl" />
+                  <MdCheckCircle size={24} />
                 </button>
               </>
             )}
             <button
               onClick={onClose}
-              className="p-4 text-gray-300 hover:text-black hover:bg-gray-50 rounded-lg transition-all hover:rotate-90"
+              className="p-4 text-brand-200 hover:text-brand-900 hover:bg-white rounded-md transition-all shadow-sm hover:rotate-90"
             >
-              <MdClose className="text-3xl" />
+              <MdClose size={28} />
             </button>
           </div>
         </div>
 
         <div className="p-10 space-y-10 max-h-[70vh] overflow-y-auto custom-scrollbar">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="space-y-3">
-              <label className="block text-sm font-bold text-gray-400 uppercase tracking-wider px-1">Transaction Category</label>
-              <div className="px-8 py-5 bg-gray-50 border border-gray-100 rounded-lg shadow-sm">
-                <span className={`inline-flex px-6 py-2 text-sm font-bold rounded-full border uppercase ${financial.type?.toLowerCase() === 'credit' ? 'bg-green-100 text-green-700 border-green-200' : 'bg-red-100 text-red-700 border-red-200'}`}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-4">
+              <label className="block text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-1 italic">Classification</label>
+              <div className="px-10 py-8 bg-brand-50/50 border border-brand-100 rounded-md shadow-inner text-center">
+                <span className={`inline-flex px-8 py-3 text-[10px] font-black uppercase tracking-[0.2em] rounded-md border ${financial.type?.toLowerCase() === 'credit' ? 'bg-emerald-100 text-emerald-800 border-emerald-200' : 'bg-rose-100 text-rose-800 border-rose-200'}`}>
                   {financial.type}
                 </span>
               </div>
             </div>
-            <div className="space-y-3">
-              <label className="block text-sm font-bold text-gray-400 uppercase tracking-wider px-1">Payment Status</label>
-              <div className="px-8 py-5 bg-gray-50 border border-gray-100 rounded-lg shadow-sm">
-                <span className={`inline-flex px-6 py-2 text-sm font-bold rounded-full border uppercase ${financial.paid ? 'bg-green-100 text-green-700 border-green-200' : 'bg-amber-100 text-amber-700 border-amber-200'}`}>
-                  {financial.paid ? 'Paid' : 'Pending Settlement'}
+            <div className="space-y-4">
+              <label className="block text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-1 italic">Settlement Progress</label>
+              <div className="px-10 py-8 bg-brand-50/50 border border-brand-100 rounded-md shadow-inner text-center">
+                <span className={`inline-flex px-8 py-3 text-[10px] font-black uppercase tracking-[0.2em] rounded-md border ${financial.paid ? 'bg-emerald-100 text-emerald-800 border-emerald-200' : 'bg-amber-100 text-amber-800 border-amber-200'}`}>
+                  {financial.paid ? 'Validated' : 'Pending Authorization'}
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="space-y-3">
-            <label className="text-sm font-bold text-gray-400 uppercase tracking-wider px-1 flex items-center gap-3">
-              <MdPayment className="text-xl text-black" />
-              Transaction Amount
+          <div className="space-y-4">
+            <label className="text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-1 italic flex items-center gap-4">
+              <MdPayment className="text-xl text-brand-900" />
+              Quantum Valuation
             </label>
-            <div className="px-10 py-8 bg-gray-50 border border-gray-100 rounded-lg shadow-sm relative overflow-hidden group">
-              <div className="relative z-10 flex items-baseline gap-4">
-                <span className={`text-6xl font-bold tracking-tighter ${financial.type?.toLowerCase() === 'credit' ? 'text-green-600' : 'text-red-600'}`}>
+            <div className="px-12 py-10 bg-brand-900 rounded-md shadow-2xl relative overflow-hidden group">
+              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              <div className="relative z-10 flex items-baseline justify-between">
+                <span className={`text-6xl font-black tracking-tighter ${financial.type?.toLowerCase() === 'credit' ? 'text-emerald-400' : 'text-rose-400'}`}>
                   {financial.type?.toLowerCase() === 'credit' ? '+' : '-'}{financial.amount.toLocaleString()}
                 </span>
-                <span className="text-xl text-gray-400 font-bold uppercase">FRW</span>
+                <span className="text-xl text-white/40 font-black uppercase tracking-[0.3em]">FRW_UNIT</span>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="space-y-3">
-              <label className="flex text-sm font-bold text-gray-400 uppercase tracking-wider px-1 items-center gap-3">
-                <MdDescription className="text-xl text-black" />
-                Description
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-4">
+              <label className="flex text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-1 items-center gap-4 italic">
+                <MdDescription className="text-xl text-brand-900" />
+                Audit Comments
               </label>
-              <div className="px-8 py-5 bg-gray-50 border border-gray-100 rounded-lg shadow-sm">
-                <p className="text-black font-medium leading-relaxed capitalize">{financial.description}</p>
+              <div className="px-10 py-8 bg-brand-50/50 border border-brand-100 rounded-md shadow-inner">
+                <p className="text-brand-900 font-black uppercase tracking-widest text-[10px] leading-relaxed">{financial.description}</p>
               </div>
             </div>
 
-            <div className="space-y-3">
-              <label className="flex text-sm font-bold text-gray-400 uppercase tracking-wider px-1 items-center gap-3">
-                <MdCalendarToday className="text-xl text-black" />
-                Deadline
+            <div className="space-y-4">
+              <label className="flex text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-1 items-center gap-4 italic">
+                <MdCalendarToday className="text-xl text-brand-900" />
+                Integrity Deadline
               </label>
-              <div className="px-8 py-5 bg-gray-50 border border-gray-100 rounded-lg shadow-sm">
-                <p className="text-black font-medium">{formatDate(financial.deadline)}</p>
+              <div className="px-10 py-8 bg-brand-50/50 border border-brand-100 rounded-md shadow-inner text-center">
+                <p className="text-brand-900 font-black uppercase tracking-widest text-[10px]">{formatDate(financial.deadline)}</p>
               </div>
             </div>
 
             {financial.collateral && (
-              <div className="md:col-span-2 space-y-3">
-                <label className="flex text-sm font-bold text-gray-400 uppercase tracking-wider px-1 items-center gap-3">
-                  <MdSecurity className="text-xl text-black" />
-                  Collateral / Secondary Reference
+              <div className="md:col-span-2 space-y-4">
+                <label className="flex text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-1 items-center gap-4 italic">
+                  <MdSecurity className="text-xl text-brand-900" />
+                  Security Collateral / Protocol ID
                 </label>
-                <div className="px-8 py-5 bg-gray-50 border border-gray-100 rounded-lg shadow-sm">
-                  <p className="text-black font-bold leading-relaxed capitalize">{financial.collateral}</p>
+                <div className="px-10 py-8 bg-brand-50/50 border border-brand-100 rounded-md shadow-inner text-center">
+                  <p className="text-brand-900 font-black uppercase tracking-widest text-[10px] leading-relaxed">{financial.collateral}</p>
                 </div>
               </div>
             )}
           </div>
 
-          <div className="bg-gray-50 border border-gray-100 p-8 rounded-lg shadow-sm relative overflow-hidden">
-            <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-6 px-1">System Audit Data</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 relative z-10">
+          <div className="bg-brand-50/50 border border-brand-100 p-10 rounded-md shadow-inner relative overflow-hidden">
+            <h4 className="text-[10px] font-black text-brand-300 uppercase tracking-[0.3em] mb-8 italic">Diagnostic Timestamps</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 relative z-10">
               <div>
-                <span className="block text-[10px] font-bold text-gray-500 uppercase mb-2">Record Creation Timestamp</span>
-                <p className="text-sm text-black font-medium">{formatDate(financial.createdAt || financial.deadline)}</p>
+                <span className="block text-[10px] font-black text-brand-400 uppercase tracking-[0.2em] mb-3">Kernel Initialization</span>
+                <p className="text-[10px] text-brand-900 font-black uppercase tracking-widest">{formatDate(financial.createdAt || financial.deadline)}</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="p-10 border-t border-chocolate-50 flex items-center justify-end bg-gray-50/30">
+        <div className="p-12 border-t border-brand-50 flex items-center justify-end bg-brand-50/20">
           <button
             onClick={onClose}
-            className="px-12 py-5 bg-chocolate-600 hover:bg-chocolate-700 text-white rounded-lg font-bold transition-all active:scale-95 shadow-lg"
+            className="px-12 py-5 bg-brand-900 text-white rounded-md font-black uppercase tracking-[0.2em] text-[10px] transition-all hover:bg-brand-800 active:scale-95 shadow-2xl relative overflow-hidden group/close"
           >
-            Close Overview
+            <div className="absolute inset-0 bg-white/10 translate-x-full group-hover/close:translate-x-0 transition-transform duration-500" />
+            <span className="relative z-10">Terminate Inspection</span>
           </button>
         </div>
       </div>

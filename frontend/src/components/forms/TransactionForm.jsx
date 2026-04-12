@@ -86,21 +86,23 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-chocolate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-6 font-afacad cursor-default">
-      <div className="bg-white border border-chocolate-100 rounded-lg shadow-2xl w-full max-w-4xl overflow-hidden relative animate-in fade-in zoom-in duration-300 flex flex-col max-h-[90vh]">
-        <div className="p-10 border-b border-chocolate-50 flex items-center justify-between">
+    <div className="fixed inset-0 bg-brand-900/80 backdrop-blur-md flex items-center justify-center z-[100] p-6 font-Urbanist cursor-default animate-in fade-in duration-500">
+      <div className="bg-white border border-brand-100 rounded-md shadow-[0_50px_100px_-20px_rgba(9,17,30,0.3)] w-full max-w-4xl overflow-hidden relative flex flex-col max-h-[90vh]">
+        <div className="p-12 border-b border-brand-50 flex items-center justify-between bg-brand-50/30">
           <div className="flex items-center gap-6">
-            <div className="bg-chocolate-50 p-4 rounded-lg border border-chocolate-100 shadow-sm">
-              <MdAccountBalance className="text-chocolate-600 text-3xl" />
+            <div className="bg-white p-4 rounded-md border border-brand-100 shadow-xl">
+              <MdAccountBalance className="text-brand-900 text-3xl" />
             </div>
             <div>
-              <h2 className="text-4xl font-#FC9E4F text-chocolate-900 leading-tight">New Transaction</h2>
-              <p className="text-sm text-chocolate-400 font-medium mt-1">Record Operational Income Or Expenses</p>
+              <div className="space-y-4">
+                <h2 className="text-4xl font-bold text-brand-900 tracking-tight leading-none">New Transaction</h2>
+                <p className="text-sm font-semibold text-brand-400 opacity-60">Record a new business transaction</p>
+              </div>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-4 text-chocolate-300 hover:text-chocolate-600 hover:bg-chocolate-50 rounded-lg transition-all hover:rotate-90"
+            className="p-4 text-brand-200 hover:text-brand-900 hover:bg-white rounded-md transition-all shadow-sm hover:rotate-90"
           >
             <MdClose className="text-3xl" />
           </button>
@@ -108,30 +110,30 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
 
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-10 space-y-10 custom-scrollbar">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="space-y-3">
-              <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Transaction Type *</label>
+            <div className="space-y-4">
+              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Transaction Type *</label>
               <select
                 name="type"
                 value={formData.type}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none cursor-pointer shadow-sm"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none cursor-pointer shadow-sm font-bold text-sm"
               >
-                <option value="credit" className="bg-white">Credit (Income)</option>
-                <option value="debit" className="bg-white">Debit (Expense)</option>
+                <option value="credit" className="bg-white">PROTOCOL_CREDIT</option>
+                <option value="debit" className="bg-white">PROTOCOL_DEBIT</option>
               </select>
             </div>
 
-            <div className="space-y-3">
-              <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Category *</label>
+            <div className="space-y-4">
+              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Category *</label>
               <select
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none cursor-pointer shadow-sm"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none cursor-pointer shadow-sm font-bold text-sm"
               >
-                <option value="" className="bg-white">Choose Category</option>
+                <option value="" className="bg-white">SELECT_TAXONOMY</option>
                 {formData.type === 'credit' ? (
                   <>
                     <option value="Sales Revenue" className="bg-white">Sales Revenue</option>
@@ -150,21 +152,21 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
               </select>
             </div>
 
-            <div className="md:col-span-2 space-y-3">
-              <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Description *</label>
+            <div className="md:col-span-2 space-y-4">
+              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Description *</label>
               <input
                 type="text"
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
-                placeholder="e.g., Quarterly Office Supply Replenishment"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm"
+                placeholder="E.G. OP_TRANS_DELTA_RECOVERY"
               />
             </div>
 
-            <div className="space-y-3">
-              <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Amount (FRW) *</label>
+            <div className="space-y-4">
+              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Amount (FRW) *</label>
               <input
                 type="number"
                 name="amount"
@@ -173,85 +175,86 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
                 required
                 min="0"
                 step="0.01"
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-#FC9E4F"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm"
                 placeholder="0"
               />
             </div>
 
-            <div className="space-y-3">
-              <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Settlement Date *</label>
+            <div className="space-y-4">
+              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Date *</label>
               <input
                 type="date"
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none shadow-sm"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none shadow-sm font-bold text-sm"
               />
             </div>
 
-            <div className="space-y-3">
-              <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Payment Source *</label>
+            <div className="space-y-4">
+              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Payment Method *</label>
               <select
                 name="paymentMethod"
                 value={formData.paymentMethod}
                 onChange={handleChange}
                 required
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all appearance-none cursor-pointer shadow-sm"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none cursor-pointer shadow-sm font-bold text-sm"
               >
-                <option value="Cash" className="bg-white">Cash Payment</option>
-                <option value="Bank Transfer" className="bg-white">Bank Transfer</option>
-                <option value="Mobile Money" className="bg-white">Mobile Money</option>
-                <option value="Credit Card" className="bg-white">Credit Card</option>
-                <option value="Check" className="bg-white">Commercial Check</option>
+                <option value="Cash" className="bg-white">CASH_SETTLEMENT</option>
+                <option value="Bank Transfer" className="bg-white">BANK_TRANSFER</option>
+                <option value="Mobile Money" className="bg-white">MOBILE_SYNCHRONIZATION</option>
+                <option value="Credit Card" className="bg-white">CARD_AUTHORIZATION</option>
+                <option value="Check" className="bg-white">COMMERCIAL_CHECK</option>
               </select>
             </div>
 
             <div className="space-y-3">
-              <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Reference Identifier</label>
+              <label className="block text-sm font-bold text-brand-400 px-1 capitalize">Reference Identifier</label>
               <input
                 type="text"
                 name="reference"
                 value={formData.reference}
                 onChange={handleChange}
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium"
+                className="w-full px-8 py-5 bg-white border border-brand-100 rounded-lg text-brand-900 placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-medium"
                 placeholder="e.g., Invoice #882-99"
               />
             </div>
 
-            <div className="md:col-span-2 space-y-3">
-              <label className="block text-sm font-bold text-chocolate-400 px-1 capitalize">Additional Notes</label>
+            <div className="md:col-span-2 space-y-4">
+              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Notes</label>
               <textarea
                 name="notes"
                 value={formData.notes}
                 onChange={handleChange}
                 rows="3"
-                className="w-full px-8 py-5 bg-white border border-chocolate-100 rounded-lg text-chocolate-900 placeholder:text-chocolate-200 focus:outline-none focus:ring-4 focus:ring-chocolate-50 transition-all font-medium resize-none shadow-sm"
-                placeholder="Clarifying Details For Auditing Purposes"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm resize-none shadow-sm"
+                placeholder="INTELLIGENCE_REMARKS_FOR_AUDIT"
               />
             </div>
           </div>
         </form>
 
-        <div className="p-10 border-t border-chocolate-50 bg-white flex items-center justify-end gap-8">
+        <div className="p-12 border-t border-brand-50 bg-brand-50/20 flex items-center justify-end gap-10">
           <button
             type="button"
             onClick={onClose}
-            className="px-8 py-4 text-chocolate-400 hover:text-chocolate-600 transition-colors font-#FC9E4F tracking-widest"
+            className="px-8 py-4 text-brand-300 hover:text-brand-900 transition-colors font-bold text-sm"
           >
-            Cancel
+            Abort
           </button>
           <button
             type="submit"
             onClick={handleSubmit}
-            className="group relative px-12 py-5 bg-chocolate-600 text-white rounded-lg font-#FC9E4F transition-all hover:bg-chocolate-700 active:scale-95 shadow-lg overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+            className="group relative px-12 py-5 bg-brand-900 text-white rounded-md font-bold text-sm transition-all active:scale-95 shadow-2xl overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={isSubmitting}
           >
-            <div className="flex items-center gap-3 relative z-10">
+            <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+            <div className="flex items-center gap-4 relative z-10">
               {isSubmitting ? (
-                <div className="w-6 h-6 border-4 border-white/20 border-t-white rounded-full animate-spin" />
-              ) : <MdSave className="text-2xl" />}
-              <span className="text-lg">{isSubmitting ? 'Recording...' : 'Commit Transaction Record'}</span>
+                <div className="w-5 h-5 border-4 border-white/20 border-t-white rounded-full animate-spin" />
+              ) : <MdSave size={20} />}
+              <span>{isSubmitting ? 'SYNCHRONIZING...' : 'COMMIT_JOURNAL_RECORD'}</span>
             </div>
           </button>
         </div>
