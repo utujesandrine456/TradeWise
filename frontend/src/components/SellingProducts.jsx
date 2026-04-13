@@ -101,7 +101,7 @@ const SellingProducts = ({ setActiveTab }) => {
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header Section */}
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden group">
+      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-50 pointer-events-none" />
         <div className="flex items-center gap-8 relative z-10">
           <div className="p-5 bg-white/5 rounded-md border border-white/5 shadow-inner transition-transform group-hover:scale-110 duration-500">
@@ -165,7 +165,7 @@ const SellingProducts = ({ setActiveTab }) => {
       </div>
 
       {/* Tactical Console (Search) */}
-      <div className="bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+      <div className="bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-500/5 rounded-md blur-[100px] -mr-[200px] -mt-[200px] pointer-events-none" />
         <div className="relative group/search max-w-4xl z-10">
           <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-brand-300 text-2xl group-focus-within/search:text-green-500 transition-colors duration-300" />
@@ -180,7 +180,7 @@ const SellingProducts = ({ setActiveTab }) => {
       </div>
 
       {/* Distribution Ledger Table */}
-      <div className="bg-brand-900 border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
+      <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
         <div className="p-10 border-b border-white/5 flex items-center justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent pointer-events-none" />
           <div className="flex items-center gap-4 relative z-10">
@@ -263,7 +263,7 @@ const SellingProducts = ({ setActiveTab }) => {
                     <div className="flex flex-col items-center justify-center space-y-6 text-center">
                       <div className="relative group">
                         <div className="absolute inset-0 bg-green-500/20 rounded-md blur-xl group-hover:blur-2xl transition-all duration-700 opacity-50" />
-                        <div className="relative p-8 bg-brand-900 rounded-md border border-white/5 shadow-2xl">
+                        <div className="relative p-8 bg-[#09111E] rounded-md border border-white/5 shadow-2xl">
                           <MdTimeline className="text-6xl text-brand-300/20 group-hover:text-green-500 transition-colors duration-500" />
                         </div>
                       </div>
@@ -321,7 +321,7 @@ const SummaryCard = ({ icon: Icon, label, value, trend, color }) => {
   const [textColor, bgStyle, borderStyle, _, gradStyle] = selectedColor.split(' ');
 
   return (
-    <div className="group bg-brand-900 p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10 hover:shadow-[-0_0_40px_rgba(252,158,79,0.3)]">
+    <div className="group bg-[#09111E] p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10 hover:shadow-[-0_0_40px_rgba(252,158,79,0.3)]">
       {/* Decorative background glow */}
       <div className={`absolute top-0 right-0 w-48 h-48 rounded-md blur-[60px] opacity-10 -mr-24 -mt-24 transition-transform duration-700 group-hover:scale-150 ${bgStyle.replace('/10', '')}`} />
 

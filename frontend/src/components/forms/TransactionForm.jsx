@@ -86,23 +86,23 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-brand-900/80 backdrop-blur-md flex items-center justify-center z-[100] p-6 font-Urbanist cursor-default animate-in fade-in duration-500">
+    <div className="fixed inset-0 bg-[#09111E]/80 backdrop-blur-md flex items-center justify-center z-[100] p-6 font-Urbanist cursor-default animate-in fade-in duration-500">
       <div className="bg-white border border-brand-100 rounded-md shadow-[0_50px_100px_-20px_rgba(9,17,30,0.3)] w-full max-w-4xl overflow-hidden relative flex flex-col max-h-[90vh]">
         <div className="p-12 border-b border-brand-50 flex items-center justify-between bg-brand-50/30">
           <div className="flex items-center gap-6">
             <div className="bg-white p-4 rounded-md border border-brand-100 shadow-xl">
-              <MdAccountBalance className="text-brand-900 text-3xl" />
+              <MdAccountBalance className="text-[#09111E] text-3xl" />
             </div>
             <div>
               <div className="space-y-4">
-                <h2 className="text-4xl font-bold text-brand-900 tracking-tight leading-none">New Transaction</h2>
+                <h2 className="text-4xl font-bold text-[#09111E] tracking-tight leading-none">New Transaction</h2>
                 <p className="text-sm font-semibold text-brand-400 opacity-60">Record a new business transaction</p>
               </div>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-4 text-brand-200 hover:text-brand-900 hover:bg-white rounded-md transition-all shadow-sm hover:rotate-90"
+            className="p-4 text-brand-200 hover:text-[#09111E] hover:bg-white rounded-md transition-all shadow-sm hover:rotate-90"
           >
             <MdClose className="text-3xl" />
           </button>
@@ -117,7 +117,7 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
                 value={formData.type}
                 onChange={handleChange}
                 required
-                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none cursor-pointer shadow-sm font-bold text-sm"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-[#09111E] focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none cursor-pointer shadow-sm font-bold text-sm"
               >
                 <option value="credit" className="bg-white">PROTOCOL_CREDIT</option>
                 <option value="debit" className="bg-white">PROTOCOL_DEBIT</option>
@@ -131,7 +131,7 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
                 value={formData.category}
                 onChange={handleChange}
                 required
-                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none cursor-pointer shadow-sm font-bold text-sm"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-[#09111E] focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none cursor-pointer shadow-sm font-bold text-sm"
               >
                 <option value="" className="bg-white">SELECT_TAXONOMY</option>
                 {formData.type === 'credit' ? (
@@ -160,7 +160,7 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
                 value={formData.description}
                 onChange={handleChange}
                 required
-                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-[#09111E] placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm"
                 placeholder="E.G. OP_TRANS_DELTA_RECOVERY"
               />
             </div>
@@ -175,7 +175,7 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
                 required
                 min="0"
                 step="0.01"
-                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-[#09111E] placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm"
                 placeholder="0"
               />
             </div>
@@ -188,7 +188,7 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
                 value={formData.date}
                 onChange={handleChange}
                 required
-                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none shadow-sm font-bold text-sm"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-[#09111E] focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none shadow-sm font-bold text-sm"
               />
             </div>
 
@@ -199,7 +199,7 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
                 value={formData.paymentMethod}
                 onChange={handleChange}
                 required
-                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none cursor-pointer shadow-sm font-bold text-sm"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-[#09111E] focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none cursor-pointer shadow-sm font-bold text-sm"
               >
                 <option value="Cash" className="bg-white">CASH_SETTLEMENT</option>
                 <option value="Bank Transfer" className="bg-white">BANK_TRANSFER</option>
@@ -216,7 +216,7 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
                 name="reference"
                 value={formData.reference}
                 onChange={handleChange}
-                className="w-full px-8 py-5 bg-white border border-brand-100 rounded-lg text-brand-900 placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-medium"
+                className="w-full px-8 py-5 bg-white border border-brand-100 rounded-lg text-[#09111E] placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-medium"
                 placeholder="e.g., Invoice #882-99"
               />
             </div>
@@ -228,7 +228,7 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
                 value={formData.notes}
                 onChange={handleChange}
                 rows="3"
-                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-brand-900 placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm resize-none shadow-sm"
+                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-[#09111E] placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm resize-none shadow-sm"
                 placeholder="INTELLIGENCE_REMARKS_FOR_AUDIT"
               />
             </div>
@@ -239,14 +239,14 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
           <button
             type="button"
             onClick={onClose}
-            className="px-8 py-4 text-brand-300 hover:text-brand-900 transition-colors font-bold text-sm"
+            className="px-8 py-4 text-brand-300 hover:text-[#09111E] transition-colors font-bold text-sm"
           >
             Abort
           </button>
           <button
             type="submit"
             onClick={handleSubmit}
-            className="group relative px-12 py-5 bg-brand-900 text-white rounded-md font-bold text-sm transition-all active:scale-95 shadow-2xl overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+            className="group relative px-12 py-5 bg-[#09111E] text-white rounded-md font-bold text-sm transition-all active:scale-95 shadow-2xl overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={isSubmitting}
           >
             <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-500" />

@@ -37,7 +37,7 @@ const Analytics = () => {
         <div className="bg-white p-10 rounded-md border border-brand-100 shadow-2xl relative overflow-hidden group">
           <div className="absolute inset-0 bg-brand-50/10 opacity-50 pointer-events-none" />
           <div className="relative z-10">
-            <h1 className="text-4xl font-bold text-brand-900 tracking-tight mb-2">Business Analytics</h1>
+            <h1 className="text-4xl font-bold text-[#09111E] tracking-tight mb-2">Business Analytics</h1>
             <p className="text-brand-400 font-semibold text-sm">Real-time performance and financial insights</p>
           </div>
         </div>
@@ -45,8 +45,8 @@ const Analytics = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Totals Bar Chart */}
           <div className="bg-white rounded-md shadow-[0_40px_80px_-20px_rgba(9,17,30,0.1)] p-10 border border-brand-100 flex flex-col group relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-1 bg-brand-900 h-full" />
-            <h3 className="text-2xl font-bold text-brand-900 mb-8 tracking-tight">Revenue & Profit</h3>
+            <div className="absolute top-0 left-0 w-1 bg-[#09111E] h-full" />
+            <h3 className="text-2xl font-bold text-[#09111E] mb-8 tracking-tight">Revenue & Profit</h3>
             <div className="flex-1 min-h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={charts.salesVsPurchases} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
@@ -92,8 +92,8 @@ const Analytics = () => {
 
           {/* Inventory Pie Chart */}
           <div className="bg-white rounded-md shadow-[0_40px_80px_-20px_rgba(9,17,30,0.1)] p-10 border border-brand-100 flex flex-col group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-1 bg-brand-900 h-full" />
-            <h3 className="text-2xl font-bold text-brand-900 mb-8 tracking-tight">Resource Distribution</h3>
+            <div className="absolute top-0 right-0 w-1 bg-[#09111E] h-full" />
+            <h3 className="text-2xl font-bold text-[#09111E] mb-8 tracking-tight">Resource Distribution</h3>
             <div className="flex-1 min-h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -136,12 +136,12 @@ const Analytics = () => {
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-brand-900 rounded-md p-10 text-white shadow-2xl relative overflow-hidden group hover:-translate-y-2 transition-all duration-500">
+          <div className="bg-[#09111E] rounded-md p-10 text-white shadow-2xl relative overflow-hidden group hover:-translate-y-2 transition-all duration-500">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-md -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
             <p className="text-xs font-bold opacity-60 mb-4">Total Sales</p>
             <h4 className="text-4xl font-bold tracking-tight">{(data?.stockAnalysis?.totalSales || 0).toLocaleString()} <span className="text-xs opacity-40 ml-2">Frw</span></h4>
           </div>
-          <div className="bg-white border border-brand-100 rounded-md p-10 text-brand-900 shadow-2xl relative overflow-hidden group hover:-translate-y-2 transition-all duration-500">
+          <div className="bg-white border border-brand-100 rounded-md p-10 text-[#09111E] shadow-2xl relative overflow-hidden group hover:-translate-y-2 transition-all duration-500">
             <div className="absolute top-0 right-0 w-32 h-32 bg-brand-50 rounded-md -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700 opacity-50" />
             <p className="text-xs font-bold text-brand-300 mb-4">Total Purchases</p>
             <h4 className="text-4xl font-bold tracking-tight">{(data?.stockAnalysis?.totalPurchases || 0).toLocaleString()} <span className="text-xs text-brand-200 ml-2">Frw</span></h4>

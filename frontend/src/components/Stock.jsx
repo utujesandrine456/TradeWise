@@ -242,7 +242,7 @@ const Stock = () => {
     return (
       <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist">
         <div className="w-16 h-16 border-4 border-brand-100 border-t-brand-900 rounded-md animate-spin mb-6"></div>
-        <p className="text-xl font-bold text-brand-900 tracking-wide italic">Synchronizing Inventory...</p>
+        <p className="text-xl font-bold text-[#09111E] tracking-wide italic">Synchronizing Inventory...</p>
       </div>
     );
   }
@@ -250,7 +250,7 @@ const Stock = () => {
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-10 bg-brand-900 border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden group">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-10 bg-[#09111E] border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
         <div className="flex items-center gap-8 relative z-10">
           <div className="p-5 bg-white/5 rounded-md border border-white/5 shadow-xl group-hover:rotate-12 transition-all duration-500">
@@ -286,7 +286,7 @@ const Stock = () => {
       </div>
 
       {/* Main Inventory Table */}
-      <div className="bg-brand-900 border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
+      <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
         <div className="p-12 border-b border-white/5 flex flex-col xl:flex-row justify-between items-center gap-8 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
           <div className="relative z-10 flex items-center gap-6">
@@ -462,7 +462,7 @@ const InventoryStatCard = ({ label, value, icon: Icon, detail, color }) => {
   const [textColor, bgStyle, borderStyle, gradStyle] = selectedColor.split(' ');
 
   return (
-    <div className="group bg-brand-900 p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
+    <div className="group bg-[#09111E] p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
       <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50`} />
       <div className="relative z-10 flex flex-col h-full justify-between gap-10">
         <div className="flex items-center justify-between">

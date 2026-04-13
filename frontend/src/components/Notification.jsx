@@ -333,7 +333,7 @@ const Notification = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden group">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
         <div className="flex items-center gap-8 relative z-10">
           <div className="p-5 bg-white/5 rounded-md border border-white/5 shadow-inner transition-transform group-hover:scale-110 duration-500">
@@ -385,7 +385,7 @@ const Notification = () => {
       </div>
 
       {/* Filters Console */}
-      <div className="bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+      <div className="bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-400/5 rounded-md blur-[100px] -mr-[200px] -mt-[200px] pointer-events-none" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
           <div className="space-y-4">
@@ -396,10 +396,10 @@ const Notification = () => {
                 onChange={(e) => setSelectedFilter(e.target.value)}
                 className="w-full bg-white/5 border border-white/5 text-white rounded-md px-6 py-5 font-black text-lg appearance-none cursor-pointer focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 shadow-inner"
               >
-                <option value="all" className="bg-brand-900 text-white">All Categories ({notifications.length})</option>
-                <option value="SUCCESS" className="bg-brand-900 text-white">Success ({notifications.filter(n => n.filterType?.toUpperCase() === 'SUCCESS').length})</option>
-                <option value="WARNING" className="bg-brand-900 text-white">Warning ({notifications.filter(n => n.filterType?.toUpperCase() === 'WARNING').length})</option>
-                <option value="INFO" className="bg-brand-900 text-white">Information ({notifications.filter(n => n.filterType?.toUpperCase() === 'INFO').length})</option>
+                <option value="all" className="bg-[#09111E] text-white">All Categories ({notifications.length})</option>
+                <option value="SUCCESS" className="bg-[#09111E] text-white">Success ({notifications.filter(n => n.filterType?.toUpperCase() === 'SUCCESS').length})</option>
+                <option value="WARNING" className="bg-[#09111E] text-white">Warning ({notifications.filter(n => n.filterType?.toUpperCase() === 'WARNING').length})</option>
+                <option value="INFO" className="bg-[#09111E] text-white">Information ({notifications.filter(n => n.filterType?.toUpperCase() === 'INFO').length})</option>
               </select>
               <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-brand-300">
                 <MdInfo />
@@ -414,10 +414,10 @@ const Notification = () => {
                 onChange={(e) => setSelectedImpact(e.target.value)}
                 className="w-full bg-white/5 border border-white/5 text-white rounded-md px-6 py-5 font-black text-lg appearance-none cursor-pointer focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 shadow-inner"
               >
-                <option value="all" className="bg-brand-900 text-white">All Priority Levels</option>
-                <option value="Low" className="bg-brand-900 text-white">Low Priority ({notifications.filter(n => n.impact?.toLowerCase() === 'low').length})</option>
-                <option value="Medium" className="bg-brand-900 text-white">Medium Priority ({notifications.filter(n => n.impact?.toLowerCase() === 'medium').length})</option>
-                <option value="High" className="bg-brand-900 text-white">Critical Severity ({notifications.filter(n => n.impact?.toLowerCase() === 'high').length})</option>
+                <option value="all" className="bg-[#09111E] text-white">All Priority Levels</option>
+                <option value="Low" className="bg-[#09111E] text-white">Low Priority ({notifications.filter(n => n.impact?.toLowerCase() === 'low').length})</option>
+                <option value="Medium" className="bg-[#09111E] text-white">Medium Priority ({notifications.filter(n => n.impact?.toLowerCase() === 'medium').length})</option>
+                <option value="High" className="bg-[#09111E] text-white">Critical Severity ({notifications.filter(n => n.impact?.toLowerCase() === 'high').length})</option>
               </select>
               <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-brand-300">
                 <MdWarning />
@@ -432,7 +432,7 @@ const Notification = () => {
         {filteredNotifications.map((notification) => (
           <div
             key={notification.id}
-            className={`group bg-brand-900 border rounded-md transition-all duration-300 hover:shadow-2xl relative overflow-hidden ${notification.read ? 'border-white/5' : 'border-accent-400/20 shadow-accent-400/5'
+            className={`group bg-[#09111E] border rounded-md transition-all duration-300 hover:shadow-2xl relative overflow-hidden ${notification.read ? 'border-white/5' : 'border-accent-400/20 shadow-accent-400/5'
               }`}
           >
             {!notification.read && <div className="absolute left-0 top-0 w-1 h-full bg-accent-400 rounded-md" />}
@@ -495,10 +495,10 @@ const Notification = () => {
       </div>
 
       {filteredNotifications.length === 0 && (
-        <div className="text-center py-32 bg-brand-900 border border-white/5 rounded-md shadow-2xl">
+        <div className="text-center py-32 bg-[#09111E] border border-white/5 rounded-md shadow-2xl">
           <div className="relative inline-block mb-8">
             <div className="absolute inset-0 bg-accent-400/20 rounded-md blur-2xl" />
-            <div className="relative p-10 bg-brand-900 rounded-md border border-white/5">
+            <div className="relative p-10 bg-[#09111E] rounded-md border border-white/5">
               <MdNotificationsOff className="text-7xl text-brand-300/20" />
             </div>
           </div>
@@ -524,7 +524,7 @@ const Notification = () => {
       {/* Confirm Mark as Read Modal */}
       {isConfirmReadOpen && (
         <div className="fixed inset-0 bg-brand-950/80 backdrop-blur-sm flex items-center justify-center z-[200] p-6">
-          <div className="bg-brand-900 border border-white/5 rounded-md shadow-2xl w-full max-w-md animate-in zoom-in duration-300 font-Urbanist">
+          <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl w-full max-w-md animate-in zoom-in duration-300 font-Urbanist">
             <div className="flex items-center justify-between p-10 border-b border-white/5">
               <h2 className="text-3xl font-black text-white uppercase tracking-tighter">Acknowledge Alert?</h2>
               <button onClick={() => { setIsConfirmReadOpen(false); setNotificationToMarkRead(null); setConfirmReadText(''); }} className="text-brand-300 hover:text-white transition-colors p-3 hover:bg-white/5 rounded-md">
@@ -553,7 +553,7 @@ const Notification = () => {
       {/* Confirm Mark All as Read Modal */}
       {isConfirmAllOpen && (
         <div className="fixed inset-0 bg-brand-950/80 backdrop-blur-sm flex items-center justify-center z-[200] p-6">
-          <div className="bg-brand-900 border border-white/5 rounded-md shadow-2xl w-full max-w-md animate-in zoom-in duration-300 font-Urbanist">
+          <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl w-full max-w-md animate-in zoom-in duration-300 font-Urbanist">
             <div className="flex items-center justify-between p-10 border-b border-white/5">
               <h2 className="text-3xl font-black text-white uppercase tracking-tighter">Archive All Alerts?</h2>
               <button onClick={() => { setIsConfirmAllOpen(false); setConfirmAllText(''); }} className="text-brand-300 hover:text-white transition-colors p-3 hover:bg-white/5 rounded-md">
@@ -582,7 +582,7 @@ const Notification = () => {
       {/* Confirm Delete Read Notifications Modal */}
       {isConfirmDeleteOpen && (
         <div className="fixed inset-0 bg-brand-950/80 backdrop-blur-sm flex items-center justify-center z-[200] p-6">
-          <div className="bg-brand-900 border border-white/5 rounded-md shadow-2xl w-full max-w-md animate-in zoom-in duration-300 font-Urbanist">
+          <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl w-full max-w-md animate-in zoom-in duration-300 font-Urbanist">
             <div className="flex items-center justify-between p-10 border-b border-white/5">
               <h2 className="text-3xl font-black text-white uppercase tracking-tighter">Permanently Delete?</h2>
               <button onClick={() => { setIsConfirmDeleteOpen(false); setConfirmDeleteText(''); }} className="text-brand-300 hover:text-white transition-colors p-3 hover:bg-white/5 rounded-md">
@@ -627,7 +627,7 @@ const StatCard = ({ icon, label, value, color }) => {
   const [textColor, bgStyle, borderStyle, gradStyle] = selected.split(' ');
 
   return (
-    <div className="group bg-brand-900 p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
+    <div className="group bg-[#09111E] p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
       <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50`} />
       <div className="relative z-10 flex items-center justify-between">
         <div>

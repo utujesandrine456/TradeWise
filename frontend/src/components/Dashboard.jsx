@@ -60,7 +60,7 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist text-brand-900">
+      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist text-[#09111E]">
         <div className="w-16 h-16 border-4 border-brand-100 border-t-brand-900 rounded-md animate-spin mb-6"></div>
         <p className="text-xl font-bold tracking-tight italic opacity-60">Synchronizing Business Records...</p>
       </div>
@@ -73,12 +73,12 @@ const Dashboard = () => {
         <div className="p-10 bg-brand-50 rounded-md border border-brand-100 mb-8 shadow-inner">
           <MdBusiness className="text-6xl text-brand-200" />
         </div>
-        <p className="text-2xl font-bold text-brand-900 max-w-md leading-tight tracking-tight">
+        <p className="text-2xl font-bold text-[#09111E] max-w-md leading-tight tracking-tight">
           {error || 'No operational data found for this period'}
         </p>
         <button
           onClick={fetchAnalyticsData}
-          className="mt-10 px-12 py-5 bg-brand-900 text-white font-bold rounded-md hover:bg-brand-800 active:scale-95 transition-all shadow-xl tracking-wide text-sm relative overflow-hidden group"
+          className="mt-10 px-12 py-5 bg-[#09111E] text-white font-bold rounded-md hover:bg-[#09111E] active:scale-95 transition-all shadow-xl tracking-wide text-sm relative overflow-hidden group"
         >
           <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
           <span className="relative z-10">Retry Sync</span>
@@ -101,7 +101,7 @@ const Dashboard = () => {
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Search & Audit Filter */}
-      <div className="bg-brand-900 rounded-md p-12 border border-white/5 shadow-2xl relative overflow-hidden group">
+      <div className="bg-[#09111E] rounded-md p-12 border border-white/5 shadow-2xl relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
         <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 relative z-10">
           <div className="flex items-center gap-8">
@@ -148,7 +148,7 @@ const Dashboard = () => {
           { label: 'Net Profit', value: analyticsData.profit, unit: 'FRW', icon: MdInventory, detail: analyticsData.profit >= 0 ? 'Profit margin healthy' : 'Loss detected for period', color: analyticsData.profit >= 0 ? 'green-500' : 'red-500' },
           { label: 'Total Transactions', value: analyticsData.transactions?.length || 0, unit: 'Orders', icon: MdBusiness, detail: 'Cumulative system records', color: 'accent-400' }
         ].map((stat, i) => (
-          <div key={i} className="bg-brand-900 border border-white/5 rounded-md p-10 shadow-2xl hover:border-white/10 transition-all group relative overflow-hidden">
+          <div key={i} className="bg-[#09111E] border border-white/5 rounded-md p-10 shadow-2xl hover:border-white/10 transition-all group relative overflow-hidden">
             <div className={`absolute top-0 right-0 w-40 h-40 bg-${stat.color}/5 rounded-md -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-1000 blur-3xl`} />
             <div className="relative z-10 flex flex-col h-full justify-between">
               <div className="flex items-center justify-between mb-10">
@@ -173,7 +173,7 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         {/* Performance Visualization */}
-        <div className="bg-brand-900 border border-white/5 rounded-md p-12 shadow-2xl flex flex-col h-full group relative overflow-hidden">
+        <div className="bg-[#09111E] border border-white/5 rounded-md p-12 shadow-2xl flex flex-col h-full group relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-400 to-transparent" />
           <div className="flex items-center justify-between mb-12 relative z-10">
             <div>
@@ -226,7 +226,7 @@ const Dashboard = () => {
         </div>
 
         {/* Audit Log (Recent Activity) */}
-        <div className="bg-brand-900 border border-white/5 rounded-md p-12 shadow-2xl flex flex-col h-full group relative overflow-hidden">
+        <div className="bg-[#09111E] border border-white/5 rounded-md p-12 shadow-2xl flex flex-col h-full group relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-300 to-transparent opacity-20" />
           <div className="flex items-center justify-between mb-12 relative z-10">
             <div>
@@ -271,7 +271,7 @@ const Dashboard = () => {
       </div>
 
       {/* Financial Health Summary */}
-      <div className="bg-brand-900 border border-white/5 rounded-md p-14 shadow-2xl relative overflow-hidden group">
+      <div className="bg-[#09111E] border border-white/5 rounded-md p-14 shadow-2xl relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-b from-accent-400/5 to-transparent pointer-events-none" />
         <h3 className="text-4xl font-bold text-white leading-none mb-16 text-center tracking-tight">Financial Summary</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 relative z-10">

@@ -32,8 +32,8 @@ const Header = () => {
     return (
         <header
             className={`fixed top-8 left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 rounded-md border ${scrolled || mobileOpen
-                ? 'bg-brand-600 border-white/20 shadow-xl w-[90%] max-w-5xl'
-                : 'bg-brand-600/80 backdrop-blur-md border-white/10 shadow-2xl w-[95%] max-w-6xl'
+                ? 'bg-[#09111E] border-white/20 shadow-xl w-[90%] max-w-5xl'
+                : 'bg-[#09111E]/80 backdrop-blur-md border-white/10 shadow-2xl w-[95%] max-w-6xl'
                 }`}
         >
             <div className="px-6 py-4 flex justify-between items-center">
@@ -66,13 +66,13 @@ const Header = () => {
                             <div className="flex items-center gap-2">
                                 <button
                                     onClick={() => navigate('/signup')}
-                                    className="px-6 py-2.5 bg-white text-brand-600 rounded-md font-bold text-sm transition-all active:scale-95 hover:bg-white/90"
+                                    className="px-6 py-2.5 bg-white text-[#09111E] rounded-md font-bold text-sm transition-all active:scale-95 hover:bg-white/90"
                                 >
                                     Sign Up
                                 </button>
                                 <button
                                     onClick={() => navigate('/login')}
-                                    className="px-6 py-2.5 bg-brand-600 text-white border border-white rounded-md font-bold text-sm transition-all active:scale-95 hover:bg-white/90 hover:text-brand-600"
+                                    className="px-6 py-2.5 bg-[#09111E] text-white border border-white rounded-md font-bold text-sm transition-all active:scale-95 hover:bg-white/90 hover:text-[#09111E]"
                                 >
                                     Login
                                 </button>
@@ -80,7 +80,7 @@ const Header = () => {
                         ) : (
                             <button
                                 onClick={() => navigate('/dashboard')}
-                                className="px-6 py-2.5 bg-white text-brand-600 rounded-md font-bold text-sm transition-all active:scale-95 flex items-center gap-2 hover:bg-white/90"
+                                className="px-6 py-2.5 bg-white text-[#09111E] rounded-md font-bold text-sm transition-all active:scale-95 flex items-center gap-2 hover:bg-white/90"
                             >
                                 <MdDashboard size={16} /> Dashboard
                             </button>
@@ -104,7 +104,7 @@ const Header = () => {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
-                        className="md:hidden bg-brand-600 border-t border-white/5 absolute top-[calc(100%+8px)] left-0 right-0 overflow-hidden rounded-md shadow-2xl"
+                        className="md:hidden bg-[#09111E] border-t border-white/5 absolute top-[calc(100%+8px)] left-0 right-0 overflow-hidden rounded-md shadow-2xl"
                     >
                         <div className="flex flex-col p-6 gap-6">
                             {navLinks.map((item) => (
@@ -118,7 +118,7 @@ const Header = () => {
                             ))}
                             <button
                                 onClick={() => navigate('/login')}
-                                className="w-full py-4 bg-white text-brand-600 rounded-md text-lg font-bold shadow-lg"
+                                className="w-full py-4 bg-white text-[#09111E] rounded-md text-lg font-bold shadow-lg"
                             >
                                 Let's talk
                             </button>

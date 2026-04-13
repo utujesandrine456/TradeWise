@@ -139,7 +139,7 @@ const Forgotpassword = () => {
     <div className="bg-[#09111E] min-h-screen flex flex-col lg:flex-row font-Urbanist">
       <div className="flex flex-col items-center justify-center bg-white w-full lg:w-1/2 p-6 sm:p-10 min-h-screen">
         <div className="max-w-md w-full py-12">
-          <h1 className="text-brand-900 text-5xl font-bold text-center mb-8 tracking-tight">
+          <h1 className="text-[#09111E] text-5xl font-bold text-center mb-8 tracking-tight">
             Account <span className="block text-brand-400">Recovery</span>
           </h1>
 
@@ -154,12 +154,12 @@ const Forgotpassword = () => {
                 placeholder="Email Address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full py-4 px-6 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-brand-900 font-bold placeholder:text-brand-300"
+                className="w-full py-4 px-6 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-[#09111E] font-bold placeholder:text-brand-300"
                 required
               />
               <button
                 type="submit"
-                className="w-full py-5 bg-brand-900 text-white font-bold text-sm rounded-md hover:bg-brand-800 transition-all shadow-2xl relative overflow-hidden group/btn"
+                className="w-full py-5 bg-[#09111E] text-white font-bold text-sm rounded-md hover:bg-[#09111E] transition-all shadow-2xl relative overflow-hidden group/btn"
               >
                 <div className="absolute inset-0 bg-white/10 translate-x-full group-hover/btn:translate-x-0 transition-transform duration-500" />
                 <span className="relative z-10">{isLoading ? 'Sending Code...' : 'Send Verification Code'}</span>
@@ -187,7 +187,7 @@ const Forgotpassword = () => {
                     onChange={(e) => handleCodeChange(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
                     onPaste={handlePaste}
-                    className="w-12 h-14 text-center text-2xl font-bold border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-brand-900 shadow-sm"
+                    className="w-12 h-14 text-center text-2xl font-bold border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-[#09111E] shadow-sm"
                     required
                     disabled={isLoading}
                   />
@@ -195,12 +195,12 @@ const Forgotpassword = () => {
               </div>
               {isLoading && (
                 <div className="absolute inset-0 flex items-center justify-center bg-white/50 rounded-md">
-                  <div className="w-12 h-12 border-4 border-brand-900 border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-12 h-12 border-4 border-[#09111E] border-t-transparent rounded-full animate-spin"></div>
                 </div>
               )}
               <button
                 onClick={() => setStep(1)}
-                className="text-brand-900 font-bold text-xs hover:opacity-70 transition-opacity"
+                className="text-[#09111E] font-bold text-xs hover:opacity-70 transition-opacity"
               >
                 Back to Email Input
               </button>
@@ -221,13 +221,13 @@ const Forgotpassword = () => {
                     placeholder="New Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full py-4 px-6 pr-12 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-brand-900 font-bold placeholder:text-brand-300"
+                    className="w-full py-4 px-6 pr-12 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-[#09111E] font-bold placeholder:text-brand-300"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-brand-300 hover:text-brand-900 transition-colors"
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-brand-300 hover:text-[#09111E] transition-colors"
                   >
                     {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
                   </button>
@@ -239,13 +239,13 @@ const Forgotpassword = () => {
                     placeholder="Confirm New Password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full py-4 px-6 pr-12 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-brand-900 font-bold placeholder:text-brand-300"
+                    className="w-full py-4 px-6 pr-12 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-[#09111E] font-bold placeholder:text-brand-300"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-brand-300 hover:text-brand-900 transition-colors"
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-brand-300 hover:text-[#09111E] transition-colors"
                   >
                     {showConfirmPassword ? <EyeOff size={22} /> : <Eye size={22} />}
                   </button>
@@ -254,7 +254,7 @@ const Forgotpassword = () => {
 
               <button
                 type="submit"
-                className="w-full py-5 bg-brand-900 text-white font-bold text-sm rounded-md hover:bg-brand-800 transition-all shadow-2xl relative overflow-hidden group/final"
+                className="w-full py-5 bg-[#09111E] text-white font-bold text-sm rounded-md hover:bg-[#09111E] transition-all shadow-2xl relative overflow-hidden group/final"
               >
                 <div className="absolute inset-0 bg-white/10 translate-x-full group-hover/final:translate-x-0 transition-transform duration-500" />
                 <span className="relative z-10">{isLoading ? 'Saving Password...' : 'Reset Password'}</span>

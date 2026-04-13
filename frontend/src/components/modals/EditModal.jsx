@@ -28,7 +28,7 @@ const EditModal = ({ isOpen, onClose, data, title, onSave, fields }) => {
 
   return (
     <div className="fixed inset-0 bg-brand-950/90 backdrop-blur-md flex items-center justify-center z-[100] p-6 font-Urbanist cursor-default animate-in fade-in duration-500">
-      <div className="bg-brand-900 border border-white/5 rounded-md shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] w-full max-w-2xl overflow-hidden relative flex flex-col">
+      <div className="bg-[#09111E] border border-white/5 rounded-md shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] w-full max-w-2xl overflow-hidden relative flex flex-col">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent-400/5 rounded-md blur-[80px] -mr-[200px] -mt-[200px] pointer-events-none" />
 
         <div className="p-12 border-b border-white/5 flex items-center justify-between relative z-10">
@@ -67,9 +67,9 @@ const EditModal = ({ isOpen, onClose, data, title, onSave, fields }) => {
                       required={field.required}
                       className="w-full px-8 py-6 bg-white/5 border border-white/5 rounded-md text-white font-semibold tracking-wide text-sm focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all appearance-none cursor-pointer shadow-inner relative z-10"
                     >
-                      <option value="" className="bg-brand-900 text-brand-300">Select {field.label}</option>
+                      <option value="" className="bg-[#09111E] text-brand-300">Select {field.label}</option>
                       {field.options?.map((option) => (
-                        <option key={option.value} value={option.value} className="bg-brand-900 text-white">
+                        <option key={option.value} value={option.value} className="bg-[#09111E] text-white">
                           {option.label}
                         </option>
                       ))}

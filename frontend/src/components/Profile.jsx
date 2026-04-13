@@ -204,7 +204,7 @@ const Profile = () => {
   return (
     <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header Card */}
-      <div className="bg-brand-900 rounded-md border border-white/5 overflow-hidden shadow-2xl relative">
+      <div className="bg-[#09111E] rounded-md border border-white/5 overflow-hidden shadow-2xl relative">
         <div className="bg-brand-950/50 px-10 py-16 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-400/5 rounded-md blur-[120px] -mr-[300px] -mt-[300px] pointer-events-none" />
           <div className="relative z-10 flex items-center justify-between">
@@ -219,7 +219,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className="p-10 bg-brand-900">
+        <div className="p-10 bg-[#09111E]">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Badge icon={<MdBusiness className="text-accent-400" />} label="Corporate Identity" value={profileData?.name || formData.name || '—'} />
             <Badge icon={<MdEmail className="text-accent-400" />} label="Operational Currency" value={profileData?.currency || formData.currency || '—'} />
@@ -245,7 +245,7 @@ const Profile = () => {
       </div>
 
       {/* Navigation Protocols (Tabs) */}
-      <div className="flex flex-wrap gap-3 p-3 bg-brand-900 rounded-md border border-white/5 shadow-2xl relative overflow-hidden">
+      <div className="flex flex-wrap gap-3 p-3 bg-[#09111E] rounded-md border border-white/5 shadow-2xl relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
         <TabButton active={activeTab === 'basic'} onClick={() => setActiveTab('basic')}>Identity</TabButton>
         <TabButton active={activeTab === 'description'} onClick={() => setActiveTab('description')}>Manifesto</TabButton>
@@ -261,7 +261,7 @@ const Profile = () => {
       {activeTab === 'basic' && (
         <div className="space-y-6 animate-in fade-in duration-500">
           {/* Header with Edit/Save buttons */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-10 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-10 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
             <div className="relative z-10">
               <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">General Information</h2>
@@ -271,7 +271,7 @@ const Profile = () => {
               <button
                 className={`group relative flex items-center gap-4 px-10 py-5 rounded-md text-sm font-bold transition-all shadow-2xl overflow-hidden active:scale-95 ${loading
                   ? 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
-                  : 'bg-brand-900 text-white hover:scale-105'
+                  : 'bg-[#09111E] text-white hover:scale-105'
                   }`}
                 onClick={loading ? undefined : () => setEditing(true)}
                 disabled={loading}
@@ -384,7 +384,7 @@ const Profile = () => {
       {/* Security Tab */}
       {activeTab === 'security' && (
         <div className="space-y-6 animate-in fade-in duration-500">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-4 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-4 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
             <div className="relative z-10">
               <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">Security Settings</h2>
@@ -410,7 +410,7 @@ const Profile = () => {
       {/* Preferences Tab */}
       {activeTab === 'preferences' && (
         <div className="space-y-6 animate-in fade-in duration-500">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
             <div className="relative z-10">
               <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">System Preferences</h2>
@@ -441,7 +441,7 @@ const Profile = () => {
 
 // Reusable Tab Header with Edit/Save/Cancel Controls
 const TabHeader = ({ title, subtitle, editing, loading, hasChanges, onEdit, onSave, onCancel }) => (
-  <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-4 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+  <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-4 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
     <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
     <div className="relative z-10">
       <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">{title}</h2>
@@ -451,7 +451,7 @@ const TabHeader = ({ title, subtitle, editing, loading, hasChanges, onEdit, onSa
       <button
         className={`group flex items-center gap-4 px-10 py-5 rounded-md text-sm font-bold transition-all shadow-2xl overflow-hidden active:scale-95 relative z-10 ${loading
           ? 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
-          : 'bg-brand-900 text-white hover:scale-105'
+          : 'bg-[#09111E] text-white hover:scale-105'
           }`}
         onClick={loading ? undefined : onEdit}
         disabled={loading}
@@ -485,7 +485,7 @@ const TabHeader = ({ title, subtitle, editing, loading, hasChanges, onEdit, onSa
 
 // Helper Components
 const Section = ({ title, subtitle, children }) => (
-  <div className="bg-brand-900 rounded-md p-12 border border-white/5 shadow-2xl relative overflow-hidden group/section">
+  <div className="bg-[#09111E] rounded-md p-12 border border-white/5 shadow-2xl relative overflow-hidden group/section">
     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-400 to-transparent group-hover/section:translate-x-full transition-transform duration-1000 opacity-50" />
     <div className="mb-12 relative z-10">
       <h3 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">{title}</h3>
@@ -535,8 +535,8 @@ const SelectField = ({ label, name, value, onChange, options, disabled = false }
           : 'focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50'
           }`}
       >
-        <option value="" className="bg-brand-900 text-brand-300">Select {label}</option>
-        {options.map(opt => <option key={opt} value={opt} className="bg-brand-900 text-white">{opt}</option>)}
+        <option value="" className="bg-[#09111E] text-brand-300">Select {label}</option>
+        {options.map(opt => <option key={opt} value={opt} className="bg-[#09111E] text-white">{opt}</option>)}
       </select>
     </div>
   </div>

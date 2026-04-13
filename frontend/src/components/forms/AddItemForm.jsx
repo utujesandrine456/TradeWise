@@ -40,7 +40,7 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
 
   return (
     <div className="fixed inset-0 bg-brand-950/90 backdrop-blur-md flex items-center justify-center z-[100] p-6 font-Urbanist cursor-default animate-in fade-in duration-500">
-      <div className="bg-brand-900 border border-white/5 rounded-md shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] w-full max-w-2xl overflow-hidden relative flex flex-col">
+      <div className="bg-[#09111E] border border-white/5 rounded-md shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] w-full max-w-2xl overflow-hidden relative flex flex-col">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent-400/5 rounded-md blur-[80px] -mr-[200px] -mt-[200px] pointer-events-none" />
 
         <div className="p-12 border-b border-white/5 flex items-center justify-between relative z-10">
@@ -85,13 +85,13 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
                 required
                 className="w-full px-10 py-6 bg-white/5 border border-white/5 rounded-md text-white focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all appearance-none cursor-pointer shadow-inner font-semibold tracking-wide text-sm"
               >
-                <option value="" className="bg-brand-900">Select Unit</option>
-                <option value="Piece" className="bg-brand-900">Piece (pc)</option>
-                <option value="Kilogram" className="bg-brand-900">Kilogram (kg)</option>
-                <option value="Litre" className="bg-brand-900">Litre (L)</option>
-                <option value="Sac" className="bg-brand-900">Sac</option>
-                <option value="Box" className="bg-brand-900">Box</option>
-                <option value="Bottle" className="bg-brand-900">Bottle</option>
+                <option value="" className="bg-[#09111E]">Select Unit</option>
+                <option value="Piece" className="bg-[#09111E]">Piece (pc)</option>
+                <option value="Kilogram" className="bg-[#09111E]">Kilogram (kg)</option>
+                <option value="Litre" className="bg-[#09111E]">Litre (L)</option>
+                <option value="Sac" className="bg-[#09111E]">Sac</option>
+                <option value="Box" className="bg-[#09111E]">Box</option>
+                <option value="Bottle" className="bg-[#09111E]">Bottle</option>
               </select>
             </div>
 

@@ -81,7 +81,7 @@ const Login = () => {
               { icon: <DollarSign size={20} />, label: 'Inflow & outflow control' },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center text-orange-400 flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center text-white flex-shrink-0">
                   {item.icon}
                 </div>
                 <span className="text-white/60 font-semibold">{item.label}</span>
@@ -95,12 +95,10 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Right Panel — Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10 bg-white relative">
-        {/* Back button */}
         <button
           onClick={() => navigate('/')}
-          className="absolute top-6 left-6 flex items-center gap-2 text-brand-600/50 hover:text-brand-600 font-semibold text-sm transition-colors"
+          className="absolute top-6 left-6 flex items-center gap-2 text-[#09111E]/50 hover:text-[#09111E] font-semibold text-sm transition-colors"
         >
           <ArrowLeft size={16} /> Back
         </button>
@@ -110,13 +108,13 @@ const Login = () => {
             <div className="inline-block px-3 py-1 rounded-md bg-brand-50 border border-brand-100 text-brand-500 text-xs font-bold mb-5">
               Welcome back
             </div>
-            <h2 className="text-4xl font-black text-brand-600 mb-2 leading-tight">Sign in to<br />your account</h2>
-            <p className="text-brand-600/40 font-medium">Enter your credentials to continue.</p>
+            <h2 className="text-4xl font-black text-[#09111E] mb-2 leading-tight">Sign in to<br />your account</h2>
+            <p className="text-[#09111E]/40 font-medium">Enter your credentials to continue.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
-              <label className="text-sm font-bold text-brand-600/70 pl-1">Business Email</label>
+              <label className="text-sm font-bold text-[#09111E]/70 pl-1">Business Email</label>
               <input
                 type="email"
                 name="email"
@@ -124,12 +122,12 @@ const Login = () => {
                 onChange={handleChange}
                 placeholder="name@company.com"
                 required
-                className="w-full px-5 py-4 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-brand-600 placeholder:text-brand-600/30"
+                className="w-full px-5 py-4 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-[#09111E] placeholder:text-[#09111E]/30"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-bold text-brand-600/70 pl-1">Password</label>
+              <label className="text-sm font-bold text-[#09111E]/70 pl-1">Password</label>
               <div className="relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
@@ -138,12 +136,12 @@ const Login = () => {
                   onChange={handleChange}
                   placeholder="Enter your password"
                   required
-                  className="w-full px-5 py-4 pr-14 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-brand-600 placeholder:text-brand-600/30"
+                  className="w-full px-5 py-4 pr-14 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-[#09111E] placeholder:text-[#09111E]/30"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-600/30 hover:text-brand-600 transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#09111E]/30 hover:text-[#09111E] transition-colors"
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
@@ -153,7 +151,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={isLoggingIn}
-              className="w-full py-4 bg-brand-600 text-white rounded-md font-bold text-sm hover:bg-brand-700 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 mt-2"
+              className="w-full py-4 bg-[#09111E] text-white rounded-md font-bold text-sm hover:bg-[#09111E] transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 mt-2"
             >
               {isLoggingIn ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -163,9 +161,9 @@ const Login = () => {
             </button>
           </form>
 
-          <p className="text-center text-sm text-brand-600/40 font-medium mt-8">
+          <p className="text-center text-sm text-[#09111E]/40 font-medium mt-8">
             Don't have an account?{' '}
-            <Link to="/signup" className="text-brand-600 font-bold hover:underline">
+            <Link to="/signup" className="text-[#09111E] font-bold hover:underline">
               Create one
             </Link>
           </p>

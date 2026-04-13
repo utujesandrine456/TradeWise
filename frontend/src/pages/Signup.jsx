@@ -62,9 +62,7 @@ const Signup = () => {
     <div className="min-h-screen flex overflow-hidden bg-[#181A1E]">
       <ToastContainer position="top-right" autoClose={3000} theme="colored" />
 
-      {/* Left Panel — Decorative */}
       <div className="hidden lg:flex lg:w-1/2 relative flex-col justify-between p-16 overflow-hidden">
-        {/* Diamond lattice bg */}
         <div className="absolute inset-0 bg-[#09111E]">
           <svg className="absolute inset-0 w-full h-full">
             <defs>
@@ -99,7 +97,7 @@ const Signup = () => {
               { icon: <DollarSign size={20} />, label: 'Inflow & outflow control' },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center text-orange-400 flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center text-white flex-shrink-0">
                   {item.icon}
                 </div>
                 <span className="text-white/60 font-semibold">{item.label}</span>
@@ -113,11 +111,10 @@ const Signup = () => {
         </div>
       </div>
 
-      {/* Right Panel — Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10 bg-white relative overflow-y-auto">
         <button
           onClick={() => navigate('/')}
-          className="absolute top-6 left-6 flex items-center gap-2 text-brand-600/50 hover:text-brand-600 font-semibold text-sm transition-colors"
+          className="absolute top-6 left-6 flex items-center gap-2 text-[#09111E]/50 hover:text-[#09111E] font-semibold text-sm transition-colors"
         >
           <ArrowLeft size={16} /> Back
         </button>
@@ -127,13 +124,13 @@ const Signup = () => {
             <div className="inline-block px-3 py-1 rounded-md bg-brand-50 border border-brand-100 text-brand-500 text-xs font-bold mb-5">
               New account
             </div>
-            <h2 className="text-4xl font-black text-brand-600 mb-2 leading-tight">Create your<br />account</h2>
-            <p className="text-brand-600/40 font-medium">Start tracking your trades today.</p>
+            <h2 className="text-4xl font-black text-[#09111E] mb-2 leading-tight">Create your<br />account</h2>
+            <p className="text-[#09111E]/40 font-medium">Start tracking your trades today.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
-              <label className="text-sm font-bold text-brand-600/70 pl-1">Enterprise Name</label>
+              <label className="text-sm font-bold text-[#09111E]/70 pl-1">Enterprise Name</label>
               <input
                 type="text"
                 name="enterpriseName"
@@ -141,12 +138,12 @@ const Signup = () => {
                 onChange={handleChange}
                 placeholder="Your business name"
                 required
-                className="w-full px-5 py-4 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-brand-600 placeholder:text-brand-600/30"
+                className="w-full px-5 py-4 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-[#09111E] placeholder:text-[#09111E]/30"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-bold text-brand-600/70 pl-1">Business Email</label>
+              <label className="text-sm font-bold text-[#09111E]/70 pl-1">Business Email</label>
               <input
                 type="email"
                 name="email"
@@ -154,13 +151,13 @@ const Signup = () => {
                 onChange={handleChange}
                 placeholder="name@company.com"
                 required
-                className="w-full px-5 py-4 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-brand-600 placeholder:text-brand-600/30"
+                className="w-full px-5 py-4 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-[#09111E] placeholder:text-[#09111E]/30"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-600/70 pl-1">Password</label>
+                <label className="text-sm font-bold text-[#09111E]/70 pl-1">Password</label>
                 <div className="relative">
                   <input
                     type={showPassword ? 'text' : 'password'}
@@ -169,16 +166,16 @@ const Signup = () => {
                     onChange={handleChange}
                     placeholder="Min 6 chars"
                     required
-                    className="w-full px-4 py-4 pr-12 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-brand-600 placeholder:text-brand-600/30"
+                    className="w-full px-4 py-4 pr-12 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-[#09111E] placeholder:text-[#09111E]/30"
                   />
-                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-600/30 hover:text-brand-600 transition-colors">
+                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#09111E]/30 hover:text-[#09111E] transition-colors">
                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-bold text-brand-600/70 pl-1">Confirm</label>
+                <label className="text-sm font-bold text-[#09111E]/70 pl-1">Confirm</label>
                 <div className="relative">
                   <input
                     type={showConfirmPassword ? 'text' : 'password'}
@@ -187,9 +184,9 @@ const Signup = () => {
                     onChange={handleChange}
                     placeholder="Repeat password"
                     required
-                    className="w-full px-4 py-4 pr-12 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-brand-600 placeholder:text-brand-600/30"
+                    className="w-full px-4 py-4 pr-12 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-[#09111E] placeholder:text-[#09111E]/30"
                   />
-                  <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-600/30 hover:text-brand-600 transition-colors">
+                  <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#09111E]/30 hover:text-[#09111E] transition-colors">
                     {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
                 </div>
@@ -202,15 +199,15 @@ const Signup = () => {
                 id="agree"
                 className="w-4 h-4 rounded border-brand-200 accent-brand-900 focus:ring-brand-500/40 cursor-pointer"
               />
-              <label htmlFor="agree" className="text-sm text-brand-600/50 cursor-pointer font-medium select-none">
-                I agree to the <span className="text-brand-600 font-bold underline">Terms and Conditions</span>
+              <label htmlFor="agree" className="text-sm text-[#09111E]/50 cursor-pointer font-medium select-none">
+                I agree to the <span className="text-[#09111E] font-bold underline">Terms and Conditions</span>
               </label>
             </div>
 
             <button
               type="submit"
               disabled={isSigningUp}
-              className="w-full py-4 bg-brand-600 text-white rounded-md font-bold text-sm hover:bg-brand-700 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 mt-2"
+              className="w-full py-4 bg-[#09111E] text-white rounded-md font-bold text-sm hover:bg-[#09111E] transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 mt-2"
             >
               {isSigningUp ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -220,9 +217,9 @@ const Signup = () => {
             </button>
           </form>
 
-          <p className="text-center text-sm text-brand-600/40 font-medium mt-8">
+          <p className="text-center text-sm text-[#09111E]/40 font-medium mt-8">
             Already have an account?{' '}
-            <Link to="/login" className="text-brand-600 font-bold hover:underline">
+            <Link to="/login" className="text-[#09111E] font-bold hover:underline">
               Sign in
             </Link>
           </p>

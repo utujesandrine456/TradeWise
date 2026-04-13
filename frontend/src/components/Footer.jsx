@@ -85,7 +85,7 @@ const Footer = () => {
                                 placeholder="name@company.com"
                                 className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-md focus:outline-none focus:border-brand-500 text-white font-bold text-sm"
                             />
-                            <button className="flex gap-2 justify-center items-center w-full py-4 bg-white text-brand-600 rounded-md font-bold text-md hover:bg-white/90 transition-all">
+                            <button className="flex gap-2 justify-center items-center w-full py-4 bg-white text-[#09111E] rounded-md font-bold text-md hover:bg-white/90 transition-all">
                                 Subscribe <Send size={18} />
                             </button>
                         </form>

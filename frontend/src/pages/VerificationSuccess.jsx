@@ -36,8 +36,8 @@ const VerificationSuccess = () => {
 
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-20 left-20 w-32 h-32 bg-brand-500 rounded-md blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-20 right-20 w-40 h-40 bg-brand-600 rounded-md blur-3xl animate-pulse delay-1000"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-brand-900 rounded-md blur-3xl animate-pulse delay-2000"></div>
+            <div className="absolute bottom-20 right-20 w-40 h-40 bg-[#09111E] rounded-md blur-3xl animate-pulse delay-1000"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-[#09111E] rounded-md blur-3xl animate-pulse delay-2000"></div>
           </div>
 
 
@@ -61,7 +61,7 @@ const VerificationSuccess = () => {
                     <div className="w-32 h-32 bg-brand-500 rounded-md flex items-center justify-center shadow-2xl animate-bounce">
                       <CheckCircle size={64} className="text-white" />
                     </div>
-                    <div className="absolute -top-4 -right-4 w-12 h-12 bg-brand-900 rounded-md flex items-center justify-center animate-pulse">
+                    <div className="absolute -top-4 -right-4 w-12 h-12 bg-[#09111E] rounded-md flex items-center justify-center animate-pulse">
                       <Sparkles size={24} className="text-white" />
                     </div>
                   </div>
@@ -69,11 +69,11 @@ const VerificationSuccess = () => {
 
                 {/* Success Message */}
                 <div className="space-y-4">
-                  <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-md bg-brand-900 text-white font-bold text-xs shadow-xl">
+                  <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-md bg-[#09111E] text-white font-bold text-xs shadow-xl">
                     <Mail size={16} /> Email Verification Complete
                   </div>
 
-                  <h1 className="text-5xl font-bold text-brand-900 tracking-tight">
+                  <h1 className="text-5xl font-bold text-[#09111E] tracking-tight">
                     Welcome to Stocka
                   </h1>
 
@@ -88,34 +88,34 @@ const VerificationSuccess = () => {
                     <div className="w-12 h-12 bg-brand-500 rounded-md flex items-center justify-center mx-auto mb-4">
                       <Package size={24} className="text-white" />
                     </div>
-                    <h3 className="font-semibold text-brand-900 mb-2">Inventory Management</h3>
+                    <h3 className="font-semibold text-[#09111E] mb-2">Inventory Management</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-300">Track Your Stock Levels, Set Alerts, And Manage Your Inventory Efficiently.</p>
                   </div>
 
                   <div className="bg-white/50 dark:bg-white/5 p-6 rounded-md border border-brand-100 hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-                    <div className="w-12 h-12 bg-brand-700 rounded-md flex items-center justify-center mx-auto mb-4">
+                    <div className="w-12 h-12 bg-[#09111E] rounded-md flex items-center justify-center mx-auto mb-4">
                       <TrendingUp size={24} className="text-white" />
                     </div>
-                    <h3 className="font-semibold text-brand-900 mb-2">Sales Analytics</h3>
+                    <h3 className="font-semibold text-[#09111E] mb-2">Sales Analytics</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-300">Get Insights Into Your Sales Performance And Business Growth.</p>
                   </div>
 
                   <div className="bg-white/50 dark:bg-white/5 p-6 rounded-md border border-brand-100 hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-                    <div className="w-12 h-12 bg-brand-900 rounded-md flex items-center justify-center mx-auto mb-4">
+                    <div className="w-12 h-12 bg-[#09111E] rounded-md flex items-center justify-center mx-auto mb-4">
                       <Users size={24} className="text-white" />
                     </div>
-                    <h3 className="font-semibold text-brand-900 mb-2">Business Growth</h3>
+                    <h3 className="font-semibold text-[#09111E] mb-2">Business Growth</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-300">Scale Your Business With Powerful Tools And Insights.</p>
                   </div>
                 </div>
 
                 {/* Next Steps */}
-                <div className="bg-brand-50/50 dark:bg-brand-900/20 p-6 rounded-md border border-brand-200">
-                  <h3 className="text-lg font-semibold text-brand-900 mb-3">Next Steps</h3>
+                <div className="bg-brand-50/50 dark:bg-[#09111E]/20 p-6 rounded-md border border-brand-200">
+                  <h3 className="text-lg font-semibold text-[#09111E] mb-3">Next Steps</h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
                     Let's Set Up Your Initial Inventory To Get You Started With Stocka.
                   </p>
-                  <div className="flex items-center justify-center gap-2 text-sm text-brand-900 font-bold">
+                  <div className="flex items-center justify-center gap-2 text-sm text-[#09111E] font-bold">
                     <span>Redirecting To Stock Setup In</span>
                     <span className="font-mono font-bold text-lg">{countdown}</span>
                     <span>Seconds</span>
@@ -126,7 +126,7 @@ const VerificationSuccess = () => {
                 <div className="flex flex-col sm:flex-row gap-6 justify-center">
                   <button
                     onClick={handleContinue}
-                    className="px-10 py-5 bg-brand-900 text-white font-bold text-sm rounded-md hover:bg-brand-800 transition-all duration-300 shadow-2xl active:scale-95 flex items-center justify-center gap-4 group/btn"
+                    className="px-10 py-5 bg-[#09111E] text-white font-bold text-sm rounded-md hover:bg-[#09111E] transition-all duration-300 shadow-2xl active:scale-95 flex items-center justify-center gap-4 group/btn"
                   >
                     <span>Get Started</span>
                     <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
@@ -134,7 +134,7 @@ const VerificationSuccess = () => {
 
                   <button
                     onClick={() => navigate('/dashboard')}
-                    className="px-10 py-5 border-2 border-brand-900 text-brand-900 font-bold text-sm rounded-md hover:bg-brand-50 transition-all duration-300 flex items-center justify-center gap-4 active:scale-95"
+                    className="px-10 py-5 border-2 border-[#09111E] text-[#09111E] font-bold text-sm rounded-md hover:bg-brand-50 transition-all duration-300 flex items-center justify-center gap-4 active:scale-95"
                   >
                     <span>Go to Dashboard</span>
                   </button>
@@ -143,7 +143,7 @@ const VerificationSuccess = () => {
                 {/* Footer */}
                 <div className="pt-12 border-t border-brand-100">
                   <p className="text-xs text-brand-300 font-semibold text-center">
-                    Need support? Access our <a href="#" className="text-brand-900 underline hover:opacity-70 transition-opacity">Documentation</a> or contact a <a href="#" className="text-brand-900 underline hover:opacity-70 transition-opacity">Support Representative</a>
+                    Need support? Access our <a href="#" className="text-[#09111E] underline hover:opacity-70 transition-opacity">Documentation</a> or contact a <a href="#" className="text-[#09111E] underline hover:opacity-70 transition-opacity">Support Representative</a>
                   </p>
                 </div>
               </div>

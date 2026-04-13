@@ -208,7 +208,7 @@ const CreditsDebit = () => {
       case 'completed': return 'bg-green-100 text-green-800 rounded-md';
       case 'pending': return 'bg-yellow-100 text-yellow-800 rounded-md';
       case 'cancelled': return 'bg-red-100 text-red-800 rounded-md';
-      default: return 'bg-brand-50 text-brand-700 rounded-md';
+      default: return 'bg-brand-50 text-[#09111E] rounded-md';
     }
   };
 
@@ -224,7 +224,7 @@ const CreditsDebit = () => {
     return (
       <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist">
         <div className="w-16 h-16 border-4 border-brand-50 border-t-brand-900 rounded-md animate-spin mb-6"></div>
-        <p className="text-xl font-black text-brand-900 uppercase tracking-widest italic">Synchronizing Financial Data...</p>
+        <p className="text-xl font-black text-[#09111E] uppercase tracking-widest italic">Synchronizing Financial Data...</p>
       </div>
     );
   }
@@ -232,7 +232,7 @@ const CreditsDebit = () => {
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-10 bg-brand-900 border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden group">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-10 bg-[#09111E] border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
         <div className="relative z-10">
           <h2 className="text-4xl font-black text-white uppercase tracking-tight">Financial Management</h2>
@@ -261,7 +261,7 @@ const CreditsDebit = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-brand-900 border border-white/5 shadow-2xl p-10 rounded-md relative overflow-hidden group/actions">
+      <div className="bg-[#09111E] border border-white/5 shadow-2xl p-10 rounded-md relative overflow-hidden group/actions">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-400/5 rounded-md blur-[120px] -mr-[300px] -mt-[300px] pointer-events-none" />
         <h3 className="text-2xl font-black text-white mb-10 uppercase tracking-tighter relative z-10">Operational Tactical Protocols</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
@@ -291,7 +291,7 @@ const CreditsDebit = () => {
       </div>
 
       {/* Search and Filters */}
-      <div className="bg-brand-900 border border-white/5 shadow-2xl p-10 rounded-md relative overflow-hidden">
+      <div className="bg-[#09111E] border border-white/5 shadow-2xl p-10 rounded-md relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-accent-400/5 rounded-md -mr-48 -mt-48 opacity-30 blur-3xl pointer-events-none" />
         <div className="flex flex-col sm:flex-row gap-8 relative z-10">
           <div className="flex-1 relative group/search">
@@ -310,16 +310,16 @@ const CreditsDebit = () => {
               onChange={(e) => setSelectedFilter(e.target.value)}
               className="pl-14 pr-10 py-5 bg-white/5 border border-white/5 rounded-md text-white focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all appearance-none cursor-pointer font-black uppercase tracking-widest text-[10px] shadow-inner min-w-[200px]"
             >
-              <option value="all" className="bg-brand-900">Global Catalog</option>
-              <option value="credit" className="bg-brand-900">Credits Only</option>
-              <option value="debit" className="bg-brand-900">Debits Only</option>
+              <option value="all" className="bg-[#09111E]">Global Catalog</option>
+              <option value="credit" className="bg-[#09111E]">Credits Only</option>
+              <option value="debit" className="bg-[#09111E]">Debits Only</option>
             </select>
           </div>
         </div>
       </div>
 
       {/* Transactions Table */}
-      <div className="bg-brand-900 border border-white/5 rounded-md shadow-2xl overflow-hidden transition-all group/table relative">
+      <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl overflow-hidden transition-all group/table relative">
         <div className="p-10 border-b border-white/5 flex items-center justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
           <div className="flex items-center gap-5 relative z-10">
@@ -457,7 +457,7 @@ const CreditsDebit = () => {
       {/* Confirm Mark as Paid Modal */}
       {isConfirmPaidOpen && (
         <div className="fixed inset-0 bg-brand-950/90 backdrop-blur-md flex items-center justify-center z-[100] p-6 animate-in fade-in duration-500">
-          <div className="bg-brand-900 border border-white/5 rounded-md shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] w-full max-w-lg overflow-hidden relative p-12">
+          <div className="bg-[#09111E] border border-white/5 rounded-md shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] w-full max-w-lg overflow-hidden relative p-12">
             <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-md blur-3xl -mr-32 -mt-32" />
             <h2 className="text-3xl font-black text-white mb-8 uppercase tracking-tight">Authorization Logic</h2>
             <p className="text-brand-300 text-sm font-bold leading-relaxed uppercase tracking-widest italic mb-10 opacity-60">
@@ -517,7 +517,7 @@ const SummaryCard = ({ icon: Icon, label, value, trend, color }) => {
   const [textColor, bgStyle, borderStyle, gradStyle] = selectedColor.split(' ');
 
   return (
-    <div className="group bg-brand-900 p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
+    <div className="group bg-[#09111E] p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
       <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50`} />
       <div className="relative z-10 flex flex-col h-full justify-between gap-10">
         <div className="flex items-center justify-between">

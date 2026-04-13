@@ -66,7 +66,7 @@ const Form = () => {
   return (
     <div className="font-Urbanist min-h-screen bg-brand-50 flex flex-col animate-in fade-in duration-700">
       {/* Navbar */}
-      <div className="bg-brand-900 flex justify-between items-center px-10 py-4 shadow-2xl relative z-20">
+      <div className="bg-[#09111E] flex justify-between items-center px-10 py-4 shadow-2xl relative z-20">
         <div className="flex items-center space-x-4">
           <img src={images.logo} alt="logo" className="w-10 h-10 object-contain brightness-0 invert" />
           <h1 className="text-xl font-bold text-white tracking-tight">Stocka</h1>
@@ -83,7 +83,7 @@ const Form = () => {
             <div className="absolute top-0 right-0 w-48 h-48 bg-brand-50 rounded-md -mr-24 -mt-24 group-hover:scale-150 transition-transform duration-1000 opacity-50 blur-3xl" />
             <div className="flex items-center justify-between mb-10 relative z-10">
               <div>
-                <h2 className="text-2xl font-bold text-brand-900 tracking-tight">Add Daily Sales</h2>
+                <h2 className="text-2xl font-bold text-[#09111E] tracking-tight">Add Daily Sales</h2>
                 <p className="text-xs text-brand-400 font-semibold mt-1">Record your transaction details here</p>
               </div>
               <div className={`text-right text-xl font-black ${draftPL >= 0 ? 'text-emerald-600 bg-emerald-50 border-emerald-100' : 'text-rose-600 bg-rose-50 border-rose-100'} px-6 py-3 rounded-md border shadow-inner`}>
@@ -97,7 +97,7 @@ const Form = () => {
                 <input
                   type="date"
                   name="date"
-                  className="w-full border border-brand-100 text-brand-900 rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all font-semibold text-sm bg-brand-50 shadow-inner"
+                  className="w-full border border-brand-100 text-[#09111E] rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-[#09111E] transition-all font-semibold text-sm bg-brand-50 shadow-inner"
                   required
                 />
               </div>
@@ -108,7 +108,7 @@ const Form = () => {
                   type="text"
                   name="itemSold"
                   placeholder="e.g., Cement, Oil"
-                  className="w-full border border-brand-100 text-brand-900 rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all font-semibold text-sm bg-brand-50 shadow-inner placeholder:text-brand-200"
+                  className="w-full border border-brand-100 text-[#09111E] rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-[#09111E] transition-all font-semibold text-sm bg-brand-50 shadow-inner placeholder:text-brand-200"
                   required
                 />
               </div>
@@ -119,7 +119,7 @@ const Form = () => {
                   type="number"
                   name="buyingPrice"
                   onChange={(e) => setDraft(d => ({ ...d, buyingPrice: e.target.value }))}
-                  className="w-full border border-brand-100 text-brand-900 rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all font-semibold text-sm bg-brand-50 shadow-inner"
+                  className="w-full border border-brand-100 text-[#09111E] rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-[#09111E] transition-all font-semibold text-sm bg-brand-50 shadow-inner"
                   required
                 />
               </div>
@@ -130,7 +130,7 @@ const Form = () => {
                   type="number"
                   name="sellingPrice"
                   onChange={(e) => setDraft(d => ({ ...d, sellingPrice: e.target.value }))}
-                  className="w-full border border-brand-100 text-brand-900 rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all font-semibold text-sm bg-brand-50 shadow-inner"
+                  className="w-full border border-brand-100 text-[#09111E] rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-[#09111E] transition-all font-semibold text-sm bg-brand-50 shadow-inner"
                   required
                 />
               </div>
@@ -141,7 +141,7 @@ const Form = () => {
                   type="number"
                   name="quantity"
                   onChange={(e) => setDraft(d => ({ ...d, quantity: e.target.value }))}
-                  className="w-full border border-brand-100 text-brand-900 rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all font-semibold text-sm bg-brand-50 shadow-inner"
+                  className="w-full border border-brand-100 text-[#09111E] rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-[#09111E] transition-all font-semibold text-sm bg-brand-50 shadow-inner"
                   required
                 />
               </div>
@@ -151,7 +151,7 @@ const Form = () => {
                 <div className="relative group/sel">
                   <select
                     name="itemType"
-                    className="w-full border border-brand-100 text-brand-900 rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all bg-brand-50 shadow-inner font-semibold text-sm appearance-none cursor-pointer"
+                    className="w-full border border-brand-100 text-[#09111E] rounded-md p-4 focus:ring-4 focus:ring-brand-500/10 focus:border-[#09111E] transition-all bg-brand-50 shadow-inner font-semibold text-sm appearance-none cursor-pointer"
                   >
                     <option value="General">Select Type</option>
                     <option value="Construction">Construction</option>
@@ -165,7 +165,7 @@ const Form = () => {
                 <label className="block text-xs font-bold text-brand-300 mb-3 px-1">Additional Notes</label>
                 <textarea
                   placeholder="Provide context for this sale..."
-                  className="w-full border border-brand-100 text-brand-900 rounded-md p-5 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all bg-brand-50 shadow-inner font-semibold text-sm placeholder:text-brand-200/50"
+                  className="w-full border border-brand-100 text-[#09111E] rounded-md p-5 focus:ring-4 focus:ring-brand-500/10 focus:border-[#09111E] transition-all bg-brand-50 shadow-inner font-semibold text-sm placeholder:text-brand-200/50"
                   rows="3"
                 ></textarea>
               </div>
@@ -173,7 +173,7 @@ const Form = () => {
               <div className="col-span-1 sm:col-span-2 pt-6">
                 <button
                   type="submit"
-                  className="w-full bg-brand-900 text-white py-6 px-10 rounded-md font-bold hover:bg-brand-800 transition-all shadow-2xl text-sm relative overflow-hidden group/btn"
+                  className="w-full bg-[#09111E] text-white py-6 px-10 rounded-md font-bold hover:bg-[#09111E] transition-all shadow-2xl text-sm relative overflow-hidden group/btn"
                 >
                   <div className="absolute inset-0 bg-white/10 translate-x-full group-hover/btn:translate-x-0 transition-transform duration-500" />
                   <span className="relative z-10 flex items-center justify-center gap-4">
@@ -189,8 +189,8 @@ const Form = () => {
         <div className="w-full lg:w-[450px] bg-white border-l border-brand-100 p-10 flex flex-col h-full shadow-[inset_20px_0_40px_-20px_rgba(9,17,30,0.05)] relative overflow-hidden">
           <div className="flex justify-between items-center mb-12 relative z-10">
             <div>
-              <h2 className="text-2xl font-bold text-brand-900 flex items-center gap-4 tracking-tight">
-                <RotateCcw className="text-brand-900" size={28} />
+              <h2 className="text-2xl font-bold text-[#09111E] flex items-center gap-4 tracking-tight">
+                <RotateCcw className="text-[#09111E]" size={28} />
                 Recent Sales
               </h2>
               <p className="text-xs text-brand-300 font-semibold mt-1">Audit log of your daily trades</p>
@@ -206,7 +206,7 @@ const Form = () => {
           <div className="grid grid-cols-2 gap-6 mb-12 relative z-10">
             <div className="bg-brand-50 rounded-md p-6 border border-brand-100 shadow-inner">
               <p className="text-xs text-brand-300 font-bold mb-3">Count</p>
-              <p className="text-4xl font-bold text-brand-900 tracking-tight">{trades.length}</p>
+              <p className="text-4xl font-bold text-[#09111E] tracking-tight">{trades.length}</p>
             </div>
             <div className={`rounded-md p-6 border shadow-inner ${totalPL >= 0 ? 'bg-emerald-50 border-emerald-100' : 'bg-rose-50 border-rose-100'}`}>
               <p className={`text-xs font-bold mb-3 ${totalPL >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>Total P&L</p>
@@ -229,15 +229,15 @@ const Form = () => {
               trades.slice().reverse().map((trade, index) => (
                 <div
                   key={index}
-                  className="flex justify-between items-center bg-white p-6 rounded-md border border-brand-100 hover:border-brand-900 hover:shadow-2xl transition-all duration-500 group/row shadow-sm hover:-translate-y-1"
+                  className="flex justify-between items-center bg-white p-6 rounded-md border border-brand-100 hover:border-[#09111E] hover:shadow-2xl transition-all duration-500 group/row shadow-sm hover:-translate-y-1"
                 >
                   <div className="flex-1">
-                    <p className="font-bold text-brand-900 tracking-tight text-lg leading-none mb-3">
+                    <p className="font-bold text-[#09111E] tracking-tight text-lg leading-none mb-3">
                       {trade.item}
                     </p>
                     <div className="flex items-center gap-4 text-xs text-brand-300 font-semibold italic">
-                      <span className="bg-brand-50 text-brand-900 px-3 py-1 rounded-md border border-brand-100 shadow-inner">{trade.type}</span>
-                      <span className="flex items-center gap-1">Qty: <span className="text-brand-900 font-bold">{trade.quantity}</span></span>
+                      <span className="bg-brand-50 text-[#09111E] px-3 py-1 rounded-md border border-brand-100 shadow-inner">{trade.type}</span>
+                      <span className="flex items-center gap-1">Qty: <span className="text-[#09111E] font-bold">{trade.quantity}</span></span>
                     </div>
                   </div>
                   <div className="text-right">

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const StatsCard = ({ title, value, icon, bgColor = "bg-brand-900/40", iconColor = "text-accent-400", valueColor = "text-white", descri }) => {
+const StatsCard = ({ title, value, icon, bgColor = "bg-[#09111E]/40", iconColor = "text-accent-400", valueColor = "text-white", descri }) => {
   return (
     <div className={`group relative overflow-hidden backdrop-blur-xl p-8 rounded-md border border-white/5 shadow-2xl transition-all duration-500 hover:border-white/10 hover:scale-[1.02] ${bgColor} font-Urbanist`}>
       <div className="absolute top-0 right-0 w-32 h-32 bg-accent-400/5 rounded-md blur-3xl -mr-16 -mt-16 group-hover:bg-accent-400/10 transition-colors" />

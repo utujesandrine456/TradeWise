@@ -97,7 +97,7 @@ const History = () => {
     return (
       <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist">
         <div className="w-16 h-16 border-4 border-brand-50 border-t-brand-900 rounded-md animate-spin mb-6"></div>
-        <p className="text-xl font-black text-brand-900 uppercase tracking-widest italic">Retrieving Audit Logs...</p>
+        <p className="text-xl font-black text-[#09111E] uppercase tracking-widest italic">Retrieving Audit Logs...</p>
       </div>
     );
   }
@@ -107,11 +107,11 @@ const History = () => {
       <div className="flex flex-col items-center justify-center py-40 space-y-8 font-Urbanist">
         <div className="p-10 bg-white rounded-md border border-brand-100 shadow-2xl text-center">
           <MdInfo className="text-6xl text-brand-200 mx-auto mb-6" />
-          <p className="text-2xl font-black text-brand-900 uppercase tracking-tight">{error}</p>
+          <p className="text-2xl font-black text-[#09111E] uppercase tracking-tight">{error}</p>
         </div>
         <button
           onClick={fetchTransactions}
-          className="px-12 py-5 bg-brand-900 text-white rounded-md font-black uppercase tracking-widest text-xs transition-all active:scale-95 shadow-xl hover:bg-brand-800"
+          className="px-12 py-5 bg-[#09111E] text-white rounded-md font-black uppercase tracking-widest text-xs transition-all active:scale-95 shadow-xl hover:bg-[#09111E]"
         >
           Retry Connection
         </button>
@@ -122,7 +122,7 @@ const History = () => {
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header Section */}
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden group">
+      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
         <div className="flex items-center gap-8 relative z-10">
           <div className="p-5 bg-white/5 rounded-md border border-white/5 shadow-inner transition-transform group-hover:scale-110 duration-500">
@@ -161,7 +161,7 @@ const History = () => {
       </div>
 
       {/* Tactical Console (Filters/Search) */}
-      <div className="bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+      <div className="bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-400/5 rounded-md blur-[100px] -mr-[200px] -mt-[200px] pointer-events-none" />
         <div className="relative z-10 flex flex-col xl:flex-row gap-8 items-center">
           <div className="flex-1 relative group/search w-full">
@@ -192,7 +192,7 @@ const History = () => {
       </div>
 
       {/* Main Ledger Table */}
-      <div className="bg-brand-900 border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
+      <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
         <div className="p-10 border-b border-white/5 flex items-center justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
           <div className="flex items-center gap-6 relative z-10">
@@ -317,7 +317,7 @@ const SummaryCard = ({ icon: Icon, label, value, trend, color }) => {
   const [textColor, bgStyle, borderStyle, gradStyle] = selectedColor.split(' ');
 
   return (
-    <div className="group bg-brand-900 p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
+    <div className="group bg-[#09111E] p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
       <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50`} />
       <div className="relative z-10 flex flex-col h-full justify-between gap-10">
         <div className="flex items-center justify-between">

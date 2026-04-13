@@ -92,7 +92,7 @@ const PurchaseProducts = () => {
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header */}
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden group">
+      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
         <div className="flex items-center gap-8 relative z-10">
           <div className="p-5 bg-white/5 rounded-md border border-white/5 shadow-inner transition-transform group-hover:scale-110 duration-500">
@@ -124,7 +124,7 @@ const PurchaseProducts = () => {
       </div>
 
       {/* Search Console */}
-      <div className="bg-brand-900 border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+      <div className="bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
         <div className="relative group/search max-w-4xl z-10">
           <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-brand-300 text-2xl group-focus-within/search:text-accent-400 transition-colors duration-300" />
           <input
@@ -138,7 +138,7 @@ const PurchaseProducts = () => {
       </div>
 
       {/* Purchases Table */}
-      <div className="bg-brand-900 border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
+      <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
         <div className="p-10 border-b border-white/5 flex items-center justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
           <h3 className="text-2xl font-black text-white uppercase tracking-tighter relative z-10">Purchase Orders</h3>
@@ -235,7 +235,7 @@ const StatsCard = ({ icon: Icon, label, value, color }) => {
   const [textColor, bgStyle, borderStyle, gradStyle] = selected.split(' ');
 
   return (
-    <div className="group bg-brand-900 p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
+    <div className="group bg-[#09111E] p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
       <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50`} />
       <div className="relative z-10 flex flex-col gap-10">
         <div className={`p-5 w-fit rounded-md border ${bgStyle} ${borderStyle} ${textColor} shadow-inner`}>

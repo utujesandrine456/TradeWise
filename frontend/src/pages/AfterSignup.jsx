@@ -104,7 +104,7 @@ const AfterSignup = () => {
     <div className="min-h-screen bg-brand-50 py-12 px-6 lg:px-12 font-Urbanist animate-in fade-in duration-1000">
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Sticky Header */}
-        <div className="sticky top-6 z-50 bg-brand-900 text-white py-10 px-12 shadow-2xl rounded-md border border-white/10 overflow-hidden group">
+        <div className="sticky top-6 z-50 bg-[#09111E] text-white py-10 px-12 shadow-2xl rounded-md border border-white/10 overflow-hidden group">
           <div className="absolute inset-0 bg-white/5 opacity-50 pointer-events-none" />
           <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
             <div className="space-y-2">
@@ -124,7 +124,7 @@ const AfterSignup = () => {
         </div>
 
         <div className="bg-white shadow-[0_50px_100px_-20px_rgba(9,17,30,0.1)] rounded-md overflow-hidden border border-brand-100 relative group">
-          <div className="absolute top-0 right-0 w-1 bg-brand-900 h-full" />
+          <div className="absolute top-0 right-0 w-1 bg-[#09111E] h-full" />
           <div className="p-10 sm:p-16 space-y-12">
             {success && <div className="p-6 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-md font-bold text-sm animate-in zoom-in duration-300">{success}</div>}
 
@@ -180,8 +180,8 @@ const AfterSignup = () => {
 
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row sm:justify-end gap-6 pt-10">
-                <button type="button" onClick={() => navigate('/dashboard')} className="w-full sm:w-auto px-10 py-5 border-2 border-brand-100 rounded-md text-brand-900 font-bold text-xs hover:bg-brand-50 transition-all shadow-xl">Skip for Now</button>
-                <button type="submit" disabled={loading || !canProceed} className="w-full sm:w-auto px-10 py-5 bg-brand-900 text-white rounded-md font-bold text-xs hover:bg-brand-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 shadow-2xl relative overflow-hidden group/btn">
+                <button type="button" onClick={() => navigate('/dashboard')} className="w-full sm:w-auto px-10 py-5 border-2 border-brand-100 rounded-md text-[#09111E] font-bold text-xs hover:bg-brand-50 transition-all shadow-xl">Skip for Now</button>
+                <button type="submit" disabled={loading || !canProceed} className="w-full sm:w-auto px-10 py-5 bg-[#09111E] text-white rounded-md font-bold text-xs hover:bg-[#09111E] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 shadow-2xl relative overflow-hidden group/btn">
                   <div className="absolute inset-0 bg-white/10 translate-x-full group-hover/btn:translate-x-0 transition-transform duration-500" />
                   {loading ? (
                     <>
@@ -204,7 +204,7 @@ const AfterSignup = () => {
 const Section = ({ title, subtitle, children }) => (
   <div className="bg-brand-50/50 rounded-md p-10 border border-brand-100 shadow-inner group/sec hover:bg-white transition-all duration-500">
     <div className="mb-8">
-      <h3 className="text-xl font-bold text-brand-900 tracking-tight">{title}</h3>
+      <h3 className="text-xl font-bold text-[#09111E] tracking-tight">{title}</h3>
       {subtitle && <p className="text-xs text-brand-400 font-semibold mt-1 opacity-60 italic">{subtitle}</p>}
     </div>
     {children}
@@ -217,7 +217,7 @@ const InputField = ({ label, type = 'text', name, value, onChange, placeholder, 
     <input
       type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} required={required}
       min={min} max={max}
-      className="block w-full border border-brand-100 text-brand-900 font-semibold text-sm rounded-md px-5 py-4 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all bg-white shadow-inner placeholder:opacity-30"
+      className="block w-full border border-brand-100 text-[#09111E] font-semibold text-sm rounded-md px-5 py-4 focus:ring-4 focus:ring-brand-500/10 focus:border-[#09111E] transition-all bg-white shadow-inner placeholder:opacity-30"
     />
   </div>
 );
@@ -226,7 +226,7 @@ const SelectField = ({ label, name, value, onChange, options }) => (
   <div className="space-y-3">
     <label className="block text-xs font-bold text-brand-300 px-1">{label}</label>
     <div className="relative group/sel">
-      <select name={name} value={value} onChange={onChange} className="block w-full border border-brand-100 text-brand-900 font-semibold text-sm rounded-md px-5 py-4 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all bg-white shadow-inner appearance-none cursor-pointer">
+      <select name={name} value={value} onChange={onChange} className="block w-full border border-brand-100 text-[#09111E] font-semibold text-sm rounded-md px-5 py-4 focus:ring-4 focus:ring-brand-500/10 focus:border-[#09111E] transition-all bg-white shadow-inner appearance-none cursor-pointer">
         <option value="" className="text-gray-400">Select {label}</option>
         {options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
       </select>
@@ -237,7 +237,7 @@ const SelectField = ({ label, name, value, onChange, options }) => (
 const TextAreaField = ({ label, name, value, onChange, placeholder, rows = 3 }) => (
   <div className="space-y-3">
     <label className="block text-xs font-bold text-brand-300 px-1">{label}</label>
-    <textarea name={name} value={value} onChange={onChange} placeholder={placeholder} rows={rows} className="block w-full border border-brand-100 text-brand-900 font-semibold text-sm rounded-md px-5 py-5 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all bg-white shadow-inner placeholder:opacity-30" />
+    <textarea name={name} value={value} onChange={onChange} placeholder={placeholder} rows={rows} className="block w-full border border-brand-100 text-[#09111E] font-semibold text-sm rounded-md px-5 py-5 focus:ring-4 focus:ring-brand-500/10 focus:border-[#09111E] transition-all bg-white shadow-inner placeholder:opacity-30" />
   </div>
 );
 

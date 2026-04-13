@@ -132,7 +132,7 @@ const VerifyEmail = () => {
                     <div className="w-full flex flex-col justify-center p-8 sm:p-12 relative">
                         <div className="w-full max-w-md mx-auto flex flex-col gap-8">
                             <div className="text-center space-y-6">
-                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-white/90 mx-auto">
+                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-brand-100 text-[#09111E] dark:bg-white/10 dark:text-white/90 mx-auto">
                                     <Shield size={16} /> Secure Verification
                                 </div>
 
@@ -147,7 +147,7 @@ const VerifyEmail = () => {
                                     </div>
                                 </div>
 
-                                <h2 className="text-4xl font-bold text-brand-900">
+                                <h2 className="text-4xl font-bold text-[#09111E]">
                                     Verify Your Email
                                 </h2>
                                 <p className="text-black font-medium text-base leading-relaxed">
@@ -176,7 +176,7 @@ const VerifyEmail = () => {
                                 <button
                                     onClick={handleVerifyEmail}
                                     disabled={loading || otpCode.length < 6}
-                                    className="w-full py-4 bg-brand-500 text-white font-bold rounded-md hover:bg-brand-600 transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98] text-lg"
+                                    className="w-full py-4 bg-brand-500 text-white font-bold rounded-md hover:bg-[#09111E] transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98] text-lg"
                                 >
                                     {loading ? (
                                         <span className="flex items-center justify-center gap-2">
@@ -199,7 +199,7 @@ const VerifyEmail = () => {
                                     >
                                         {resendLoading ? (
                                             <>
-                                                <div className="w-4 h-4 border-2 border-brand-600 border-t-transparent rounded-full animate-spin"></div>
+                                                <div className="w-4 h-4 border-2 border-[#09111E] border-t-transparent rounded-full animate-spin"></div>
                                                 Resending...
                                             </>
                                         ) : (
