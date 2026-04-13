@@ -109,19 +109,16 @@
     }
 
     .loader-title {
-      font-size: 1.75rem;
+      font-size: 2rem;
       font-weight: 700;
       color: #ffffff;
-      letter-spacing: -0.02em;
       margin: 0;
     }
 
     .loader-subtitle {
-      font-size: 0.75rem;
+      font-size: 1rem;
       font-weight: 600;
       color: rgba(255, 255, 255, 0.4);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
     }
 
     .progress-bar-container {
@@ -162,7 +159,6 @@
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
   <script>
-    // Loader State Management
     const progressFill = document.getElementById('loader-progress');
     const statusText = document.getElementById('loader-status');
     const statuses = [
@@ -203,7 +199,6 @@
       }, 300);
     };
 
-    // Auto-fallback
     setTimeout(() => {
       if (currentPercent < 100) window.finishLoader();
     }, 4000);

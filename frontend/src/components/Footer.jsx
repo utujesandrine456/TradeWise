@@ -3,13 +3,15 @@ import { Mail, Globe, Linkedin, Twitter, Instagram, Facebook } from 'lucide-reac
 
 const Footer = () => {
     return (
-        <footer className="relative bg-brand-900 pt-32 pb-16 overflow-hidden mt-auto">
-            <div className="absolute inset-0 z-0">
-                <div className="absolute top-0 left-0 w-full h-px bg-white/10" />
-            </div>
+        <footer className="relative bg-brand-900 pt-24 pb-12 overflow-hidden mt-auto">
+            {/* Designed Background */}
+            <div className="absolute inset-0 bg-grid-pattern-dark opacity-10" />
+            <div className="absolute inset-0 bg-gradient-to-b from-brand-900 via-transparent to-brand-900/80" />
+            <div className="absolute -top-24 -left-24 w-96 h-96 bg-brand-500/10 rounded-full blur-[100px]" />
+            <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-brand-400/5 rounded-full blur-[100px]" />
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
                     <div className="space-y-10">
                         <div className="flex items-center gap-4 group cursor-pointer">
                             <div className="w-12 h-12 bg-white rounded-md flex items-center justify-center shadow-2xl transition-transform group-hover:scale-110">
@@ -18,7 +20,7 @@ const Footer = () => {
                             <h3 className="text-white font-black text-4xl tracking-tight group-hover:text-brand-500 transition-colors">Stocka</h3>
                         </div>
                         <p className="text-white/50 text-base font-semibold leading-relaxed max-w-sm">
-                            Pioneering enterprise-grade trading environments with surgical precision. Strategic asset management and elite-tier user experience synthesized into a singular access point.
+                            Empowering traders with high-fidelity performance tracking. Master your expenses, debits, and credits with absolute precision in one unified dashboard.
                         </p>
                         <div className="flex gap-6">
                             {[Twitter, Instagram, Linkedin, Facebook].map((Icon, i) => (
@@ -30,9 +32,9 @@ const Footer = () => {
                     </div>
 
                     <div>
-                        <h4 className="text-white font-black text-xl mb-12 tracking-tight">Core Modules</h4>
+                        <h4 className="text-white font-black text-xl mb-12 tracking-tight">Core modules</h4>
                         <ul className="space-y-6">
-                            {['Inventory', 'Analytics', 'Financials', 'Trading'].map((item) => (
+                            {['Expenses', 'Cash flow', 'Profit/Loss', 'Performance'].map((item) => (
                                 <li key={item}>
                                     <a href="#" className="text-white/40 hover:text-brand-400 font-bold transition-all flex items-center gap-3 group">
                                         <div className="w-1.5 h-1.5 bg-brand-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -67,25 +69,29 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="relative group">
-                        <div className="p-10 bg-white/5 rounded-3xl border border-white/10 overflow-hidden relative">
-                            <div className="absolute inset-0 bg-brand-500 opacity-0 group-hover:opacity-5 transition-opacity" />
-                            <h4 className="text-white font-black text-xl mb-8 tracking-tight">Enterprise Access</h4>
-                            <p className="text-white/40 text-[13px] font-bold leading-relaxed mb-10">
-                                Deploy Stocka within your organization for enterprise-grade management.
-                            </p>
-                            <button className="w-full py-4 bg-brand-500 text-white rounded-xl font-black text-sm tracking-widest hover:bg-brand-600 transition-all shadow-glow active:scale-95">
-                                GET STARTED
+                    <div>
+                        <h4 className="text-white font-black text-xl mb-12 tracking-tight">Newsletter</h4>
+                        <p className="text-white/40 text-sm font-semibold mb-8 leading-relaxed">
+                            Subscribe for the latest enterprise-grade updates and product releases.
+                        </p>
+                        <form className="space-y-4">
+                            <input
+                                type="email"
+                                placeholder="name@company.com"
+                                className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-brand-500 text-white font-bold text-sm"
+                            />
+                            <button className="w-full py-4 bg-white text-brand-900 rounded-xl font-bold text-sm hover:bg-white/90 transition-all">
+                                Subscribe
                             </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
 
-                <div className="mt-32 pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
-                    <div className="text-white/30 text-[11px] tracking-[0.2em] font-black uppercase">
+                <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
+                    <div className="text-white/30 text-[14px]  font-semibold">
                         &copy; {new Date().getFullYear()} <span className="text-white/60">Stocka Systems</span>. All Rights Reserved.
                     </div>
-                    <div className="flex gap-10 text-[11px] font-black text-white/30 tracking-[0.2em] uppercase">
+                    <div className="flex gap-10 text-[14px] font-semibold text-white/30">
                         <a href="#" className="hover:text-white transition-colors">Privacy</a>
                         <a href="#" className="hover:text-white transition-colors">Terms</a>
                         <a href="#" className="hover:text-white transition-colors">Security</a>

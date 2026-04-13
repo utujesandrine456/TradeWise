@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { ChevronRight, ChevronLeft, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { MdDashboard } from 'react-icons/md';
-import images from '../utils/images';
 
 const Header = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -32,18 +31,17 @@ const Header = () => {
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b ${scrolled || mobileOpen
-                ? 'bg-white border-brand-100 py-3 shadow-sm'
-                : 'bg-brand-900 border-white/5 py-4'
+            className={`fixed top-8 left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 rounded-md border ${scrolled || mobileOpen
+                ? 'bg-brand-900 border-white/20 shadow-xl w-[90%] max-w-5xl'
+                : 'bg-brand-900/80 backdrop-blur-md border-white/10 shadow-2xl w-[95%] max-w-6xl'
                 }`}
         >
-            <div className="max-w-7xl mx-auto px-6 md:px-10 flex justify-between items-center">
+            <div className="px-6 py-4 flex justify-between items-center">
                 <div
                     className="flex items-center gap-3 cursor-pointer"
                     onClick={() => navigate('/')}
                 >
-                    <img src={images.logo} alt="logo" className="w-9 h-9 rounded-lg object-cover" />
-                    <h1 className={`text-xl font-bold tracking-tight ${scrolled || mobileOpen ? 'text-brand-900' : 'text-white'}`}>Stocka</h1>
+                    <h1 className="text-3xl font-bold tracking-tight text-white">Stocka</h1>
                 </div>
 
                 <div className="hidden md:flex items-center gap-8">
@@ -55,65 +53,75 @@ const Header = () => {
                                 e.preventDefault();
                                 scrollToSection(item.toLowerCase());
                             }}
-                            className={`text-sm font-bold tracking-wide transition-colors ${scrolled || mobileOpen ? 'text-brand-900/60 hover:text-brand-900' : 'text-white/60 hover:text-white'}`}
+                            className={`px-4 py-2 rounded-md text-sm font-semibold transition-all hover:bg-white/5 ${scrolled || mobileOpen ? 'text-white/60 hover:text-white' : 'text-white/60 hover:text-white'}`}
                         >
                             {item}
                         </a>
                     ))}
                 </div>
 
-                <div className="hidden md:flex items-center gap-4">
-                    {!user ? (
-                        <button
-                            onClick={() => navigate('/login')}
-                            className={`px-5 py-2 rounded-lg font-bold text-sm transition-all active:scale-95 ${scrolled || mobileOpen
-                                ? 'bg-brand-900 text-white hover:bg-brand-800'
-                                : 'bg-white text-brand-900 hover:bg-brand-50'
-                                }`}
-                        >
-                            Log In
-                        </button>
-                    ) : (
-                        <button
-                            onClick={() => navigate('/dashboard')}
-                            className={`px-5 py-2 rounded-lg font-bold text-sm transition-all active:scale-95 flex items-center gap-2 ${scrolled || mobileOpen
-                                ? 'bg-brand-900 text-white hover:bg-brand-800'
-                                : 'bg-brand-500 text-white hover:bg-brand-600'
-                                }`}
-                        >
-                            <MdDashboard size={16} /> Dashboard
-                        </button>
-                    )}
-                </div>
+                <div className="flex items-center gap-2 pr-1">
+                    <div className="hidden md:block">
+                        {!user ? (
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={() => navigate('/signup')}
+                                    className="px-6 py-2.5 bg-white text-brand-900 rounded-md font-bold text-sm transition-all active:scale-95 hover:bg-white/90"
+                                >
+                                    Sign Up
+                                </button>
+                                <button
+                                    onClick={() => navigate('/login')}
+                                    className="px-6 py-2.5 bg-brand-900 text-white border border-white rounded-md font-bold text-sm transition-all active:scale-95 hover:bg-white/90"
+                                >
+                                    Login
+                                </button>
+                            </div>
+                        ) : (
+                            <button
+                                onClick={() => navigate('/dashboard')}
+                                className="px-6 py-2.5 bg-white text-brand-900 rounded-md font-bold text-sm transition-all active:scale-95 flex items-center gap-2 hover:bg-white/90"
+                            >
+                                <MdDashboard size={16} /> Dashboard
+                            </button>
+                        )}
+                    </div>
 
-                <div className="md:hidden">
-                    <button
-                        className={`p-2 rounded-lg transition-colors ${scrolled || mobileOpen ? 'bg-brand-50 text-brand-900' : 'bg-white/5 text-white'}`}
-                        onClick={() => setMobileOpen(!mobileOpen)}
-                    >
-                        {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-                    </button>
+                    <div className="md:hidden">
+                        <button
+                            className="p-2.5 bg-white/5 text-white rounded-md transition-colors"
+                            onClick={() => setMobileOpen(!mobileOpen)}
+                        >
+                            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <AnimatePresence>
                 {mobileOpen && (
                     <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden bg-brand-900 overflow-hidden"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        className="md:hidden bg-brand-900 border-t border-white/5 absolute top-[calc(100%+8px)] left-0 right-0 overflow-hidden rounded-md shadow-2xl"
                     >
                         <div className="flex flex-col p-6 gap-6">
                             {navLinks.map((item) => (
                                 <button
                                     key={item}
                                     onClick={() => scrollToSection(item.toLowerCase())}
-                                    className="text-white font-bold text-lg text-left"
+                                    className="text-white font-bold text-xl text-left tracking-tight pb-4 border-b border-white/5"
                                 >
                                     {item}
                                 </button>
                             ))}
+                            <button
+                                onClick={() => navigate('/login')}
+                                className="w-full py-4 bg-white text-brand-900 rounded-md text-lg font-bold shadow-lg"
+                            >
+                                Let's talk
+                            </button>
                         </div>
                     </motion.div>
                 )}
