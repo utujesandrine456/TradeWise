@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Signupimage from '../assets/Login.jpg';
-import images from '../utils/images';
-import { EyeOff, Eye, Sparkles, ArrowRight, ArrowLeft, Moon, Sun } from 'lucide-react';
+import { EyeOff, Eye, ArrowRight, ArrowLeft, TrendingUp, BarChart2, DollarSign } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,187 +11,164 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      navigate('/dashboard');
-    }
+    if (user) navigate('/dashboard');
   }, [user, navigate]);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!formData.email || !formData.password) {
-      toast.error('Please Fill All Fields');
+      toast.error('Please fill all fields');
       return;
     }
-
     setIsLoggingIn(true);
     try {
       await login(formData);
-      toast.success("Welcome Back! You're Logged In.");
+      toast.success("Welcome back!");
       setTimeout(() => navigate('/dashboard'), 1500);
     } catch (error) {
-      const message = error?.response?.data?.message || error.message || 'Login Failed';
+      const message = error?.response?.data?.message || error.message || 'Login failed';
       toast.error(message);
-      console.error("Login error: ", error);
     } finally {
       setIsLoggingIn(false);
     }
   };
 
   return (
-    <div className={`${dark ? 'dark' : ''}`}>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick pauseOnHover draggable theme="colored" />
-      <div className="min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-white to-brand-50 dark:from-[#0B0B10] dark:to-[#0B0B10] p-4 relative">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("${images.Login || Signupimage}")`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            filter: 'blur(12px) brightness(0.9)',
-          }}
-        ></div>
+    <div className="min-h-screen flex overflow-hidden bg-[#181A1E]">
+      <ToastContainer position="top-right" autoClose={3000} theme="colored" />
 
-        <div className="z-10 fixed top-4 left-4 sm:top-5 sm:left-5 flex items-center gap-2">
-          <button
-            onClick={() => navigate('/')}
-            aria-label="Back to home"
-            className="p-2 rounded-md bg-white/80 dark:bg-#09111E/40 backdrop-blur border border-white/40 dark:border-white/10 shadow-soft hover:shadow-glow transition text-gray-700 dark:text-white"
-          >
-            <ArrowLeft size={18} />
-          </button>
+      {/* Left Panel — Decorative */}
+      <div className="hidden lg:flex lg:w-1/2 relative flex-col justify-between p-16 overflow-hidden">
+        {/* Diamond lattice bg */}
+        <div className="absolute inset-0 bg-[#09111E]">
+          <svg className="absolute inset-0 w-full h-full">
+            <defs>
+              <pattern id="diamondLogin" x="0" y="0" width="72" height="72" patternUnits="userSpaceOnUse">
+                <path d="M36 2 L70 36 L36 70 L2 36 Z" fill="none" stroke="rgba(102,124,155,0.25)" strokeWidth="1.2" />
+                <path d="M36 14 L58 36 L36 58 L14 36 Z" fill="none" stroke="rgba(102,124,155,0.1)" strokeWidth="0.8" />
+              </pattern>
+            </defs>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#diamondLogin)" />
+          </svg>
+        </div>
+        {/* Subtle warm glow for brand accent */}
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-[150px] pointer-events-none" />
+
+        <div className="relative z-10">
+          <h1 className="text-white font-black text-5xl tracking-tight">Stocka</h1>
         </div>
 
+        <div className="relative z-10 space-y-10">
+          <div>
+            <h2 className="text-white font-black text-4xl leading-tight mb-4">
+              Master Your<br /><span className="text-orange-400">Trading Performance.</span>
+            </h2>
+            <p className="text-white/40 font-medium text-lg leading-relaxed max-w-sm">
+              Track every transaction, monitor cash flow, and unlock weekly profit/loss insights with precision.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-5">
+            {[
+              { icon: <TrendingUp size={20} />, label: 'Real-time profit tracking' },
+              { icon: <BarChart2 size={20} />, label: 'Weekly performance analytics' },
+              { icon: <DollarSign size={20} />, label: 'Inflow & outflow control' },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center text-orange-400 flex-shrink-0">
+                  {item.icon}
+                </div>
+                <span className="text-white/60 font-semibold">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative z-10 text-white/20 text-sm font-semibold">
+          © {new Date().getFullYear()} Stocka. All rights reserved.
+        </div>
+      </div>
+
+      {/* Right Panel — Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10 bg-white relative">
+        {/* Back button */}
         <button
-          onClick={() => setDark(!dark)}
-          aria-label="Toggle theme"
-          className="z-10 fixed top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-md bg-white/70 dark:bg-#09111E/40 backdrop-blur border border-white/30 dark:border-white/10 shadow-soft hover:shadow-glow transition"
+          onClick={() => navigate('/')}
+          className="absolute top-6 left-6 flex items-center gap-2 text-brand-600/50 hover:text-brand-600 font-semibold text-sm transition-colors"
         >
-          {dark ? <Sun size={18} className="text-amber-300" /> : <Moon size={18} className="text-gray-700" />}
+          <ArrowLeft size={16} /> Back
         </button>
 
-        <div className="relative flex flex-col lg:flex-row w-full max-w-6xl min-h-[85vh] lg:h-[90vh] rounded-md shadow-2xl overflow-hidden bg-white/80 dark:bg-white/5 backdrop-blur-xl border border-white/30 dark:border-white/10">
-          {/* Form Section */}
-          <div className="w-full lg:w-1/2 relative flex flex-col items-center justify-center p-6 sm:p-8 lg:p-10 bg-gradient-to-b from-white/90 to-brand-50/60 dark:from-white/[0.06] dark:to-white/[0.02] border-r border-white/20">
-            <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-20 h-20 bg-brand-500/10 rounded-md -mr-10 animate-float hidden lg:block"></div>
-
-            <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col gap-4 sm:gap-6">
-              <div className="text-center space-y-2 py-1">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-white/90 text-xs sm:text-sm">
-                  <Sparkles size={14} className="sm:w-4 sm:h-4" /> Make Yourself At Home
-                </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-900">
-                  Welcome Back
-                </h2>
-                <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm">
-                  Trade Smarter. Login And Let's Get You Glowing.
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-200 flex items-center gap-2">
-                    Business Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Enter Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-brand-100 dark:border-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent transition-all duration-300 text-sm bg-white/80 dark:bg-white/5 dark:text-white"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="password" className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-200 flex items-center gap-2">
-                    Password
-                  </label>
-                  <div className="relative">
-                    <input
-                      type={showPassword ? 'text' : 'password'}
-                      id="password"
-                      name="password"
-                      placeholder="Enter Your Password"
-                      value={formData.password}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 pr-12 border border-brand-100 dark:border-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent transition-all duration-300 text-sm bg-white/80 dark:bg-white/5 dark:text-white"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-brand-500 transition-colors duration-200"
-                    >
-                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={isLoggingIn}
-                className="w-full py-2.5 sm:py-3 px-4 mt-2 bg-brand-500 text-white font-semibold rounded-md hover:bg-brand-600 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98] text-sm sm:text-base"
-              >
-                {isLoggingIn ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-md animate-spin"></div>
-                    Signing In...
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-2">
-                    Sign In <ArrowRight size={18} />
-                  </span>
-                )}
-              </button>
-
-              <div className="grid grid-cols-3 items-center gap-3 mt-1">
-                <div className="h-[1px] bg-gray-200 dark:bg-white/10"></div>
-                <div className="text-xs text-gray-400 text-center">or join with</div>
-                <div className="h-[1px] bg-gray-200 dark:bg-white/10"></div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 pb-2">
-                <button type="button" className="py-2.5 rounded-md bg-white/80 dark:bg-white/5 border border-brand-100 dark:border-white/10 text-gray-700 dark:text-white hover:shadow-soft transition text-sm">Google</button>
-                <button type="button" className="py-2.5 rounded-md bg-white/80 dark:bg-white/5 border border-brand-100 dark:border-white/10 text-gray-700 dark:text-white hover:shadow-soft transition text-sm">Apple</button>
-              </div>
-
-              <p className="text-center text-xs sm:text-sm text-gray-500 dark:text-gray-300">
-                Don't Have An Account?{' '}
-                <Link to="/signup" className="text-black font-bold underline hover:text-brand-600 transition-colors">
-                  Sign Up
-                </Link>
-              </p>
-            </form>
-          </div>
-
-          {/* Image Section */}
-          <div className="hidden lg:block lg:w-1/2 relative overflow-hidden">
-            <img
-              src={images.Login || Signupimage}
-              alt="Creative login illustration"
-              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-            <div className="absolute bottom-10 left-10 text-white space-y-2">
-              <h3 className="text-2xl font-bold">Stocka</h3>
-              <p className="text-sm opacity-80 max-w-xs">Log in to access your trading dashboard and manage your portfolio with ease.</p>
+        <div className="w-full max-w-md">
+          <div className="mb-10">
+            <div className="inline-block px-3 py-1 rounded-md bg-brand-50 border border-brand-100 text-brand-500 text-xs font-bold mb-5">
+              Welcome back
             </div>
+            <h2 className="text-4xl font-black text-brand-600 mb-2 leading-tight">Sign in to<br />your account</h2>
+            <p className="text-brand-600/40 font-medium">Enter your credentials to continue.</p>
           </div>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="space-y-2">
+              <label className="text-sm font-bold text-brand-600/70 pl-1">Business Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="name@company.com"
+                required
+                className="w-full px-5 py-4 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-brand-600 placeholder:text-brand-600/30"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-bold text-brand-600/70 pl-1">Password</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Enter your password"
+                  required
+                  className="w-full px-5 py-4 pr-14 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-brand-600 placeholder:text-brand-600/30"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-600/30 hover:text-brand-600 transition-colors"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoggingIn}
+              className="w-full py-4 bg-brand-600 text-white rounded-md font-bold text-sm hover:bg-brand-700 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 mt-2"
+            >
+              {isLoggingIn ? (
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : (
+                <> Sign In <ArrowRight size={18} /> </>
+              )}
+            </button>
+          </form>
+
+          <p className="text-center text-sm text-brand-600/40 font-medium mt-8">
+            Don't have an account?{' '}
+            <Link to="/signup" className="text-brand-600 font-bold hover:underline">
+              Create one
+            </Link>
+          </p>
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import images from '../utils/images';
-import { FaUser, FaRegCommentDots, FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ArrowRight, Quote, Star, Mail, Phone, Clock, MessageCircle } from "lucide-react";
+import { ChevronRight, ArrowRight, Star, Mail, Phone, Clock, MessageCircle, Send } from "lucide-react";
 import { Typewriter } from 'react-simple-typewriter';
 import backendApi from '../utils/axiosInstance';
 import { toast } from '../utils/toast';
@@ -185,15 +185,22 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="text-brand-900 bg-white selection:bg-brand-500 selection:text-white overflow-x-hidden">
+        <div className="text-brand-600 bg-white selection:bg-brand-500 selection:text-white overflow-x-hidden">
             <Header />
 
-            <div id="home" className="relative w-full min-h-screen bg-brand-900 overflow-hidden flex items-center pt-24 pb-12">
-                {/* Designed Background */}
-                <div className="absolute inset-0 bg-grid-pattern-dark opacity-10" />
-                <div className="absolute inset-0 bg-gradient-to-b from-brand-900 via-transparent to-brand-900" />
-                <div className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[120px] animate-pulse" />
-                <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-brand-400/5 rounded-full blur-[120px]" />
+            <div id="home" className="relative w-full min-h-screen overflow-hidden flex items-center pt-24 pb-12">
+                {/* Diamond Lattice Background — matches reference */}
+                <div className="absolute inset-0 bg-[#09111E] overflow-hidden pointer-events-none">
+                    <svg className="absolute inset-0 w-full h-full">
+                        <defs>
+                            <pattern id="diamondHero" x="0" y="0" width="72" height="72" patternUnits="userSpaceOnUse">
+                                <path d="M36 2 L70 36 L36 70 L2 36 Z" fill="none" stroke="rgba(102,124,155,0.25)" strokeWidth="1.2" />
+                                <path d="M36 14 L58 36 L36 58 L14 36 Z" fill="none" stroke="rgba(102,124,155,0.1)" strokeWidth="0.8" />
+                            </pattern>
+                        </defs>
+                        <rect x="0" y="0" width="100%" height="100%" fill="url(#diamondHero)" />
+                    </svg>
+                </div>
 
                 <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
                     <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
@@ -212,7 +219,7 @@ const Home = () => {
                             <div className="flex flex-wrap gap-6">
                                 <button
                                     onClick={() => navigate('/signup')}
-                                    className="px-6 py-4 bg-white text-brand-900 rounded-md font-semibold text-lg hover:bg-brand-600 transition-all shadow-glow active:scale-95 flex items-center gap-3"
+                                    className="px-6 py-4 bg-white text-brand-600 rounded-md font-semibold text-lg hover:bg-brand-600 transition-all shadow-glow active:scale-95 flex items-center gap-3"
                                 >
                                     Get Started <ArrowRight size={20} />
                                 </button>
@@ -226,18 +233,6 @@ const Home = () => {
                             transition={{ duration: 1.2, delay: 0.4 }}
                         >
                             <div className="relative group">
-                                {/* Decorative Floating Shapes */}
-                                <motion.div
-                                    animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
-                                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute -top-10 right-10 w-20 h-20 bg-brand-500/10 border border-white/10 rounded-2xl backdrop-blur-3xl hidden lg:block"
-                                />
-                                <motion.div
-                                    animate={{ y: [0, 15, 0], rotate: [0, -5, 0] }}
-                                    transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                    className="absolute -bottom-10 left-10 w-16 h-16 bg-white/5 border border-white/10 rounded-xl backdrop-blur-3xl hidden lg:block"
-                                />
-
                                 <motion.div
                                     animate={{ y: [0, -20, 0] }}
                                     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -249,7 +244,7 @@ const Home = () => {
                                             alt="Dashboard Mockup"
                                             className="w-full h-auto grayscale-[0.2] brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-tr from-brand-900/40 to-transparent" />
+                                        <div className="absolute inset-0 bg-gradient-to-tr from-brand-600/40 to-transparent" />
                                     </div>
 
                                     <motion.div
@@ -279,22 +274,22 @@ const Home = () => {
                             <div className="inline-block px-4 py-1.5 rounded-md bg-brand-50 text-brand-500 font-bold text-sm mb-8 border border-brand-100">
                                 Trade Analytics
                             </div>
-                            <h2 className="text-4xl lg:text-7xl font-black text-brand-900 mb-8 leading-tight">
+                            <h2 className="text-4xl lg:text-7xl font-black text-brand-600 mb-8 leading-tight">
                                 Complete clarity on your <br />
                                 <span className="text-brand-500">trade capital.</span>
                             </h2>
-                            <p className="text-xl text-brand-900/60 leading-relaxed font-medium mb-12 max-w-xl">
+                            <p className="text-xl text-brand-600/60 leading-relaxed font-medium mb-12 max-w-xl">
                                 Stocka provides a high-fidelity environment for recording buy and sell transactions. Monitor every Frw of inflow and outflow to calculate your true weekly benefit.
                             </p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="p-6 bg-brand-50 cursor-pointer rounded-md border border-brand-100 group hover:bg-brand-900 transition-colors duration-500">
-                                    <h4 className="text-xl font-bold text-brand-900 mb-2 group-hover:text-white transition-colors">Inflow control</h4>
-                                    <p className="text-brand-900/50 group-hover:text-white/60 text-sm font-medium transition-colors">Track every credit and deposit to your trading account.</p>
+                                <div className="p-6 bg-brand-50 cursor-pointer rounded-md border border-brand-100 group hover:bg-brand-700 transition-colors duration-500">
+                                    <h4 className="text-xl font-bold text-brand-600 mb-2 group-hover:text-white transition-colors">Inflow control</h4>
+                                    <p className="text-brand-600/50 group-hover:text-white/60 text-sm font-medium transition-colors">Track every credit and deposit to your trading account.</p>
                                 </div>
-                                <div className="p-6 bg-brand-50 cursor-pointer rounded-md border border-brand-100 group hover:bg-brand-900 transition-colors duration-500">
-                                    <h4 className="text-xl font-bold text-brand-900 mb-2 group-hover:text-white transition-colors">Outflow tracking</h4>
-                                    <p className="text-brand-900/50 group-hover:text-white/60 text-sm font-medium transition-colors">Record expenses, debits, and procurement costs instantly.</p>
+                                <div className="p-6 bg-brand-50 cursor-pointer rounded-md border border-brand-100 group hover:bg-brand-700 transition-colors duration-500">
+                                    <h4 className="text-xl font-bold text-brand-600 mb-2 group-hover:text-white transition-colors">Outflow tracking</h4>
+                                    <p className="text-brand-600/50 group-hover:text-white/60 text-sm font-medium transition-colors">Record expenses, debits, and procurement costs instantly.</p>
                                 </div>
                             </div>
                         </motion.div>
@@ -305,7 +300,7 @@ const Home = () => {
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                         >
-                            <div className="relative z-10 bg-brand-900 p-8 rounded-md shadow-2xl border border-white/5">
+                            <div className="relative z-10 bg-brand-500 p-8 rounded-md shadow-2xl border border-white/5">
                                 <div className="mb-8 flex items-center justify-between">
                                     <h4 className="text-white font-bold text-lg">Weekly performance</h4>
                                     <div className="flex gap-1">
@@ -349,7 +344,7 @@ const Home = () => {
                         <div className="inline-block px-4 py-1.5 rounded-md bg-brand-500/10 border border-brand-500/20 text-brand-600 font-bold text-sm mb-6">
                             Financial Ecosystem
                         </div>
-                        <h2 className="text-4xl lg:text-7xl font-black text-brand-900 leading-tight">
+                        <h2 className="text-4xl lg:text-7xl font-black text-brand-600 leading-tight">
                             Track every coin <br />
                             <span className="text-brand-500">with ease.</span>
                         </h2>
@@ -369,13 +364,13 @@ const Home = () => {
                                 transition={{ delay: index * 0.1 }}
                                 className="p-10 bg-white rounded-md border border-brand-100/50 shadow-sm hover:shadow-xl cursor-pointer hover:border-brand-500 transition-all duration-500 group"
                             >
-                                <div className="w-16 h-16 bg-brand-50 rounded-md flex items-center justify-center text-brand-500 mb-8 group-hover:bg-brand-900 group-hover:text-white transition-all duration-500">
+                                <div className="w-16 h-16 bg-brand-50 rounded-md flex items-center justify-center text-brand-500 mb-8 group-hover:bg-brand-700 group-hover:text-white transition-all duration-500">
                                     {service.icon}
                                 </div>
-                                <h3 className="text-xl font-bold text-brand-900 mb-4 tracking-tight">
+                                <h3 className="text-xl font-bold text-brand-600 mb-4 tracking-tight">
                                     {service.title}
                                 </h3>
-                                <p className="text-brand-900/50 leading-relaxed font-semibold">
+                                <p className="text-brand-600/50 leading-relaxed font-semibold">
                                     {service.desc}
                                 </p>
                             </motion.div>
@@ -385,7 +380,7 @@ const Home = () => {
             </section>
 
             {/* Testimonials - Deep Contrast Background */}
-            <section className="relative py-20 bg-brand-900 overflow-hidden">
+            <section className="relative py-20 bg-brand-700 overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-px bg-white/5" />
 
                 <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
@@ -432,10 +427,10 @@ const Home = () => {
 
             <section id="contact" className="relative py-20 bg-white overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
-                    <div className="bg-brand-900 rounded-[3rem] overflow-hidden shadow-2xl relative">
+                    <div className="bg-brand-700 rounded-[3rem] overflow-hidden shadow-2xl relative">
 
                         <div className="flex flex-col lg:flex-row">
-                            <div className="lg:w-[45%] p-12 lg:p-20 relative z-10 bg-brand-950">
+                            <div className="lg:w-[45%] p-12 lg:p-20 relative z-10 bg-brand-600">
                                 <motion.div
                                     initial={{ opacity: 0, x: -30 }}
                                     whileInView={{ opacity: 1, x: 0 }}
@@ -454,7 +449,7 @@ const Home = () => {
                                     <div className="space-y-8">
                                         <div className="flex items-center gap-6 group">
                                             <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-brand-50 group-hover:border-white transition-all duration-500">
-                                                <Mail className="text-white group-hover:text-brand-900" size={24} />
+                                                <Mail className="text-white group-hover:text-brand-600" size={24} />
                                             </div>
                                             <div>
                                                 <div className="text-white font-bold">Email Inquiry</div>
@@ -463,7 +458,7 @@ const Home = () => {
                                         </div>
                                         <div className="flex items-center gap-6 group">
                                             <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-brand-50 group-hover:border-white transition-all duration-500">
-                                                <Phone className="text-white group-hover:text-brand-900" size={24} />
+                                                <Phone className="text-white group-hover:text-brand-600" size={24} />
                                             </div>
                                             <div>
                                                 <div className="text-white font-bold">Phone Number</div>
@@ -487,7 +482,7 @@ const Home = () => {
                                     <form onSubmit={handleContactUs} className="space-y-8">
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                             <div className="space-y-3">
-                                                <label className="text-brand-900 font-bold text-sm pl-1">Full Name</label>
+                                                <label className="text-brand-600 font-bold text-sm pl-1">Full Name</label>
                                                 <div className="relative group">
                                                     <input
                                                         type="text"
@@ -495,14 +490,14 @@ const Home = () => {
                                                         value={contactUsData.name}
                                                         onChange={handleContactUsDataChange}
                                                         placeholder="Enter your name"
-                                                        className="w-full px-6 py-5 bg-brand-50 border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all font-medium text-brand-950 placeholder:text-brand-900/40"
+                                                        className="w-full px-6 py-5 bg-brand-50 border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all font-medium text-brand-650 placeholder:text-brand-600/40"
                                                         required
                                                     />
                                                     <FaUser className="absolute right-6 top-1/2 -translate-y-1/2 text-brand-200 group-focus-within:text-brand-500 transition-colors" />
                                                 </div>
                                             </div>
                                             <div className="space-y-3">
-                                                <label className="text-brand-900 font-bold text-sm pl-1">Business Email</label>
+                                                <label className="text-brand-600 font-bold text-sm pl-1">Business Email</label>
                                                 <div className="relative group">
                                                     <input
                                                         type="email"
@@ -510,7 +505,7 @@ const Home = () => {
                                                         value={contactUsData.email}
                                                         onChange={handleContactUsDataChange}
                                                         placeholder="name@company.com"
-                                                        className="w-full px-6 py-5 bg-brand-50 border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all font-medium text-brand-950 placeholder:text-brand-900/40"
+                                                        className="w-full px-6 py-5 bg-brand-50 border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all font-medium text-brand-650 placeholder:text-brand-600/40"
                                                         required
                                                     />
                                                     <Mail className="absolute right-6 top-1/2 -translate-y-1/2 text-brand-200 group-focus-within:text-brand-500 transition-colors" size={20} />
@@ -519,7 +514,7 @@ const Home = () => {
                                         </div>
 
                                         <div className="space-y-3">
-                                            <label className="text-brand-900 font-bold text-sm pl-1">Inquiry Details</label>
+                                            <label className="text-brand-600 font-bold text-sm pl-1">Inquiry Details</label>
                                             <div className="relative group">
                                                 <textarea
                                                     name="message"
@@ -527,7 +522,7 @@ const Home = () => {
                                                     onChange={handleContactUsDataChange}
                                                     placeholder="Tell us about your requirements..."
                                                     rows={4}
-                                                    className="w-full px-6 py-5 bg-brand-50 border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all font-medium text-brand-950 placeholder:text-brand-900/40 resize-none"
+                                                    className="w-full px-6 py-5 bg-brand-50 border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all font-medium text-brand-650 placeholder:text-brand-600/40 resize-none"
                                                     required
                                                 />
                                                 <MessageCircle className="absolute right-6 bottom-6 text-brand-200 group-focus-within:text-brand-500 transition-colors" size={20} />
@@ -537,9 +532,9 @@ const Home = () => {
                                         <button
                                             type="submit"
                                             disabled={sending}
-                                            className="w-full py-6 bg-brand-900 text-white rounded-2xl font-black text-lg hover:bg-brand-800 transition-all shadow-glow active:scale-95 flex items-center justify-center gap-4 disabled:opacity-50"
+                                            className="w-fit px-8 py-4 text-center justify-center items-center bg-brand-600 text-white rounded-lg font-bold text-lg hover:bg-brand-600 transition-all shadow-glow active:scale-95 flex gap-4 disabled:opacity-50"
                                         >
-                                            {sending ? <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-md animate-spin" /> : <>Transmit Message <ArrowRight size={22} /></>}
+                                            {sending ? <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-md animate-spin" /> : <>Transmit Message <Send size={22} /></>}
                                         </button>
                                     </form>
                                 </motion.div>
@@ -558,7 +553,7 @@ const Home = () => {
                     >
                         Common Questions
                     </motion.div>
-                    <h2 className="text-4xl lg:text-6xl font-black text-brand-900 mb-6">
+                    <h2 className="text-4xl lg:text-6xl font-black text-brand-600 mb-6">
                         Frequently Asked <br />
                         <span className="text-brand-500">Questions.</span>
                     </h2>

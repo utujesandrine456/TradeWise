@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Loginimage from '../assets/Login.jpg';
-import images from '../utils/images';
-import { Eye, EyeOff, Sparkles, ArrowRight, ArrowLeft, Moon, Sun } from 'lucide-react';
+import { Eye, EyeOff, ArrowRight, ArrowLeft, TrendingUp, BarChart2, DollarSign } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,12 +13,9 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSigningUp, setIsSigningUp] = useState(false);
-  const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      navigate('/dashboard');
-    }
+    if (user) navigate('/dashboard');
   }, [user, navigate]);
 
   const handleChange = (e) => {
@@ -34,36 +29,29 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!document.getElementById('agree')?.checked) {
-      toast.error("Please Agree To The Terms And Conditions");
+      toast.error("Please agree to the Terms and Conditions");
       return;
     }
-
     if (formData.password !== confirmPassword) {
-      toast.error("Passwords Do Not Match");
+      toast.error("Passwords do not match");
       return;
     }
-
     if (formData.password.length < 6) {
-      toast.error('Password Must Be At Least 6 Characters Long');
+      toast.error('Password must be at least 6 characters');
       return;
     }
-
     setIsSigningUp(true);
     try {
       await signup(formData);
-      toast.success('Account Created Successfully! Please Check Your Email For Verification.');
-
+      toast.success('Account created! Please check your email.');
       localStorage.setItem('pendingVerification', JSON.stringify({
         email: formData.email,
         enterpriseName: formData.enterpriseName,
       }));
-
       setTimeout(() => navigate('/verify-email'), 2000);
     } catch (err) {
-      console.error('Signup error:', err);
-      const message = err?.response?.data?.message || err.message || 'Registration Failed. Try Again.';
+      const message = err?.response?.data?.message || err.message || 'Registration failed.';
       toast.error(message);
     } finally {
       setIsSigningUp(false);
@@ -71,188 +59,173 @@ const Signup = () => {
   };
 
   return (
-    <div className={`${dark ? 'dark' : ''}`}>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick pauseOnHover draggable theme="colored" />
-      <div className="min-h-screen flex items-center justify-center overflow-hidden relative bg-gradient-to-b from-white to-brand-50 dark:from-[#0B0B10] dark:to-[#0B0B10] p-4">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("${images.Login || Loginimage}")`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'blur(12px) brightness(0.9)',
-          }}
-        ></div>
+    <div className="min-h-screen flex overflow-hidden bg-[#181A1E]">
+      <ToastContainer position="top-right" autoClose={3000} theme="colored" />
 
-        <div className="z-10 fixed top-4 left-4 sm:top-5 sm:left-5 flex items-center gap-2">
-          <button
-            onClick={() => navigate('/')}
-            aria-label="Back to home"
-            className="p-2 rounded-md bg-white/80 dark:bg-#09111E/40 backdrop-blur border border-white/40 dark:border-white/10 shadow-soft hover:shadow-glow transition text-gray-700 dark:text-white"
-          >
-            <ArrowLeft size={18} />
-          </button>
+      {/* Left Panel — Decorative */}
+      <div className="hidden lg:flex lg:w-1/2 relative flex-col justify-between p-16 overflow-hidden">
+        {/* Diamond lattice bg */}
+        <div className="absolute inset-0 bg-[#09111E]">
+          <svg className="absolute inset-0 w-full h-full">
+            <defs>
+              <pattern id="diamondSignup" x="0" y="0" width="72" height="72" patternUnits="userSpaceOnUse">
+                <path d="M36 2 L70 36 L36 70 L2 36 Z" fill="none" stroke="rgba(102,124,155,0.25)" strokeWidth="1.2" />
+                <path d="M36 14 L58 36 L36 58 L14 36 Z" fill="none" stroke="rgba(102,124,155,0.1)" strokeWidth="0.8" />
+              </pattern>
+            </defs>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#diamondSignup)" />
+          </svg>
+        </div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-[150px] pointer-events-none" />
+
+        <div className="relative z-10">
+          <h1 className="text-white font-black text-5xl tracking-tight">Stocka</h1>
         </div>
 
+        <div className="relative z-10 space-y-10">
+          <div>
+            <h2 className="text-white font-black text-4xl leading-tight mb-4">
+              Start Trading<br /><span className="text-orange-400">With Clarity.</span>
+            </h2>
+            <p className="text-white/40 font-medium text-lg leading-relaxed max-w-sm">
+              Create your account and gain full control over your financial transactions in minutes.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-5">
+            {[
+              { icon: <TrendingUp size={20} />, label: 'Real-time profit tracking' },
+              { icon: <BarChart2 size={20} />, label: 'Weekly performance analytics' },
+              { icon: <DollarSign size={20} />, label: 'Inflow & outflow control' },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center text-orange-400 flex-shrink-0">
+                  {item.icon}
+                </div>
+                <span className="text-white/60 font-semibold">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative z-10 text-white/20 text-sm font-semibold">
+          © {new Date().getFullYear()} Stocka. All rights reserved.
+        </div>
+      </div>
+
+      {/* Right Panel — Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10 bg-white relative overflow-y-auto">
         <button
-          onClick={() => setDark(!dark)}
-          aria-label="Toggle theme"
-          className="z-10 fixed top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-md bg-white/70 dark:bg-#09111E/40 backdrop-blur border border-white/30 dark:border-white/10 shadow-soft hover:shadow-glow transition"
+          onClick={() => navigate('/')}
+          className="absolute top-6 left-6 flex items-center gap-2 text-brand-600/50 hover:text-brand-600 font-semibold text-sm transition-colors"
         >
-          {dark ? <Sun size={18} className="text-amber-300" /> : <Moon size={18} className="text-gray-700" />}
+          <ArrowLeft size={16} /> Back
         </button>
 
-        <div className="relative flex flex-col lg:flex-row w-full max-w-6xl min-h-[85vh] lg:h-[90vh] rounded-md shadow-2xl overflow-hidden bg-white/80 dark:bg-white/5 backdrop-blur-xl border border-white/30 dark:border-white/10">
-          {/* Form Section */}
-          <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 sm:p-8 lg:p-10 bg-gradient-to-b from-white/90 to-brand-50/60 dark:from-white/[0.06] dark:to-white/[0.02] relative border-r border-white/20">
-            <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col gap-4 sm:gap-6">
-              <div className="text-center space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-100 text-brand-700 dark:bg-white/10 dark:text-white/90 text-xs sm:text-sm">
-                  <Sparkles size={14} className="sm:w-4 sm:h-4" /> Let's Build Something Brilliant
-                </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-900">
-                  Create Your Account
-                </h2>
-                <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm">
-                  A Few Details And You're In.
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-200">Enterprise Name</label>
-                  <input
-                    type="text"
-                    name="enterpriseName"
-                    placeholder="Enterprise Name"
-                    required
-                    value={formData.enterpriseName}
-                    onChange={handleChange}
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-brand-100 dark:border-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent text-sm bg-white/80 dark:bg-white/5 dark:text-white"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-200">Business Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-brand-100 dark:border-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent text-sm bg-white/80 dark:bg-white/5 dark:text-white"
-                  />
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="space-y-2 flex-1">
-                    <label className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-200">Password</label>
-                    <div className="relative">
-                      <input
-                        type={showPassword ? 'text' : 'password'}
-                        name="password"
-                        placeholder="Password"
-                        required
-                        value={formData.password}
-                        onChange={handleChange}
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 pr-10 border border-brand-100 dark:border-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent text-sm bg-white/80 dark:bg-white/5 dark:text-white"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-brand-500"
-                      >
-                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2 flex-1">
-                    <label className="text-sm sm:text-md font-medium text-gray-700 dark:text-gray-200">Confirm</label>
-                    <div className="relative">
-                      <input
-                        type={showConfirmPassword ? 'text' : 'password'}
-                        name="confirmPassword"
-                        placeholder="Confirm"
-                        required
-                        value={confirmPassword}
-                        onChange={handleChange}
-                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 pr-10 border border-brand-100 dark:border-white/10 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-transparent text-sm bg-white/80 dark:bg-white/5 dark:text-white"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-brand-500"
-                      >
-                        {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 pt-2">
-                  <input
-                    type="checkbox"
-                    id="agree"
-                    className="w-4 h-4 rounded border-gray-300 accent-brand-500 focus:ring-brand-500/40"
-                  />
-                  <label htmlFor="agree" className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 cursor-pointer select-none font-medium">
-                    I Agree To The <span className="text-black font-bold underline">Terms And Conditions</span>
-                  </label>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSigningUp}
-                className="w-full py-2.5 sm:py-3 mt-1 bg-brand-500 text-white font-semibold rounded-md hover:bg-brand-600 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98] text-sm sm:text-base"
-              >
-                {isSigningUp ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-md animate-spin"></div>
-                    Creating Account...
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-2">
-                    Create Account <ArrowRight size={18} />
-                  </span>
-                )}
-              </button>
-
-              <div className="grid grid-cols-3 items-center gap-3 mt-1">
-                <div className="h-[1px] bg-gray-200 dark:bg-white/10"></div>
-                <div className="text-xs text-gray-400 text-center">or join with</div>
-                <div className="h-[1px] bg-gray-200 dark:bg-white/10"></div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 pb-2">
-                <button type="button" className="py-2.5 rounded-md bg-white/80 dark:bg-white/5 border border-brand-100 dark:border-white/10 text-gray-700 dark:text-white hover:shadow-soft transition text-sm">Google</button>
-                <button type="button" className="py-2.5 rounded-md bg-white/80 dark:bg-white/5 border border-brand-100 dark:border-white/10 text-gray-700 dark:text-white hover:shadow-soft transition text-sm">Apple</button>
-              </div>
-
-              <p className="text-center text-xs sm:text-sm text-gray-500 dark:text-gray-300">
-                Already Have An Account?{' '}
-                <Link to="/login" className="text-black font-bold underline hover:text-brand-600 transition-colors">
-                  Login
-                </Link>
-              </p>
-            </form>
-          </div>
-
-          {/* Image Section */}
-          <div className="hidden lg:block lg:w-1/2 relative overflow-hidden">
-            <img
-              src={images.Login || Loginimage}
-              alt="Signup illustration"
-              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-            <div className="absolute bottom-10 left-10 text-white space-y-2">
-              <h3 className="text-2xl font-bold">Stocka</h3>
-              <p className="text-sm opacity-80 max-w-xs">Your personal trading companion for smarter, faster, and better outcomes.</p>
+        <div className="w-full max-w-md py-16 lg:py-0">
+          <div className="mb-10">
+            <div className="inline-block px-3 py-1 rounded-md bg-brand-50 border border-brand-100 text-brand-500 text-xs font-bold mb-5">
+              New account
             </div>
+            <h2 className="text-4xl font-black text-brand-600 mb-2 leading-tight">Create your<br />account</h2>
+            <p className="text-brand-600/40 font-medium">Start tracking your trades today.</p>
           </div>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="space-y-2">
+              <label className="text-sm font-bold text-brand-600/70 pl-1">Enterprise Name</label>
+              <input
+                type="text"
+                name="enterpriseName"
+                value={formData.enterpriseName}
+                onChange={handleChange}
+                placeholder="Your business name"
+                required
+                className="w-full px-5 py-4 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-brand-600 placeholder:text-brand-600/30"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-bold text-brand-600/70 pl-1">Business Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="name@company.com"
+                required
+                className="w-full px-5 py-4 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-brand-600 placeholder:text-brand-600/30"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-brand-600/70 pl-1">Password</label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Min 6 chars"
+                    required
+                    className="w-full px-4 py-4 pr-12 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-brand-600 placeholder:text-brand-600/30"
+                  />
+                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-600/30 hover:text-brand-600 transition-colors">
+                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-brand-600/70 pl-1">Confirm</label>
+                <div className="relative">
+                  <input
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    name="confirmPassword"
+                    value={confirmPassword}
+                    onChange={handleChange}
+                    placeholder="Repeat password"
+                    required
+                    className="w-full px-4 py-4 pr-12 bg-brand-50 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm font-medium text-brand-600 placeholder:text-brand-600/30"
+                  />
+                  <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-600/30 hover:text-brand-600 transition-colors">
+                    {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 pt-1">
+              <input
+                type="checkbox"
+                id="agree"
+                className="w-4 h-4 rounded border-brand-200 accent-brand-900 focus:ring-brand-500/40 cursor-pointer"
+              />
+              <label htmlFor="agree" className="text-sm text-brand-600/50 cursor-pointer font-medium select-none">
+                I agree to the <span className="text-brand-600 font-bold underline">Terms and Conditions</span>
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSigningUp}
+              className="w-full py-4 bg-brand-600 text-white rounded-md font-bold text-sm hover:bg-brand-700 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 mt-2"
+            >
+              {isSigningUp ? (
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : (
+                <> Create Account <ArrowRight size={18} /> </>
+              )}
+            </button>
+          </form>
+
+          <p className="text-center text-sm text-brand-600/40 font-medium mt-8">
+            Already have an account?{' '}
+            <Link to="/login" className="text-brand-600 font-bold hover:underline">
+              Sign in
+            </Link>
+          </p>
         </div>
       </div>
     </div>
