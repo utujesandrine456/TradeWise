@@ -117,6 +117,32 @@ html {
   color: #09111E;
 }
 
+/* Global Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 10px;
+  background: #f8fafc;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #09111E;
+  border-radius: 5px;
+  border: 2px solid #f8fafc;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1a2a44;
+}
+
+/* Firefox support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #09111E #f8fafc;
+}
+
 /* Ensure all elements inherit Urbanist */
 h1,
 h2,
