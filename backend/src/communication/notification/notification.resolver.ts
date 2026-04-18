@@ -1,5 +1,4 @@
 import { UseGuards } from '@nestjs/common';
-<<<<<<< HEAD
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { ProtectedRouteGuard } from 'src/custom/guards/protected-route/protected-route.guard';
 import { Notification2Service } from './notification2.service';
@@ -64,16 +63,4 @@ export class NotificationResolver {
         return true;
     }
     
-=======
-import { Resolver } from '@nestjs/graphql';
-import { ProtectedRouteGuard } from 'src/custom/guards/protected-route/protected-route.guard';
-import { Notification2Service } from './notification2.service';
-
-@UseGuards(ProtectedRouteGuard)
-@Resolver()
-export class NotificationResolver {
-    public constructor(
-        private readonly notification2Service: Notification2Service
-    ) {}
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 }

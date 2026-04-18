@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 {
   "compilerOptions": {
-    // "ignoreDeprecations": "6.0",
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -21,27 +19,3 @@
     "baseUrl": "./"
   }
 }
-=======
-{
-  "compilerOptions": {
-    // "ignoreDeprecations": "6.0",
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "ES2023",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false,
-    "baseUrl": "./"
-  }
-}
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68

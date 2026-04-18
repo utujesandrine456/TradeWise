@@ -6,7 +6,8 @@ import images from '../utils/images';
 import styles from './Home.module.css';
 import { Trash2, RotateCcw } from 'lucide-react';
 
-const Form = () => {
+
+const SalesForm = () => {
   const [trades, setTrades] = useState([]);
   const [draft, setDraft] = useState({ buyingPrice: '', sellingPrice: '', quantity: '' });
   const clearAll = () => setTrades([]);
@@ -256,4 +257,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default SalesForm;

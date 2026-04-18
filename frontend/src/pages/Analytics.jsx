@@ -4,11 +4,10 @@ import { STOCK_ANALYSIS } from '../graphql/queries';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 
 const Analytics = () => {
-  // Start/End are optional for total analysis
   const { data } = useQuery(STOCK_ANALYSIS, {
     variables: { start: null, end: null },
     fetchPolicy: 'cache-and-network',
-    pollInterval: 10000 // Poll every 10 seconds for real-time updates
+    pollInterval: 10000
   });
 
   const charts = useMemo(() => {

@@ -35,7 +35,6 @@ enum ENNotificationImpact {
   Medium
 }
 
-<<<<<<< HEAD
 enum ENNotificationTimeFilters {
   Old
   Read
@@ -43,15 +42,12 @@ enum ENNotificationTimeFilters {
   Unread
 }
 
-=======
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 enum ENTransactionType {
   Purchase
   Sale
 }
 
 enum EPaymentMethod {
-<<<<<<< HEAD
   Bank_Transfer
   Cash
   Check
@@ -60,13 +56,6 @@ enum EPaymentMethod {
   Debit_Card
   Mobile_Money
   PayPal
-=======
-  BankTransfer
-  Cash
-  CreditCard
-  MobileMoney
-  Other
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 }
 
 enum EUnitType {
@@ -88,7 +77,6 @@ input GqlFinancialCreateInput {
   type: ENFinancialType!
 }
 
-<<<<<<< HEAD
 input GqlFinancialUpdateInput {
   amount: Float
   collateral: String
@@ -102,8 +90,6 @@ input GqlStockImageInput {
   unit: String!
 }
 
-=======
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 input GqlTransactionCreateProductInput {
   brand: String
   name: String!
@@ -191,13 +177,9 @@ type MGqlStock {
 type MGqlStockImage {
   createdAt: DateTime!
   id: String!
-<<<<<<< HEAD
   low_stock_quantity: Float!
   name: String!
   quantity: Float!
-=======
-  name: String!
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   stock: MGqlStock!
   stockId: String!
   unit: EUnitType!
@@ -228,41 +210,21 @@ type MGqlTraderSettings {
   businessType: String
   competitors: String
   createdAt: DateTime!
-<<<<<<< HEAD
   currency: String!
   description: String
   enterpriseDescription: String!
-=======
-  deleteSoldStockAfterEvaluationPeriod: Boolean!
-  description: String
-  enterpriseDescription: String!
-  evaluationPeriod: Float!
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   foundedYear: Float
   goals: String
   id: String!
   industry: String
-<<<<<<< HEAD
-=======
-  logoUrl: String!
-  logo_PublicId: String!
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   name: String!
   numberOfEmployees: Float
   paymentMethod: EPaymentMethod
   phoneNumber: String
-<<<<<<< HEAD
-=======
-  sendMessage: String!
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   targetMarket: String
   trader: MGqlTrader!
   traderId: String!
   updatedAt: DateTime!
-<<<<<<< HEAD
-=======
-  ussdCode: String!
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   website: String
 }
 
@@ -279,7 +241,6 @@ type MGqlTransaction {
   updatedAt: DateTime!
 }
 
-<<<<<<< HEAD
 type MGqlTransactionPagination {
   data: [MGqlTransaction!]!
   pagination: PaginationInfo!
@@ -307,15 +268,6 @@ type PaginationInfo {
   page: Int!
   total: Int!
   totalPages: Int!
-=======
-type Mutation {
-  createFinancial(amount: Float!, collateral: String, deadline: DateTime, description: String!, type: ENFinancialType!): MGqlFinancial!
-  createStockImage(name: String!, unit: EUnitType!): MGqlStockImage!
-  createTransaction(description: String!, financialDetails: GqlFinancialCreateInput, products: [GqlTransactionCreateProductInput!]!, secondParty: String!, type: ENTransactionType!): MGqlTransaction!
-  deleteStockImage(stockImageId: String!): MGqlStockImage!
-  markAsPaidBack(financialId: String!): MGqlFinancial!
-  updateStockImage(name: String, stockImageId: String!, unit: EUnitType): MGqlStockImage!
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 }
 
 type PeriodMap {
@@ -329,19 +281,12 @@ type ProductMap {
 }
 
 type Query {
-<<<<<<< HEAD
   getANotification(id: String!): MGqlNotification!
   getAllTransactions(fields: [String!], limit: Float, page: Float, type: ENTransactionType): MGqlTransactionPagination!
   getFinancial(financialId: String!): MGqlFinancial!
   getFinancials: [MGqlFinancial!]!
   getHello: String!
   getNotifications(filters: ENNotificationFilterType, timeFilters: ENNotificationTimeFilters): [MGqlNotification!]!
-=======
-  getAllTransactions(type: ENTransactionType): [MGqlTransaction!]!
-  getFinancial(financialId: String!): MGqlFinancial!
-  getFinancials: [MGqlFinancial!]!
-  getHello: String!
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
   getStock: MGqlStock
   getStockImage(id: String!): MGqlStockImage
   getStockImages: [MGqlStockImage!]

@@ -1,15 +1,11 @@
 import { useState, useEffect } from 'react';
 
-// Instagram-style progressive image loading utility
-
 export const addProgressiveLoading = (imgElement) => {
   if (!imgElement) return;
 
-  // Start with blur
   imgElement.classList.add('progressive-image');
   
   const handleLoad = () => {
-    // Remove blur when loaded
     imgElement.classList.add('loaded');
     imgElement.classList.add('image-fade-in');
   };
@@ -19,11 +15,9 @@ export const addProgressiveLoading = (imgElement) => {
     imgElement.classList.remove('progressive-image');
   };
 
-  // Add event listeners
   imgElement.addEventListener('load', handleLoad, { once: true });
   imgElement.addEventListener('error', handleError, { once: true });
 
-  // If image is already loaded
   if (imgElement.complete && imgElement.naturalHeight !== 0) {
     handleLoad();
   }
@@ -34,7 +28,6 @@ export const addProgressiveLoading = (imgElement) => {
   };
 };
 
-// React hook for progressive loading
 export const useProgressiveImage = (src) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);

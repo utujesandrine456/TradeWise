@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
@@ -6,12 +5,14 @@ import { Auth2Controller } from './auth2.controller';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ConfigModule } from '@nestjs/config';
 import { EmailModule } from 'src/communication/email/email.module';
-import { CurrencyModule } from 'src/custom/utils/currency.md';
+import { SmsModule } from 'src/communication/sms/sms.module';
+import { CurrencyModule } from 'src/custom/utils/currency.service';
 
 @Module({
     imports: [
         ConfigModule,
         EmailModule,
+        SmsModule,
         CurrencyModule
     ],
     controllers: [
@@ -19,41 +20,8 @@ import { CurrencyModule } from 'src/custom/utils/currency.md';
         Auth2Controller
     ],
     providers: [
-        AuthService, 
+        AuthService,
         PrismaService,
     ],
 })
-export class AuthModule {}
-=======
-import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-import { Auth2Controller } from './auth2.controller';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { ConfigModule } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
-import { EmailModule } from 'src/communication/email/email.module';
-import { CurrencyModule } from 'src/custom/utils/currency.md';
-
-@Module({
-    imports: [
-        ConfigModule,
-        JwtModule.register({
-            global: true,
-            secret: process.env.JWT_SECRET,
-            signOptions: { expiresIn: '7d' },
-        }),
-        EmailModule,
-        CurrencyModule
-    ],
-    controllers: [
-        AuthController,
-        Auth2Controller
-    ],
-    providers: [
-        AuthService, 
-        PrismaService,
-    ],
-})
-export class AuthModule {}
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
+export class AuthModule { }

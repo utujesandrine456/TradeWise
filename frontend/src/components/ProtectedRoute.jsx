@@ -111,7 +111,7 @@ const ProtectedRoute = ({
   }
 
   if (requireVerified && user && !user.isVerified) {
-    return <Navigate to="/email" replace />;
+    return <Navigate to="/verify-phone" replace />;
   }
 
   if (!requireAuth && user && !loading) {

@@ -1,4 +1,3 @@
-// Stock Image Queries
 export const getStockImagesQuery = `
   query {
     getStockImages {

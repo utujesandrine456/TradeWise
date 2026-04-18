@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import backendApi from "../utils/axiosInstance";
 import { useAuth } from "../hooks/useAuth";
 import { MdAdd, MdDelete } from "react-icons/md";
-import logo from '../assets/logo.png';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";

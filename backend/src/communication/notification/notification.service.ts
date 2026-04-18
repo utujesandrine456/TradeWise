@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { ENFinancialType, ENNotificationFilterType, ENNotificationImpact } from 'generated/prisma';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -10,16 +9,6 @@ export class NotificationService {
         private readonly prismaService: PrismaService,
         @Inject(forwardRef(() => NotificationGateway))
         private readonly notificationGateway: NotificationGateway,
-=======
-import { Injectable } from '@nestjs/common';
-import { ENFinancialType, ENNotificationFilterType, ENNotificationImpact } from 'generated/prisma';
-import { PrismaService } from 'src/prisma/prisma.service';
-
-@Injectable()
-export class NotificationService {
-    public constructor(
-        private readonly prismaService: PrismaService
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
     ) {}
 
     public async financialRemainder(traderId: string, type: ENFinancialType) {
@@ -36,11 +25,7 @@ export class NotificationService {
                 ? 'You have an upcoming payment due. Please ensure you have sufficient balance before the deadline.'
                 : 'A debit transaction reminder: please review your recent transactions.';
 
-<<<<<<< HEAD
         const notification = await this.prismaService.mNotification.create({
-=======
-        const notification = this.prismaService.mNotification.create({
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
             data: {
                 traderId, title, message,
                 type: 'financial_remainder',
@@ -48,7 +33,6 @@ export class NotificationService {
                 filterType: ENNotificationFilterType.WARNING
             }
         });
-<<<<<<< HEAD
 
         // Send real-time notification via WebSocket
         this.notificationGateway.sendNotificationToTrader(traderId, notification);
@@ -86,7 +70,5 @@ export class NotificationService {
             where: { id: stockImageId },
             data: { notified: true }
         });
-=======
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
     }
 }

@@ -7,108 +7,42 @@ import { Eye, EyeOff } from 'lucide-react'
 import { toast } from '../utils/toast'
 
 const Forgotpassword = () => {
-  const [email, setEmail] = useState('')
+  const [identifier, setIdentifier] = useState('')
   const [code, setCode] = useState(['', '', '', '', '', ''])
   const [step, setStep] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [dark, setDark] = useState(true);
 
   const inputRefs = useRef([])
   const navigate = useNavigate()
 
   // Step 1: Request OTP
-  const handleEmailSubmit = async (e) => {
+  const handleIdentifierSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
-    if (!email) {
-      toast.error('Please enter an email')
+    if (!identifier) {
+      toast.error('Please enter your phone or email')
       setIsLoading(false);
       return;
     }
     try {
-      await backendApi.post('/auth/password/forget', { email })
+      const isEmail = identifier.includes('@');
+      const payload = isEmail ? { email: identifier } : { phone: identifier };
+
+      await backendApi.post('/auth/password/forget', payload)
       setStep(2)
-      toast.success('Verification code sent to your email')
+      toast.success(`Verification code sent to your ${isEmail ? 'email' : 'phone'}`)
     } catch (error) {
       const { message } = handleError(error)
-      toast.error(message || 'Something went wrong')
+      toast.error(message || 'Recovery failed')
     } finally {
       setIsLoading(false)
     }
   }
 
-  // Step 2: OTP input
-  const handleCodeChange = (index, value) => {
-    const lastChar = value.slice(-1)
-    if (lastChar && !/^\d*$/.test(lastChar)) return
-
-    const newCode = [...code]
-    newCode[index] = lastChar
-    setCode(newCode)
-
-    if (lastChar && index < 5) inputRefs.current[index + 1]?.focus()
-
-    // Trigger check and move to Step 3 if all filled
-    if (newCode.every((c) => c !== '')) {
-      setIsLoading(true)
-      setTimeout(() => {
-        setStep(3)
-        setIsLoading(false)
-      }, 1500)
-    }
-  }
-
-  const handleKeyDown = (index, e) => {
-    if (e.key === 'Backspace') {
-      if (code[index]) {
-        const newCode = [...code]
-        newCode[index] = ''
-        setCode(newCode)
-      } else if (index > 0) {
-        inputRefs.current[index - 1]?.focus()
-      }
-    }
-    if (e.key === 'ArrowLeft' && index > 0) inputRefs.current[index - 1]?.focus()
-    if (e.key === 'ArrowRight' && index < 5) inputRefs.current[index + 1]?.focus()
-  }
-
-  const handlePaste = (e) => {
-    e.preventDefault()
-    const paste = e.clipboardData.getData('text').trim()
-    if (!paste) return
-    const pasteArray = paste.slice(0, 6).split('')
-    const newCode = [...code]
-
-    let startIndex = 0
-    for (let i = 0; i < inputRefs.current.length; i++) {
-      if (inputRefs.current[i] === e.target) {
-        startIndex = i
-        break
-      }
-    }
-
-    for (let i = 0; i < pasteArray.length; i++) {
-      const targetIndex = startIndex + i
-      if (targetIndex < 6) newCode[targetIndex] = pasteArray[i]
-    }
-
-    setCode(newCode)
-    const nextIndex = Math.min(startIndex + pasteArray.length, 5)
-    inputRefs.current[nextIndex]?.focus()
-
-    if (newCode.every((c) => c !== '')) {
-      setIsLoading(true)
-      setTimeout(() => {
-        setStep(3)
-        setIsLoading(false)
-      }, 1500)
-    }
-  }
-
-  // Step 3: Reset password
   const handleResetPassword = async (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
@@ -118,154 +52,174 @@ const Forgotpassword = () => {
 
     setIsLoading(true)
     try {
-      const verificationCode = code.join('')
-      await backendApi.post('/auth/password/reset', {
-        email,
-        otp: verificationCode,
-        password,
-      })
-      toast.success('Password reset successfully!')
+      const verificationCode = code.join('');
+      const isEmail = identifier.includes('@');
+      const payload = isEmail
+        ? { email: identifier, otp: verificationCode, password }
+        : { phone: identifier, otp: verificationCode, password };
+
+      await backendApi.post('/auth/password/reset', payload)
+      toast.success('Identity Synchronized. Access Restored.')
       navigate('/login')
     } catch (error) {
       const { message } = handleError(error)
-      toast.error(message || 'Invalid or expired OTP')
-      setStep(2) // Go back to step 2 to correct OTP
+      toast.error(message || 'Invalid or expired synchronization code')
+      setStep(2)
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="bg-[#09111E] min-h-screen flex flex-col lg:flex-row font-Urbanist">
-      <div className="flex flex-col items-center justify-center bg-white w-full lg:w-1/2 p-6 sm:p-10 min-h-screen">
-        <div className="max-w-md w-full py-12">
-          <h1 className="text-[#09111E] text-5xl font-bold text-center mb-8 tracking-tight">
-            Account <span className="block text-brand-400">Recovery</span>
-          </h1>
+    <div className={`${dark ? 'dark' : ''} min-h-screen flex overflow-hidden bg-[#181A1E] font-Urbanist`}>
+      <div className="hidden lg:flex lg:w-1/2 relative flex-col justify-between p-16 overflow-hidden">
+        <div className="absolute inset-0 bg-[#09111E]">
+          <svg className="absolute inset-0 w-full h-full opacity-30">
+            <defs>
+              <pattern id="diamondRecovery" x="0" y="0" width="72" height="72" patternUnits="userSpaceOnUse">
+                <path d="M36 2 L70 36 L36 70 L2 36 Z" fill="none" stroke="rgba(102,124,155,0.4)" strokeWidth="1.2" />
+              </pattern>
+            </defs>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#diamondRecovery)" />
+          </svg>
+        </div>
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-brand-500/5 rounded-full blur-[150px] pointer-events-none" />
 
-          {/* Step 1: Email input */}
-          {step === 1 && (
-            <form onSubmit={handleEmailSubmit} className="flex flex-col items-center space-y-8">
-              <p className="text-sm font-semibold text-brand-300 text-center mb-10 px-4 opacity-70">
-                Enter your registered email address to receive a verification code.
-              </p>
-              <input
-                type="email"
-                placeholder="Email Address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full py-4 px-6 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-[#09111E] font-bold placeholder:text-brand-300"
-                required
-              />
-              <button
-                type="submit"
-                className="w-full py-5 bg-[#09111E] text-white font-bold text-sm rounded-md hover:bg-[#09111E] transition-all shadow-2xl relative overflow-hidden group/btn"
-              >
-                <div className="absolute inset-0 bg-white/10 translate-x-full group-hover/btn:translate-x-0 transition-transform duration-500" />
-                <span className="relative z-10">{isLoading ? 'Sending Code...' : 'Send Verification Code'}</span>
-              </button>
-            </form>
-          )}
+        <div className="relative z-10">
+          <h1 className="text-white font-black text-5xl tracking-tight">Stocka</h1>
+        </div>
 
-          {/* Step 2: OTP input */}
-          {step === 2 && (
-            <div className="relative flex flex-col items-center space-y-12">
-              <p className="text-sm font-semibold text-brand-300 text-center mb-10 px-4 opacity-70">
-                Enter the 6-digit code sent to your email address.
-              </p>
-              <div
-                className="flex space-x-3 sm:space-x-4 justify-center"
-                style={{ pointerEvents: isLoading ? 'none' : 'auto', opacity: isLoading ? 0.5 : 1 }}
-              >
-                {code.map((char, index) => (
-                  <input
-                    key={index}
-                    ref={(el) => (inputRefs.current[index] = el)}
-                    type="text"
-                    maxLength="1"
-                    value={char}
-                    onChange={(e) => handleCodeChange(index, e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(index, e)}
-                    onPaste={handlePaste}
-                    className="w-12 h-14 text-center text-2xl font-bold border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-[#09111E] shadow-sm"
-                    required
-                    disabled={isLoading}
-                  />
-                ))}
-              </div>
-              {isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center bg-white/50 rounded-md">
-                  <div className="w-12 h-12 border-4 border-[#09111E] border-t-transparent rounded-full animate-spin"></div>
-                </div>
-              )}
-              <button
-                onClick={() => setStep(1)}
-                className="text-[#09111E] font-bold text-xs hover:opacity-70 transition-opacity"
-              >
-                Back to Email Input
-              </button>
-            </div>
-          )}
-
-          {/* Step 3: Reset password */}
-          {step === 3 && (
-            <form onSubmit={handleResetPassword} className="flex flex-col items-center space-y-12">
-              <p className="text-sm font-semibold text-brand-300 text-center mb-10 px-4 opacity-70">
-                Choose a new secure password for your account.
-              </p>
-
-              <div className="w-full space-y-4">
-                <div className="relative group">
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="New Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full py-4 px-6 pr-12 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-[#09111E] font-bold placeholder:text-brand-300"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-brand-300 hover:text-[#09111E] transition-colors"
-                  >
-                    {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
-                  </button>
-                </div>
-
-                <div className="relative group">
-                  <input
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    placeholder="Confirm New Password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full py-4 px-6 pr-12 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-[#09111E] font-bold placeholder:text-brand-300"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-brand-300 hover:text-[#09111E] transition-colors"
-                  >
-                    {showConfirmPassword ? <EyeOff size={22} /> : <Eye size={22} />}
-                  </button>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full py-5 bg-[#09111E] text-white font-bold text-sm rounded-md hover:bg-[#09111E] transition-all shadow-2xl relative overflow-hidden group/final"
-              >
-                <div className="absolute inset-0 bg-white/10 translate-x-full group-hover/final:translate-x-0 transition-transform duration-500" />
-                <span className="relative z-10">{isLoading ? 'Saving Password...' : 'Reset Password'}</span>
-              </button>
-            </form>
-          )}
+        <div className="relative z-10">
+          <h2 className="text-white font-black text-6xl leading-tight mb-6 tracking-tighter">
+            Security<br /><span className="text-brand-500">First.</span>
+          </h2>
+          <p className="text-white/30 font-bold text-xl leading-relaxed max-w-sm">
+            Restoring your access through our encrypted quantum protocols.
+          </p>
         </div>
       </div>
 
-      <div className="hidden lg:block lg:w-1/2 h-full">
-        <img src={images.Login} alt="login" className="w-full h-full object-cover" />
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10 bg-[#F9FBFF] relative overflow-y-auto">
+        <button
+          onClick={() => navigate('/login')}
+          className="absolute top-8 left-8 flex items-center gap-2 text-[#09111E]/40 hover:text-[#09111E] font-black text-xs uppercase tracking-widest transition-all"
+        >
+          <ArrowLeft size={16} /> Return to Login
+        </button>
+
+        <div className="w-full max-w-md">
+          <div className="mb-12 text-center lg:text-left">
+            <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 text-[10px] uppercase tracking-widest font-black mb-5">
+              Access Recovery
+            </div>
+            <h2 className="text-5xl font-black text-[#09111E] mb-3 leading-tight tracking-tighter">Restore<br />Session</h2>
+            <p className="text-[#09111E]/40 font-bold">Follow the sequence to regain access.</p>
+          </div>
+
+          <div className="bg-white rounded-[2rem] p-8 md:p-10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.05)] border border-brand-100">
+            {step === 1 && (
+              <form onSubmit={handleIdentifierSubmit} className="space-y-8">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-[#09111E]/60 uppercase tracking-widest pl-1">Phone or Email</label>
+                  <input
+                    type="text"
+                    placeholder="Provide registered ID"
+                    value={identifier}
+                    onChange={(e) => setIdentifier(e.target.value)}
+                    className="w-full px-6 py-5 bg-[#F9FBFF] border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-sm font-bold text-[#09111E] placeholder:text-[#09111E]/20"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full py-5 bg-[#09111E] text-white font-black text-sm rounded-2xl hover:shadow-[0_20px_50px_-10px_rgba(9,17,30,0.3)] transition-all active:scale-[0.98] flex items-center justify-center gap-3"
+                >
+                  {isLoading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <> Transmit Code <ArrowRight size={18} /> </>}
+                </button>
+              </form>
+            )}
+
+            {step === 2 && (
+              <div className="space-y-12 flex flex-col items-center">
+                <div className="flex space-x-2 md:space-x-3 justify-center">
+                  {code.map((char, index) => (
+                    <input
+                      key={index}
+                      ref={(el) => (inputRefs.current[index] = el)}
+                      type="text"
+                      maxLength="1"
+                      value={char}
+                      onChange={(e) => handleCodeChange(index, e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(index, e)}
+                      onPaste={handlePaste}
+                      className="w-10 h-14 md:w-12 md:h-16 text-center text-2xl font-black border-2 border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all bg-[#F9FBFF] text-[#09111E]"
+                      required
+                      disabled={isLoading}
+                    />
+                  ))}
+                </div>
+
+                <div className="text-center space-y-4">
+                  <p className="text-xs font-black text-[#09111E]/30 uppercase tracking-widest">Awaiting sequence confirmation</p>
+                  <button
+                    onClick={() => setStep(1)}
+                    className="text-brand-600 font-black text-[10px] uppercase tracking-widest hover:underline"
+                  >
+                    Change Identifier
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {step === 3 && (
+              <form onSubmit={handleResetPassword} className="space-y-6">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-[#09111E]/60 uppercase tracking-widest pl-1">New Secure Password</label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="••••••••"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full px-6 py-5 bg-[#F9FBFF] border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-sm font-bold text-[#09111E] placeholder:text-[#09111E]/20"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-5 top-1/2 -translate-y-1/2 text-[#09111E]/20 hover:text-[#09111E] transition-colors"
+                      >
+                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-[#09111E]/60 uppercase tracking-widest pl-1">Confirm Identity</label>
+                    <input
+                      type="password"
+                      placeholder="Repeat password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className="w-full px-6 py-5 bg-[#F9FBFF] border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-sm font-bold text-[#09111E] placeholder:text-[#09111E]/20"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full py-5 bg-brand-500 text-white font-black text-sm rounded-2xl hover:shadow-[0_20px_50px_-10px_rgba(249,115,22,0.4)] transition-all active:scale-[0.98] flex items-center justify-center gap-3"
+                >
+                  {isLoading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <> Synchronize Identity <ArrowRight size={18} /> </>}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const baseURL = import.meta.env.VITE_API_URL || "https://tradewise-backend-v2.onrender.com/api";
-const gqlBaseURL = import.meta.env.VITE_GQL_URL || "https://tradewise-backend-v2.onrender.com/graphql";
+const baseURL = import.meta.env.VITE_API_URL || "http://localhost:2015/api";
+const gqlBaseURL = import.meta.env.VITE_GQL_URL || "http://localhost:2015/graphql";
 
 export const backendApi = axios.create({
     baseURL,
@@ -22,7 +22,6 @@ export const backendGqlApi = axios.create({
     },
 });
 
-// Request interceptor for debugging
 backendApi.interceptors.request.use(
     (config) => {
         console.log('Making request to:', config.url);
@@ -34,7 +33,6 @@ backendApi.interceptors.request.use(
     }
 );
 
-// Response interceptor
 backendApi.interceptors.response.use(
     (response) => {
         return response;

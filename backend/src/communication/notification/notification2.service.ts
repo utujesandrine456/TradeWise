@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ENNotificationFilterType } from 'generated/prisma';
@@ -131,14 +130,4 @@ export class Notification2Service {
             throw error;
         }
     }
-=======
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-
-@Injectable()
-export class Notification2Service {
-    public constructor(
-        private readonly prismaService: PrismaService,
-    ) {}
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 }

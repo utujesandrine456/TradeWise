@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from "./pages/Home";
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import VerifyEmail from './pages/VerifyEmail';
+import VerifyPhone from './pages/VerifyPhone';
 import VerificationSuccess from './pages/VerificationSuccess';
 import DashboardLayout from "./components/DashboardLayout";
 import Onboarding from "./pages/AfterSignup";
@@ -38,7 +38,7 @@ function App() {
             </ProtectedRoute>
           } />
 
-          <Route path='/verify-email' element={<VerifyEmail />} />
+          <Route path='/verify-phone' element={<VerifyPhone />} />
           <Route path='/verification-success' element={<VerificationSuccess />} />
 
           <Route path='/stocks' element={

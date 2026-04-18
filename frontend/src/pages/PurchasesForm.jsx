@@ -6,7 +6,8 @@ import images from '../utils/images';
 import styles from './Home.module.css';
 import { Trash2, RotateCcw } from 'lucide-react';
 
-const Pform = () => {
+
+const PurchaseForm = () => {
   const [trades, setTrades] = useState([]);
   const [draft, setDraft] = useState({ buyingPrice: '', sellingPrice: '', quantity: '' });
   const clearAll = () => setTrades([]);
@@ -15,7 +16,6 @@ const Pform = () => {
   const draftPL = useMemo(() => {
     const buying = parseFloat(draft.buyingPrice) || 0;
     const qty = parseFloat(draft.quantity) || 0;
-    // For purchases, "profit" on the draft is just the negative cost
     return 0 - (buying * qty);
   }, [draft]);
 
@@ -36,7 +36,7 @@ const Pform = () => {
     }
 
     const cost = buyingPrice * quantity;
-    const profitLoss = 0 - cost; // Expense
+    const profitLoss = 0 - cost;
 
     try {
       await createTransaction({
@@ -174,7 +174,7 @@ const Pform = () => {
           </div>
         </div>
 
-        {/* Right: Records */}
+
         <div className="w-full lg:w-[450px] bg-white border-l border-brand-100 p-10 flex flex-col h-full shadow-[inset_20px_0_40px_-20px_rgba(9,17,30,0.05)] relative overflow-hidden">
           <div className="flex justify-between items-center mb-12 relative z-10">
             <div>
@@ -245,4 +245,4 @@ const Pform = () => {
   );
 };
 
-export default Pform;
+export default PurchaseForm;

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // @ts-check
 import eslint from '@eslint/js';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
@@ -32,7 +31,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-argument': 'warn'
     },
   },
-=======
+
 // @ts-check
 import eslint from '@eslint/js';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
@@ -66,5 +65,4 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-argument': 'warn'
     },
   },
->>>>>>> b1302341834bd59231acc121c6a48c14e71dcc68
 );

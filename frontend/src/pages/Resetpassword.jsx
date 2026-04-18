@@ -3,11 +3,11 @@ import images from '../utils/images';
 import backendApi from '../utils/axiosInstance'
 import { toast } from '../utils/toast'
 import { useNavigate } from 'react-router-dom';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft, ArrowRight, ShieldCheck } from 'lucide-react';
 
 const Resetpassword = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -23,73 +23,113 @@ const Resetpassword = () => {
     setIsLoading(true);
     try {
       const otp = localStorage.getItem('resetOtp') || '';
-      await backendApi.post('/auth/password/reset', { email, password, otp });
-      toast.success('Password reset successfully');
+      const isEmail = identifier.includes('@');
+      const payload = isEmail
+        ? { email: identifier, password, otp }
+        : { phone: identifier, password, otp };
+
+      await backendApi.post('/auth/password/reset', payload);
+      toast.success('Identity Synchronized. Access Restored.');
       navigate('/login');
     } catch (err) {
-      toast.error(err.response?.data?.message || err.message || 'Reset failed');
+      toast.error(err.response?.data?.message || err.message || 'Synchronization failed');
     } finally {
       setIsLoading(false);
     }
   }
 
   return (
-    <div className='bg-[#09111E] min-h-screen flex flex-col lg:flex-row font-Urbanist'>
-      <div className='hidden lg:block lg:w-1/2 h-screen'>
-        <img src={images.Login} alt="login" className='w-full h-full object-cover' />
+    <div className='min-h-screen flex overflow-hidden bg-[#181A1E] font-Urbanist'>
+      <div className="hidden lg:flex lg:w-1/2 relative flex-col justify-between p-16 overflow-hidden">
+        <div className="absolute inset-0 bg-[#09111E]">
+          <svg className="absolute inset-0 w-full h-full opacity-30">
+            <defs>
+              <pattern id="diamondReset" x="0" y="0" width="72" height="72" patternUnits="userSpaceOnUse">
+                <path d="M36 2 L70 36 L36 70 L2 36 Z" fill="none" stroke="rgba(102,124,155,0.4)" strokeWidth="1.2" />
+              </pattern>
+            </defs>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#diamondReset)" />
+          </svg>
+        </div>
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[150px] pointer-events-none" />
+
+        <div className="relative z-10">
+          <h1 className="text-white font-black text-5xl tracking-tight">TradeWise</h1>
+        </div>
+
+        <div className="relative z-10">
+          <h2 className="text-white font-black text-6xl leading-tight mb-6 tracking-tighter">
+            Secure<br /><span className="text-brand-500">Override.</span>
+          </h2>
+          <p className="text-white/30 font-bold text-xl leading-relaxed max-w-sm">
+            Updating your security credentials across the global TradeWise nodes.
+          </p>
+        </div>
+
+        <div className="relative z-10 flex items-center gap-3 text-white/40 font-black text-[10px] uppercase tracking-widest">
+          <ShieldCheck size={16} className="text-brand-500" /> Multi-Layer Encryption Active
+        </div>
       </div>
 
-      <div className='flex flex-col bg-white w-full lg:w-1/2 min-h-screen justify-center p-6 sm:p-10 lg:p-16'>
-        <div className='max-w-md mx-auto w-full py-12'>
-          <h1 className="text-[#09111E] text-5xl font-bold text-center mb-8 tracking-tight">
-            Reset <span className="block text-brand-400">Password</span>
-          </h1>
-          <p className="text-sm font-semibold text-brand-300 text-center mb-10 px-4 opacity-70">
-            Enter your email and choose a new secure password for your account.
-          </p>
+      <div className='w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10 bg-[#F9FBFF] relative overflow-y-auto'>
+        <button
+          onClick={() => navigate('/login')}
+          className="absolute top-8 left-8 flex items-center gap-2 text-[#09111E]/40 hover:text-[#09111E] font-black text-xs uppercase tracking-widest transition-all"
+        >
+          <ArrowLeft size={16} /> Back to Login
+        </button>
 
-          <form onSubmit={handleReset} className='flex flex-col space-y-5'>
+        <div className='w-full max-w-md'>
+          <div className='mb-12 text-center lg:text-left'>
+            <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 text-[10px] uppercase tracking-widest font-black mb-5 text-center">
+              Credential Synchronization
+            </div>
+            <h2 className="text-5xl font-black text-[#09111E] mb-3 leading-tight tracking-tighter">Reset<br />Key</h2>
+            <p className="text-[#09111E]/40 font-bold">Establish your new security parameters.</p>
+          </div>
+
+          <form onSubmit={handleReset} className='space-y-6 bg-white p-8 md:p-10 rounded-[2rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.05)] border border-brand-100'>
             <div className="space-y-2">
-              <label className="text-xs font-bold text-[#09111E] ml-1">Email Address</label>
+              <label className="text-[10px] font-black text-[#09111E]/60 uppercase tracking-widest pl-1">Identified Network ID</label>
               <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                placeholder="name@enterprise.com"
-                className='w-full py-4 px-6 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-[#09111E] font-bold placeholder:text-brand-300'
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
+                type="text"
+                placeholder="+250 78x... or email"
+                className='w-full px-6 py-5 bg-[#F9FBFF] border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-sm font-bold text-[#09111E] placeholder:text-[#09111E]/20'
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-[#09111E] ml-1">New Password</label>
+              <label className="text-[10px] font-black text-[#09111E]/60 uppercase tracking-widest pl-1">New Secure Key</label>
               <div className="relative group">
                 <input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
-                  className='w-full py-4 px-6 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-[#09111E] font-bold placeholder:text-brand-300'
+                  className='w-full px-6 py-5 bg-[#F9FBFF] border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-sm font-bold text-[#09111E] placeholder:text-[#09111E]/20'
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-brand-300 hover:text-[#09111E] transition-colors"
+                  className="absolute right-5 top-1/2 -translate-y-1/2 text-[#09111E]/20 hover:text-[#09111E] transition-colors"
                 >
-                  {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-[#09111E] ml-1">Confirm Password</label>
+              <label className="text-[10px] font-black text-[#09111E]/60 uppercase tracking-widest pl-1">Confirm Update</label>
               <input
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
                 type="password"
-                placeholder="••••••••"
-                className='w-full py-4 px-6 border border-brand-100 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all bg-brand-50/30 text-[#09111E] font-bold placeholder:text-brand-300'
+                placeholder="Repeat security key"
+                className='w-full px-6 py-5 bg-[#F9FBFF] border border-brand-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-sm font-bold text-[#09111E] placeholder:text-[#09111E]/20'
                 required
               />
             </div>
@@ -97,18 +137,9 @@ const Resetpassword = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-5 bg-[#09111E] text-white font-bold text-sm rounded-md hover:bg-[#09111E] transition-all shadow-2xl relative overflow-hidden group/res"
+              className="w-full py-5 bg-[#09111E] text-white font-black text-sm rounded-2xl hover:shadow-[0_20px_50px_-10px_rgba(9,17,30,0.3)] transition-all active:scale-[0.98] flex items-center justify-center gap-3 mt-4"
             >
-              <div className="absolute inset-0 bg-white/10 translate-x-full group-hover/res:translate-x-0 transition-transform duration-500" />
-              <span className="relative z-10">{isLoading ? 'Updating Password...' : 'Save New Password'}</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => navigate('/login')}
-              className="text-[#09111E] font-bold text-xs hover:opacity-70 transition-opacity mt-8 block w-full text-center"
-            >
-              Back to Login
+              {isLoading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <> Synchronize Key <ArrowRight size={18} /> </>}
             </button>
           </form>
         </div>
