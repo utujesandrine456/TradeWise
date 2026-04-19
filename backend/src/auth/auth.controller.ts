@@ -48,15 +48,15 @@ export class AuthController {
             maxAge: this.time // for 7 days
         });
 
-        try {
-            // Priority: Phone verification
-            if (newUser.phone) {
-                await this.authService.sendOtp({ phone: newUser.phone, isPasswordReset: false });
-            }
-        } catch (error) {
-            console.error('Failed to send verification code:', error);
-            // We don't throw here to allow the user to at least be registered and try resending later
-        }
+        // try {
+        //     // Priority: Phone verification
+        //     if (newUser.phone) {
+        //         await this.authService.sendOtp({ phone: newUser.phone, isPasswordReset: false });
+        //     }
+        // } catch (error) {
+        //     console.error('Failed to send verification code:', error);
+        //     // We don't throw here to allow the user to at least be registered and try resending later
+        // }
 
         return newUser;
     }

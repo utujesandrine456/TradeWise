@@ -151,7 +151,7 @@ const CreditsDebit = () => {
       }
 
       toast.success('Financial updated successfully!');
-      fetchFinancials(); 
+      fetchFinancials();
     } catch (error) {
       console.error('Error updating financial:', error);
       toast.error('Failed To Update Financial');
@@ -222,9 +222,15 @@ const CreditsDebit = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist">
-        <div className="w-16 h-16 border-4 border-brand-50 border-t-brand-900 rounded-md animate-spin mb-6"></div>
-        <p className="text-xl font-black text-[#09111E] uppercase tracking-widest italic">Synchronizing Financial Data...</p>
+      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist text-white">
+        <div className="relative">
+          <div className="w-20 h-20 border-2 border-accent-400/20 border-t-accent-400 rounded-full animate-spin mb-8 shadow-[0_0_20px_rgba(96,165,250,0.3)]"></div>
+          <MdAccountBalanceWallet className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl text-accent-400" />
+        </div>
+        <div className="space-y-2 text-center">
+          <p className="text-2xl font-bold opacity-80">Synchronizing Ledger</p>
+          <p className="text-sm font-semibold text-brand-300 opacity-60">Accessing Fiscal Manifests and Credit Assets...</p>
+        </div>
       </div>
     );
   }
@@ -234,14 +240,19 @@ const CreditsDebit = () => {
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-10 bg-[#09111E] border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
-        <div className="relative z-10">
-          <h2 className="text-4xl font-black text-white uppercase tracking-tight">Financial Management</h2>
-          <p className="text-brand-300 font-bold mt-2 uppercase tracking-widest text-[10px] italic opacity-60">Strategic Oversight Of Universal Credits, Debits, And Fiscal Assets</p>
+        <div className="relative z-10 flex items-center gap-8">
+          <div className="p-3 bg-white/5 rounded-full border border-white/5 shadow-inner transition-transform group-hover:scale-110 duration-500">
+            <MdAccountBalanceWallet className="text-3xl text-accent-400" />
+          </div>
+          <div>
+            <h2 className="text-4xl font-bold text-white tracking-tight leading-none mb-3">Financial Management</h2>
+            <p className="text-brand-300 text-lg font-medium opacity-60">Strategic oversight of credits, debits, and fiscal assets</p>
+          </div>
         </div>
         <div className="flex items-center gap-4 relative z-10">
           <button
             onClick={() => setIsFinancialFormOpen(true)}
-            className="group relative px-12 py-5 bg-accent-400 text-brand-950 font-black uppercase tracking-widest text-[10px] rounded-md shadow-2xl overflow-hidden hover:scale-105 transition-all active:scale-95"
+            className="group relative px-8 py-4 bg-white text-brand-950 font-semibold rounded-md shadow-2xl overflow-hidden hover:scale-105 transition-all active:scale-95 text-sm"
           >
             <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
             <div className="flex items-center gap-3 relative z-10">
@@ -261,9 +272,9 @@ const CreditsDebit = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-[#09111E] border border-white/5 shadow-2xl p-10 rounded-md relative overflow-hidden group/actions">
+      <div className="bg-[#09111E] border border-white/5 shadow-2xl p-12 rounded-md relative overflow-hidden group/actions">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-400/5 rounded-md blur-[120px] -mr-[300px] -mt-[300px] pointer-events-none" />
-        <h3 className="text-2xl font-black text-white mb-10 uppercase tracking-tighter relative z-10">Operational Tactical Protocols</h3>
+        <h3 className="text-2xl font-bold text-white mb-10 tracking-tighter relative z-10">Operational Tactical Protocols</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
           {[
             { label: 'Record Inbound', sub: 'Authorize Incoming Value', icon: <MdTrendingUp />, color: 'green-500' },
@@ -276,14 +287,13 @@ const CreditsDebit = () => {
               className="group/btn flex items-center gap-6 p-8 bg-white/5 border border-white/5 rounded-md hover:bg-white/10 hover:border-white/10 transition-all text-left shadow-inner relative overflow-hidden"
             >
               <div className="absolute left-0 top-0 w-1 h-0 bg-accent-400 group-hover/btn:h-full transition-all duration-300" />
-              <div className={`p-5 rounded-md shadow-lg transition-transform group-hover/btn:scale-110 ${
-                action.color === 'red-500' ? 'bg-red-500/10 text-red-500' : action.color === 'green-500' ? 'bg-green-500/10 text-green-500' : 'bg-accent-400/10 text-accent-400'
-              }`}>
-                <action.icon.type className="text-3xl" />
+              <div className={`p-4 rounded-full shadow-lg transition-transform group-hover/btn:scale-110 ${action.color === 'red-500' ? 'bg-red-500/10 text-red-500' : action.color === 'green-500' ? 'bg-green-500/10 text-green-500' : 'bg-accent-400/10 text-accent-400'
+                }`}>
+                <action.icon.type className="text-2xl" />
               </div>
               <div>
-                <p className="font-black text-white transition-colors uppercase tracking-tight text-lg">{action.label}</p>
-                <p className="text-[10px] text-brand-300 font-bold italic mt-2 uppercase tracking-widest opacity-60">{action.sub}</p>
+                <p className="font-bold text-white transition-colors tracking-tight text-lg leading-none">{action.label}</p>
+                <p className="text-xs text-brand-300 font-medium mt-2 opacity-60">{action.sub}</p>
               </div>
             </button>
           ))}
@@ -300,7 +310,7 @@ const CreditsDebit = () => {
               type="text"
               placeholder="Query repository by transaction description..."
               onChange={(e) => debouncedSearch(e.target.value)}
-              className="w-full pl-16 pr-8 py-5 bg-white/5 border border-white/5 rounded-md text-white font-black uppercase tracking-tight text-lg placeholder:text-brand-300/40 focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all shadow-inner"
+              className="w-full pl-16 pr-8 py-4 bg-white/5 border border-white/5 rounded-md text-white font-medium placeholder:text-brand-300/40 focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all shadow-inner text-sm"
             />
           </div>
           <div className="relative group/select">
@@ -308,7 +318,7 @@ const CreditsDebit = () => {
             <select
               value={selectedFilter}
               onChange={(e) => setSelectedFilter(e.target.value)}
-              className="pl-14 pr-10 py-5 bg-white/5 border border-white/5 rounded-md text-white focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all appearance-none cursor-pointer font-black uppercase tracking-widest text-[10px] shadow-inner min-w-[200px]"
+              className="pl-14 pr-10 py-5 bg-white/5 border border-white/5 rounded-md text-white focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all appearance-none cursor-pointer font-bold text-xs shadow-inner min-w-[200px]"
             >
               <option value="all" className="bg-[#09111E]">Global Catalog</option>
               <option value="credit" className="bg-[#09111E]">Credits Only</option>
@@ -320,15 +330,15 @@ const CreditsDebit = () => {
 
       {/* Transactions Table */}
       <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl overflow-hidden transition-all group/table relative">
-        <div className="p-10 border-b border-white/5 flex items-center justify-between relative overflow-hidden">
+        <div className="p-12 border-b border-white/5 flex items-center justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
           <div className="flex items-center gap-5 relative z-10">
-            <div className="p-3 bg-white/5 rounded-md text-accent-400 border border-white/5 shadow-xl">
+            <div className="p-3 bg-white/5 rounded-full text-accent-400 border border-white/5 shadow-xl">
               <MdReceipt className="text-2xl" />
             </div>
-            <h3 className="text-2xl font-black text-white uppercase tracking-tight">Recent Ledger Entries</h3>
+            <h3 className="text-2xl font-bold text-white tracking-tight">Recent Ledger Entries</h3>
           </div>
-          <div className="px-6 py-2.5 bg-white/5 border border-white/5 shadow-inner rounded-md text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] relative z-10">
+          <div className="px-6 py-2.5 bg-white/5 border border-white/5 shadow-inner rounded-md text-xs font-semibold text-brand-300 relative z-10">
             {filteredTransactions.length} Matches Found
           </div>
         </div>
@@ -336,22 +346,40 @@ const CreditsDebit = () => {
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-white/5">
-                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] w-32">Classification</th>
-                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Description / Value</th>
-                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Paid Registry</th>
-                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Temporal Due Date</th>
-                <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Collateral Asset</th>
-                <th className="px-10 py-6 text-right text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Actions</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300 w-32">Classification</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Description / Value</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Paid Registry</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Due Date</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Collateral</th>
+                <th className="px-10 py-6 text-right text-sm font-bold text-brand-300 w-32">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
               {filteredTransactions.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="px-10 py-32 text-center">
-                    <div className="p-10 bg-white/5 rounded-md border border-white/5 shadow-inner inline-block mb-6">
-                      <MdReceipt className="text-6xl text-brand-300 opacity-20" />
+                  <td colSpan="6" className="px-10 py-40">
+                    <div className="flex flex-col items-center justify-center max-w-lg mx-auto text-center">
+                      <div className="relative mb-12 group">
+                        <div className="absolute inset-0 bg-accent-400/20 blur-3xl rounded-full group-hover:scale-150 transition-transform duration-1000" />
+                        <div className="relative p-10 bg-[#09111E] rounded-full border border-white/20 shadow-2xl">
+                          <MdReceipt className="text-7xl text-brand-300/20 group-hover:text-accent-400 transition-colors duration-500" />
+                        </div>
+                      </div>
+                      <h3 className="text-4xl font-bold text-white tracking-tighter mb-4">Ledger Vacancy</h3>
+                      <p className="text-brand-300 font-medium opacity-60 leading-relaxed text-sm">
+                        {searchTerm
+                          ? 'The current search parameters yielded zero recorded matches within the fiscal repository.'
+                          : 'The localized fiscal ledger remains pristine. Initialize a new protocol to register financial assets.'}
+                      </p>
+                      {!searchTerm && (
+                        <button
+                          onClick={() => setIsFinancialFormOpen(true)}
+                          className="mt-12 px-10 py-4 bg-white/5 border border-white/10 text-white font-bold text-[16px] rounded-md hover:bg-white/10 transition-all active:scale-95 shadow-xl"
+                        >
+                          Establish First Protocol
+                        </button>
+                      )}
                     </div>
-                    <p className="text-xl font-black text-white uppercase tracking-widest italic opacity-40">No Internal Records Detected</p>
                   </td>
                 </tr>
               ) : (
@@ -459,18 +487,18 @@ const CreditsDebit = () => {
         <div className="fixed inset-0 bg-brand-950/90 backdrop-blur-md flex items-center justify-center z-[100] p-6 animate-in fade-in duration-500">
           <div className="bg-[#09111E] border border-white/5 rounded-md shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] w-full max-w-lg overflow-hidden relative p-12">
             <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-md blur-3xl -mr-32 -mt-32" />
-            <h2 className="text-3xl font-black text-white mb-8 uppercase tracking-tight">Authorization Logic</h2>
-            <p className="text-brand-300 text-sm font-bold leading-relaxed uppercase tracking-widest italic mb-10 opacity-60">
-              You Are About To Mark This Financial Record As <span className="text-green-500 font-black decoration-underline decoration-2 underline-offset-4">Completed</span>.
-              This Action Affects Your Universal Balance And <span className="text-red-500 font-black">Cannot Be Undone</span>.
+            <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">Authorization Logic</h2>
+            <p className="text-brand-300 text-sm font-semibold leading-relaxed opacity-60 mb-10">
+              You are about to mark this financial record as <span className="text-green-500 font-bold decoration-underline decoration-2 underline-offset-4 uppercase">Completed</span>.
+              This action affects your universal balance and <span className="text-red-500 font-bold">cannot be undone</span>.
             </p>
             <div className="space-y-4 mb-12">
-              <label className="text-[10px] font-black text-brand-300 uppercase px-2 tracking-[0.2em]">Confirm Protocol Code</label>
+              <label className="text-xs font-semibold text-brand-300 px-2 opacity-60">Confirm Protocol Code</label>
               <input
                 type="text"
                 value={confirmPaidText}
                 onChange={(e) => setConfirmPaidText(e.target.value)}
-                className="w-full px-8 py-5 bg-white/5 border border-white/5 rounded-md text-white font-black uppercase tracking-widest text-lg placeholder:text-brand-300/20 focus:outline-none focus:ring-4 focus:ring-accent-400/10 transition-all shadow-inner"
+                className="w-full px-8 py-4 bg-white/5 border border-white/5 rounded-md text-white font-medium text-lg placeholder:text-brand-300/20 focus:outline-none focus:ring-4 focus:ring-accent-400/10 transition-all shadow-inner"
                 placeholder="Type 'Mark As Paid'"
                 autoFocus
               />
@@ -482,15 +510,15 @@ const CreditsDebit = () => {
                   setFinancialToMarkPaid(null);
                   setConfirmPaidText('');
                 }}
-                className="text-[10px] font-black text-brand-300 hover:text-white transition-colors uppercase tracking-widest"
+                className="text-sm font-semibold text-brand-300 hover:text-white transition-colors"
               >
                 Abort Action
               </button>
               <button
                 onClick={confirmMarkAsPaid}
                 disabled={confirmPaidText.toLowerCase().trim() !== 'mark as paid'}
-                className={`px-12 py-5 rounded-md font-black transition-all uppercase text-[10px] tracking-widest shadow-2xl ${confirmPaidText.toLowerCase().trim() === 'mark as paid'
-                  ? 'bg-accent-400 text-brand-950 hover:scale-105 active:scale-95'
+                className={`px-10 py-4 rounded-md font-semibold transition-all text-sm shadow-2xl ${confirmPaidText.toLowerCase().trim() === 'mark as paid'
+                  ? 'bg-white text-brand-950 hover:scale-105 active:scale-95'
                   : 'bg-white/5 text-brand-300 cursor-not-allowed border border-white/5'
                   }`}
               >
@@ -520,17 +548,9 @@ const SummaryCard = ({ icon: Icon, label, value, trend, color }) => {
     <div className="group bg-[#09111E] p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
       <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50`} />
       <div className="relative z-10 flex flex-col h-full justify-between gap-10">
-        <div className="flex items-center justify-between">
-          <div className={`p-5 rounded-md border ${bgStyle} ${borderStyle} ${textColor} shadow-inner group-hover:scale-110 duration-500`}>
-            <Icon className="text-3xl" />
-          </div>
-          <span className={`text-[10px] font-black ${textColor} uppercase italic bg-white/5 px-4 py-2 rounded-md border border-white/5 shadow-inner tracking-widest`}>
-            {trend}
-          </span>
-        </div>
         <div>
-          <p className="text-[10px] font-black text-brand-300 tracking-[0.2em] mb-3 uppercase italic opacity-60">{label}</p>
-          <p className="text-4xl font-black text-white uppercase tracking-tighter leading-none">{value}</p>
+          <p className="text-md font-semibold text-brand-300 mb-3 opacity-60">{label}</p>
+          <p className="text-4xl font-bold text-white tracking-tighter leading-none">{value}</p>
         </div>
       </div>
     </div>

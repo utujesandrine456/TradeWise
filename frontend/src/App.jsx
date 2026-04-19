@@ -38,8 +38,8 @@ function App() {
             </ProtectedRoute>
           } />
 
-          <Route path='/verify-phone' element={<VerifyPhone />} />
-          <Route path='/verification-success' element={<VerificationSuccess />} />
+          {/* <Route path='/verify-phone' element={<VerifyPhone />} />
+          <Route path='/verification-success' element={<VerificationSuccess />} /> */}
 
           <Route path='/stocks' element={
             <ProtectedRoute>

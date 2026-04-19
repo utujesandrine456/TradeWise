@@ -67,6 +67,7 @@ export class AuthService {
                 phone,
                 enterpriseName,
                 password: hashedPassword,
+                isVerified: true,
                 lastLogin: new Date()
             }
         });

@@ -113,7 +113,7 @@ const Login = () => {
               Secure Authentication
             </div>
             <h2 className="text-5xl font-black text-[#09111E] mb-3 leading-tight tracking-tighter">Welcome<br />Back</h2>
-            <p className="text-[#09111E]/40 font-medium">Verify your identity to proceed.</p>
+            <p className="text-[#09111E]/40 font-medium">Authenticate to continue to dashboard.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">

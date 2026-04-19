@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { MdTrendingUp, MdInventory, MdShoppingCart, MdBusiness, MdDateRange, MdHistory } from 'react-icons/md';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import './Dashboard.css';
 import { backendGqlApi } from '../utils/axiosInstance';
 import { getAnalytics } from '../utils/gqlQuery';
 import { useSelector } from 'react-redux';
 import { toast } from '../utils/toast';
+
+
 
 const Dashboard = () => {
   const [analyticsData, setAnalyticsData] = useState(null);
@@ -60,28 +62,42 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist text-[#09111E]">
-        <div className="w-16 h-16 border-4 border-brand-100 border-t-brand-900 rounded-md animate-spin mb-6"></div>
-        <p className="text-xl font-bold tracking-tight italic opacity-60">Synchronizing Business Records...</p>
+      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist text-white">
+        <div className="relative">
+          <div className="w-20 h-20 border-2 border-accent-400/20 border-t-accent-400 rounded-full animate-spin mb-8 shadow-[0_0_20px_rgba(96,165,250,0.3)]"></div>
+          <MdBusiness className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl text-accent-400" />
+        </div>
+        <div className="space-y-2 text-center">
+          <p className="text-2xl font-bold italic opacity-80">Synchronizing Ecosystem</p>
+          <p className="text-sm font-semibold text-brand-300 opacity-40">Decrypting Operational Manifests...</p>
+        </div>
       </div>
     );
   }
 
   if (error || !analyticsData) {
     return (
-      <div className="flex flex-col items-center justify-center py-40 text-center font-Urbanist">
-        <div className="p-10 bg-brand-50 rounded-md border border-brand-100 mb-8 shadow-inner">
-          <MdBusiness className="text-6xl text-brand-200" />
+      <div className="flex flex-col items-center justify-center py-40 text-center font-Urbanist max-w-2xl mx-auto">
+        <div className="relative mb-12">
+          <div className="absolute inset-0 bg-accent-400/20 blur-3xl rounded-full translate-y-4" />
+          <div className="relative p-12 bg-[#09111E] rounded-md border border-white/5 shadow-2xl group overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent" />
+            <MdBusiness className="text-8xl text-brand-300/20 relative z-10 group-hover:scale-110 transition-transform duration-700" />
+          </div>
         </div>
-        <p className="text-2xl font-bold text-[#09111E] max-w-md leading-tight tracking-tight">
-          {error || 'No operational data found for this period'}
+        <h2 className="text-4xl font-black text-white uppercase tracking-tighter mb-4">Registry Paradox Detected</h2>
+        <p className="text-lg font-bold text-brand-300 italic opacity-60 leading-relaxed mb-12">
+          {error || 'The operational ledger currently contains zero synchronized records for this temporal coordinate.'}
         </p>
         <button
           onClick={fetchAnalyticsData}
-          className="mt-10 px-12 py-5 bg-[#09111E] text-white font-bold rounded-md hover:bg-[#09111E] active:scale-95 transition-all shadow-xl tracking-wide text-sm relative overflow-hidden group"
+          className="group relative px-16 py-6 bg-accent-400 text-brand-950 font-black uppercase tracking-widest text-xs rounded-md shadow-[0_20px_50px_rgba(96,165,250,0.2)] hover:scale-105 active:scale-95 transition-all overflow-hidden"
         >
-          <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
-          <span className="relative z-10">Retry Sync</span>
+          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+          <div className="flex items-center gap-4 relative z-10">
+            <MdTrendingUp className="text-2xl" />
+            <span>Re-Authorize Synchronization</span>
+          </div>
         </button>
       </div>
     );
@@ -105,34 +121,34 @@ const Dashboard = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
         <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 relative z-10">
           <div className="flex items-center gap-8">
-            <div className="p-5 bg-white/5 rounded-md text-accent-400 border border-white/5 shadow-xl transition-transform duration-500 group-hover:rotate-6">
-              <MdDateRange className="text-4xl" />
+            <div className="p-3 bg-white/5 rounded-full text-accent-400 border border-white/5 shadow-xl transition-transform duration-500 group-hover:rotate-6">
+              <MdDateRange className="text-2xl" />
             </div>
             <div>
-              <h3 className="text-3xl font-bold text-white leading-none mb-3 tracking-tight">Reporting Filter</h3>
-              <p className="text-brand-300 text-lg font-semibold opacity-60">Define the analysis period for your dashboard</p>
+              <h3 className="text-2xl font-bold text-white leading-none mb-3">Reporting Filter</h3>
+              <p className="text-brand-300 text-sm font-medium opacity-60">Define the analysis period for your dashboard</p>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-8">
             <div className="space-y-3">
               <label className="block text-xs font-bold text-brand-300 px-2 opacity-60">Start Date</label>
-              <div className="bg-white/5 border border-white/5 p-5 px-8 rounded-md focus-within:ring-4 focus-within:ring-accent-400/10 focus-within:border-accent-400/50 transition-all flex items-center gap-4 shadow-inner">
+              <div className="bg-white/5 border border-white/5 p-3 px-8 rounded-md focus-within:ring-4 focus-within:ring-accent-400/10 focus-within:border-accent-400/50 transition-all flex items-center gap-4 shadow-inner">
                 <input
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="bg-transparent text-white text-lg font-bold focus:outline-none cursor-pointer w-full"
+                  className="bg-transparent text-white text-sm font-bold focus:outline-none cursor-pointer w-full"
                 />
               </div>
             </div>
             <div className="space-y-3">
               <label className="block text-xs font-bold text-brand-300 px-2 opacity-60">End Date</label>
-              <div className="bg-white/5 border border-white/5 p-5 px-8 rounded-md focus-within:ring-4 focus-within:ring-accent-400/10 focus-within:border-accent-400/50 transition-all flex items-center gap-4 shadow-inner">
+              <div className="bg-white/5 border border-white/5 p-3 px-8 rounded-md focus-within:ring-4 focus-within:ring-accent-400/10 focus-within:border-accent-400/50 transition-all flex items-center gap-4 shadow-inner">
                 <input
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="bg-transparent text-white text-lg font-bold focus:outline-none cursor-pointer w-full"
+                  className="bg-transparent text-white text-sm font-bold focus:outline-none cursor-pointer w-full"
                 />
               </div>
             </div>
@@ -146,25 +162,17 @@ const Dashboard = () => {
           { label: 'Total Revenue', value: analyticsData.totalSales, unit: 'FRW', icon: MdTrendingUp, detail: `${analyticsData.products?.sold?.length || 0} product sales recorded`, color: 'accent-400' },
           { label: 'Total Expenses', value: analyticsData.totalPurchases, unit: 'FRW', icon: MdShoppingCart, detail: `${analyticsData.products?.bought?.length || 0} purchase orders completed`, color: 'brand-300' },
           { label: 'Net Profit', value: analyticsData.profit, unit: 'FRW', icon: MdInventory, detail: analyticsData.profit >= 0 ? 'Profit margin healthy' : 'Loss detected for period', color: analyticsData.profit >= 0 ? 'green-500' : 'red-500' },
-          { label: 'Total Transactions', value: analyticsData.transactions?.length || 0, unit: 'Orders', icon: MdBusiness, detail: 'Cumulative system records', color: 'accent-400' }
+          { label: 'Total Transaction', value: analyticsData.transactions?.length || 0, unit: 'Orders', icon: MdBusiness, detail: 'Cumulative system records', color: 'accent-400' }
         ].map((stat, i) => (
-          <div key={i} className="bg-[#09111E] border border-white/5 rounded-md p-10 shadow-2xl hover:border-white/10 transition-all group relative overflow-hidden">
+          <div key={i} className="bg-[#09111E] border border-white/5 rounded-md p-10 shadow-2xl hover:border-white/10 transition-all cursor-pointer group relative overflow-hidden">
             <div className={`absolute top-0 right-0 w-40 h-40 bg-${stat.color}/5 rounded-md -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-1000 blur-3xl`} />
             <div className="relative z-10 flex flex-col h-full justify-between">
-              <div className="flex items-center justify-between mb-10">
-                <div className={`p-5 rounded-md border shadow-inner bg-white/5 border-white/5 text-${stat.color} group-hover:scale-110 transition-transform duration-500`}>
-                  <stat.icon className="text-3xl" />
-                </div>
-                <div className="text-[10px] font-bold text-brand-300 bg-white/5 px-4 py-2 rounded-md border border-white/5 shadow-inner tracking-wider opacity-60">
-                  Business Status
-                </div>
-              </div>
               <div>
-                <p className="text-[10px] font-black text-brand-300 uppercase tracking-widest mb-3 px-1 italic opacity-60">{stat.label}</p>
-                <h4 className="text-4xl font-black text-white tracking-tighter leading-none mb-4">
-                  {stat.value?.toLocaleString() || '0'} <span className="text-lg opacity-40 font-black tracking-widest uppercase italic">{stat.unit}</span>
+                <p className="text-md font-semibold text-brand-300 mb-3 opacity-80">{stat.label}</p>
+                <h4 className="text-4xl font-bold text-white tracking-tighter leading-none mb-4">
+                  {stat.value?.toLocaleString() || '0'} <span className="text-lg opacity-40 font-semibold italic tracking-wider">{stat.unit}</span>
                 </h4>
-                <p className="text-[10px] text-brand-300 font-bold uppercase tracking-widest opacity-40 px-1 italic">{stat.detail}</p>
+                <p className="text-sm font-semibold text-brand-300 opacity-40">{stat.detail}</p>
               </div>
             </div>
           </div>
@@ -209,7 +217,7 @@ const Dashboard = () => {
             ) : (
               <div className="flex flex-col items-center justify-center h-full gap-6 opacity-20">
                 <MdBusiness className="text-6xl text-white" />
-                <p className="text-lg font-black text-white uppercase tracking-widest">Insufficient Protocol Data</p>
+                <p className="text-lg font-bold text-white">Insufficient Protocol Data</p>
               </div>
             )}
           </div>
@@ -263,7 +271,7 @@ const Dashboard = () => {
                 <div className="p-10 bg-white/5 rounded-md border border-white/5 shadow-inner">
                   <MdHistory className="text-6xl text-white" />
                 </div>
-                <p className="text-white font-bold text-sm tracking-wide italic opacity-40">No activity recorded for this period</p>
+                <p className="text-white font-bold text-sm tracking-wide italic opacity-80">No activity recorded for this period</p>
               </div>
             )}
           </div>
@@ -275,20 +283,20 @@ const Dashboard = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-accent-400/5 to-transparent pointer-events-none" />
         <h3 className="text-4xl font-bold text-white leading-none mb-16 text-center tracking-tight">Financial Summary</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 relative z-10">
-          <div className="bg-white/5 p-12 rounded-md border border-white/5 shadow-inner group/card hover:bg-white/[0.08] transition-all relative overflow-hidden">
+          <div className=" cursor-pointer bg-white/5 p-12 rounded-md border border-white/5 shadow-inner group/card hover:bg-white/[0.08] transition-all relative overflow-hidden">
             <div className="absolute left-0 top-0 w-1 h-full bg-accent-400 opacity-50" />
             <div className="relative z-10 text-center md:text-left">
-              <h4 className="text-xs font-bold text-brand-300 mb-6 px-1 group-hover/card:translate-x-2 transition-transform opacity-60">Total Income</h4>
-              <p className="text-7xl font-bold text-white tracking-tight leading-none">
+              <h4 className="text-md font-bold text-brand-300 mb-6 px-1 group-hover/card:translate-x-2 transition-transform opacity-60">Total Income</h4>
+              <p className="text-5xl font-bold text-white tracking-tight leading-none">
                 {analyticsData.finance?.credits?.toLocaleString() || '0'} <span className="text-2xl font-bold ml-2 opacity-20">FRW</span>
               </p>
             </div>
           </div>
-          <div className="bg-white/5 p-12 rounded-md border border-white/5 shadow-inner group/card hover:bg-white/[0.08] transition-all relative overflow-hidden">
+          <div className=" cursor-pointer bg-white/5 p-12 rounded-md border border-white/5 shadow-inner group/card hover:bg-white/[0.08] transition-all relative overflow-hidden">
             <div className="absolute left-0 top-0 w-1 h-full bg-brand-300 opacity-50" />
             <div className="relative z-10 text-center md:text-left">
-              <h4 className="text-xs font-bold text-brand-300 mb-6 px-1 group-hover/card:translate-x-2 transition-transform opacity-60">Total Debt</h4>
-              <p className="text-7xl font-bold text-white tracking-tight leading-none">
+              <h4 className="text-md font-bold text-brand-300 mb-6 px-1 group-hover/card:translate-x-2 transition-transform opacity-60">Total Debt</h4>
+              <p className="text-5xl font-bold text-white tracking-tight leading-none">
                 {analyticsData.finance?.debits?.toLocaleString() || '0'} <span className="text-2xl font-bold ml-2 opacity-20">FRW</span>
               </p>
             </div>

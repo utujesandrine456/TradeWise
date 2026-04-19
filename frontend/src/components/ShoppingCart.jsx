@@ -9,7 +9,6 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveIt
 
   const handleCheckout = () => {
     setIsCheckingOut(true);
-    // Simulate checkout process
     setTimeout(() => {
       onCheckout(cartItems, totalAmount);
       setIsCheckingOut(false);

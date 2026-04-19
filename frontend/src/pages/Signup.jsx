@@ -44,12 +44,8 @@ const Signup = () => {
     setIsSigningUp(true);
     try {
       await signup(formData);
-      toast.success('Account created! A verification code has been sent to your phone.');
-      localStorage.setItem('pendingVerification', JSON.stringify({
-        phone: formData.phone,
-        enterpriseName: formData.enterpriseName,
-      }));
-      setTimeout(() => navigate('/verify-phone'), 2000);
+      toast.success('Account created! Welcome to TradeWise.');
+      setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err) {
       const message = err?.response?.data?.message || err.message || 'Registration failed.';
       toast.error(message);
@@ -93,7 +89,7 @@ const Signup = () => {
           <div className="flex flex-col gap-5">
             {[
               { icon: <TrendingUp size={20} />, label: 'Advanced profit tracking' },
-              { icon: <BarChart2 size={20} />, label: 'Seamless phone verification' },
+              { icon: <BarChart2 size={20} />, label: 'Premium market analytics' },
               { icon: <DollarSign size={20} />, label: 'Instant transaction alerts' },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-4 group cursor-default">
@@ -122,10 +118,10 @@ const Signup = () => {
         <div className="w-full max-w-md py-16 lg:py-0">
           <div className="mb-10 text-center lg:text-left">
             <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 text-[10px] uppercase tracking-widest font-black mb-5">
-              Secure Onboarding
+              Protocol Initialization
             </div>
             <h2 className="text-5xl font-black text-[#09111E] mb-3 leading-tight tracking-tighter">Join the<br />Network</h2>
-            <p className="text-[#09111E]/40 font-medium">Verify your phone and start trading.</p>
+            <p className="text-[#09111E]/40 font-medium">Create your account and start trading.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">

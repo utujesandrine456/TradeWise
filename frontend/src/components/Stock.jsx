@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { MdAdd, MdSearch, MdFilterList, MdEdit, MdDelete, MdVisibility, MdInventory, MdCheckCircle, MdSchedule, MdLayers } from 'react-icons/md';
+import { useState, useEffect, useMemo } from 'react';
+import { MdAdd, MdSearch, MdEdit, MdDelete, MdVisibility, MdInventory, MdCheckCircle, MdSchedule, MdLayers } from 'react-icons/md';
 import { formatDistanceToNow } from 'date-fns';
 import { useNavigate, useParams } from 'react-router-dom';
 import AddItemForm from './forms/AddItemForm';
@@ -9,6 +9,7 @@ import { getStockImagesQuery, createStockImageMutation, updateStockImageMutation
 import { backendGqlApi } from '../utils/axiosInstance';
 import { debounce } from '../utils/debounce';
 import { toast } from '../utils/toast';
+import { Plus } from 'lucide-react';
 
 const Stock = () => {
   const navigate = useNavigate();
@@ -20,8 +21,6 @@ const Stock = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [stockItems, setStockItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
   const [stats, setStats] = useState({
@@ -172,35 +171,6 @@ const Stock = () => {
     setDeleteConfirmText('');
   };
 
-  const confirmDelete = async () => {
-    if (deleteConfirmText.toLowerCase() === 'delete') {
-      setLoading(true);
-      try {
-        const response = await backendGqlApi.post('', {
-          query: deleteStockImageMutation,
-          variables: { stockImageId: itemToDelete.id }
-        });
-
-        if (response.data?.errors) {
-          throw new Error(response.data.errors[0]?.message || 'error');
-        }
-
-        if (response.data?.data?.stockImage || response.data?.data?.deleteStockImage) {
-          setStockItems(prevItems => prevItems.filter(item => item.id !== itemToDelete.id));
-          toast.success('record purged successfully');
-          setIsDeleteModalOpen(false);
-          setIsViewModalOpen(false);
-          setItemToDelete(null);
-          setSelectedItem(null);
-        }
-      } catch (error) {
-        toast.error('purge operation failed');
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
-
   const handleAddItem = async (newItem) => {
     setLoading(true);
     try {
@@ -240,9 +210,15 @@ const Stock = () => {
 
   if (loading && stockItems.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist">
-        <div className="w-16 h-16 border-4 border-brand-100 border-t-brand-900 rounded-md animate-spin mb-6"></div>
-        <p className="text-xl font-bold text-[#09111E] tracking-wide italic">Synchronizing Inventory...</p>
+      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist text-white">
+        <div className="relative">
+          <div className="w-20 h-20 border-2 border-accent-400/20 border-t-accent-400 rounded-full animate-spin mb-8 shadow-[0_0_20px_rgba(96,165,250,0.3)]"></div>
+          <MdLayers className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl text-accent-400" />
+        </div>
+        <div className="space-y-2 text-center">
+          <p className="text-2xl font-bold opacity-80">Syncing Catalog</p>
+          <p className="text-sm font-semibold text-brand-300 opacity-60">Retrieving Asset Manifests...</p>
+        </div>
       </div>
     );
   }
@@ -253,8 +229,8 @@ const Stock = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-10 bg-[#09111E] border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
         <div className="flex items-center gap-8 relative z-10">
-          <div className="p-5 bg-white/5 rounded-md border border-white/5 shadow-xl group-hover:rotate-12 transition-all duration-500">
-            <MdLayers className="text-5xl text-accent-400" />
+          <div className="p-3 bg-white/5 rounded-full border border-white/5 shadow-xl group-hover:rotate-12 transition-all duration-500">
+            <MdLayers className="text-3xl text-accent-400" />
           </div>
           <div>
             <h2 className="text-4xl font-bold text-white leading-none mb-3 tracking-tight">Inventory Management</h2>
@@ -263,7 +239,7 @@ const Stock = () => {
         </div>
         <button
           onClick={() => setIsAddItemFormOpen(true)}
-          className="group relative px-12 py-5 bg-accent-400 text-brand-950 rounded-md font-bold transition-all hover:scale-105 active:scale-95 shadow-2xl overflow-hidden text-xs"
+          className="group relative px-6 py-4 bg-white text-brand-950 rounded-md font-semibold transition-all shadow-2xl overflow-hidden text-sm"
         >
           <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
           <div className="flex items-center gap-3 relative z-10">
@@ -289,19 +265,13 @@ const Stock = () => {
       <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
         <div className="p-12 border-b border-white/5 flex flex-col xl:flex-row justify-between items-center gap-8 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
-          <div className="relative z-10 flex items-center gap-6">
-            <div className="p-3 bg-white/5 rounded-md text-accent-400 border border-white/5 shadow-lg">
-              <MdFilterList className="text-2xl" />
-            </div>
-            <h3 className="text-3xl font-bold text-white tracking-tight">Product Catalog</h3>
-          </div>
           <div className="w-full xl:w-[500px] relative z-10 group/search">
             <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-brand-300 text-2xl group-focus-within/search:text-accent-400 transition-colors" />
             <input
               type="text"
               placeholder="Filter catalog by product name..."
               onChange={(e) => debouncedSearch(e.target.value)}
-              className="w-full pl-16 pr-8 py-5 bg-white/5 border border-white/5 rounded-md text-white font-semibold tracking-tight text-lg placeholder:text-brand-300/40 focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all shadow-inner"
+              className="w-full pl-16 pr-8 py-3 bg-white/5 border border-white/5 rounded-md text-white font-medium tracking-tight text-md placeholder:text-brand-300/40 focus:outline-none focus:ring-1 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all shadow-inner"
             />
           </div>
         </div>
@@ -309,11 +279,11 @@ const Stock = () => {
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-white/5">
-                <th className="px-10 py-6 text-left text-xs font-bold text-brand-300 tracking-wider">Product Name</th>
-                <th className="px-10 py-6 text-left text-xs font-bold text-brand-300 tracking-wider">Unit</th>
-                <th className="px-10 py-6 text-left text-xs font-bold text-brand-300 tracking-wider">Stock Level</th>
-                <th className="px-10 py-6 text-left text-xs font-bold text-brand-300 tracking-wider">Status</th>
-                <th className="px-10 py-6 text-right text-xs font-bold text-brand-300 tracking-wider">Actions</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Product Name</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Unit</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Stock Level</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Status</th>
+                <th className="px-10 py-6 text-right text-sm font-bold text-brand-300">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -377,11 +347,30 @@ const Stock = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="px-10 py-32 text-center">
-                    <div className="p-10 bg-white/5 rounded-md border border-white/5 shadow-inner inline-block mb-6">
-                      <MdInventory className="text-6xl text-brand-300 opacity-20" />
+                  <td colSpan="5" className="px-10 py-40">
+                    <div className="flex flex-col items-center justify-center max-w-lg mx-auto">
+                      <div className="relative mb-12 group">
+                        <div className="absolute inset-0 bg-accent-400/20 blur-3xl rounded-full group-hover:scale-150 transition-transform duration-1000" />
+                        <div className="relative p-8 bg-[#09111E] rounded-full border border-white/20 shadow-2xl">
+                          <MdInventory className="text-7xl text-brand-300/20 group-hover:text-accent-400 transition-colors duration-500" />
+                        </div>
+                      </div>
+                      <h3 className="text-4xl font-bold text-white tracking-tighter mb-4">Stock Registry Empty</h3>
+                      <p className="text-brand-300 italic font-medium opacity-60 leading-relaxed mb-12 text-center text-sm">
+                        {searchTerm
+                          ? 'The specific filter parameters yielded zero operational matches.'
+                          : 'Your local distribution center is currently unmapped. Initialize your inventory to begin tracking.'}
+                      </p>
+                      {!searchTerm && (
+                        <button
+                          onClick={() => setIsAddItemFormOpen(true)}
+                          className="px-8 py-4 bg-white/5 border items-center gap-2 flex justify-center border-white/10 text-white font-bold text-[16px] rounded-md hover:bg-white/10 transition-all active:scale-95 shadow-xl"
+                        >
+                          Create Product
+                          <Plus size={16} />
+                        </button>
+                      )}
                     </div>
-                    <p className="text-xl font-bold text-white tracking-wide opacity-40">No items found in your catalog</p>
                   </td>
                 </tr>
               )}
@@ -459,22 +448,14 @@ const InventoryStatCard = ({ label, value, icon: Icon, detail, color }) => {
   };
 
   const selectedColor = colorMap[color] || colorMap['accent-400'];
-  const [textColor, bgStyle, borderStyle, gradStyle] = selectedColor.split(' ');
+  const [gradStyle] = selectedColor.split(' ');
 
   return (
     <div className="group bg-[#09111E] p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
       <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50`} />
       <div className="relative z-10 flex flex-col h-full justify-between gap-10">
-        <div className="flex items-center justify-between">
-          <div className={`p-5 rounded-md border ${bgStyle} ${borderStyle} ${textColor} shadow-inner group-hover:scale-110 duration-500`}>
-            <Icon className="text-3xl" />
-          </div>
-          <span className={`text-[10px] font-bold ${textColor} bg-white/5 px-4 py-2 rounded-md border border-white/5 shadow-inner tracking-wider`}>
-            Stock Status
-          </span>
-        </div>
         <div>
-          <p className="text-xs font-bold text-brand-300 mb-3 opacity-60">{label}</p>
+          <p className="text-md font-semibold text-brand-300 mb-3 opacity-60">{label}</p>
           <h4 className="text-4xl font-bold text-white tracking-tight leading-none mb-3">
             {value} <span className="text-lg opacity-40 font-bold ml-2">Units</span>
           </h4>

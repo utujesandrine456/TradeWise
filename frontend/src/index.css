@@ -113,28 +113,27 @@ html {
   font-family: 'Urbanist', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff;
-  color: #09111E;
+  background-color: #09111E;
+  color: #ffffff;
 }
 
 /* Global Scrollbar Customization */
 ::-webkit-scrollbar {
-  width: 10px;
-  background: #f8fafc;
+  width: 8px;
+  background: #09111E;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f8fafc;
+  background: #09111E;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #09111E;
-  border-radius: 5px;
-  border: 2px solid #f8fafc;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #1a2a44;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Firefox support */
@@ -271,5 +270,17 @@ th {
 }
 
 .glow-effect:hover::after {
+  opacity: 1;
+}
+
+/* Invert Calendar Picker Icon to White */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
 }

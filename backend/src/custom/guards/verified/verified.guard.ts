@@ -7,32 +7,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class VerifiedGuard implements CanActivate {
   public constructor(
     private readonly prismaService: PrismaService
-  ) {}
+  ) { }
 
-  public async canActivate(context: ExecutionContext): Promise<boolean> {
-    let req: Request;
-
-    if (context.getType<'graphql'>() === 'graphql') {
-      const gqlCtx = GqlExecutionContext.create(context);
-      req = gqlCtx.getContext().req;
-    } else {
-      req = context.switchToHttp().getRequest();
-    }
-
-    const user = req?.user;
-
-    if (!user){
-      throw new ForbiddenException('User not authenticated');
-    }
-
-    const fullUser = await this.prismaService.mTrader.findUnique({ where: { id: user.sub } });
-    if(!fullUser){
-      throw new ForbiddenException('User not found');
-    }
-    if (!fullUser.isVerified){
-      throw new ForbiddenException('User email not verified');
-    }
-
+    // verification check is fully disabled to ensure seamless access as requested
     return true;
-  }
 }

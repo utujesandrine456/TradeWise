@@ -5,7 +5,7 @@ import { useAuth } from "../hooks/useAuth";
 const ProtectedRoute = ({
   children,
   requireAuth = true,
-  requireVerified = true,
+  requireVerified = false,
 }) => {
   const { trader: user, loading, checkAuth } = useAuth();
   const [progress, setProgress] = useState(0);
@@ -110,9 +110,6 @@ const ProtectedRoute = ({
     return <Navigate to="/login" replace />;
   }
 
-  if (requireVerified && user && !user.isVerified) {
-    return <Navigate to="/verify-phone" replace />;
-  }
 
   if (!requireAuth && user && !loading) {
     return <Navigate to={"/dashboard"} replace />;
