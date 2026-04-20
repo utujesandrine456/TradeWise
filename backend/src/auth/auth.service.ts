@@ -304,23 +304,23 @@ export class AuthService {
                 goals: string;
             }> = {};
 
-            if (enterpriseDescription) updateData.enterpriseDescription = enterpriseDescription;
-            if (name) updateData.name = name;
-            if (currency) updateData.currency = currency;
-            if (businessType) updateData.businessType = businessType;
-            if (industry) updateData.industry = industry;
-            if (foundedYear) updateData.foundedYear = foundedYear;
-            if (description) updateData.description = description;
-            if (website) updateData.website = website;
-            if (address) updateData.address = address;
-            if (businessHours) updateData.businessHours = businessHours;
-            if (phoneNumber) updateData.phoneNumber = phoneNumber;
-            if (anualRevenue) updateData.anualRevenue = anualRevenue;
-            if (numberOfEmployees) updateData.numberOfEmployees = numberOfEmployees;
-            if (paymentMethod) updateData.paymentMethod = paymentMethod;
-            if (targetMarket) updateData.targetMarket = targetMarket;
-            if (competitors) updateData.competitors = competitors;
-            if (goals) updateData.goals = goals;
+            if ('enterpriseDescription' in details) updateData.enterpriseDescription = enterpriseDescription;
+            if ('name' in details) updateData.name = name;
+            if ('currency' in details) updateData.currency = currency;
+            if ('businessType' in details) updateData.businessType = businessType;
+            if ('industry' in details) updateData.industry = industry;
+            if ('foundedYear' in details) updateData.foundedYear = foundedYear;
+            if ('description' in details) updateData.description = description;
+            if ('website' in details) updateData.website = website;
+            if ('address' in details) updateData.address = address;
+            if ('businessHours' in details) updateData.businessHours = businessHours;
+            if ('phoneNumber' in details) updateData.phoneNumber = phoneNumber;
+            if ('anualRevenue' in details) updateData.anualRevenue = anualRevenue;
+            if ('numberOfEmployees' in details) updateData.numberOfEmployees = numberOfEmployees;
+            if ('paymentMethod' in details) updateData.paymentMethod = paymentMethod;
+            if ('targetMarket' in details) updateData.targetMarket = targetMarket;
+            if ('competitors' in details) updateData.competitors = competitors;
+            if ('goals' in details) updateData.goals = goals;
 
             const settings = await this.prismaService.mTraderSettings.update({
                 where: { traderId: id },

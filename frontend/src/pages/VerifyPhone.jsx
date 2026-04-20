@@ -58,7 +58,7 @@ const VerifyPhone = () => {
 
             await checkAuth();
 
-            toast.success('Identity Secured. Welcome to TradeWise.');
+            toast.success('Identity Secured. Welcome to Stocka.');
             navigate("/dashboard");
         } catch (error) {
             console.error(error);
@@ -158,7 +158,7 @@ const VerifyPhone = () => {
                                         <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin font-semibold" />
                                     ) : (
                                         <>
-                                        Verify Now
+                                            Verify Now
                                             <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
                                         </>
                                     )}

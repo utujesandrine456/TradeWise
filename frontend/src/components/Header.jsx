@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Menu, X } from 'lucide-react';
 import { MdDashboard } from 'react-icons/md';
+import images from '../utils/images';
 
 const Header = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -38,13 +39,16 @@ const Header = () => {
         >
             <div className="px-6 py-4 flex justify-between items-center">
                 <div
-                    className="flex items-center gap-3 cursor-pointer"
+                    className="flex items-center gap-4 cursor-pointer group"
                     onClick={() => navigate('/')}
                 >
-                    <h1 className="text-3xl font-bold tracking-tight text-white">Stocka</h1>
+                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 p-1.5 transition-all group-hover:scale-110 group-hover:border-white/30 shadow-2xl">
+                        <img src={images.logo} alt="Stocka Logo" className="w-full h-full object-contain brightness-0 invert" />
+                    </div>
+                    <h1 className="text-2xl font-bold tracking-tight text-white group-hover:text-white/90 transition-colors">Stocka</h1>
                 </div>
 
-                <div className="hidden md:flex items-center gap-8">
+                <div className="hidden md:flex items-center gap-4">
                     {navLinks.map((item) => (
                         <a
                             key={item}
@@ -53,9 +57,10 @@ const Header = () => {
                                 e.preventDefault();
                                 scrollToSection(item.toLowerCase());
                             }}
-                            className={`px-4 py-2 rounded-md text-sm font-semibold transition-all hover:bg-white/5 ${scrolled || mobileOpen ? 'text-white/60 hover:text-white' : 'text-white/60 hover:text-white'}`}
+                            className="relative group px-4 py-2 text-md font-semibold text-white/60 transition-colors hover:text-white"
                         >
-                            {item}
+                            <span>{item}</span>
+                            <span className="absolute bottom-0 left-1/2 w-0 h-1 bg-white transition-all duration-300 group-hover:w-full group-hover:left-0 rounded-full" />
                         </a>
                     ))}
                 </div>
@@ -82,7 +87,7 @@ const Header = () => {
                                 onClick={() => navigate('/dashboard')}
                                 className="px-6 py-2.5 bg-white text-[#09111E] rounded-md font-bold text-sm transition-all active:scale-95 flex items-center gap-2 hover:bg-white/90"
                             >
-                                <MdDashboard size={16} /> Dashboard
+                                Dashboard
                             </button>
                         )}
                     </div>
@@ -120,7 +125,7 @@ const Header = () => {
                                 onClick={() => navigate('/login')}
                                 className="w-full py-4 bg-white text-[#09111E] rounded-md text-lg font-bold shadow-lg"
                             >
-                                Let's talk
+                                Signup
                             </button>
                         </div>
                     </motion.div>

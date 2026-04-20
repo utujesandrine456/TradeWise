@@ -108,7 +108,7 @@ export class EmailService {
                             </td>
                         </tr>
                         </table>
-                        <p style="font-size:12px; color:#999; margin-top:16px;">© 2025 TradeWise Communications</p>
+                        <p style="font-size:12px; color:#999; margin-top:16px;">© 2025 Stocka Communications</p>
                     </td>
                     </tr>
                 </table>

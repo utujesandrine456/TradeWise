@@ -189,7 +189,6 @@ const Home = () => {
             <Header />
 
             <div id="home" className="relative w-full min-h-screen overflow-hidden flex items-center pt-24 pb-12">
-                {/* Diamond Lattice Background — matches reference */}
                 <div className="absolute inset-0 bg-[#09111E] overflow-hidden pointer-events-none">
                     <svg className="absolute inset-0 w-full h-full">
                         <defs>

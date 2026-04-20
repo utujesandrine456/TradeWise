@@ -27,9 +27,9 @@ const Profile = () => {
 
   const [activeTab, setActiveTab] = useState('basic');
   const [editing, setEditing] = useState(false);
-  const [originalData, setOriginalData] = useState({}); // Track original values for comparison
+  const [originalData, setOriginalData] = useState({});
   const [formData, setFormData] = useState({
-    // All fields from backend onboardingSchema
+
     enterpriseDescription: '',
     name: '',
     currency: '',
@@ -50,7 +50,7 @@ const Profile = () => {
     sendMessage: ''
   });
 
-  // Check if formData differs from originalData (with proper normalization for number fields)
+
   const hasChangesMemo = useMemo(() => {
     if (!originalData || Object.keys(originalData).length === 0) return false;
 
@@ -58,37 +58,32 @@ const Profile = () => {
       let currentValue = formData[key];
       let originalValue = originalData[key];
 
-      // Normalize number fields for comparison
       if (key === 'foundedYear' || key === 'anualRevenue' || key === 'numberOfEmployees') {
-        // Convert both to numbers for comparison (empty string becomes 0)
         const currentNum = currentValue === '' ? 0 : Number(currentValue);
         const originalNum = originalValue === '' ? 0 : Number(originalValue);
         return currentNum !== originalNum;
       }
 
-      // For other fields, compare as strings
       return currentValue !== originalValue;
     });
   }, [formData, originalData]);
 
-  // Update formData when profileData is loaded
   useEffect(() => {
     if (profileData) {
       const mappedData = {
-        // Map all backend onboardingSchema fields to formData
         enterpriseDescription: profileData.enterpriseDescription || '',
         name: profileData.name || '',
         currency: profileData.currency || '',
         businessType: profileData.businessType || '',
         industry: profileData.industry || '',
-        foundedYear: profileData.foundedYear || '', // API should return number, but form needs string
+        foundedYear: profileData.foundedYear || '',
         description: profileData.description || '',
         website: profileData.website || '',
         address: profileData.address || '',
         businessHours: profileData.businessHours || '',
         phoneNumber: profileData.phoneNumber || '',
-        anualRevenue: profileData.anualRevenue || '', // API should return number, but form needs string
-        numberOfEmployees: profileData.numberOfEmployees || '', // API should return number, but form needs string
+        anualRevenue: profileData.anualRevenue || '',
+        numberOfEmployees: profileData.numberOfEmployees || '',
         paymentMethod: profileData.paymentMethod || '',
         targetMarket: profileData.targetMarket || '',
         competitors: profileData.competitors || '',
@@ -97,26 +92,21 @@ const Profile = () => {
       };
 
       setFormData(mappedData);
-      setOriginalData(mappedData); // Store original values for comparison
-      // hasChangesMemo will automatically update to false since formData now matches originalData
+      setOriginalData(mappedData);
     }
   }, [profileData]);
 
   const getModifiedFields = () => {
     const modified = {};
 
-    // Compare formData with originalData and include changed fields
     Object.keys(formData).forEach(key => {
       const currentValue = formData[key];
       const originalValue = originalData[key];
 
-      // Check if field has changed (including clearing fields)
       if (currentValue !== originalValue) {
         if (key === 'foundedYear' || key === 'anualRevenue' || key === 'numberOfEmployees') {
-          // Convert number fields to numbers for API
           modified[key] = currentValue === '' ? undefined : Number(currentValue);
         } else {
-          // Send empty strings for cleared optional fields
           modified[key] = currentValue;
         }
       }
@@ -135,23 +125,12 @@ const Profile = () => {
     return Math.min(100, Math.round((filled / total) * 100));
   }, [formData, profileData, loading]);
 
-  const initials = useMemo(() => {
-    const name = profileData?.name || formData.name || 'User';
-    const parts = name.trim().split(' ');
-    const first = parts[0]?.[0] || 'U';
-    const second = parts[1]?.[0] || '';
-    return (first + second).toLowerCase();
-  }, [profileData?.name, formData.name]);
-
   const onSave = async () => {
     try {
-      // Only send modified fields to backend (including cleared fields)
       const modifiedData = getModifiedFields();
 
-      // Always send the update, even if no fields changed (for consistency)
       const res = await backendApi.post('/auth/onboarding', modifiedData);
 
-      // Update local profile data with only the changed fields
       if (profileData) {
         setProfileData(prev => ({
           ...prev,
@@ -159,14 +138,12 @@ const Profile = () => {
         }));
       }
 
-      // Update originalData to reflect the new state
       setOriginalData(prev => ({
         ...prev,
         ...modifiedData
       }));
 
       setEditing(false);
-      // hasChangesMemo will automatically update to false since formData now matches originalData
       toast.success("Profile and settings saved successfully");
     } catch (error) {
       const refinedError = handleError(error);
@@ -176,29 +153,23 @@ const Profile = () => {
   };
 
   const onCancel = () => {
-    // Reset form to original values (before any edits)
     setFormData(originalData);
     setEditing(false);
-    // hasChangesMemo will automatically update to false since formData now matches originalData
   };
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
 
-    // Handle number fields with proper validation
     if (type === 'number') {
-      // Allow empty values or valid numbers
       if (value === '' || !isNaN(value)) {
         const numValue = value === '' ? '' : Number(value);
-        if (numValue >= 0) { // Prevent negative numbers
-          setFormData(prev => ({ ...prev, [name]: value })); // Keep as string for form
+        if (numValue >= 0) {
+          setFormData(prev => ({ ...prev, [name]: value }));
         }
       }
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
-
-    // Change detection is now handled by useMemo (hasChangesMemo)
   };
 
   return (
@@ -210,12 +181,7 @@ const Profile = () => {
           <div className="relative z-10 flex items-center justify-between">
             <div className="space-y-4">
               <h1 className="text-5xl font-bold text-white tracking-tight mb-2">Profile Settings</h1>
-              <p className="text-brand-300 font-semibold text-lg opacity-60">Manage your business profile and account preferences</p>
-            </div>
-            <div className="flex items-center gap-6">
-              <div className="w-24 h-24 rounded-md bg-white/5 border border-white/10 backdrop-blur-3xl flex items-center justify-center text-accent-400 text-4xl font-bold shadow-2xl">
-                {initials}
-              </div>
+              <p className="text-brand-300 font-medium text-lg opacity-60">Manage your business profile and account preferences</p>
             </div>
           </div>
         </div>
@@ -227,15 +193,15 @@ const Profile = () => {
           </div>
           <div className="mt-12 bg-white/5 p-8 rounded-md border border-white/5 shadow-inner">
             <div className="flex items-center justify-between mb-5 px-1">
-              <p className="text-xs font-bold text-brand-300 opacity-60">Setup Progress</p>
-              <p className="text-xs font-bold text-brand-500">
+              <p className="text-sm font-semibold text-brand-300 opacity-60">Setup Progress</p>
+              <p className="text-sm font-bold text-brand-500">
                 {loading ? 'Loading...' : `${completeness}% complete`}
               </p>
             </div>
             {!loading && (
-              <div className="w-full h-4 bg-brand-950 border border-white/5 rounded-md overflow-hidden p-1 shadow-inner">
+              <div className="w-full h-3 bg-brand-950 border border-white/5 rounded-full overflow-hidden shadow-inner">
                 <div
-                  className="h-full bg-accent-400 rounded-md transition-all duration-1000 shadow-[0_0_15px_rgba(96,165,250,0.5)]"
+                  className="h-full bg-accent-400 rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(96,165,250,0.5)]"
                   style={{ width: `${completeness}%` }}
                 />
               </div>
@@ -261,17 +227,17 @@ const Profile = () => {
       {activeTab === 'basic' && (
         <div className="space-y-6 animate-in fade-in duration-500">
           {/* Header with Edit/Save buttons */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-10 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-10 bg-[#09111E] border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
             <div className="relative z-10">
               <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">General Information</h2>
-              <p className="text-xs font-semibold text-brand-300 opacity-60">Manage your core business identity and presence</p>
+              <p className="text-sm font-semibold text-brand-300 opacity-60">Manage your core business identity and presence</p>
             </div>
             {!editing ? (
               <button
-                className={`group relative flex items-center gap-4 px-10 py-5 rounded-md text-sm font-bold transition-all shadow-2xl overflow-hidden active:scale-95 ${loading
+                className={`group relative flex items-center gap-4 px-10 py-5 rounded-md text-sm font-semibold transition-all shadow-2xl overflow-hidden active:scale-95 ${loading
                   ? 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
-                  : 'bg-[#09111E] text-white hover:scale-105'
+                  : 'bg-white text-brand-950 hover:scale-105'
                   }`}
                 onClick={loading ? undefined : () => setEditing(true)}
                 disabled={loading}
@@ -283,8 +249,8 @@ const Profile = () => {
             ) : (
               <div className="flex items-center gap-4 relative z-10">
                 <button
-                  className={`flex items-center gap-4 px-10 py-5 rounded-md text-sm font-bold transition-all shadow-2xl active:scale-95 ${hasChangesMemo
-                    ? 'bg-emerald-600 text-white'
+                  className={`flex items-center gap-4 px-10 py-5 rounded-md text-sm font-semibold transition-all shadow-2xl active:scale-95 ${hasChangesMemo
+                    ? 'bg-white text-brand-950'
                     : 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
                     }`}
                   onClick={hasChangesMemo ? onSave : undefined}
@@ -293,7 +259,7 @@ const Profile = () => {
                   <MdCheck className="text-xl" /> Save Changes
                 </button>
                 <button
-                  className="flex items-center gap-4 px-10 py-5 rounded-md bg-white/5 border border-white/10 text-brand-300 text-sm font-bold transition-all hover:bg-white/10 hover:text-white shadow-xl active:scale-95"
+                  className="flex items-center gap-4 px-10 py-5 rounded-md bg-white/5 border border-white/10 text-brand-300 text-sm font-semibold transition-all hover:bg-white/10 hover:text-white shadow-xl active:scale-95"
                   onClick={onCancel}
                 >
                   <MdClose className="text-xl" /> Cancel
@@ -302,7 +268,6 @@ const Profile = () => {
             )}
           </div>
 
-          {/* Basic Information Section */}
           <Section title="Basic Information" subtitle="Tell us about your business.">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <InputField label="Company Name *" name="name" value={formData.name} onChange={handleChange} required disabled={!editing} />
@@ -441,17 +406,17 @@ const Profile = () => {
 
 // Reusable Tab Header with Edit/Save/Cancel Controls
 const TabHeader = ({ title, subtitle, editing, loading, hasChanges, onEdit, onSave, onCancel }) => (
-  <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-4 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
+  <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-4 bg-[#09111E] border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden">
     <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
     <div className="relative z-10">
       <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">{title}</h2>
-      <p className="text-xs font-semibold text-brand-300 opacity-60">{subtitle}</p>
+      <p className="text-sm font-semibold text-brand-300 opacity-60">{subtitle}</p>
     </div>
     {!editing ? (
       <button
-        className={`group flex items-center gap-4 px-10 py-5 rounded-md text-sm font-bold transition-all shadow-2xl overflow-hidden active:scale-95 relative z-10 ${loading
+        className={`group flex items-center gap-4 px-10 py-5 rounded-md text-sm font-semibold transition-all shadow-2xl overflow-hidden active:scale-95 relative z-10 ${loading
           ? 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
-          : 'bg-[#09111E] text-white hover:scale-105'
+          : 'bg-white text-brand-950 hover:scale-105'
           }`}
         onClick={loading ? undefined : onEdit}
         disabled={loading}
@@ -463,8 +428,8 @@ const TabHeader = ({ title, subtitle, editing, loading, hasChanges, onEdit, onSa
     ) : (
       <div className="flex items-center gap-4 relative z-10">
         <button
-          className={`flex items-center gap-4 px-10 py-5 rounded-md text-sm font-bold transition-all shadow-2xl active:scale-95 ${hasChanges
-            ? 'bg-emerald-600 text-white'
+          className={`flex items-center gap-4 px-10 py-5 rounded-md text-sm font-semibold transition-all shadow-2xl active:scale-95 ${hasChanges
+            ? 'bg-white text-brand-950'
             : 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
             }`}
           onClick={hasChanges ? onSave : undefined}
@@ -473,7 +438,7 @@ const TabHeader = ({ title, subtitle, editing, loading, hasChanges, onEdit, onSa
           <MdCheck className="text-xl" /> Save
         </button>
         <button
-          className="flex items-center gap-4 px-10 py-5 rounded-md bg-white/5 border border-white/10 text-brand-300 text-sm font-bold transition-all hover:bg-white/10 hover:text-white shadow-xl active:scale-95"
+          className="flex items-center gap-4 px-10 py-5 rounded-md bg-white/5 border border-white/10 text-brand-300 text-sm font-semibold transition-all hover:bg-white/10 hover:text-white shadow-xl active:scale-95"
           onClick={onCancel}
         >
           <MdClose className="text-xl" /> Cancel
@@ -489,7 +454,7 @@ const Section = ({ title, subtitle, children }) => (
     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-400 to-transparent group-hover/section:translate-x-full transition-transform duration-1000 opacity-50" />
     <div className="mb-12 relative z-10">
       <h3 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">{title}</h3>
-      {subtitle && <p className="text-xs font-semibold text-brand-300 opacity-40">{subtitle}</p>}
+      {subtitle && <p className="text-sm font-semibold text-brand-300 opacity-40">{subtitle}</p>}
     </div>
     <div className="relative z-10">
       {children}
@@ -500,8 +465,8 @@ const Section = ({ title, subtitle, children }) => (
 const TabButton = ({ active, onClick, children }) => (
   <button
     onClick={onClick}
-    className={`px-10 py-4 rounded-md text-xs font-bold tracking-wider transition-all duration-500 ${active
-      ? 'bg-brand-500 text-white shadow-lg scale-105'
+    className={`px-10 py-4 rounded-md text-xs font-semibold tracking-wider transition-all duration-500 ${active
+      ? 'bg-white text-brand-950 shadow-lg scale-105'
       : 'bg-white/5 text-brand-300 hover:text-white hover:bg-white/10'
       }`}
   >
@@ -509,15 +474,14 @@ const TabButton = ({ active, onClick, children }) => (
   </button>
 );
 
-// Input Component
 const InputField = ({ label, type = 'text', name, value, onChange, placeholder, required, min, max, disabled = false }) => (
   <div className="space-y-4">
-    <label className="block text-xs font-bold text-brand-300 px-2 opacity-60">{label}</label>
+    <label className="block text-sm font-semibold text-brand-300 px-2 opacity-60">{label}</label>
     <input
       type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} required={required}
       min={min} max={max} disabled={disabled}
-      className={`block w-full bg-white/5 border border-white/5 rounded-md px-6 py-5 text-white text-lg font-bold transition-all placeholder:text-brand-300/20 shadow-inner ${disabled
-        ? 'opacity-30 cursor-not-allowed bg-transparent border-white/5'
+      className={`block w-full bg-white/5 border border-white/5 rounded-md px-6 py-5 text-white text-md font-semibold transition-all placeholder:text-brand-300/20 shadow-inner ${disabled
+        ? 'opacity-60 cursor-not-allowed bg-transparent border-white/5'
         : 'focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50'
         }`}
     />
@@ -526,11 +490,11 @@ const InputField = ({ label, type = 'text', name, value, onChange, placeholder, 
 
 const SelectField = ({ label, name, value, onChange, options, disabled = false }) => (
   <div className="space-y-4">
-    <label className="block text-xs font-bold text-brand-300 px-2 opacity-60">{label}</label>
+    <label className="block text-sm font-semibold text-brand-300 px-2 opacity-60">{label}</label>
     <div className="relative">
       <select
         name={name} value={value} onChange={onChange} disabled={disabled}
-        className={`block w-full bg-white/5 border border-white/5 rounded-md px-6 py-5 text-white text-lg font-bold transition-all appearance-none cursor-pointer shadow-inner ${disabled
+        className={`block w-full bg-white/5 border border-white/5 rounded-md px-6 py-5 text-white text-md font-semibold transition-all appearance-none cursor-pointer shadow-inner ${disabled
           ? 'opacity-30 cursor-not-allowed bg-transparent border-white/5'
           : 'focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50'
           }`}
@@ -545,13 +509,13 @@ const SelectField = ({ label, name, value, onChange, options, disabled = false }
 const Badge = ({ icon, label, value }) => (
   <div className="flex items-center gap-6 bg-white/5 rounded-md border border-white/5 p-8 shadow-2xl transition-all hover:border-accent-400/30 hover:bg-white/[0.08] group relative overflow-hidden">
     <div className="absolute top-0 right-0 w-24 h-24 bg-accent-400/5 rounded-md blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-    <div className="w-16 h-16 rounded-md bg-white/5 flex items-center justify-center border border-white/5 transition-all group-hover:bg-brand-500 group-hover:text-white shadow-inner">
+    <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/5 transition-all group-hover:bg-white group-hover:text-brand-950 shadow-inner">
       <div className="text-3xl transition-transform group-hover:scale-110">
         {icon}
       </div>
     </div>
     <div className="min-w-0 relative z-10">
-      <p className="text-xs font-bold text-brand-300 leading-none mb-3 opacity-60">{label}</p>
+      <p className="text-sm font-semibold text-brand-300 leading-none mb-3 opacity-60">{label}</p>
       <p className="text-xl font-bold text-white truncate">{value}</p>
     </div>
   </div>
@@ -559,10 +523,10 @@ const Badge = ({ icon, label, value }) => (
 
 const TextAreaField = ({ label, name, value, onChange, placeholder, rows = 3, disabled = false }) => (
   <div className="space-y-4">
-    <label className="block text-xs font-bold text-brand-300 px-2 opacity-60">{label}</label>
+    <label className="block text-sm font-semibold text-brand-300 px-2 opacity-60">{label}</label>
     <textarea
       name={name} value={value} onChange={onChange} placeholder={placeholder} rows={rows} disabled={disabled}
-      className={`block w-full bg-white/5 border border-white/5 rounded-md px-6 py-5 text-white text-lg font-bold transition-all placeholder:text-brand-300/20 shadow-inner resize-none ${disabled
+      className={`block w-full bg-white/5 border border-white/5 rounded-md px-6 py-5 text-white text-md font-semibold transition-all placeholder:text-brand-300/20 shadow-inner resize-none ${disabled
         ? 'opacity-30 cursor-not-allowed bg-transparent border-white/5'
         : 'focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50'
         }`}

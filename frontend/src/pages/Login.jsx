@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { EyeOff, Eye, ArrowRight, ArrowLeft, TrendingUp, BarChart2, DollarSign } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import images from '../utils/images';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -64,8 +65,11 @@ const Login = () => {
         </div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-500/5 rounded-full blur-[150px] pointer-events-none" />
 
-        <div className="relative z-10">
-          <h1 className="text-white font-black text-5xl tracking-tight">TradeWise</h1>
+        <div className="relative z-10 flex items-center gap-6">
+          <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 p-2.5 shadow-2xl backdrop-blur-md">
+            <img src={images.logo} alt="Stocka Logo" className="w-full h-full object-contain brightness-0 invert" />
+          </div>
+          <h1 className="text-white font-black text-5xl tracking-tight">Stocka</h1>
         </div>
 
         <div className="relative z-10 space-y-10">
@@ -168,7 +172,7 @@ const Login = () => {
           <p className="text-center text-sm text-[#09111E]/30 font-medium mt-10">
             First time here?{' '}
             <Link to="/signup" className="text-[#09111E] font-black hover:underline underline-offset-4">
-              Create TradeWise ID
+              Create Stocka ID
             </Link>
           </p>
         </div>

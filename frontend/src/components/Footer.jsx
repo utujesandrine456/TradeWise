@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mail, Phone, Linkedin, Instagram, Facebook, Send } from 'lucide-react';
 import { motion } from 'framer-motion';
+import images from '../utils/images';
 
 const Footer = () => {
     return (
@@ -22,6 +23,9 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
                     <div className="space-y-10">
                         <div className="flex items-center gap-4 group cursor-pointer">
+                            <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 p-2 transition-all group-hover:scale-110 shadow-2xl">
+                                <img src={images.logo} alt="Stocka Logo" className="w-full h-full object-contain brightness-0 invert" />
+                            </div>
                             <h3 className="text-white font-black text-4xl tracking-tight group-hover:text-brand-500 transition-colors">Stocka</h3>
                         </div>
                         <p className="text-white/50 text-base font-semibold leading-relaxed max-w-sm">

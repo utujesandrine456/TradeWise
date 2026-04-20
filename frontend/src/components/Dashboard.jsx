@@ -77,28 +77,18 @@ const Dashboard = () => {
 
   if (error || !analyticsData) {
     return (
-      <div className="flex flex-col items-center justify-center py-40 text-center font-Urbanist max-w-2xl mx-auto">
+      <div className="flex flex-col items-center justify-center py-24 text-center font-Urbanist max-w-2xl mx-auto">
         <div className="relative mb-12">
           <div className="absolute inset-0 bg-accent-400/20 blur-3xl rounded-full translate-y-4" />
-          <div className="relative p-12 bg-[#09111E] rounded-md border border-white/5 shadow-2xl group overflow-hidden">
+          <div className="relative cursor-pointer p-8 bg-[#09111E] rounded-full border border-white/5 shadow-2xl group overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent" />
-            <MdBusiness className="text-8xl text-brand-300/20 relative z-10 group-hover:scale-110 transition-transform duration-700" />
+            <MdBusiness className="text-7xl text-brand-300/20 relative z-10 group-hover:scale-110 transition-transform duration-700" />
           </div>
         </div>
-        <h2 className="text-4xl font-black text-white uppercase tracking-tighter mb-4">Registry Paradox Detected</h2>
-        <p className="text-lg font-bold text-brand-300 italic opacity-60 leading-relaxed mb-12">
+        <h2 className="text-4xl font-bold text-white mb-4">Registry Paradox Detected</h2>
+        <p className="text-md font-semibold text-brand-300 italic opacity-60 leading-relaxed mb-12">
           {error || 'The operational ledger currently contains zero synchronized records for this temporal coordinate.'}
         </p>
-        <button
-          onClick={fetchAnalyticsData}
-          className="group relative px-16 py-6 bg-accent-400 text-brand-950 font-black uppercase tracking-widest text-xs rounded-md shadow-[0_20px_50px_rgba(96,165,250,0.2)] hover:scale-105 active:scale-95 transition-all overflow-hidden"
-        >
-          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-          <div className="flex items-center gap-4 relative z-10">
-            <MdTrendingUp className="text-2xl" />
-            <span>Re-Authorize Synchronization</span>
-          </div>
-        </button>
       </div>
     );
   }

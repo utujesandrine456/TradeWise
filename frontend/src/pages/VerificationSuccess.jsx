@@ -116,7 +116,7 @@ const VerificationSuccess = () => {
                     Let's Set Up Your Initial Inventory To Get You Started With Stocka.
                   </p>
                   <div className="flex items-center justify-center gap-2 text-sm text-[#09111E] font-bold">
-                    <span>Redirecting To Stock Setup In</span>
+                    <span>Redirecting To Initial Setup In</span>
                     <span className="font-mono font-bold text-lg">{countdown}</span>
                     <span>Seconds</span>
                   </div>

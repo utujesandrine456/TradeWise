@@ -196,10 +196,10 @@ const DashboardLayout = () => {
       `}>
         <div className="p-8 border-b border-white/5 flex items-center justify-between bg-[#04080D]/50">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-md overflow-hidden shadow-2xl border border-white/10 bg-white/5 p-1.5">
-              <img src={images.logo} alt="logo" className="w-full h-full object-contain" />
+            <div className="w-10 h-10 rounded-full overflow-hidden shadow-2xl border border-white/10 bg-white/5 p-1.5 transition-transform hover:rotate-6">
+              <img src={images.logo} alt="Stocka Logo" className="w-full h-full object-contain brightness-0 invert" />
             </div>
-            <h1 className="text-2xl font-black text-white uppercase tracking-tighter">Stocka</h1>
+            <h1 className="text-2xl font-bold text-white tracking-tighter">Stocka</h1>
           </div>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
@@ -248,7 +248,7 @@ const DashboardLayout = () => {
       </div>
 
       <div className="flex-1 flex flex-col overflow-hidden bg-[#09111E]">
-        <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 p-10 bg-[#09111E]/40 backdrop-blur-xl border-b border-white/5 shadow-2xl relative overflow-hidden">
+        <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 p-3.5 bg-[#09111E]/40 backdrop-blur-xl border-b border-white/5 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           <div className="flex items-center gap-6 relative z-10">
             <button

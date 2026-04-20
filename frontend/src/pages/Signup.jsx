@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, ArrowRight, ArrowLeft, TrendingUp, BarChart2, DollarSign } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import images from '../utils/images';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -44,7 +45,7 @@ const Signup = () => {
     setIsSigningUp(true);
     try {
       await signup(formData);
-      toast.success('Account created! Welcome to TradeWise.');
+      toast.success('Account created! Welcome to Stocka.');
       setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err) {
       const message = err?.response?.data?.message || err.message || 'Registration failed.';
@@ -72,8 +73,11 @@ const Signup = () => {
         </div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-[150px] pointer-events-none" />
 
-        <div className="relative z-10">
-          <h1 className="text-white font-black text-5xl tracking-tight">TradeWise</h1>
+        <div className="relative z-10 flex items-center gap-6">
+          <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 p-2.5 shadow-2xl backdrop-blur-md">
+            <img src={images.logo} alt="Stocka Logo" className="w-full h-full object-contain brightness-0 invert" />
+          </div>
+          <h1 className="text-white font-black text-5xl tracking-tight">Stocka</h1>
         </div>
 
         <div className="relative z-10 space-y-10">
@@ -229,7 +233,7 @@ const Signup = () => {
           <p className="text-center text-sm text-[#09111E]/30 font-medium mt-10">
             Already registered?{' '}
             <Link to="/login" className="text-[#09111E] font-black hover:underline underline-offset-4">
-              Sign in to TradeWise
+              Sign in to Stocka
             </Link>
           </p>
         </div>

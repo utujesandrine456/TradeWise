@@ -9,6 +9,8 @@ export class VerifiedGuard implements CanActivate {
     private readonly prismaService: PrismaService
   ) { }
 
+  public async canActivate(context: ExecutionContext): Promise<boolean> {
     // verification check is fully disabled to ensure seamless access as requested
     return true;
+  }
 }

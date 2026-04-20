@@ -11,7 +11,7 @@ export class SmsService {
 
     constructor(private readonly configService: ConfigService) {
         this.termiiApiKey = this.configService.get<string>('TERMII_API_KEY') ?? '';
-        this.termiiSenderId = this.configService.get<string>('TERMII_SENDER_ID') ?? 'TradeWise';
+        this.termiiSenderId = this.configService.get<string>('TERMII_SENDER_ID') ?? 'Stocka';
 
         if (this.termiiApiKey) {
             this.logger.log('Termii SMS service initialized');
@@ -67,12 +67,12 @@ export class SmsService {
     }
 
     async sendOtp(phone: string, otp: string): Promise<void> {
-        const message = `Your TradeWise verification code is: ${otp}. Valid for 10 minutes.`;
+        const message = `Your Stocka verification code is: ${otp}. Valid for 10 minutes.`;
         await this.sendSms(phone, message);
     }
 
     async sendPasswordResetOtp(phone: string, otp: string): Promise<void> {
-        const message = `Your TradeWise password reset code is: ${otp}. Valid for 10 minutes.`;
+        const message = `Your Stocka password reset code is: ${otp}. Valid for 10 minutes.`;
         await this.sendSms(phone, message);
     }
 }
