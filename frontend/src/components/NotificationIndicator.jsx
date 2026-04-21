@@ -7,8 +7,8 @@ const NotificationIndicator = () => {
 
   return (
     <div className="relative">
-      <button className="relative p-2 rounded-full hover:bg-gray-100 transition-colors">
-        <Bell size={24} className={isConnected ? 'text-gray-700' : 'text-gray-400'} />
+      <button className="relative p-2 rounded-full hover:bg-blue-400 transition-colors">
+        <Bell size={24} className={isConnected ? 'text-gray-700' : 'text-blue-200'} />
         
         {/* Connection status dot */}
         <span 

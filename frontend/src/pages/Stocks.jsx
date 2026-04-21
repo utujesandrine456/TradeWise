@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import backendApi from "../utils/axiosInstance";
 import { useAuth } from "../hooks/useAuth";
 import { MdAdd, MdDelete } from "react-icons/md";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
 
@@ -60,12 +59,11 @@ const Stocks = ({ traderId }) => {
 
   return (
     <div className="min-h-screen bg-brand-50 font-Urbanist animate-in fade-in duration-700">
-      <ToastContainer />
 
       <div className="bg-[#09111E] flex justify-between items-center px-10 py-5 shadow-2xl relative z-20">
         <div className="flex items-center space-x-4">
           <img src={logo} alt="logo" className="w-10 h-10 rounded-md brightness-0 invert" />
-          <h1 className="text-white font-bold text-2xl tracking-tight">Stocka</h1>
+          <h1 className="text-white font-nosifer font-bold text-2xl tracking-tight">Stocka</h1>
         </div>
         <div className="flex items-center gap-6">
           <button

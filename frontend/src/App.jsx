@@ -20,7 +20,25 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <div>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick pauseOnHover draggable theme="colored" />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+        closeButton={false}
+        toastClassName={(context) => {
+          const type = context?.type || 'default';
+          let bgColor = 'bg-green-500';
+          if (type === 'error') bgColor = 'bg-red-500';
+          if (type === 'warning') bgColor = 'bg-yellow-500';
+
+          return `${bgColor} text-[#09111E] rounded-md font-bold shadow-lg flex items-center justify-center p-4 mb-2 cursor-pointer transition-all hover:-translate-y-1 active:scale-95`;
+        }}
+        bodyClassName={() => "text-sm text-center flex-1"}
+      />
 
       <Router>
         <Routes>
@@ -38,8 +56,6 @@ function App() {
             </ProtectedRoute>
           } />
 
-          {/* <Route path='/verify-phone' element={<VerifyPhone />} />
-          <Route path='/verification-success' element={<VerificationSuccess />} /> */}
 
           <Route path='/stocks' element={
             <ProtectedRoute>

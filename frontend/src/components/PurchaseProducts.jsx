@@ -95,7 +95,7 @@ const PurchaseProducts = () => {
       <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
         <div className="flex items-center gap-8 relative z-10">
-          <div className="p-5 bg-white/5 rounded-md border border-white/5 shadow-inner transition-transform group-hover:scale-110 duration-500">
+          <div className="p-5 bg-blue-600/5 rounded-md border border-white/5 shadow-inner transition-transform group-hover:scale-110 duration-500">
             <MdShoppingCart className="text-5xl text-accent-400" />
           </div>
           <div>
@@ -107,7 +107,7 @@ const PurchaseProducts = () => {
           onClick={() => setIsPurchaseOrderFormOpen(true)}
           className="group/btn relative px-10 py-5 bg-accent-400 text-brand-950 rounded-md font-black uppercase transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-accent-400/20 overflow-hidden text-lg tracking-tight z-10"
         >
-          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
+          <div className="absolute inset-0 bg-blue-600/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
           <div className="flex items-center gap-3 relative z-10">
             <MdAdd className="text-2xl" />
             <span>New Purchase</span>
@@ -132,7 +132,7 @@ const PurchaseProducts = () => {
             placeholder="Search products or suppliers..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-16 pr-8 py-5 bg-white/5 border border-white/5 rounded-md focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 text-white placeholder-brand-300/40 transition-all text-lg font-black uppercase tracking-tight shadow-inner"
+            className="w-full pl-16 pr-8 py-5 bg-blue-600/5 border border-white/5 rounded-md focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 text-white placeholder-brand-300/40 transition-all text-lg font-black uppercase tracking-tight shadow-inner"
           />
         </div>
       </div>
@@ -142,14 +142,14 @@ const PurchaseProducts = () => {
         <div className="p-10 border-b border-white/5 flex items-center justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
           <h3 className="text-2xl font-black text-white uppercase tracking-tighter relative z-10">Purchase Orders</h3>
-          <div className="px-6 py-2.5 bg-white/5 border border-white/5 shadow-inner rounded-md text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] relative z-10">
+          <div className="px-6 py-2.5 bg-blue-600/5 border border-white/5 shadow-inner rounded-md text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] relative z-10">
             Displaying {visiblePurchases.length} Records
           </div>
         </div>
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-white/5">
+              <tr className="bg-blue-600/5">
                 <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Product</th>
                 <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Supplier</th>
                 <th className="px-10 py-6 text-left text-[10px] font-black text-brand-300 uppercase tracking-[0.2em]">Quantity</th>
@@ -161,7 +161,7 @@ const PurchaseProducts = () => {
             </thead>
             <tbody className="divide-y divide-white/5">
               {visiblePurchases.map((purchase) => (
-                <tr key={purchase.id} className="hover:bg-white/[0.03] transition-colors cursor-pointer group/row relative" onClick={() => {
+                <tr key={purchase.id} className="hover:bg-blue-600/[0.03] transition-colors cursor-pointer group/row relative" onClick={() => {
                   setSelectedPurchase(purchase);
                   setIsViewModalOpen(true);
                 }}>
@@ -170,7 +170,7 @@ const PurchaseProducts = () => {
                     <p className="text-base font-black text-white uppercase tracking-tight group-hover/row:text-accent-400 transition-colors leading-tight">{purchase.product}</p>
                   </td>
                   <td className="px-10 py-8">
-                    <span className="text-xs font-black text-brand-300 uppercase italic bg-white/5 border border-white/5 px-4 py-2 rounded-md shadow-inner group-hover/row:bg-white/10 group-hover/row:text-white transition-all">
+                    <span className="text-xs font-black text-brand-300 uppercase italic bg-blue-600/5 border border-white/5 px-4 py-2 rounded-md shadow-inner group-hover/row:bg-blue-600/10 group-hover/row:text-white transition-all">
                       {purchase.supplier}
                     </span>
                   </td>
@@ -184,12 +184,12 @@ const PurchaseProducts = () => {
                     <span className="text-sm font-black text-white uppercase tracking-tight">{new Date(purchase.date).toLocaleDateString()}</span>
                   </td>
                   <td className="px-10 py-8">
-                    <span className={`text-[10px] font-black uppercase italic px-4 py-2 rounded-md border ${purchase.paymentMethod === 'Settled' ? 'bg-green-500/10 text-green-500 border-green-500/20' : 'bg-red-500/10 text-red-500 border-red-500/20'} tracking-widest`}>
+                    <span className={`text-[10px] font-black uppercase italic px-4 py-2 rounded-md border ${purchase.paymentMethod === 'Settled' ? 'bg-green-500/10 text-white border-green-500/20' : 'bg-blue-500/10 text-blue-100 border-red-500/20'} tracking-widest`}>
                       {purchase.paymentMethod}
                     </span>
                   </td>
                   <td className="px-10 py-8 text-center">
-                    <button className="text-brand-300 hover:text-accent-400 p-2 bg-white/5 rounded-md border border-white/5 transition-all hover:scale-110">
+                    <button className="text-brand-300 hover:text-accent-400 p-2 bg-blue-600/5 rounded-md border border-white/5 transition-all hover:scale-110">
                       <MdVisibility className="text-xl" />
                     </button>
                   </td>
@@ -227,8 +227,8 @@ const PurchaseProducts = () => {
 const StatsCard = ({ icon: Icon, label, value, color }) => {
   const colorMap = {
     'accent-400': 'text-accent-400 bg-accent-400/10 border-accent-400/20 from-accent-400',
-    'green-500': 'text-green-500 bg-green-500/10 border-green-500/20 from-green-500',
-    'red-500': 'text-red-500 bg-red-500/10 border-red-500/20 from-red-500',
+    'green-500': 'text-white bg-green-500/10 border-green-500/20 from-green-500',
+    'red-500': 'text-blue-100 bg-blue-500/10 border-red-500/20 from-red-500',
     'blue-400': 'text-blue-400 bg-blue-400/10 border-blue-400/20 from-blue-400',
   };
   const selected = colorMap[color] || colorMap['accent-400'];

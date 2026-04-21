@@ -20,21 +20,21 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveIt
 
   return (
     <div className="fixed inset-0 bg-#09111E bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
-        <div className="p-6 border-b border-gray-200">
+      <div className="bg-blue-600 rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+        <div className="p-6 border-b border-blue-400">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-blue-100 p-2 rounded-lg">
-                <MdShoppingCart className="text-blue-600 text-xl" />
+                <MdShoppingCart className="text-white text-xl" />
               </div>
-              <h2 className="text-xl font-semibold text-gray-800">Shopping Cart</h2>
+              <h2 className="text-xl font-semibold text-white">Shopping Cart</h2>
               <span className="bg-blue-600 text-white px-2 py-1 rounded-full text-sm font-medium">
                 {totalItems}
               </span>
             </div>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 transition duration-200"
+              className="text-blue-200 hover:text-blue-100 transition duration-200"
             >
               <MdClose className="text-2xl" />
             </button>
@@ -44,33 +44,33 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveIt
         <div className="p-6">
           {cartItems.length === 0 ? (
             <div className="text-center py-12">
-              <MdShoppingCart className="text-gray-400 text-6xl mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Your cart is empty</h3>
-              <p className="text-gray-600">Add some items to get started!</p>
+              <MdShoppingCart className="text-blue-200 text-6xl mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-white mb-2">Your cart is empty</h3>
+              <p className="text-blue-100">Add some items to get started!</p>
             </div>
           ) : (
             <>
               <div className="space-y-4 mb-6">
                 {cartItems.map((item) => (
-                  <div key={item.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+                  <div key={item.id} className="flex items-center gap-4 p-4 bg-blue-500 rounded-lg">
                     <div className="flex-1">
-                      <h3 className="font-medium text-gray-800">{item.name}</h3>
-                      <p className="text-sm text-gray-600">{item.category}</p>
-                      <p className="text-sm font-medium text-blue-600">
+                      <h3 className="font-medium text-white">{item.name}</h3>
+                      <p className="text-sm text-blue-100">{item.category}</p>
+                      <p className="text-sm font-medium text-white">
                         {item.price.toLocaleString()} Frw
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => onUpdateQuantity(item.id, Math.max(0, item.quantity - 1))}
-                        className="p-1 text-gray-600 hover:text-gray-800"
+                        className="p-1 text-blue-100 hover:text-white"
                       >
                         <MdRemove className="text-lg" />
                       </button>
                       <span className="w-8 text-center font-medium">{item.quantity}</span>
                       <button
                         onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                        className="p-1 text-gray-600 hover:text-gray-800"
+                        className="p-1 text-blue-100 hover:text-white"
                       >
                         <MdAdd className="text-lg" />
                       </button>
@@ -85,14 +85,14 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveIt
                 ))}
               </div>
 
-              <div className="border-t border-gray-200 pt-4">
+              <div className="border-t border-blue-400 pt-4">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-lg font-medium text-gray-800">Total Items:</span>
-                  <span className="text-lg font-bold text-gray-800">{totalItems}</span>
+                  <span className="text-lg font-medium text-white">Total Items:</span>
+                  <span className="text-lg font-bold text-white">{totalItems}</span>
                 </div>
                 <div className="flex items-center justify-between mb-6">
-                  <span className="text-xl font-medium text-gray-800">Total Amount:</span>
-                  <span className="text-2xl font-bold text-blue-600">
+                  <span className="text-xl font-medium text-white">Total Amount:</span>
+                  <span className="text-2xl font-bold text-white">
                     {totalAmount.toLocaleString()} Frw
                   </span>
                 </div>

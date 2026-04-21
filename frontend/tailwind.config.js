@@ -53,6 +53,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Urbanist', 'sans-serif'],
+        nosifer: ['Nosifer', 'cursive'],
       },
       boxShadow: {
         soft: '0 10px 40px -10px rgba(9,17,30,0.05)',

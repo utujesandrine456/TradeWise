@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Loader from './Loader';
 import { MdAdd, MdSearch, MdInventory, MdAccountBalance, MdShoppingCart, MdAttachMoney, MdVisibility, MdTimeline, MdRefresh } from 'react-icons/md';
 import SaleForm from './forms/SaleForm';
 import { backendGqlApi } from '../utils/axiosInstance';
@@ -90,46 +91,34 @@ const SellingProducts = ({ setActiveTab }) => {
   const uniqueClients = new Set(sales.map(s => s.customer)).size;
 
   if (loading && sales.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist text-white">
-        <div className="relative">
-          <div className="w-20 h-20 border-2 border-green-500/20 border-t-green-500 rounded-full animate-spin mb-8 shadow-[0_0_20px_rgba(34,197,94,0.3)]"></div>
-          <MdTimeline className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl text-green-500" />
-        </div>
-        <div className="space-y-2 text-center">
-          <p className="text-2xl font-bold opacity-80">Syncing Distribution</p>
-          <p className="text-sm font-semibold text-brand-300 opacity-60">Accessing Outbound Manifests...</p>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
-      {/* Header Section */}
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-[#09111E] border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden group">
-        <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-50 pointer-events-none" />
-        <div className="flex items-center gap-8 relative z-10">
-          <div className="p-3 bg-white/5 rounded-full border border-white/5 shadow-inner transition-transform group-hover:scale-110 duration-500">
-            <MdTimeline className="text-3xl text-green-500" />
+      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-10 bg-white border border-gray-100 p-12 rounded-md shadow-sm relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-transparent opacity-50 pointer-events-none" />
+        <div className="flex items-center gap-8 relative z-10 text-[#09111E]">
+          <div className="p-3 bg-gray-50 rounded-full border border-gray-100 shadow-sm transition-transform group-hover:scale-110 duration-500">
+            <MdTimeline className="text-3xl text-[#09111E]" />
           </div>
           <div>
-            <h1 className="text-4xl font-bold text-white leading-none mb-3 tracking-tight">Distribution</h1>
-            <p className="text-brand-300 text-lg font-medium opacity-60">Outbound asset allocation and client lifecycle management</p>
+            <h1 className="text-4xl font-bold text-[#09111E] leading-none mb-3">Distribution</h1>
+            <p className="text-[#09111E]/80 text-lg font-medium opacity-60">Outbound fulfillment and customer revenue channels</p>
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-4 relative z-10">
           <button
             onClick={fetchSales}
-            className="p-3 bg-white/5 hover:bg-white/10 text-brand-300 hover:text-white rounded-full border border-white/5 transition-all hover:scale-110 active:scale-95 shadow-lg group/btn"
+            className="p-3 bg-gray-50 hover:bg-gray-100 text-[#09111E]/80 hover:text-[#09111E] rounded-full border border-gray-100 transition-all hover:scale-110 active:scale-95 shadow-sm group/btn"
           >
             <MdRefresh className="text-2xl group-hover/btn:rotate-180 transition-transform duration-700" />
           </button>
           <button
             onClick={() => setIsSaleFormOpen(true)}
-            className="group/export relative px-8 py-4 bg-white text-brand-950 rounded-md font-semibold transition-all hover:scale-105 active:scale-95 shadow-2xl overflow-hidden text-sm"
+            className="group/export relative px-8 py-4 bg-[#09111E] text-white rounded-md font-semibold transition-all hover:scale-105 active:scale-95 shadow-md overflow-hidden text-sm hover:bg-[#0a1520]"
           >
-            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/export:translate-y-0 transition-transform duration-300" />
+            <div className="absolute inset-0 bg-white/10 translate-y-full group-hover/export:translate-y-0 transition-transform duration-300" />
             <div className="flex items-center gap-3 relative z-10">
               <MdAdd className="text-2xl" />
               <span>Execute Client Order</span>
@@ -141,61 +130,65 @@ const SellingProducts = ({ setActiveTab }) => {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
         <SummaryCard
-          icon={MdShoppingCart}
-          label="Contracts Executed"
+          icon={MdDescription}
+          label="Orders Fulfilled"
           value={sales.length}
-          trend="Active Manifests"
-          color="green-500"
+          unit="Sales"
+          detail="Active Shipments"
+          color="blue-600"
         />
         <SummaryCard
           icon={MdInventory}
-          label="Outbound Cargo"
-          value={totalVolume}
-          trend="Units Deployed"
-          color="blue-400"
+          label="Inventory Outflow"
+          value={totalVolume || 0}
+          unit="Units"
+          detail="Units Dispatched"
+          color="blue-500"
         />
         <SummaryCard
-          icon={MdAccountBalance}
+          icon={MdGroup}
           label="Client Network"
           value={uniqueClients}
-          trend="Verified Entities"
-          color="accent-400"
+          unit="Entities"
+          detail="Verified Entities"
+          color="green-600"
         />
         <SummaryCard
           icon={MdAttachMoney}
-          label="Capital Acquired"
-          value={`${(totalRevenue / 1000000).toFixed(2)}M Frw`}
-          trend="Fiscal Input"
-          color="green-500"
+          label="Revenue Generated"
+          value={(totalRevenue / 1000000).toFixed(2)}
+          unit="M Frw"
+          detail="Fiscal Gain"
+          color="red-500"
         />
       </div>
 
       {/* Tactical Console (Search) */}
-      <div className="bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-500/5 rounded-md blur-[100px] -mr-[200px] -mt-[200px] pointer-events-none" />
+      <div className="bg-white border border-gray-100 p-10 rounded-md shadow-sm relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gray-50 rounded-md blur-[100px] -mr-[200px] -mt-[200px] pointer-events-none" />
         <div className="relative group/search max-w-4xl z-10">
-          <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-brand-300 text-2xl group-focus-within/search:text-green-500 transition-colors duration-300" />
+          <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-[#09111E]/60 text-2xl group-focus-within/search:text-[#09111E] transition-colors duration-300" />
           <input
             type="text"
             placeholder="Query distribution records by asset or entity..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-16 pr-8 py-4 bg-white/5 border border-white/5 rounded-md focus:outline-none focus:ring-4 focus:ring-green-500/10 focus:border-green-500/50 text-white placeholder-brand-300/40 transition-all text-md font-medium shadow-inner"
+            className="w-full pl-14 pr-8 py-4 bg-gray-50 border border-gray-100 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500/10 focus:border-gray-100 text-[#09111E] placeholder-[#09111E]/30 transition-all text-sm font-medium shadow-inner"
           />
         </div>
       </div>
 
       {/* Distribution Ledger Table */}
-      <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
-        <div className="p-12 border-b border-white/5 flex items-center justify-between relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent pointer-events-none" />
-          <div className="flex items-center gap-4 relative z-10">
-            <div className="p-3 bg-white/5 rounded-full text-green-500 border border-white/5 shadow-lg">
+      <div className="bg-white border border-gray-100 rounded-md shadow-sm overflow-hidden group/table relative">
+        <div className="p-12 border-b border-gray-100 flex items-center justify-between relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-transparent pointer-events-none" />
+          <div className="flex items-center gap-4 relative z-10 text-[#09111E]">
+            <div className="p-3 bg-gray-50 rounded-full text-[#09111E] border border-gray-100 shadow-sm">
               <MdTimeline className="text-2xl" />
             </div>
-            <h3 className="text-2xl font-bold text-white tracking-tight">Distribution Manifests</h3>
+            <h3 className="text-2xl font-bold text-[#09111E]">Distribution Manifests</h3>
           </div>
-          <div className="px-6 py-2.5 bg-white/5 border border-white/5 shadow-inner rounded-md text-xs font-semibold text-brand-300 relative z-10">
+          <div className="px-6 py-2.5 bg-gray-50 border border-gray-100 shadow-inner rounded-md text-xs font-semibold text-[#09111E] relative z-10">
             Displaying {visibleSales.length} Records
           </div>
         </div>
@@ -203,63 +196,63 @@ const SellingProducts = ({ setActiveTab }) => {
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-white/5">
-                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300 w-1/3">Asset Payload</th>
-                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Client Entity</th>
-                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Volume</th>
-                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Revenue Generation</th>
-                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Chronology Marker</th>
-                <th className="px-10 py-6 text-center text-sm font-bold text-brand-300">Status</th>
+              <tr className="bg-gray-50">
+                <th className="px-10 py-6 text-left text-sm font-bold text-[#09111E]/80 w-1/3">Cargo Payload</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-[#09111E]/80">Vendor Entity</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-[#09111E]/80">Volume</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-[#09111E]/80">Capital Allocation</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-[#09111E]/80">Chronology Marker</th>
+                <th className="px-10 py-6 text-center text-sm font-bold text-[#09111E]/80">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-gray-50">
               {visibleSales.length > 0 ? (
                 visibleSales.map((sale) => (
-                  <tr key={sale.id} className="hover:bg-white/[0.03] transition-colors cursor-pointer group/row relative" onClick={() => handleViewTransaction(sale)}>
+                  <tr key={sale.id} className="hover:bg-gray-50 transition-colors cursor-pointer group/row relative border-b border-gray-50 last:border-0" onClick={() => handleViewTransaction(sale)}>
                     <td className="px-10 py-8 relative">
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-green-500 group-hover/row:h-1/2 transition-all duration-300 rounded-md" />
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-[#09111E] group-hover/row:h-1/2 transition-all duration-300 rounded-md" />
                       <div className="flex items-center gap-4">
-                        <div className="p-3 bg-white/5 rounded-md border border-white/5 text-green-500 group-hover/row:scale-110 transition-transform">
+                        <div className="p-3 bg-gray-50 rounded-md border border-gray-100 text-[#09111E] group-hover/row:bg-[#09111E] group-hover/row:text-white transition-all">
                           <MdInventory className="text-xl" />
                         </div>
-                        <p className="text-base font-black text-white uppercase tracking-tight group-hover/row:text-green-500 transition-colors leading-tight line-clamp-2">
+                        <p className="text-base font-bold text-[#09111E] group-hover/row:text-[#09111E] transition-colors leading-tight line-clamp-2">
                           {sale.product}
                         </p>
                       </div>
                     </td>
                     <td className="px-10 py-8">
-                      <span className="text-xs font-black text-brand-300 uppercase italic bg-white/5 border border-white/5 px-4 py-2 rounded-md shadow-inner group-hover/row:bg-white/10 group-hover/row:text-white transition-all">
+                      <span className="text-xs font-bold text-[#09111E]/80 italic bg-gray-50 border border-gray-100 px-4 py-2 rounded-md shadow-sm group-hover/row:bg-gray-100 group-hover/row:text-[#09111E] transition-all">
                         {sale.customer}
                       </span>
                     </td>
                     <td className="px-10 py-8">
-                      <span className="text-xl font-black text-white tracking-tighter uppercase">
-                        {sale.quantity} <span className="text-[10px] text-brand-300 tracking-[0.2em] uppercase italic ml-1">Units</span>
+                      <span className="text-xl font-bold text-[#09111E] group-hover/row:text-[#09111E]">
+                        {sale.quantity} <span className="text-[10px] text-[#09111E]/60 ml-1">Units</span>
                       </span>
                     </td>
                     <td className="px-10 py-8">
-                      <span className="text-xl font-black text-green-500 tracking-tighter uppercase">
-                        {sale.totalPrice.toLocaleString()} <span className="text-[10px] text-brand-300 tracking-[0.2em] uppercase italic ml-1">Frw</span>
+                      <span className="text-xl font-bold text-[#09111E]">
+                        {sale.totalPrice.toLocaleString()} <span className="text-[10px] text-[#09111E]/60 ml-1">Frw</span>
                       </span>
                     </td>
                     <td className="px-10 py-8">
                       <div className="flex flex-col">
-                        <span className="text-sm font-black text-white uppercase tracking-tight">
+                        <span className="text-sm font-bold text-[#09111E]">
                           {sale.date ? new Date(sale.date).toLocaleDateString() : 'Chronology Error'}
                         </span>
-                        <span className="text-[10px] text-brand-300 uppercase italic mt-1 font-bold opacity-60">
+                        <span className="text-[10px] text-[#09111E]/60 italic mt-1 font-bold opacity-80">
                           {sale.date ? formatDistanceToNow(new Date(sale.date), { addSuffix: true }) : ''}
                         </span>
                       </div>
                     </td>
                     <td className="px-10 py-8 text-center">
                       <div className="inline-flex items-center justify-center relative">
-                        <span className={`text-[10px] font-black uppercase italic px-4 py-2 rounded-md border bg-green-500/10 text-green-500 border-green-500/20 tracking-widest`}>
+                        <span className={`text-[10px] font-bold italic px-4 py-2 rounded-md border bg-gray-50 text-[#09111E] border-gray-100`}>
                           Verified
                         </span>
                         {/* Hidden action icon that slides in */}
-                        <div className="absolute -right-12 opacity-0 group-hover/row:opacity-100 group-hover/row:-right-4 transition-all duration-300 bg-green-500 p-2 rounded-md shadow-lg shadow-green-500/20 translate-x-4 group-hover/row:translate-x-0">
-                          <MdVisibility className="text-brand-950 text-lg" />
+                        <div className="absolute -right-12 opacity-0 group-hover/row:opacity-100 group-hover/row:-right-4 transition-all duration-300 bg-[#09111E] p-2 rounded-md shadow-lg translate-x-4 group-hover/row:translate-x-0">
+                          <MdVisibility className="text-white text-lg" />
                         </div>
                       </div>
                     </td>
@@ -270,21 +263,21 @@ const SellingProducts = ({ setActiveTab }) => {
                   <td colSpan="6" className="px-10 py-40">
                     <div className="flex flex-col items-center justify-center max-w-lg mx-auto text-center">
                       <div className="relative mb-12 group">
-                        <div className="absolute inset-0 bg-green-500/20 blur-3xl rounded-full group-hover:scale-150 transition-transform duration-1000" />
-                        <div className="relative p-8 bg-[#09111E] rounded-full border border-white/20 shadow-2xl">
-                          <MdTimeline className="text-7xl text-brand-300/20 group-hover:text-green-500 transition-colors duration-500" />
+                        <div className="absolute inset-0 bg-gray-50 blur-3xl rounded-full group-hover:scale-150 transition-transform duration-1000" />
+                        <div className="relative p-8 bg-gray-50 rounded-full border border-gray-100 shadow-sm">
+                          <MdTimeline className="text-7xl text-[#09111E]/50 group-hover:text-[#09111E] transition-colors duration-500" />
                         </div>
                       </div>
-                      <h3 className="text-4xl font-bold text-white tracking-tighter mb-4">No Client Contracts</h3>
-                      <p className="text-brand-300 italic font-medium opacity-60 leading-relaxed text-sm">
+                      <h3 className="text-4xl font-bold text-[#09111E] mb-4">No Revenue Events</h3>
+                      <p className="text-[#09111E]/80 italic font-medium opacity-80 leading-relaxed text-sm">
                         {searchTerm
-                          ? 'The specific operational parameters yielded zero recorded matches within the distribution ledger.'
-                          : 'The outbound manifest repository is currently empty. Execute a new client order to initiate distribution flow.'}
+                          ? 'The specific operational parameters yielded zero recorded matches within the sales ledger.'
+                          : 'The outbound manifest repository is currently empty. Conclude a sale to map your revenue flow.'}
                       </p>
                       {!searchTerm && (
                         <button
                           onClick={() => setIsSaleFormOpen(true)}
-                          className="mt-12 px-8 py-4 bg-white/5 border border-white/10 text-white font-bold text-[16px] rounded-md hover:bg-white/10 transition-all active:scale-95 shadow-xl"
+                          className="mt-12 px-8 py-4 bg-[#09111E] text-white font-bold text-[16px] rounded-md hover:bg-[#0a1520] transition-all active:scale-95 shadow-md"
                         >
                           Execute First Sale
                         </button>
@@ -323,29 +316,17 @@ const SellingProducts = ({ setActiveTab }) => {
 };
 
 // Tactical Summary Component
-const SummaryCard = ({ icon: Icon, label, value, trend, color }) => {
-  const colorMap = {
-    'accent-400': 'text-accent-400 bg-accent-400/10 border-accent-400/20 shadow-accent-400/20 from-accent-400',
-    'green-500': 'text-green-500 bg-green-500/10 border-green-500/20 shadow-green-500/20 from-green-500',
-    'red-500': 'text-red-500 bg-red-500/10 border-red-500/20 shadow-red-500/20 from-red-500',
-    'blue-400': 'text-blue-400 bg-blue-400/10 border-blue-400/20 shadow-blue-400/20 from-blue-400',
-  };
-
-  const selectedColor = colorMap[color] || colorMap['green-500'];
-  const [textColor, bgStyle, borderStyle, _, gradStyle] = selectedColor.split(' ');
-
+const SummaryCard = ({ label, value, unit, detail, color }) => {
   return (
-    <div className="group bg-[#09111E] p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10 hover:shadow-[-0_0_40px_rgba(252,158,79,0.3)]">
-      {/* Decorative background glow */}
-      <div className={`absolute top-0 right-0 w-48 h-48 rounded-md blur-[60px] opacity-10 -mr-24 -mt-24 transition-transform duration-700 group-hover:scale-150 ${bgStyle.replace('/10', '')}`} />
-
-      {/* Animated gradient bar */}
-      <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50 group-hover:opacity-100 transition-opacity`} />
-
-      <div className="relative z-10 flex flex-col h-full justify-between gap-10">
+    <div className="bg-[#09111E] border border-white/5 rounded-md p-6 shadow-2xl hover:shadow-brand-500/10 transition-all cursor-pointer group relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000 blur-2xl opacity-60" />
+      <div className="relative z-10 flex flex-col h-full justify-between">
         <div>
-          <p className="text-md font-semibold text-brand-300 mb-3 opacity-60">{label}</p>
-          <p className="text-4xl font-bold text-white tracking-tighter leading-none">{value}</p>
+          <p className="text-md font-semibold text-white/40 mb-6">{label}</p>
+          <h4 className="text-4xl font-bold text-white leading-none mb-6">
+            {value?.toLocaleString() || '0'} <span className="text-lg text-white/20 font-bold italic ml-1">{unit}</span>
+          </h4>
+          <p className="text-sm text-white/20 font-medium">{detail}</p>
         </div>
       </div>
     </div>

@@ -86,7 +86,7 @@ const Forgotpassword = () => {
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-brand-500/5 rounded-full blur-[150px] pointer-events-none" />
 
         <div className="relative z-10">
-          <h1 className="text-white font-black text-5xl tracking-tight">Stocka</h1>
+          <h1 className="text-white font-nosifer font-black text-5xl tracking-tight">Stocka</h1>
         </div>
 
         <div className="relative z-10">

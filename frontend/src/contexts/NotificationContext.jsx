@@ -70,10 +70,10 @@ export const NotificationProvider = ({ children }) => {
     }
 
     // Create socket connection
-    const socketUrl = import.meta.env.MODE === 'development' 
+    const socketUrl = import.meta.env.VITE_SOCKET_URL || (import.meta.env.MODE === 'development'
       ? 'http://localhost:2015/notifications'
-      : 'https://tradewise-backend-v2.onrender.com/notifications';
-    
+      : 'https://stocka-mm4l.onrender.com/notifications');
+
     const newSocket = io(socketUrl, {
       auth: { token },
       withCredentials: true,
@@ -99,7 +99,7 @@ export const NotificationProvider = ({ children }) => {
     // Listen for notifications
     newSocket.on('notification', (notification) => {
       console.log('📬 New notification received:', notification);
-      
+
       // Add to notifications list
       setNotifications((prev) => [notification, ...prev]);
 
@@ -109,7 +109,7 @@ export const NotificationProvider = ({ children }) => {
       // Show toast notification
       const message = notification.message || notification.title;
       const title = notification.title || 'New Notification';
-      
+
       if (notification.impact === 'High' || notification.filterType === 'WARNING') {
         toast.warning(`${title}: ${message}`);
       } else if (notification.filterType === 'SUCCESS') {
@@ -135,7 +135,7 @@ export const NotificationProvider = ({ children }) => {
     loading,
     clearNotifications: () => setNotifications([]),
     markAsRead: (notificationId) => {
-      setNotifications(prev => 
+      setNotifications(prev =>
         prev.map(n => n.id === notificationId ? { ...n, read: true } : n)
       );
     },

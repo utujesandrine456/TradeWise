@@ -113,36 +113,36 @@ html {
   font-family: 'Urbanist', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #09111E;
-  color: #ffffff;
+  background-color: #f8fafc;
+  color: #0f172a;
 }
 
 /* Global Scrollbar Customization */
 ::-webkit-scrollbar {
   width: 8px;
-  background: #09111E;
+  background: white;
 }
 
 ::-webkit-scrollbar-track {
-  background: #09111E;
+  background: white;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 1);
 }
 
 /* Firefox support */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #09111E #f8fafc;
+  scrollbar-color: #09111E white;
 }
 
-/* Ensure all elements inherit Urbanist */
+
 h1,
 h2,
 h3,
@@ -164,7 +164,11 @@ th {
   font-family: 'Urbanist', sans-serif;
 }
 
-/* Global Placeholder Visibility Fix - High Contrast */
+.font-nosifer {
+  font-family: 'Nosifer', cursive !important;
+}
+
+
 ::placeholder {
   color: #09111E;
   opacity: 0.8;
@@ -273,11 +277,11 @@ th {
   opacity: 1;
 }
 
-/* Invert Calendar Picker Icon to White */
+/* Invert Calendar Picker Icon to Dark */
 input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
+  filter: none;
   cursor: pointer;
-  opacity: 0.8;
+  opacity: 0.6;
   transition: opacity 0.2s;
 }
 

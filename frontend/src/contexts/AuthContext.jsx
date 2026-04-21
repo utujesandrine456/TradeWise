@@ -22,9 +22,9 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await backendApi.post('/auth/register', userData);
       if (response.status === 201 || response.status === 200) {
-        const { token, user: newUser } = response.data;
+        const { token, user: newUser, trader } = response.data;
         if (token) setToken(token);
-        setUser(newUser || response.data.user);
+        setUser(newUser || response.data.user || trader || response.data.trader || response.data);
         return { success: true, response };
       }
       return { success: false };
@@ -38,9 +38,9 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await backendApi.post('/auth/login', userData);
       if (response.status === 200 || response.status === 201) {
-        const { token, user: newUser } = response.data;
+        const { token, user: newUser, trader } = response.data;
         if (token) setToken(token);
-        setUser(newUser || response.data.user);
+        setUser(newUser || response.data.user || trader || response.data.trader || response.data);
         return { success: true, response };
       }
       return { success: false };

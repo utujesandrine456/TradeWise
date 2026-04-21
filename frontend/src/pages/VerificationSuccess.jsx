@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckCircle, ArrowRight, Mail, Sparkles, Package, TrendingUp, Users } from 'lucide-react';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const VerificationSuccess = () => {
@@ -29,7 +29,6 @@ const VerificationSuccess = () => {
 
   return (
     <>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick pauseOnHover draggable theme="colored" />
 
       <div className={`${dark ? 'dark' : ''}`}>
         <div className="min-h-screen flex items-center justify-center overflow-hidden relative bg-gradient-to-b from-white to-brand-50 dark:from-[#0B0B10] dark:to-[#0B0B10]">
@@ -74,11 +73,11 @@ const VerificationSuccess = () => {
                   </div>
 
                   <h1 className="text-5xl font-bold text-[#09111E] tracking-tight">
-                    Welcome to Stocka
+                    Welcome to <span className="font-nosifer font-normal text-4xl">Stocka</span>
                   </h1>
 
                   <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                    Your Email Has Been Verified Successfully. You're Now Ready To Set Up Your Inventory And Start Managing Your Business With Stocka.
+                    Your Email Has Been Verified Successfully. You're Now Ready To Set Up Your Inventory And Start Managing Your Business With <span className="font-nosifer font-normal text-lg">Stocka</span>.
                   </p>
                 </div>
 
@@ -113,7 +112,7 @@ const VerificationSuccess = () => {
                 <div className="bg-brand-50/50 dark:bg-[#09111E]/20 p-6 rounded-md border border-brand-200">
                   <h3 className="text-lg font-semibold text-[#09111E] mb-3">Next Steps</h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    Let's Set Up Your Initial Inventory To Get You Started With Stocka.
+                    Let's Set Up Your Initial Inventory To Get You Started With <span className="font-nosifer font-normal text-sm">Stocka</span>.
                   </p>
                   <div className="flex items-center justify-center gap-2 text-sm text-[#09111E] font-bold">
                     <span>Redirecting To Initial Setup In</span>

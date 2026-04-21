@@ -58,7 +58,7 @@ const VerifyPhone = () => {
 
             await checkAuth();
 
-            toast.success('Identity Secured. Welcome to Stocka.');
+            toast.success(<span>Identity Secured. Welcome to <span className="font-nosifer">Stocka</span>.</span>);
             navigate("/dashboard");
         } catch (error) {
             console.error(error);

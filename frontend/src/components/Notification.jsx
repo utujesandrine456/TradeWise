@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import Loader from './Loader';
+// import React, { useEffect, useState } from 'react';
 import {
   MdNotifications,
   MdNotificationsActive,
@@ -53,15 +55,15 @@ const Notification = () => {
   const getNotificationIcon = (type) => {
     switch (type?.toLowerCase()) {
       case 'success':
-        return <MdCheckCircle className="text-green-400" />;
+        return <MdCheckCircle className="text-emerald-500" />;
       case 'warning':
-        return <MdWarning className="text-amber-400" />;
+        return <MdWarning className="text-amber-500" />;
       case 'info':
-        return <MdInfo className="text-blue-400" />;
+        return <MdInfo className="text-blue-500" />;
       case 'error':
-        return <MdError className="text-red-400" />;
+        return <MdError className="text-red-500" />;
       default:
-        return <MdInfo className="text-blue-400" />;
+        return <MdInfo className="text-blue-500" />;
     }
   };
 
@@ -309,62 +311,51 @@ const Notification = () => {
   const getTypeColor = (type) => {
     // Handle actual backend notification types
     if (type?.includes('alert') || type?.includes('warning')) {
-      return 'bg-amber-400/5 border-amber-400/10';
+      return 'bg-amber-50 border-amber-100';
     }
     if (type?.includes('success') || type?.includes('complete')) {
-      return 'bg-green-400/5 border-green-400/10';
+      return 'bg-emerald-50 border-emerald-100';
     }
     if (type?.includes('error') || type?.includes('fail')) {
-      return 'bg-red-400/5 border-red-400/10';
+      return 'bg-red-50 border-red-100';
     }
     // Default for info and other types
-    return 'bg-blue-400/5 border-blue-400/10';
+    return 'bg-gray-50 border-gray-100';
   };
 
   if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist text-white">
-        <div className="relative">
-          <div className="w-20 h-20 border-2 border-accent-400/20 border-t-accent-400 rounded-full animate-spin mb-8 shadow-[0_0_20px_rgba(96,165,250,0.3)]"></div>
-          <MdNotifications className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl text-accent-400" />
-        </div>
-        <div className="space-y-2 text-center">
-          <p className="text-2xl font-bold opacity-80">Synchronizing Manifest</p>
-          <p className="text-sm font-semibold text-brand-300 opacity-60">Decrypting System Event Dispatches...</p>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (
     <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden group">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 bg-white border border-gray-100 p-10 rounded-md shadow-sm relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-transparent opacity-50 pointer-events-none" />
         <div className="flex items-center gap-8 relative z-10">
-          <div className="p-3 bg-white/5 rounded-full border border-white/5 shadow-inner transition-transform group-hover:scale-110 duration-500">
-            <MdNotifications className="text-3xl text-accent-400" />
+          <div className="p-3 bg-gray-50 rounded-full border border-gray-100 shadow-sm transition-transform group-hover:scale-110 duration-500">
+            <MdNotifications className="text-3xl text-[#09111E]" />
           </div>
           <div>
-            <h1 className="text-4xl font-bold text-white leading-none mb-3 tracking-tight">Intelligence Feed</h1>
-            <p className="text-brand-300 text-lg font-medium opacity-60">System-wide operational alerts and critical status updates</p>
+            <h1 className="text-4xl font-bold text-[#09111E] leading-none mb-3">Intelligence Feed</h1>
+            <p className="text-[#09111E]/60 text-lg font-medium opacity-60">System-wide operational alerts and critical status updates</p>
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-4 relative z-10">
-          <div className="px-6 py-3 bg-white/5 border border-white/5 shadow-inner rounded-md">
-            <span className="text-xs font-semibold text-accent-400 opacity-60">{unreadCount} Unread Transmissions</span>
+          <div className="px-6 py-3 bg-gray-50 border border-gray-100 shadow-inner rounded-md">
+            <span className="text-xs font-semibold text-[#09111E] opacity-60">{unreadCount} Unread Transmissions</span>
           </div>
           <button
             onClick={handleMarkAllAsRead}
             disabled={markingAllAsRead || unreadCount === 0}
             className={`group/btn flex items-center gap-3 px-6 py-3 rounded-md font-semibold text-sm transition-all active:scale-95 ${markingAllAsRead || unreadCount === 0
-              ? 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
-              : 'bg-white text-brand-950 hover:scale-105 shadow-xl shadow-accent-400/20 relative overflow-hidden'
+              ? 'bg-gray-100 text-[#09111E]/40 cursor-not-allowed opacity-40'
+              : 'bg-[#09111E] text-white hover:scale-105 shadow-lg relative overflow-hidden'
               }`}
           >
-            {!(markingAllAsRead || unreadCount === 0) && <div className="absolute inset-0 bg-white/15 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />}
+            {!(markingAllAsRead || unreadCount === 0) && <div className="absolute inset-0 bg-white/10 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />}
             <div className="relative z-10 flex items-center gap-3">
-              {markingAllAsRead ? <div className="animate-spin h-4 w-4 border-2 border-brand-950/40 border-t-brand-950 rounded-full" /> : <MdMarkEmailRead className="text-xl" />}
+              {markingAllAsRead ? <div className="animate-spin h-4 w-4 border-2 border-white/40 border-t-white rounded-full" /> : <MdMarkEmailRead className="text-xl" />}
               <span>{markingAllAsRead ? 'Processing...' : 'Archive All'}</span>
             </div>
           </button>
@@ -372,11 +363,11 @@ const Notification = () => {
             onClick={handleDeleteReadNotifications}
             disabled={isDeletingRead || notifications.filter(n => n.read).length === 0}
             className={`flex items-center gap-3 px-6 py-3 rounded-md font-semibold text-sm transition-all active:scale-95 border ${isDeletingRead || notifications.filter(n => n.read).length === 0
-              ? 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40 border-white/5'
-              : 'bg-white/5 text-white hover:bg-white/10 border-white/10 shadow-xl'
+              ? 'bg-gray-100 text-[#09111E]/40 cursor-not-allowed opacity-40 border-gray-100'
+              : 'bg-white text-[#09111E] hover:bg-gray-50 border-gray-100 shadow-sm'
               }`}
           >
-            {isDeletingRead ? <div className="animate-spin h-4 w-4 border-2 border-white/20 border-t-white rounded-full" /> : <MdDelete className="text-xl" />}
+            {isDeletingRead ? <div className="animate-spin h-4 w-4 border-2 border-[#09111E]/20 border-t-[#09111E] rounded-full" /> : <MdDelete className="text-xl" />}
             <span>{isDeletingRead ? 'Purging...' : 'Clear Read'}</span>
           </button>
         </div>
@@ -384,48 +375,76 @@ const Notification = () => {
 
       {/* Notification Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <StatCard icon={<MdNotifications />} label="Total Transmissions" value={notifications.length} />
-        <StatCard icon={<MdNotificationsActive />} label="Pending Review" value={unreadCount} color="accent" />
-        <StatCard icon={<MdNotificationsOff />} label="Archived Records" value={notifications.length - unreadCount} color="green" />
-        <StatCard icon={<MdCalendarToday />} label="Active Today" value={notifications.filter(n => n.time.includes('minutes') || n.time.includes('hour')).length} color="blue" />
+        <StatCard
+          icon={<MdDescription />}
+          label="Total Index"
+          value={notifications.length}
+          unit="Logs"
+          detail="Cumulative Insight Feed"
+          color="accent"
+        />
+        <StatCard
+          icon={<MdNotificationsActive />}
+          label="Pending Review"
+          value={unreadCount}
+          unit="Alerts"
+          detail="Requires Immediate Action"
+          color="accent"
+        />
+        <StatCard
+          icon={<MdNotificationsOff />}
+          label="Archived Records"
+          value={notifications.length - unreadCount}
+          unit="Items"
+          detail="Historical Data Logged"
+          color="green"
+        />
+        <StatCard
+          icon={<MdPriorityHigh />}
+          label="Priority Alerts"
+          value={notifications.filter(n => n.impact === 'High').length}
+          unit="High"
+          detail="Immediate Attention Required"
+          color="blue"
+        />
       </div>
 
       {/* Filters Console */}
-      <div className="bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-400/5 rounded-md blur-[100px] -mr-[200px] -mt-[200px] pointer-events-none" />
+      <div className="bg-white border border-gray-100 p-10 rounded-md shadow-sm relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gray-50 rounded-md blur-[100px] -mr-[200px] -mt-[200px] pointer-events-none" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
           <div className="space-y-4">
-            <label className="block text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-2 italic opacity-60">Filter By Alert Category</label>
+            <label className="block text-[10px] font-bold text-[#09111E]/60 px-2 italic opacity-60">Filter By Alert Category</label>
             <div className="relative group/select">
               <select
                 value={selectedFilter}
                 onChange={(e) => setSelectedFilter(e.target.value)}
-                className="w-full bg-white/5 border border-white/5 text-white rounded-md px-6 py-4 font-semibold text-sm appearance-none cursor-pointer focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 shadow-inner"
+                className="w-full bg-gray-50 border border-gray-100 text-[#09111E] rounded-md px-6 py-4 font-semibold text-sm appearance-none cursor-pointer focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-gray-200 shadow-inner"
               >
-                <option value="all" className="bg-[#09111E] text-white">All Categories ({notifications.length})</option>
-                <option value="SUCCESS" className="bg-[#09111E] text-white">Success ({notifications.filter(n => n.filterType?.toUpperCase() === 'SUCCESS').length})</option>
-                <option value="WARNING" className="bg-[#09111E] text-white">Warning ({notifications.filter(n => n.filterType?.toUpperCase() === 'WARNING').length})</option>
-                <option value="INFO" className="bg-[#09111E] text-white">Information ({notifications.filter(n => n.filterType?.toUpperCase() === 'INFO').length})</option>
+                <option value="all" className="bg-white text-[#09111E]">All Categories ({notifications.length})</option>
+                <option value="SUCCESS" className="bg-white text-[#09111E]">Success ({notifications.filter(n => n.filterType?.toUpperCase() === 'SUCCESS').length})</option>
+                <option value="WARNING" className="bg-white text-[#09111E]">Warning ({notifications.filter(n => n.filterType?.toUpperCase() === 'WARNING').length})</option>
+                <option value="INFO" className="bg-white text-[#09111E]">Information ({notifications.filter(n => n.filterType?.toUpperCase() === 'INFO').length})</option>
               </select>
-              <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-brand-300">
+              <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-[#09111E]/60">
                 <MdInfo />
               </div>
             </div>
           </div>
           <div className="space-y-4">
-            <label className="block text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-2 italic opacity-60">Filter By Priority Level</label>
+            <label className="block text-[10px] font-bold text-[#09111E]/60 px-2 italic opacity-60">Filter By Priority Level</label>
             <div className="relative group/select">
               <select
                 value={selectedImpact}
                 onChange={(e) => setSelectedImpact(e.target.value)}
-                className="w-full bg-white/5 border border-white/5 text-white rounded-md px-6 py-4 font-semibold text-sm appearance-none cursor-pointer focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 shadow-inner"
+                className="w-full bg-gray-50 border border-gray-100 text-[#09111E] rounded-md px-6 py-4 font-semibold text-sm appearance-none cursor-pointer focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-gray-200 shadow-inner"
               >
-                <option value="all" className="bg-[#09111E] text-white">All Priority Levels</option>
-                <option value="Low" className="bg-[#09111E] text-white">Low Priority ({notifications.filter(n => n.impact?.toLowerCase() === 'low').length})</option>
-                <option value="Medium" className="bg-[#09111E] text-white">Medium Priority ({notifications.filter(n => n.impact?.toLowerCase() === 'medium').length})</option>
-                <option value="High" className="bg-[#09111E] text-white">Critical Severity ({notifications.filter(n => n.impact?.toLowerCase() === 'high').length})</option>
+                <option value="all" className="bg-white text-[#09111E]">All Priority Levels</option>
+                <option value="Low" className="bg-white text-[#09111E]">Low Priority ({notifications.filter(n => n.impact?.toLowerCase() === 'low').length})</option>
+                <option value="Medium" className="bg-white text-[#09111E]">Medium Priority ({notifications.filter(n => n.impact?.toLowerCase() === 'medium').length})</option>
+                <option value="High" className="bg-white text-[#09111E]">Critical Severity ({notifications.filter(n => n.impact?.toLowerCase() === 'high').length})</option>
               </select>
-              <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-brand-300">
+              <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-[#09111E]/60">
                 <MdWarning />
               </div>
             </div>
@@ -438,45 +457,45 @@ const Notification = () => {
         {filteredNotifications.map((notification) => (
           <div
             key={notification.id}
-            className={`group bg-[#09111E] border rounded-md transition-all duration-300 hover:shadow-2xl relative overflow-hidden ${notification.read ? 'border-white/5' : 'border-accent-400/20 shadow-accent-400/5'
+            className={`group bg-white border rounded-md transition-all duration-300 hover:shadow-sm relative overflow-hidden ${notification.read ? 'border-gray-100' : 'border-gray-200 shadow-white/5'
               }`}
           >
-            {!notification.read && <div className="absolute left-0 top-0 w-1 h-full bg-accent-400 rounded-md" />}
+            {!notification.read && <div className="absolute left-0 top-0 w-1 h-full bg-[#09111E] rounded-md" />}
             <div className="p-10 flex flex-col sm:flex-row items-start gap-8 relative z-10">
-              <div className="flex-shrink-0 mt-1 bg-white/5 p-5 rounded-md border border-white/5 shadow-inner text-3xl group-hover:scale-110 transition-transform duration-300">
+              <div className="flex-shrink-0 mt-1 bg-gray-50 p-5 rounded-md border border-gray-100 shadow-inner text-3xl group-hover:scale-110 transition-transform duration-300">
                 {notification.icon}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                   <div className="flex flex-wrap items-center gap-4">
-                    <h3 className="text-2xl font-bold text-white tracking-tight">{notification.title}</h3>
-                    <span className={`px-4 py-2 text-[10px] font-black rounded-md border uppercase tracking-widest italic ${notification.impact?.toLowerCase() === 'high' ? 'bg-red-500/10 text-red-500 border-red-500/20' :
-                      notification.impact?.toLowerCase() === 'medium' ? 'bg-amber-400/10 text-amber-400 border-amber-400/20' :
-                        'bg-blue-400/10 text-blue-400 border-blue-400/20'
+                    <h3 className="text-2xl font-bold text-[#09111E]">{notification.title}</h3>
+                    <span className={`px-4 py-2 text-[10px] font-bold rounded-md border ${notification.impact?.toLowerCase() === 'high' ? 'bg-red-50 text-red-600 border-red-100' :
+                      notification.impact?.toLowerCase() === 'medium' ? 'bg-amber-50 text-amber-500 border-amber-100' :
+                        'bg-blue-50 text-blue-600 border-blue-100'
                       }`}>
                       {notification.impact} Severity
                     </span>
                     {!notification.read && (
-                      <span className="flex items-center gap-2 px-4 py-2 text-[10px] font-black bg-accent-400/10 text-accent-400 rounded-md border border-accent-400/20 animate-pulse">
-                        <span className="w-1.5 h-1.5 bg-accent-400 rounded-full" />
+                      <span className="flex items-center gap-2 px-4 py-2 text-[10px] font-bold bg-gray-100 text-[#09111E] rounded-md border border-gray-200 animate-pulse">
+                        <span className="w-1.5 h-1.5 bg-[#09111E] rounded-full" />
                         New Alert
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-3 text-[10px] font-black text-brand-300 bg-white/5 px-5 py-3 rounded-md border border-white/5 shadow-inner uppercase tracking-widest italic">
+                  <div className="flex items-center gap-3 text-[10px] font-bold text-[#09111E]/60 bg-gray-50 px-5 py-3 rounded-md border border-gray-100 shadow-inner italic">
                     <MdCalendarToday className="text-lg" />
                     <span>{notification.time}</span>
                   </div>
                 </div>
-                <p className="text-brand-300 text-lg leading-relaxed mb-8 max-w-4xl line-clamp-2 group-hover:line-clamp-none transition-all duration-500 font-medium opacity-60">{notification.message}</p>
-                <div className="flex items-center gap-4 pt-6 border-t border-white/5">
+                <p className="text-[#09111E]/60 text-lg leading-relaxed mb-8 max-w-4xl line-clamp-2 group-hover:line-clamp-none transition-all duration-500 font-medium opacity-60">{notification.message}</p>
+                <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
                   <button
                     onClick={() => {
                       setSelectedNotification(notification);
                       setIsViewModalOpen(true);
                       navigate(`/notifications/${notification.id}`);
                     }}
-                    className="group/view flex items-center gap-3 px-6 py-3 bg-white/5 hover:bg-white/10 text-brand-300 hover:text-white rounded-md text-xs font-semibold transition-all border border-white/5 shadow-inner"
+                    className="group/view flex items-center gap-3 px-6 py-3 bg-gray-50 hover:bg-gray-100 text-[#09111E]/60 hover:text-[#09111E] rounded-md text-xs font-semibold transition-all border border-gray-100 shadow-inner"
                   >
                     <span>View Full Transmission</span>
                   </button>
@@ -486,7 +505,7 @@ const Notification = () => {
                         setNotificationToMarkRead(notification);
                         setIsConfirmReadOpen(true);
                       }}
-                      className="group/ack flex items-center gap-3 px-6 py-3 bg-white text-brand-950 hover:scale-105 rounded-md text-xs font-bold transition-all shadow-xl shadow-accent-400/20 relative overflow-hidden active:scale-95"
+                      className="group/ack flex items-center gap-3 px-6 py-3 bg-[#09111E] text-white hover:scale-105 rounded-md text-xs font-bold transition-all shadow-lg relative overflow-hidden active:scale-95"
                     >
                       <div className="absolute inset-0 bg-white/10 translate-y-full group-hover/ack:translate-y-0 transition-transform duration-300" />
                       <MdMarkEmailRead className="text-lg relative z-10" />
@@ -503,13 +522,13 @@ const Notification = () => {
       {filteredNotifications.length === 0 && (
         <div className="flex flex-col items-center justify-center py-40 text-center font-Urbanist max-w-2xl mx-auto">
           <div className="relative mb-12 group">
-            <div className="absolute inset-0 bg-accent-400/20 blur-3xl rounded-full group-hover:scale-150 transition-transform duration-1000" />
-            <div className="relative p-10 bg-[#09111E] rounded-full border border-white/20 shadow-2xl">
-              <MdNotificationsOff className="text-7xl text-brand-300/20 group-hover:text-accent-400 transition-colors duration-500" />
+            <div className="absolute inset-0 bg-gray-100 blur-3xl rounded-full group-hover:scale-150 transition-transform duration-1000" />
+            <div className="relative p-10 bg-white rounded-full border border-gray-200 shadow-sm">
+              <MdNotificationsOff className="text-7xl text-[#09111E]/20 group-hover:text-[#09111E] transition-colors duration-500" />
             </div>
           </div>
-          <h3 className="text-4xl font-bold text-white tracking-tighter mb-4">Network Silence</h3>
-          <p className="text-brand-300 italic font-medium opacity-60 leading-relaxed text-sm text-center">
+          <h3 className="text-4xl font-bold text-[#09111E] mb-4">Network Silence</h3>
+          <p className="text-[#09111E]/60 italic font-medium opacity-60 leading-relaxed text-sm text-center">
             All operational parameters fall within acceptable bounds. No active dispatches registered within the current sector.
           </p>
         </div>
@@ -529,28 +548,28 @@ const Notification = () => {
 
       {/* Confirm Mark as Read Modal */}
       {isConfirmReadOpen && (
-        <div className="fixed inset-0 bg-brand-950/80 backdrop-blur-sm flex items-center justify-center z-[200] p-6">
-          <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl w-full max-w-md animate-in zoom-in duration-300 font-Urbanist">
-            <div className="flex items-center justify-between p-10 border-b border-white/5">
-              <h2 className="text-3xl font-black text-white uppercase tracking-tighter">Acknowledge Alert?</h2>
-              <button onClick={() => { setIsConfirmReadOpen(false); setNotificationToMarkRead(null); setConfirmReadText(''); }} className="text-brand-300 hover:text-white transition-colors p-3 hover:bg-white/5 rounded-md">
+        <div className="fixed inset-0 bg-[#09111E]/40 backdrop-blur-sm flex items-center justify-center z-[200] p-6">
+          <div className="bg-white border border-gray-100 rounded-md shadow-2xl w-full max-w-md animate-in zoom-in duration-300 font-Urbanist">
+            <div className="flex items-center justify-between p-10 border-b border-gray-100">
+              <h2 className="text-3xl font-bold text-[#09111E]">Acknowledge Alert?</h2>
+              <button onClick={() => { setIsConfirmReadOpen(false); setNotificationToMarkRead(null); setConfirmReadText(''); }} className="text-[#09111E]/60 hover:text-[#09111E] transition-colors p-3 hover:bg-gray-50 rounded-md">
                 <MdClose size={24} />
               </button>
             </div>
             <div className="p-10 space-y-8">
-              <p className="text-brand-300 text-lg leading-relaxed italic font-bold opacity-60">
-                You are about to mark this alert as <span className="text-accent-400 not-italic">Acknowledged</span>. It will be archived and automatically removed soon.
+              <p className="text-[#09111E]/60 text-lg leading-relaxed italic font-bold opacity-60">
+                You are about to mark this alert as <span className="text-[#09111E] not-italic">Acknowledged</span>. It will be archived and automatically removed soon.
               </p>
               <div className="space-y-4">
-                <p className="text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-2 italic opacity-60">
-                  Type <span className="text-accent-400 not-italic">READ</span> to verify
+                <p className="text-[10px] font-bold text-[#09111E]/60 px-2 italic opacity-60">
+                  Type <span className="text-[#09111E] not-italic">READ</span> to verify
                 </p>
-                <input type="text" value={confirmReadText} onChange={(e) => setConfirmReadText(e.target.value)} className="w-full bg-white/5 border border-white/5 text-white rounded-md px-6 py-5 font-black focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 shadow-inner placeholder:text-brand-300/20" placeholder="Type read..." autoFocus />
+                <input type="text" value={confirmReadText} onChange={(e) => setConfirmReadText(e.target.value)} className="w-full bg-gray-50 border border-gray-100 text-[#09111E] rounded-md px-6 py-5 font-bold focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-gray-200 shadow-inner placeholder:text-[#09111E]/20" placeholder="Type read..." autoFocus />
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-end gap-4 p-10 border-t border-white/5">
-              <button onClick={() => { setIsConfirmReadOpen(false); setNotificationToMarkRead(null); setConfirmReadText(''); }} className="w-full sm:w-auto px-10 py-5 text-brand-300 font-black hover:bg-white/5 rounded-md transition-all border border-white/5 uppercase text-[10px] tracking-widest">Abort</button>
-              <button onClick={confirmMarkAsRead} disabled={confirmReadText.toLowerCase().trim() !== 'read'} className={`w-full sm:w-auto px-10 py-5 rounded-md font-black transition-all active:scale-95 uppercase text-[10px] tracking-widest ${confirmReadText.toLowerCase().trim() === 'read' ? 'bg-accent-400 text-brand-950 shadow-xl shadow-accent-400/20' : 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'}`}>Execute</button>
+            <div className="flex flex-col sm:flex-row items-center justify-end gap-4 p-10 border-t border-gray-100">
+              <button onClick={() => { setIsConfirmReadOpen(false); setNotificationToMarkRead(null); setConfirmReadText(''); }} className="w-full sm:w-auto px-10 py-5 text-[#09111E]/60 font-bold hover:bg-gray-50 rounded-md transition-all border border-gray-100 text-[10px]">Abort</button>
+              <button onClick={confirmMarkAsRead} disabled={confirmReadText.toLowerCase().trim() !== 'read'} className={`w-full sm:w-auto px-10 py-5 rounded-md font-bold transition-all active:scale-95 text-[10px] ${confirmReadText.toLowerCase().trim() === 'read' ? 'bg-[#09111E] text-white shadow-lg' : 'bg-gray-100 text-[#09111E]/40 cursor-not-allowed opacity-40'}`}>Execute</button>
             </div>
           </div>
         </div>
@@ -558,28 +577,28 @@ const Notification = () => {
 
       {/* Confirm Mark All as Read Modal */}
       {isConfirmAllOpen && (
-        <div className="fixed inset-0 bg-brand-950/80 backdrop-blur-sm flex items-center justify-center z-[200] p-6">
-          <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl w-full max-w-md animate-in zoom-in duration-300 font-Urbanist">
-            <div className="flex items-center justify-between p-10 border-b border-white/5">
-              <h2 className="text-3xl font-black text-white uppercase tracking-tighter">Archive All Alerts?</h2>
-              <button onClick={() => { setIsConfirmAllOpen(false); setConfirmAllText(''); }} className="text-brand-300 hover:text-white transition-colors p-3 hover:bg-white/5 rounded-md">
+        <div className="fixed inset-0 bg-[#09111E]/40 backdrop-blur-sm flex items-center justify-center z-[200] p-6">
+          <div className="bg-white border border-gray-100 rounded-md shadow-2xl w-full max-w-md animate-in zoom-in duration-300 font-Urbanist">
+            <div className="flex items-center justify-between p-10 border-b border-gray-100">
+              <h2 className="text-3xl font-bold text-[#09111E]">Archive All Alerts?</h2>
+              <button onClick={() => { setIsConfirmAllOpen(false); setConfirmAllText(''); }} className="text-[#09111E]/60 hover:text-[#09111E] transition-colors p-3 hover:bg-gray-50 rounded-md">
                 <MdClose size={24} />
               </button>
             </div>
             <div className="p-10 space-y-8">
-              <p className="text-brand-300 text-lg leading-relaxed italic font-bold opacity-60">
-                You are about to mark <span className="text-white not-italic uppercase font-black">All Notifications</span> as read. This is a bulk action and cannot be undone directly.
+              <p className="text-[#09111E]/60 text-lg leading-relaxed italic font-bold opacity-60">
+                You are about to mark <span className="text-[#09111E] not-italic font-bold">All Notifications</span> as read. This is a bulk action and cannot be undone directly.
               </p>
               <div className="space-y-4">
-                <p className="text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-2 italic opacity-60">
-                  Type <span className="text-accent-400 not-italic">READ ALL</span> to confirm
+                <p className="text-[10px] font-bold text-[#09111E]/60 px-2 italic opacity-60">
+                  Type <span className="text-[#09111E] not-italic">READ ALL</span> to confirm
                 </p>
-                <input type="text" value={confirmAllText} onChange={(e) => setConfirmAllText(e.target.value)} className="w-full bg-white/5 border border-white/5 text-white rounded-md px-6 py-5 font-black focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-accent-400/50 shadow-inner placeholder:text-brand-300/20" placeholder="Type read all..." autoFocus />
+                <input type="text" value={confirmAllText} onChange={(e) => setConfirmAllText(e.target.value)} className="w-full bg-gray-50 border border-gray-100 text-[#09111E] rounded-md px-6 py-5 font-bold focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-gray-200 shadow-inner placeholder:text-[#09111E]/20" placeholder="Type read all..." autoFocus />
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-end gap-4 p-10 border-t border-white/5">
-              <button onClick={() => { setIsConfirmAllOpen(false); setConfirmAllText(''); }} className="w-full sm:w-auto px-10 py-5 text-brand-300 font-black hover:bg-white/5 rounded-md transition-all border border-white/5 uppercase text-[10px] tracking-widest">Abort</button>
-              <button onClick={confirmMarkAllAsRead} disabled={confirmAllText.toLowerCase().trim() !== 'read all'} className={`w-full sm:w-auto px-10 py-5 rounded-md font-black transition-all active:scale-95 uppercase text-[10px] tracking-widest ${confirmAllText.toLowerCase().trim() === 'read all' ? 'bg-accent-400 text-brand-950 shadow-xl shadow-accent-400/20' : 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'}`}>Execute</button>
+            <div className="flex flex-col sm:flex-row items-center justify-end gap-4 p-10 border-t border-gray-100">
+              <button onClick={() => { setIsConfirmAllOpen(false); setConfirmAllText(''); }} className="w-full sm:w-auto px-10 py-5 text-[#09111E]/60 font-bold hover:bg-gray-50 rounded-md transition-all border border-gray-100 text-[10px]">Abort</button>
+              <button onClick={confirmMarkAllAsRead} disabled={confirmAllText.toLowerCase().trim() !== 'read all'} className={`w-full sm:w-auto px-10 py-5 rounded-md font-bold transition-all active:scale-95 text-[10px] ${confirmAllText.toLowerCase().trim() === 'read all' ? 'bg-[#09111E] text-white shadow-lg' : 'bg-gray-100 text-[#09111E]/40 cursor-not-allowed opacity-40'}`}>Execute</button>
             </div>
           </div>
         </div>
@@ -587,33 +606,33 @@ const Notification = () => {
 
       {/* Confirm Delete Read Notifications Modal */}
       {isConfirmDeleteOpen && (
-        <div className="fixed inset-0 bg-brand-950/80 backdrop-blur-sm flex items-center justify-center z-[200] p-6">
-          <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl w-full max-w-md animate-in zoom-in duration-300 font-Urbanist">
-            <div className="flex items-center justify-between p-10 border-b border-white/5">
-              <h2 className="text-3xl font-black text-white uppercase tracking-tighter">Permanently Delete?</h2>
-              <button onClick={() => { setIsConfirmDeleteOpen(false); setConfirmDeleteText(''); }} className="text-brand-300 hover:text-white transition-colors p-3 hover:bg-white/5 rounded-md">
+        <div className="fixed inset-0 bg-[#09111E]/40 backdrop-blur-sm flex items-center justify-center z-[200] p-6">
+          <div className="bg-white border border-gray-100 rounded-md shadow-2xl w-full max-w-md animate-in zoom-in duration-300 font-Urbanist">
+            <div className="flex items-center justify-between p-10 border-b border-gray-100">
+              <h2 className="text-3xl font-bold text-[#09111E]">Permanently Delete?</h2>
+              <button onClick={() => { setIsConfirmDeleteOpen(false); setConfirmDeleteText(''); }} className="text-[#09111E]/60 hover:text-[#09111E] transition-colors p-3 hover:bg-gray-50 rounded-md">
                 <MdClose size={24} />
               </button>
             </div>
             <div className="p-10 space-y-8">
-              <p className="text-brand-300 text-lg leading-relaxed italic font-bold opacity-60">
-                You are about to <span className="text-red-500 font-black not-italic uppercase">Permanently Delete</span> all read alerts. This action is destructive and cannot be undone.
+              <p className="text-[#09111E]/60 text-lg leading-relaxed italic font-bold opacity-60">
+                You are about to <span className="text-[#09111E] font-bold not-italic">Permanently Delete</span> all read alerts. This action is destructive and cannot be undone.
               </p>
-              <div className="bg-red-500/10 border border-red-500/20 rounded-md p-6">
-                <p className="text-xs font-black text-red-500 italic uppercase tracking-widest">
+              <div className="bg-gray-50 border border-red-100 rounded-md p-6">
+                <p className="text-xs font-bold text-red-600 italic">
                   Warning: {notifications.filter(n => n.read).length} Archived items will be lost forever.
                 </p>
               </div>
               <div className="space-y-4">
-                <p className="text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-2 italic opacity-60">
-                  Type <span className="text-red-500 not-italic">DELETE READ</span> to confirm
+                <p className="text-[10px] font-bold text-[#09111E]/60 px-2 italic opacity-60">
+                  Type <span className="text-[#09111E]/80 not-italic">DELETE READ</span> to confirm
                 </p>
-                <input type="text" value={confirmDeleteText} onChange={(e) => setConfirmDeleteText(e.target.value)} className="w-full bg-white/5 border border-white/5 text-white rounded-md px-6 py-5 font-black focus:outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500/30 shadow-inner placeholder:text-brand-300/20" placeholder="Type delete read..." autoFocus />
+                <input type="text" value={confirmDeleteText} onChange={(e) => setConfirmDeleteText(e.target.value)} className="w-full bg-gray-50 border border-gray-100 text-[#09111E] rounded-md px-6 py-5 font-bold focus:outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500/30 shadow-inner placeholder:text-[#09111E]/20" placeholder="Type delete read..." autoFocus />
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-end gap-4 p-10 border-t border-white/5">
-              <button onClick={() => { setIsConfirmDeleteOpen(false); setConfirmDeleteText(''); }} className="w-full sm:w-auto px-10 py-5 text-brand-300 font-black hover:bg-white/5 rounded-md transition-all border border-white/5 uppercase text-[10px] tracking-widest">Abort</button>
-              <button onClick={confirmDeleteReadNotifications} disabled={confirmDeleteText.toLowerCase().trim() !== 'delete read'} className={`w-full sm:w-auto px-10 py-5 rounded-md font-black transition-all active:scale-95 uppercase text-[10px] tracking-widest ${confirmDeleteText.toLowerCase().trim() === 'delete read' ? 'bg-red-600 text-white shadow-xl shadow-red-500/20' : 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'}`}>Execute</button>
+            <div className="flex flex-col sm:flex-row items-center justify-end gap-4 p-10 border-t border-gray-100">
+              <button onClick={() => { setIsConfirmDeleteOpen(false); setConfirmDeleteText(''); }} className="w-full sm:w-auto px-10 py-5 text-[#09111E]/60 font-bold hover:bg-gray-50 rounded-md transition-all border border-gray-100 text-[10px]">Abort</button>
+              <button onClick={confirmDeleteReadNotifications} disabled={confirmDeleteText.toLowerCase().trim() !== 'delete read'} className={`w-full sm:w-auto px-10 py-5 rounded-md font-bold transition-all active:scale-95 text-[10px] ${confirmDeleteText.toLowerCase().trim() === 'delete read' ? 'bg-red-600 text-white shadow-lg' : 'bg-gray-100 text-[#09111E]/40 cursor-not-allowed opacity-40'}`}>Execute</button>
             </div>
           </div>
         </div>
@@ -623,25 +642,17 @@ const Notification = () => {
 };
 
 // Helper Components
-const StatCard = ({ icon, label, value, color }) => {
-  const colorMap = {
-    accent: 'text-accent-400 bg-accent-400/10 border-accent-400/20 from-accent-400',
-    green: 'text-green-500 bg-green-500/10 border-green-500/20 from-green-500',
-    blue: 'text-blue-400 bg-blue-400/10 border-blue-400/20 from-blue-400',
-  };
-  const selected = colorMap[color] || 'text-brand-300 bg-white/5 border-white/10 from-transparent';
-  const [textColor, bgStyle, borderStyle, gradStyle] = selected.split(' ');
-
+const StatCard = ({ label, value, unit, detail, color }) => {
   return (
-    <div className="group bg-[#09111E] p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
-      <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50`} />
-      <div className="relative z-10 flex items-center justify-between">
+    <div className="bg-[#09111E] border border-white/5 rounded-md p-6 shadow-2xl hover:shadow-brand-500/10 transition-all cursor-pointer group relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000 blur-2xl opacity-60" />
+      <div className="relative z-10 flex flex-col h-full justify-between">
         <div>
-          <p className="text-md font-semibold text-brand-300 mb-4 opacity-60">{label}</p>
-          <p className="text-4xl font-bold text-white tracking-tighter leading-none">{value}</p>
-        </div>
-        <div className={`p-4 rounded-full border ${bgStyle} ${borderStyle} ${textColor} shadow-inner group-hover:scale-110 transition-transform duration-500 text-2xl`}>
-          {icon}
+          <p className="text-md font-semibold text-white/40 mb-6">{label}</p>
+          <h4 className="text-4xl font-bold text-white leading-none mb-6">
+            {value?.toLocaleString() || '0'} <span className="text-lg text-white/20 font-bold italic ml-1">{unit}</span>
+          </h4>
+          <p className="text-sm text-white/20 font-medium">{detail}</p>
         </div>
       </div>
     </div>

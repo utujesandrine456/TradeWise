@@ -42,10 +42,10 @@ const Header = () => {
                     className="flex items-center gap-4 cursor-pointer group"
                     onClick={() => navigate('/')}
                 >
-                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 p-1.5 transition-all group-hover:scale-110 group-hover:border-white/30 shadow-2xl">
+                    <div className="w-10 h-10 rounded-full bg-blue-600/5 border border-white/10 p-1.5 transition-all group-hover:scale-110 group-hover:border-white/30 shadow-2xl">
                         <img src={images.logo} alt="Stocka Logo" className="w-full h-full object-contain brightness-0 invert" />
                     </div>
-                    <h1 className="text-2xl font-bold tracking-tight text-white group-hover:text-white/90 transition-colors">Stocka</h1>
+                    <h1 className="text-2xl font-nosifer font-bold text-white group-hover:text-white/90 transition-colors">Stocka</h1>
                 </div>
 
                 <div className="hidden md:flex items-center gap-4">
@@ -71,13 +71,13 @@ const Header = () => {
                             <div className="flex items-center gap-2">
                                 <button
                                     onClick={() => navigate('/signup')}
-                                    className="px-6 py-2.5 bg-white text-[#09111E] rounded-md font-bold text-sm transition-all active:scale-95 hover:bg-white/90"
+                                    className="px-6 py-2.5 bg-white text-[#09111E] rounded-md font-bold text-sm transition-all active:scale-95 hover:bg-blue-600/90"
                                 >
                                     Sign Up
                                 </button>
                                 <button
                                     onClick={() => navigate('/login')}
-                                    className="px-6 py-2.5 bg-[#09111E] text-white border border-white rounded-md font-bold text-sm transition-all active:scale-95 hover:bg-white/90 hover:text-[#09111E]"
+                                    className="px-6 py-2.5 bg-[#09111E] text-white border border-white rounded-md font-bold text-sm transition-all active:scale-95 hover:bg-blue-600/60 hover:text-[#fff]"
                                 >
                                     Login
                                 </button>
@@ -85,7 +85,7 @@ const Header = () => {
                         ) : (
                             <button
                                 onClick={() => navigate('/dashboard')}
-                                className="px-6 py-2.5 bg-white text-[#09111E] rounded-md font-bold text-sm transition-all active:scale-95 flex items-center gap-2 hover:bg-white/90"
+                                className="px-6 py-3 bg-white text-[#09111E] rounded-md font-bold text-sm transition-all active:scale-95 flex items-center gap-2 hover:bg-blue-600/90"
                             >
                                 Dashboard
                             </button>
@@ -94,7 +94,7 @@ const Header = () => {
 
                     <div className="md:hidden">
                         <button
-                            className="p-2.5 bg-white/5 text-white rounded-md transition-colors"
+                            className="p-2.5 bg-blue-600/5 text-white rounded-md transition-colors"
                             onClick={() => setMobileOpen(!mobileOpen)}
                         >
                             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -116,17 +116,34 @@ const Header = () => {
                                 <button
                                     key={item}
                                     onClick={() => scrollToSection(item.toLowerCase())}
-                                    className="text-white font-bold text-xl text-left tracking-tight pb-4 border-b border-white/5"
+                                    className="text-white font-bold text-xl text-left pb-4 border-b border-white/5"
                                 >
                                     {item}
                                 </button>
                             ))}
-                            <button
-                                onClick={() => navigate('/login')}
-                                className="w-full py-4 bg-white text-[#09111E] rounded-md text-lg font-bold shadow-lg"
-                            >
-                                Signup
-                            </button>
+                            {!user ? (
+                                <div className="flex flex-col gap-4">
+                                    <button
+                                        onClick={() => navigate('/signup')}
+                                        className="w-full py-4 bg-blue-600 text-[#fff] rounded-md text-lg font-bold shadow-lg"
+                                    >
+                                        Sign Up
+                                    </button>
+                                    <button
+                                        onClick={() => navigate('/login')}
+                                        className="w-full py-4 bg-[#09111E] text-white border border-white rounded-md text-lg font-bold shadow-lg hover:text-white"
+                                    >
+                                        Login
+                                    </button>
+                                </div>
+                            ) : (
+                                <button
+                                    onClick={() => navigate('/dashboard')}
+                                    className="w-full py-4 bg-blue-600 text-[#09111E] rounded-md text-lg font-bold shadow-lg"
+                                >
+                                    Dashboard
+                                </button>
+                            )}
                         </div>
                     </motion.div>
                 )}

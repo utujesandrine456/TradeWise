@@ -27,7 +27,7 @@ const testimonials = [
         name: 'Alice M.',
         avatar: '/Profile1.jpg',
         rating: 5,
-        review: "Stocka has helped me understand my trades with clear insights and reliable tools. It makes tracking performance simple, and I feel confident making decisions with it.",
+        review: <> <span className="font-nosifer font-normal">Stocka</span> has helped me understand my trades with clear insights and reliable tools. It makes tracking performance simple, and I feel confident making decisions with it.</>,
         date: 'June 13, 2024'
     },
     {
@@ -41,7 +41,7 @@ const testimonials = [
         name: 'John D.',
         avatar: '/Profile2.jpg',
         rating: 4,
-        review: "I really like how Stocka protects my information while giving me meaningful insights into my profit margins. The system feels secure, and the organized data helps me evaluate trades.",
+        review: <>I really like how <span className="font-nosifer font-normal">Stocka</span> protects my information while giving me meaningful insights into my profit margins. The system feels secure, and the organized data helps me evaluate trades.</>,
         date: 'June 7, 2024'
     }
 ];
@@ -49,8 +49,8 @@ const testimonials = [
 
 const faqs = [
     {
-        question: 'What is Stocka for modern traders?',
-        answer: 'Stocka is a high-fidelity transaction tracker designed for professional traders. It helps you manage expenses, debits, and credits while providing weekly profit/loss analytics.'
+        question: <>What is <span className="font-nosifer font-normal text-sm">Stocka</span> for modern traders?</>,
+        answer: <><span className="font-nosifer font-normal text-sm">Stocka</span> is a high-fidelity transaction tracker designed for professional traders. It helps you manage expenses, debits, and credits while providing weekly profit/loss analytics.</>
     },
     {
         question: 'How do I use the app to track my capital?',
@@ -58,7 +58,7 @@ const faqs = [
     },
     {
         question: 'Is the platform free to use?',
-        answer: 'Stocka offers a tiered model starting with a robust free trial. We provide premium features for traders who need deep analytics and global infrastructure support.'
+        answer: <><span className="font-nosifer font-normal text-sm">Stocka</span> offers a tiered model starting with a robust free trial. We provide premium features for traders who need deep analytics and global infrastructure support.</>
     },
     {
         question: 'What types of transactions can I record?',
@@ -209,7 +209,7 @@ const Home = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}
                         >
-                            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight">
+                            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white mb-8 leading-[1.1]">
                                 Master Your Trading Performance.
                             </h1>
                             <p className="text-lg text-white/60 mb-12 max-w-xl leading-relaxed font-medium">
@@ -231,27 +231,64 @@ const Home = () => {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 1.2, delay: 0.4 }}
                         >
-                            <div className="relative group">
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-brand-500/30 rounded-full blur-[120px] -z-10" />
+                            <div className="absolute top-1/4 right-0 w-[200px] h-[300px] bg-blue-600/20 rounded-full blur-[100px] -z-10" />
+
+                            <div className="relative group perspective-1000">
                                 <motion.div
-                                    animate={{ y: [0, -20, 0] }}
+                                    animate={{ y: [0, -15, 0] }}
                                     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                                    className="relative z-10 p-4 bg-white/5 backdrop-blur-3xl rounded-md border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]"
+                                    className="relative z-10 p-5 bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)]"
                                 >
-                                    <div className="relative overflow-hidden rounded-md border border-white/10">
+                                    <div className="relative overflow-hidden rounded-xl border cursor-pointer border-white/20 shadow-2xl transition-all duration-700 hover:shadow-brand-500/20 ring-1 ring-white/5">
                                         <img
                                             src={images.Stocka}
                                             alt="Dashboard Mockup"
-                                            className="w-full h-auto grayscale-[0.2] brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700"
+                                            className="w-full h-auto grayscale contrast-125 brightness-50 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100 transition-all duration-[800ms] ease-in-out transform group-hover:scale-[1.02]"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-tr from-brand-600/40 to-transparent" />
+                                        <div className="absolute inset-0 bg-gradient-to-tr from-[#09111E]/80 via-[#09111E]/20 to-brand-500/30 group-hover:opacity-0 transition-opacity duration-700 pointer-events-none" />
                                     </div>
 
                                     <motion.div
-                                        className="absolute -top-6 -left-6 bg-brand-500 p-6 rounded-md shadow-glow border border-brand-400/50"
-                                        whileHover={{ scale: 1.1, rotate: -3 }}
+                                        className="absolute -top-8 -left-8 bg-brand-500/90 backdrop-blur-lg p-5 rounded-xl shadow-2xl border border-white/10 flex flex-col gap-1 items-start"
+                                        animate={{ y: [0, 10, 0] }}
+                                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                                        whileHover={{ scale: 1.05 }}
                                     >
-                                        <div className="text-white font-bold text-2xl">+18.4%</div>
-                                        <div className="text-white/60 text-[10px] font-bold">Net benefit</div>
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                                            <div className="text-white/60 text-[10px] font-bold">Live Profit</div>
+                                        </div>
+                                        <div className="text-white font-black text-3xl">+18.4%</div>
+                                    </motion.div>
+
+                                    {/* Floating Element 2 - Bottom Right */}
+                                    <motion.div
+                                        className="absolute -bottom-10 -right-8 bg-[#09111E]/95 backdrop-blur-lg p-6 rounded-md cursor-pointer shadow-2xl border border-white/10 flex flex-col gap-4 items-start w-52"
+                                        animate={{ y: [0, -12, 0] }}
+                                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2.5 }}
+                                        whileHover={{ scale: 1.05 }}
+                                    >
+                                        <div className="text-white/60 text-[10px] font-bold w-full flex justify-between">
+                                            <span>Transactions</span>
+                                            <span className="text-brand-400">Today</span>
+                                        </div>
+                                        <div className="flex items-end gap-2 w-full h-12">
+                                            {[40, 70, 45, 90, 65, 100].map((h, i) => (
+                                                <div key={i} className="flex-1 bg-white/10 rounded-t-sm relative group-hover:bg-brand-500 transition-colors duration-500" style={{ height: `${h}%` }}>
+                                                    <div className="absolute bottom-0 left-0 w-full bg-brand-400 rounded-t-sm transition-all duration-700" style={{ height: h > 60 ? '100%' : '0%' }} />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+
+                                    {/* Floating Element 3 - Chip overlapping side */}
+                                    <motion.div
+                                        className="absolute top-1/2 -right-12 -translate-y-1/2 bg-white text-[#09111E] py-3 px-5 rounded-md shadow-2xl border border-white/20 font-bold text-sm flex items-center gap-2"
+                                        animate={{ x: [0, -10, 0] }}
+                                        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                                    >
+                                        27+ Active Traders
                                     </motion.div>
                                 </motion.div>
                             </div>
@@ -278,7 +315,7 @@ const Home = () => {
                                 <span className="text-brand-500">trade capital.</span>
                             </h2>
                             <p className="text-xl text-[#09111E]/60 leading-relaxed font-medium mb-12 max-w-xl">
-                                Stocka provides a high-fidelity environment for recording buy and sell transactions. Monitor every Frw of inflow and outflow to calculate your true weekly benefit.
+                                <span className="font-nosifer font-normal tracking-normal text-lg">Stocka</span> provides a high-fidelity environment for recording buy and sell transactions. Monitor every Frw of inflow and outflow to calculate your true weekly benefit.
                             </p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -366,7 +403,7 @@ const Home = () => {
                                 <div className="w-16 h-16 bg-brand-50 rounded-md flex items-center justify-center text-brand-500 mb-8 group-hover:bg-[#09111E] group-hover:text-white transition-all duration-500">
                                     {service.icon}
                                 </div>
-                                <h3 className="text-xl font-bold text-[#09111E] mb-4 tracking-tight">
+                                <h3 className="text-xl font-bold text-[#09111E] mb-4">
                                     {service.title}
                                 </h3>
                                 <p className="text-[#09111E]/50 leading-relaxed font-semibold">
@@ -441,7 +478,7 @@ const Home = () => {
                                             Together.
                                         </h2>
                                         <p className="text-white/60 text-lg font-medium">
-                                            Our engineers are ready to help you integrate Stocka into your global workflow.
+                                            Our engineers are ready to help you integrate <span className="font-nosifer font-normal tracking-normal text-base">Stocka</span> into your global workflow.
                                         </p>
                                     </div>
 
@@ -467,7 +504,7 @@ const Home = () => {
                                     </div>
 
                                     <div className="">
-                                        <div className="text-white/30 font-black text-7xl absolute select-none text-center justify-center items-center">STOCKA</div>
+                                        <div className="text-white/30 font-nosifer font-black text-7xl absolute select-none text-center justify-center items-center">STOCKA</div>
                                     </div>
                                 </motion.div>
                             </div>

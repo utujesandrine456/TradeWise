@@ -6,11 +6,11 @@ const StatsCard = ({ title, value, icon, bgColor = "bg-[#09111E]/40", iconColor 
       <div className="absolute top-0 right-0 w-32 h-32 bg-accent-400/5 rounded-md blur-3xl -mr-16 -mt-16 group-hover:bg-accent-400/10 transition-colors" />
 
       <div className="flex items-center justify-between mb-8 relative z-10">
-        <div className={`p-5 rounded-md bg-white/5 border border-white/5 shadow-inner transition-transform group-hover:scale-110 ${iconColor}`}>
+        <div className={`p-5 rounded-md bg-blue-600/5 border border-white/5 shadow-inner transition-transform group-hover:scale-110 ${iconColor}`}>
           {icon}
         </div>
         {descri && (
-          <span className="text-[10px] font-bold text-brand-300 italic tracking-wider bg-white/5 px-4 py-1.5 rounded-md border border-white/5">
+          <span className="text-[10px] font-bold text-brand-300 italic tracking-wider bg-blue-600/5 px-4 py-1.5 rounded-md border border-white/5">
             {descri}
           </span>
         )}

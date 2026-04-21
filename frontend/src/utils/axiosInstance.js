@@ -25,6 +25,12 @@ export const backendGqlApi = axios.create({
 backendApi.interceptors.request.use(
     (config) => {
         console.log('Making request to:', config.url);
+
+        // Ensure stale tokens are not sent during login/signup which could cause 401 Unauthorized
+        if (config.url === '/auth/login' || config.url === '/auth/register') {
+            delete config.headers['Authorization'];
+        }
+
         return config;
     },
     (error) => {
@@ -40,7 +46,12 @@ backendApi.interceptors.response.use(
     (error) => {
         console.error('Response error:', error.response?.status, error.response?.data);
         const message = error?.response?.data?.message || error.message || 'Request failed';
-        if (typeof toast !== 'undefined' && toast.error) {
+
+        // Skip toast if it is a 401 error from the initial GET /auth check 
+        // because that simply means the user isn't logged in.
+        const isAuthCheck = error.config?.url === '/auth' && error.config?.method === 'get' && error.response?.status === 401;
+
+        if (!isAuthCheck && typeof toast !== 'undefined' && toast.error) {
             toast.error(message);
         }
         return Promise.reject(error);

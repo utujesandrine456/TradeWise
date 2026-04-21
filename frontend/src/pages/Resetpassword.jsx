@@ -54,7 +54,7 @@ const Resetpassword = () => {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[150px] pointer-events-none" />
 
         <div className="relative z-10">
-          <h1 className="text-white font-black text-5xl tracking-tight">Stocka</h1>
+          <h1 className="text-white font-nosifer font-black text-5xl tracking-tight">Stocka</h1>
         </div>
 
         <div className="relative z-10">
@@ -62,7 +62,7 @@ const Resetpassword = () => {
             Secure<br /><span className="text-brand-500">Override.</span>
           </h2>
           <p className="text-white/30 font-bold text-xl leading-relaxed max-w-sm">
-            Updating your security credentials across the global Stocka nodes.
+            Updating your security credentials across the global <span className="font-nosifer">Stocka</span> nodes.
           </p>
         </div>
 

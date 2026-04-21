@@ -19,6 +19,9 @@ import { findATransactionQuery, markAsRead } from '../utils/gqlQuery';
 import { formatDistanceToNow } from 'date-fns';
 import { toast } from '../utils/toast';
 import { useNotifications } from '../contexts/NotificationContext';
+import { ArrowLeft } from 'lucide-react';
+
+
 
 const DashboardLayout = () => {
   const navigate = useNavigate();
@@ -152,15 +155,19 @@ const DashboardLayout = () => {
     };
   }, [showNotifications]);
 
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
+    return localStorage.getItem('sidebarCollapsed') === 'true';
+  });
+
   useEffect(() => {
-    localStorage.setItem('dashboardActiveTab', activeTab);
-  }, [activeTab]);
+    localStorage.setItem('sidebarCollapsed', isSidebarCollapsed);
+  }, [isSidebarCollapsed]);
 
   const renderContent = () => {
     if (isSearchingTransaction) {
       return (
         <div className="flex items-center justify-center h-40">
-          <span className="text-brand-400 text-lg font-bold italic uppercase tracking-widest">Fetching Transaction Records...</span>
+          <span className="text-[#09111E]/40 text-lg font-bold italic">Fetching Transaction Records...</span>
         </div>
       );
     }
@@ -179,8 +186,7 @@ const DashboardLayout = () => {
   };
 
   return (
-    <div className="flex h-screen bg-[#09111E] text-white/90 overflow-hidden font-Urbanist selection:bg-brand-400 selection:text-white">
-      {/* mobile menu overlay */}
+    <div className="flex h-screen bg-white text-[#09111E] overflow-hidden font-Urbanist selection:bg-brand-400 selection:text-white">
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 bg-[#020407]/80 z-40 lg:hidden backdrop-blur-md transition-all"
@@ -188,18 +194,18 @@ const DashboardLayout = () => {
         />
       )}
 
-      {/* sidebar */}
       <div className={`
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0 fixed lg:static inset-y-0 left-0 z-50
-        w-72 flex flex-col border-r border-white/5 transition-transform duration-500 ease-in-out bg-[#060B14] shadow-2xl
+        ${isSidebarCollapsed ? 'w-24' : 'w-72'} 
+        flex flex-col border-r border-white/5 transition-all duration-500 ease-in-out bg-[#060B14] shadow-2xl
       `}>
-        <div className="p-8 border-b border-white/5 flex items-center justify-between bg-[#04080D]/50">
+        <div className={`p-6 border-b border-white/5 flex items-center bg-[#04080D]/50 transition-all ${isSidebarCollapsed ? 'justify-center p-4' : 'justify-between'}`}>
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-full overflow-hidden shadow-2xl border border-white/10 bg-white/5 p-1.5 transition-transform hover:rotate-6">
+            <div className={`rounded-full overflow-hidden shadow-2xl border border-white/10 bg-white/5 p-1.5 transition-all hover:rotate-6 ${isSidebarCollapsed ? 'w-10 h-10' : 'w-10 h-10'}`}>
               <img src={images.logo} alt="Stocka Logo" className="w-full h-full object-contain brightness-0 invert" />
             </div>
-            <h1 className="text-2xl font-bold text-white tracking-tighter">Stocka</h1>
+            {!isSidebarCollapsed && <h1 className="text-2xl font-nosifer font-bold text-white animate-in fade-in duration-500">Stocka</h1>}
           </div>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
@@ -222,12 +228,13 @@ const DashboardLayout = () => {
                     className={`w-full flex items-center py-4 px-6 rounded-md transition-all duration-300 group ${activeTab === tab.id
                       ? 'bg-white/80 shadow-xl scale-[1.02] text-brand-600'
                       : 'text-white/40 hover:text-white hover:bg-white/5'
-                      }`}
+                      } ${isSidebarCollapsed ? 'justify-center px-0' : ''}`}
+                    title={isSidebarCollapsed ? tab.name : ''}
                   >
-                    <span className={`mr-4 text-xl ${activeTab === tab.id ? 'text-brand-600' : 'text-white/20 group-hover:text-white transition-colors'}`}>
+                    <span className={`text-xl ${isSidebarCollapsed ? 'mr-0' : 'mr-4'} ${activeTab === tab.id ? 'text-brand-600' : 'text-white/20 group-hover:text-white transition-colors'}`}>
                       {tab.icon}
                     </span>
-                    <span className="text-[16px] font-medium">{tab.name}</span>
+                    {!isSidebarCollapsed && <span className="text-[14px] font-medium animate-in fade-in duration-500">{tab.name}</span>}
                   </button>
                 </li>
               );
@@ -235,33 +242,40 @@ const DashboardLayout = () => {
           </ul>
         </nav>
 
-        <div className="p-8 border-t border-white/5 bg-[#04080D]/30">
+        <div className={`p-8 border-t border-white/5 bg-[#04080D]/60 text-white transition-all ${isSidebarCollapsed ? 'p-4' : 'p-8'}`}>
           <button
             onClick={handleLogout}
             disabled={isLoading}
-            className="w-full flex items-center py-4 px-8 text-red-400 bg-white/5 hover:bg-red-500/10 rounded-md transition-all duration-300 font-semibold text-[14px] border border-white/10 active:scale-95 disabled:opacity-50"
+            className={`w-full flex items-center text-red-400 bg-white/5 hover:bg-red-500/10 rounded-md transition-all duration-300 font-semibold text-[14px] border border-white/10 active:scale-95 disabled:opacity-50 ${isSidebarCollapsed ? 'justify-center px-0 py-4' : 'py-4 px-8'}`}
+            title={isSidebarCollapsed ? 'Logout' : ''}
           >
-            <MdLogout className="mr-4 text-xl" />
-            <span>{isLoading ? 'Processing...' : 'Logout'}</span>
+            <MdLogout className={`${isSidebarCollapsed ? 'mr-0' : 'mr-4'} text-xl`} />
+            {!isSidebarCollapsed && <span className="animate-in fade-in duration-500">{isLoading ? 'Processing...' : 'Logout'}</span>}
           </button>
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col overflow-hidden bg-[#09111E]">
-        <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 p-3.5 bg-[#09111E]/40 backdrop-blur-xl border-b border-white/5 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          <div className="flex items-center gap-6 relative z-10">
+      <div className="flex-1 flex flex-col overflow-hidden bg-white">
+        <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 p-3 bg-white border-b border-gray-100 shadow-sm relative overflow-hidden transition-all duration-500">
+          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#09111E]/10 to-transparent" />
+          <div className="flex items-center gap-6 relative z-10 text-[#09111E]">
             <button
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden text-white hover:text-white p-3 bg-white/5 rounded-md border border-white/10 transition-all font-bold"
+              onClick={() => {
+                if (window.innerWidth < 1024) {
+                  setIsMobileMenuOpen(true);
+                } else {
+                  setIsSidebarCollapsed(!isSidebarCollapsed);
+                }
+              }}
+              className="text-[#09111E] hover:text-[#09111E] p-3 bg-white rounded-full border border-[#09111E]/10 transition-all font-bold active:scale-95"
             >
-              <MdMenu size={24} />
+              <ArrowLeft size={18} />
             </button>
-            <div>
-              <h2 className="text-3xl lg:text-4xl font-black text-white leading-tight uppercase tracking-tighter">
-                Welcome Back, <span className="text-white/80">{user?.enterpriseName || 'Enterprise'}!</span>
+            <div className="animate-in slide-in-from-left-4 duration-500">
+              <h2 className="text-3xl lg:text-4xl font-bold text-[#09111E] leading-none">
+                Welcome Back, <span className="text-[#09111E]/60">{user?.enterpriseName || 'Enterprise'}!</span>
               </h2>
-              <p className="text-white/60 text-[16px] font-medium mt-3">
+              <p className="text-[#09111E]/40 text-[16px] font-medium mt-1">
                 Strategic Intelligence & Operational Control
               </p>
             </div>
@@ -270,16 +284,16 @@ const DashboardLayout = () => {
           <div className="flex items-center gap-6 relative z-10">
             <div className="flex items-center gap-4">
               <button
-                className="p-2 text-white/80 hover:text-white hover:bg-white/10 bg-white/10 rounded-full border border-white/10 transition-all hover:shadow-2xl"
+                className="p-2 text-[#09111E]/60 hover:text-[#09111E] hover:bg-gray-50 bg-gray-50 rounded-full border border-gray-100 transition-all"
                 onClick={() => navigate('/')}
                 title="Landing Page"
               >
                 <MdHome size={20} />
               </button>
               <button
-                className={`p-2 rounded-full border transition-all hover:shadow-2xl ${activeTab === 'profile'
-                  ? 'bg-white text-[#09111E] border-white shadow-2xl'
-                  : 'text-white/80 hover:text-white hover:bg-white/10 bg-white/5 border-white/10'
+                className={`p-2 rounded-full border transition-all ${activeTab === 'profile'
+                  ? 'bg-[#09111E] text-white border-[#09111E] shadow-lg'
+                  : 'text-[#09111E]/60 hover:text-[#09111E] hover:bg-gray-50 bg-gray-50 border-gray-100'
                   }`}
                 onClick={() => setActiveTab('profile')}
                 title="User Profile"
@@ -288,37 +302,37 @@ const DashboardLayout = () => {
               </button>
             </div>
 
-            <div className="w-px h-10 bg-white/10 hidden sm:block" />
+            <div className="w-px h-10 bg-gray-100 hidden sm:block" />
 
             <div className="relative" ref={notificationRef}>
               <button
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="p-2 text-white hover:text-white hover:bg-white/5 bg-white/10 rounded-full border border-white/20 transition-all hover:shadow-2xl relative group/bell"
+                className="p-2 text-[#09111E]/60 hover:text-[#09111E] hover:bg-gray-50 bg-gray-50 rounded-full border border-gray-100 transition-all relative group/bell"
               >
                 <MdNotifications size={20} className={isConnected ? '' : 'opacity-80'} />
                 {notifications.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-white text-[#09111E] text-[10px] font-black rounded-md h-5 px-2 flex items-center justify-center border-2 border-[#09111E] animate-bounce">
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-md h-5 px-2 flex items-center justify-center border-2 border-white animate-bounce">
                     {notifications.length > 9 ? '9+' : notifications.length}
                   </span>
                 )}
               </button>
 
               {showNotifications && (
-                <div className="absolute right-0 mt-6 w-96 bg-[#0B0F17] border border-white/10 rounded-full shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] z-[100] overflow-hidden animate-in fade-in zoom-in duration-300">
+                <div className="absolute right-0 mt-6 w-96 bg-white border border-gray-100 rounded-lg shadow-2xl z-[100] overflow-hidden animate-in fade-in zoom-in duration-300">
                   <div className="p-2" onClick={(e) => e.stopPropagation()}>
-                    <div className="px-8 py-6 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                    <div className="px-8 py-6 border-b border-gray-50 flex items-center justify-between bg-gray-50/50">
                       <div className="flex items-center gap-4">
-                        <MdNotifications className="text-white/60 text-xl" />
-                        <h3 className="text-lg font-black text-white uppercase tracking-tight">Audit Logs</h3>
+                        <MdNotifications className="text-[#09111E]/60 text-xl" />
+                        <h3 className="text-lg font-bold text-[#09111E]">Audit Logs</h3>
                       </div>
-                      <span className="text-[9px] bg-white text-[#09111E] px-4 py-1.5 rounded-md font-black uppercase tracking-widest">{notifications.length} New</span>
+                      <span className="text-[9px] bg-[#09111E] text-white px-4 py-1.5 rounded-md font-bold">{notifications.length} New</span>
                     </div>
                     <div className="max-h-[30rem] overflow-y-auto custom-scrollbar">
                       {notifications.length > 0 ? (
                         notifications.map((notification) => (
                           <div
                             key={notification.id}
-                            className="px-8 py-7 hover:bg-white/[0.03] cursor-pointer border-b border-white/5 last:border-b-0 transition-all group"
+                            className="px-8 py-7 hover:bg-gray-50 cursor-pointer border-b border-gray-50 last:border-b-0 transition-all group"
                             onClick={() => {
                               markNotificationAsRead(notification.id);
                               setShowNotifications(false);
@@ -326,14 +340,14 @@ const DashboardLayout = () => {
                           >
                             <div className="flex gap-6">
                               <div className="mt-2.5 flex-shrink-0">
-                                <div className={`w-2.5 h-2.5 rounded-full ring-4 ring-[#0B0F17] shadow-sm ${notification.priority === 'high' ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.3)]' : notification.priority === 'medium' ? 'bg-white/40' : 'bg-white/10'}`}></div>
+                                <div className={`w-2.5 h-2.5 rounded-full ring-4 ring-white shadow-sm ${notification.priority === 'high' ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.3)]' : notification.priority === 'medium' ? 'bg-[#09111E]/40' : 'bg-[#09111E]/10'}`}></div>
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className="text-sm font-black text-white group-hover:text-white transition-colors leading-tight truncate uppercase tracking-widest">{notification.title}</p>
-                                <p className="text-xs text-white/40 mt-2 font-bold line-clamp-2 leading-relaxed italic">{notification.message}</p>
+                                <p className="text-sm font-bold text-[#09111E] group-hover:text-brand-600 transition-colors leading-tight truncate">{notification.title}</p>
+                                <p className="text-xs text-[#09111E]/40 mt-2 font-bold line-clamp-2 leading-relaxed italic">{notification.message}</p>
                                 <div className="flex items-center gap-2 mt-4 opacity-100">
-                                  <MdHistory className="text-xs text-white/20" />
-                                  <p className="text-[9px] font-black text-white/20 uppercase tracking-widest">{notification.timeAgo}</p>
+                                  <MdHistory className="text-xs text-[#09111E]/20" />
+                                  <p className="text-[9px] font-bold text-[#09111E]/20">{notification.timeAgo}</p>
                                 </div>
                               </div>
                             </div>
@@ -341,22 +355,22 @@ const DashboardLayout = () => {
                         ))
                       ) : (
                         <div className="px-8 py-20 text-center flex flex-col items-center gap-4">
-                          <div className="bg-white/5 p-6 rounded-md border border-white/10">
-                            <MdNotifications className="text-4xl text-white/10" />
+                          <div className="bg-gray-50 p-6 rounded-md border border-gray-100">
+                            <MdNotifications className="text-4xl text-[#09111E]/10" />
                           </div>
-                          <p className="text-white/20 font-black uppercase tracking-widest text-[10px] italic">No Pending Notifications</p>
+                          <p className="text-[#09111E]/20 font-bold text-[10px] italic">No Pending Notifications</p>
                         </div>
                       )}
                     </div>
-                    <div className="p-8 bg-black/20 border-t border-white/5">
+                    <div className="p-8 bg-gray-50/50 border-t border-gray-50">
                       <button
                         onClick={() => {
                           setActiveTab('notification');
                           setShowNotifications(false);
                         }}
-                        className="w-full py-5 text-[10px] text-[#09111E] bg-white hover:bg-white/90 rounded-md transition-all font-black uppercase tracking-[0.2em] shadow-2xl active:scale-95"
+                        className="w-full py-5 text-[10px] text-white bg-[#09111E] hover:bg-[#0a1520] rounded-md transition-all font-bold shadow-lg active:scale-95"
                       >
-                        Launch Audit Center
+                        View All
                       </button>
                     </div>
                   </div>
@@ -366,9 +380,9 @@ const DashboardLayout = () => {
           </div>
         </header>
 
-        <main className="flex-1 overflow-x-hidden hide-scrollbar overflow-y-auto bg-[#09111E] p-6 sm:p-10 lg:p-12 relative">
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-[0.03] pointer-events-none" />
-          <div className="max-w-[1700px] mx-auto pb-12 relative z-10">
+        <main className="flex-1 overflow-x-hidden hide-scrollbar overflow-y-auto bg-white p-6 sm:p-10 lg:p-12 relative text-[#09111E]">
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.02] pointer-events-none" />
+          <div className="max-w-[1700px] mx-auto pb-12 relative z-10 text-[#09111E]">
             {renderContent()}
           </div>
         </main>

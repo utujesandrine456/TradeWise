@@ -17,22 +17,22 @@ const ProductsTable = () => {
         <table className="min-w-full divide-y divide-gray-700">
           <thead className="bg-gray-700">
             <tr>
-              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 italic">
+              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-blue-200 italic">
                 name
               </th>
-              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 italic">
+              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-blue-200 italic">
                 category
               </th>
-              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 italic">
+              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-blue-200 italic">
                 quantity
               </th>
-              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 italic">
+              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-blue-200 italic">
                 price
               </th>
-              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 italic">
+              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-blue-200 italic">
                 threshold
               </th>
-              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-gray-400 italic">
+              <th scope="col" className="px-6 py-4 text-left text-sm font-bold text-blue-200 italic">
                 actions
               </th>
             </tr>

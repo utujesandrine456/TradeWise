@@ -106,23 +106,23 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-[#09111E]/80 backdrop-blur-md flex items-center justify-center z-[100] p-6 font-Urbanist cursor-default animate-in fade-in duration-500">
-      <div className="bg-white border border-brand-100 rounded-md shadow-[0_50px_100px_-20px_rgba(9,17,30,0.3)] w-full max-w-2xl overflow-hidden relative flex flex-col">
-        <div className="p-12 border-b border-brand-50 flex items-center justify-between bg-brand-50/30">
+    <div className="fixed inset-0 bg-[#09111E]/40 backdrop-blur-md flex items-center justify-center z-[100] p-6 font-Urbanist cursor-default animate-in fade-in duration-500">
+      <div className="bg-white border border-gray-100 rounded-md shadow-2xl w-full max-w-2xl overflow-hidden relative flex flex-col">
+        <div className="p-12 border-b border-gray-100 flex items-center justify-between bg-gray-50/30">
           <div className="flex items-center gap-6">
-            <div className="bg-white p-4 rounded-md border border-brand-100 shadow-xl">
+            <div className="bg-white p-4 rounded-md border border-gray-100 shadow-sm">
               <MdAccountBalance className="text-[#09111E] text-3xl" />
             </div>
             <div>
               <div className="space-y-4">
                 <h2 className="text-4xl font-bold text-[#09111E] tracking-tight leading-none">{isEdit ? 'Edit Transaction' : 'New Transaction'}</h2>
-                <p className="text-sm font-semibold text-brand-400 opacity-60">Record or modify financial transaction data</p>
+                <p className="text-sm font-semibold text-[#09111E]/60 opacity-60">Record or modify financial transaction data</p>
               </div>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-4 text-brand-200 hover:text-[#09111E] hover:bg-white rounded-md transition-all shadow-sm hover:rotate-90"
+            className="p-4 text-[#09111E]/40 hover:text-[#09111E] hover:bg-white rounded-md transition-all shadow-sm hover:rotate-90"
           >
             <MdClose className="text-3xl" />
           </button>
@@ -131,13 +131,13 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
         <form onSubmit={handleSubmit} className="p-10 space-y-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="space-y-4">
-              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Category *</label>
+              <label className="block text-xs font-bold text-[#09111E]/60 px-1 opacity-60">Category *</label>
               <select
                 name="type"
                 value={formData.type}
                 onChange={handleChange}
                 required
-                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-[#09111E] focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none cursor-pointer shadow-sm font-bold text-sm"
+                className="w-full px-10 py-6 bg-white border border-gray-100 rounded-md text-[#09111E] focus:outline-none focus:ring-2 focus:ring-gray-100 transition-all appearance-none cursor-pointer shadow-sm font-bold text-sm"
               >
                 <option value="Credit" className="bg-white">PROTOCOL_CREDIT</option>
                 <option value="Debit" className="bg-white">PROTOCOL_DEBIT</option>
@@ -145,7 +145,7 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
             </div>
 
             <div className="space-y-4">
-              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Amount (FRW) *</label>
+              <label className="block text-xs font-bold text-[#09111E]/60 px-1 opacity-60">Amount (FRW) *</label>
               <input
                 type="number"
                 name="amount"
@@ -154,61 +154,61 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
                 required
                 min="0"
                 step="100"
-                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-[#09111E] placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm"
+                className="w-full px-10 py-6 bg-white border border-gray-100 rounded-md text-[#09111E] placeholder:text-[#09111E]/30 focus:outline-none focus:ring-2 focus:ring-gray-100 transition-all font-bold text-sm"
                 placeholder="100"
               />
             </div>
 
             <div className="md:col-span-2 space-y-4">
-              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Description *</label>
+              <label className="block text-xs font-bold text-[#09111E]/60 px-1 opacity-60">Description *</label>
               <input
                 type="text"
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
                 required
-                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-[#09111E] placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm"
+                className="w-full px-10 py-6 bg-white border border-gray-100 rounded-md text-[#09111E] placeholder:text-[#09111E]/30 focus:outline-none focus:ring-2 focus:ring-gray-100 transition-all font-bold text-sm"
                 placeholder="E.G. TRANS_REF_ALFA"
               />
             </div>
 
             <div className="space-y-4">
-              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Collector Name *</label>
+              <label className="block text-xs font-bold text-[#09111E]/60 px-1 opacity-60">Collector Name *</label>
               <input
                 type="text"
                 name="collateral"
                 value={formData.collateral}
                 onChange={handleChange}
                 required
-                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-[#09111E] placeholder:text-brand-200 focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all font-bold text-sm"
+                className="w-full px-10 py-6 bg-white border border-gray-100 rounded-md text-[#09111E] placeholder:text-[#09111E]/30 focus:outline-none focus:ring-2 focus:ring-gray-100 transition-all font-bold text-sm"
                 placeholder="SEC_IDENTIFIER"
               />
             </div>
 
             <div className="space-y-4">
-              <label className="block text-xs font-bold text-brand-300 px-1 opacity-60">Due Date *</label>
+              <label className="block text-xs font-bold text-[#09111E]/60 px-1 opacity-60">Due Date *</label>
               <input
                 type="datetime-local"
                 name="deadline"
                 value={formData.deadline}
                 onChange={handleChange}
                 required
-                className="w-full px-10 py-6 bg-brand-50/30 border border-brand-100 rounded-md text-[#09111E] focus:outline-none focus:ring-4 focus:ring-brand-50 transition-all appearance-none shadow-sm font-bold text-sm"
+                className="w-full px-10 py-6 bg-white border border-gray-100 rounded-md text-[#09111E] focus:outline-none focus:ring-2 focus:ring-gray-100 transition-all appearance-none shadow-sm font-bold text-sm"
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-10 pt-12 border-t border-brand-50">
+          <div className="flex items-center justify-end gap-10 pt-12 border-t border-gray-100">
             <button
               type="button"
               onClick={onClose}
-              className="px-8 py-4 text-brand-300 hover:text-[#09111E] transition-colors font-bold text-sm"
+              className="px-8 py-4 text-[#09111E]/60 hover:text-[#09111E] transition-colors font-bold text-sm"
             >
               Abort
             </button>
             <button
               type="submit"
-              className="group relative px-12 py-5 bg-[#09111E] text-white rounded-md font-bold text-sm transition-all active:scale-95 shadow-2xl overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative px-12 py-5 bg-[#09111E] text-white rounded-md font-bold text-sm transition-all active:scale-95 shadow-lg overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={isSubmitting}
             >
               <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-500" />

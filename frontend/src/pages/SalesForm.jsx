@@ -70,7 +70,7 @@ const SalesForm = () => {
       <div className="bg-[#09111E] flex justify-between items-center px-10 py-4 shadow-2xl relative z-20">
         <div className="flex items-center space-x-4">
           <img src={images.logo} alt="logo" className="w-10 h-10 object-contain brightness-0 invert" />
-          <h1 className="text-xl font-bold text-white tracking-tight">Stocka</h1>
+          <h1 className="text-xl font-nosifer font-bold text-white tracking-tight">Stocka</h1>
         </div>
         <div className="flex items-center px-6 py-2.5 rounded-md bg-white/10 backdrop-blur-md border border-white/20 shadow-inner">
           <h3 className="font-bold text-white tracking-wide text-xs">Sales Interface</h3>

@@ -34,7 +34,7 @@ const ViewFinancialModal = ({ isOpen, onClose, financial, onMarkAsPaid, onUpdate
             </div>
             <div>
               <h2 className="text-4xl font-black text-[#09111E] uppercase tracking-tighter leading-none">Financial Audit</h2>
-              <p className="text-[10px] font-black text-brand-300 uppercase tracking-[0.3em] mt-3 italic">Comprehensive Transaction Log</p>
+              <p className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mt-3 italic">Comprehensive Transaction Log</p>
             </div>
           </div>
           <div className="flex items-center gap-6">
@@ -42,7 +42,7 @@ const ViewFinancialModal = ({ isOpen, onClose, financial, onMarkAsPaid, onUpdate
               <>
                 <button
                   onClick={() => setIsEditMode(true)}
-                  className="p-4 text-brand-400 hover:text-[#09111E] hover:bg-white rounded-md transition-all shadow-sm"
+                  className="p-4 text-white/70 hover:text-[#09111E] hover:bg-white rounded-md transition-all shadow-sm"
                   title="Modify Entry"
                 >
                   <MdEdit size={24} />
@@ -61,7 +61,7 @@ const ViewFinancialModal = ({ isOpen, onClose, financial, onMarkAsPaid, onUpdate
             )}
             <button
               onClick={onClose}
-              className="p-4 text-brand-200 hover:text-[#09111E] hover:bg-white rounded-md transition-all shadow-sm hover:rotate-90"
+              className="p-4 text-white/40 hover:text-[#09111E] hover:bg-white rounded-md transition-all shadow-sm hover:rotate-90"
             >
               <MdClose size={28} />
             </button>
@@ -71,7 +71,7 @@ const ViewFinancialModal = ({ isOpen, onClose, financial, onMarkAsPaid, onUpdate
         <div className="p-10 space-y-10 max-h-[70vh] overflow-y-auto custom-scrollbar">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="space-y-4">
-              <label className="block text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-1 italic">Classification</label>
+              <label className="block text-[10px] font-black text-white/60 uppercase tracking-[0.2em] px-1 italic">Classification</label>
               <div className="px-10 py-8 bg-brand-50/50 border border-brand-100 rounded-md shadow-inner text-center">
                 <span className={`inline-flex px-8 py-3 text-[10px] font-black uppercase tracking-[0.2em] rounded-md border ${financial.type?.toLowerCase() === 'credit' ? 'bg-emerald-100 text-emerald-800 border-emerald-200' : 'bg-rose-100 text-rose-800 border-rose-200'}`}>
                   {financial.type}
@@ -79,7 +79,7 @@ const ViewFinancialModal = ({ isOpen, onClose, financial, onMarkAsPaid, onUpdate
               </div>
             </div>
             <div className="space-y-4">
-              <label className="block text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-1 italic">Settlement Progress</label>
+              <label className="block text-[10px] font-black text-white/60 uppercase tracking-[0.2em] px-1 italic">Settlement Progress</label>
               <div className="px-10 py-8 bg-brand-50/50 border border-brand-100 rounded-md shadow-inner text-center">
                 <span className={`inline-flex px-8 py-3 text-[10px] font-black uppercase tracking-[0.2em] rounded-md border ${financial.paid ? 'bg-emerald-100 text-emerald-800 border-emerald-200' : 'bg-amber-100 text-amber-800 border-amber-200'}`}>
                   {financial.paid ? 'Validated' : 'Pending Authorization'}
@@ -89,7 +89,7 @@ const ViewFinancialModal = ({ isOpen, onClose, financial, onMarkAsPaid, onUpdate
           </div>
 
           <div className="space-y-4">
-            <label className="text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-1 italic flex items-center gap-4">
+            <label className="text-[10px] font-black text-white/60 uppercase tracking-[0.2em] px-1 italic flex items-center gap-4">
               <MdPayment className="text-xl text-[#09111E]" />
               Quantum Valuation
             </label>
@@ -106,7 +106,7 @@ const ViewFinancialModal = ({ isOpen, onClose, financial, onMarkAsPaid, onUpdate
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="space-y-4">
-              <label className="flex text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-1 items-center gap-4 italic">
+              <label className="flex text-[10px] font-black text-white/60 uppercase tracking-[0.2em] px-1 items-center gap-4 italic">
                 <MdDescription className="text-xl text-[#09111E]" />
                 Audit Comments
               </label>
@@ -116,7 +116,7 @@ const ViewFinancialModal = ({ isOpen, onClose, financial, onMarkAsPaid, onUpdate
             </div>
 
             <div className="space-y-4">
-              <label className="flex text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-1 items-center gap-4 italic">
+              <label className="flex text-[10px] font-black text-white/60 uppercase tracking-[0.2em] px-1 items-center gap-4 italic">
                 <MdCalendarToday className="text-xl text-[#09111E]" />
                 Integrity Deadline
               </label>
@@ -127,7 +127,7 @@ const ViewFinancialModal = ({ isOpen, onClose, financial, onMarkAsPaid, onUpdate
 
             {financial.collateral && (
               <div className="md:col-span-2 space-y-4">
-                <label className="flex text-[10px] font-black text-brand-300 uppercase tracking-[0.2em] px-1 items-center gap-4 italic">
+                <label className="flex text-[10px] font-black text-white/60 uppercase tracking-[0.2em] px-1 items-center gap-4 italic">
                   <MdSecurity className="text-xl text-[#09111E]" />
                   Security Collateral / Protocol ID
                 </label>
@@ -139,10 +139,10 @@ const ViewFinancialModal = ({ isOpen, onClose, financial, onMarkAsPaid, onUpdate
           </div>
 
           <div className="bg-brand-50/50 border border-brand-100 p-10 rounded-md shadow-inner relative overflow-hidden">
-            <h4 className="text-[10px] font-black text-brand-300 uppercase tracking-[0.3em] mb-8 italic">Diagnostic Timestamps</h4>
+            <h4 className="text-[10px] font-black text-white/60 uppercase tracking-[0.3em] mb-8 italic">Diagnostic Timestamps</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 relative z-10">
               <div>
-                <span className="block text-[10px] font-black text-brand-400 uppercase tracking-[0.2em] mb-3">Kernel Initialization</span>
+                <span className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] mb-3">Kernel Initialization</span>
                 <p className="text-[10px] text-[#09111E] font-black uppercase tracking-widest">{formatDate(financial.createdAt || financial.deadline)}</p>
               </div>
             </div>

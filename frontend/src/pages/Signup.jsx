@@ -3,8 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, ArrowRight, ArrowLeft, TrendingUp, BarChart2, DollarSign } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import images from '../utils/images';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import DOMPurify from 'dompurify';
 
 const Signup = () => {
   const { signup, user } = useAuth();
@@ -44,8 +45,14 @@ const Signup = () => {
     }
     setIsSigningUp(true);
     try {
-      await signup(formData);
-      toast.success('Account created! Welcome to Stocka.');
+      const sanitizedData = {
+        enterpriseName: DOMPurify.sanitize(formData.enterpriseName),
+        email: DOMPurify.sanitize(formData.email),
+        phone: DOMPurify.sanitize(formData.phone),
+        password: formData.password
+      };
+      await signup(sanitizedData);
+      toast.success(<span>Account created! Welcome to <span className="font-nosifer">Stocka</span>.</span>);
       setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err) {
       const message = err?.response?.data?.message || err.message || 'Registration failed.';
@@ -57,7 +64,6 @@ const Signup = () => {
 
   return (
     <div className="min-h-screen flex overflow-hidden bg-[#181A1E]">
-      <ToastContainer position="top-right" autoClose={3000} theme="colored" />
 
       <div className="hidden lg:flex lg:w-1/2 relative flex-col justify-between p-16 overflow-hidden">
         <div className="absolute inset-0 bg-[#09111E]">
@@ -77,13 +83,13 @@ const Signup = () => {
           <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 p-2.5 shadow-2xl backdrop-blur-md">
             <img src={images.logo} alt="Stocka Logo" className="w-full h-full object-contain brightness-0 invert" />
           </div>
-          <h1 className="text-white font-black text-5xl tracking-tight">Stocka</h1>
+          <h1 className="text-white font-nosifer font-black text-5xl tracking-tight">Stocka</h1>
         </div>
 
         <div className="relative z-10 space-y-10">
           <div>
             <h2 className="text-white font-black text-4xl leading-tight mb-4">
-              Step into the Future<br /><span className="text-brand-500">of Trading.</span>
+              Step into the Future<br /><span className="text-white">of Trading.</span>
             </h2>
             <p className="text-white/40 font-medium text-lg leading-relaxed max-w-sm">
               Join thousands of traders using our premium analytics and real-time tracking.
@@ -96,7 +102,7 @@ const Signup = () => {
               { icon: <BarChart2 size={20} />, label: 'Premium market analytics' },
               { icon: <DollarSign size={20} />, label: 'Instant transaction alerts' },
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-4 group cursor-default">
+              <div key={i} className="flex cursor-pointer items-center gap-4 group">
                 <div className="w-10 h-10 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center text-white flex-shrink-0 group-hover:bg-brand-500 transition-all duration-300">
                   {item.icon}
                 </div>
@@ -104,10 +110,6 @@ const Signup = () => {
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="relative z-10 text-white/20 text-sm font-semibold italic">
-          Premium Trading Infrastructure
         </div>
       </div>
 
@@ -121,16 +123,13 @@ const Signup = () => {
 
         <div className="w-full max-w-md py-16 lg:py-0">
           <div className="mb-10 text-center lg:text-left">
-            <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 text-[10px] uppercase tracking-widest font-black mb-5">
-              Protocol Initialization
-            </div>
-            <h2 className="text-5xl font-black text-[#09111E] mb-3 leading-tight tracking-tighter">Join the<br />Network</h2>
+            <h2 className="text-5xl font-black text-[#09111E] mb-1 leading-tight tracking-tighter">Join the Network</h2>
             <p className="text-[#09111E]/40 font-medium">Create your account and start trading.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-xs font-black text-[#09111E]/60 uppercase tracking-tighter pl-1">Enterprise Name</label>
+              <label className="text-sm font-bold text-[#09111E]/60 pl-1">Enterprise Name</label>
               <input
                 type="text"
                 name="enterpriseName"
@@ -138,13 +137,13 @@ const Signup = () => {
                 onChange={handleChange}
                 placeholder="Business name"
                 required
-                className="w-full px-6 py-4 bg-white border border-brand-100 rounded-xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-sm font-bold text-[#09111E] placeholder:text-[#09111E]/20 shadow-sm"
+                className="w-full px-6 py-4 bg-white border border-brand-100 rounded-md focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-sm font-bold text-[#09111E] placeholder:text-[#09111E]/20 shadow-sm"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-xs font-black text-[#09111E]/60 uppercase tracking-tighter pl-1">Phone Number</label>
+                <label className="text-sm font-bold text-[#09111E]/60 pl-1">Phone Number</label>
                 <input
                   type="tel"
                   name="phone"
@@ -152,18 +151,18 @@ const Signup = () => {
                   onChange={handleChange}
                   placeholder="+250 78x xxx xxx"
                   required
-                  className="w-full px-6 py-4 bg-white border border-brand-100 rounded-xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-sm font-bold text-[#09111E] placeholder:text-[#09111E]/20 shadow-sm"
+                  className="w-full px-6 py-4 bg-white border border-brand-100 rounded-md focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-sm font-bold text-[#09111E] placeholder:text-[#09111E]/20 shadow-sm"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-black text-[#09111E]/60 uppercase tracking-tighter pl-1">Email (Optional)</label>
+                <label className="text-sm font-bold text-[#09111E]/60 pl-1">Email (Optional)</label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="contact@business.com"
-                  className="w-full px-6 py-4 bg-white border border-brand-100 rounded-xl focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-sm font-bold text-[#09111E] placeholder:text-[#09111E]/20 shadow-sm"
+                  className="w-full px-6 py-4 bg-white border border-brand-100 rounded-md focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-sm font-bold text-[#09111E] placeholder:text-[#09111E]/20 shadow-sm"
                 />
               </div>
             </div>
@@ -220,7 +219,7 @@ const Signup = () => {
             <button
               type="submit"
               disabled={isSigningUp}
-              className="w-full py-5 bg-[#09111E] text-white rounded-xl font-black text-sm hover:shadow-[0_10px_40px_-10px_rgba(9,17,30,0.4)] transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 mt-4"
+              className="w-full py-4 bg-[#09111E] text-white rounded-md font-bold text-sm hover:shadow-[0_10px_40px_-10px_rgba(9,17,30,0.4)] transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 mt-4"
             >
               {isSigningUp ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -233,7 +232,7 @@ const Signup = () => {
           <p className="text-center text-sm text-[#09111E]/30 font-medium mt-10">
             Already registered?{' '}
             <Link to="/login" className="text-[#09111E] font-black hover:underline underline-offset-4">
-              Sign in to Stocka
+              Sign in
             </Link>
           </p>
         </div>

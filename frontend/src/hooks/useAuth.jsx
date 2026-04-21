@@ -85,6 +85,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     isAuthenticated,
     trader,
+    user: trader,
     loading,
     signup,
     login,

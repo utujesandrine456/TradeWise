@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import Loader from './Loader';
 import { MdAdd, MdSearch, MdEdit, MdDelete, MdVisibility, MdInventory, MdCheckCircle, MdSchedule, MdLayers } from 'react-icons/md';
 import { formatDistanceToNow } from 'date-fns';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -209,37 +210,27 @@ const Stock = () => {
   };
 
   if (loading && stockItems.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center py-40 animate-pulse font-Urbanist text-white">
-        <div className="relative">
-          <div className="w-20 h-20 border-2 border-accent-400/20 border-t-accent-400 rounded-full animate-spin mb-8 shadow-[0_0_20px_rgba(96,165,250,0.3)]"></div>
-          <MdLayers className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl text-accent-400" />
-        </div>
-        <div className="space-y-2 text-center">
-          <p className="text-2xl font-bold opacity-80">Syncing Catalog</p>
-          <p className="text-sm font-semibold text-brand-300 opacity-60">Retrieving Asset Manifests...</p>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-10 bg-[#09111E] border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden group">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent-400/5 to-transparent opacity-50 pointer-events-none" />
-        <div className="flex items-center gap-8 relative z-10">
-          <div className="p-3 bg-white/5 rounded-full border border-white/5 shadow-xl group-hover:rotate-12 transition-all duration-500">
-            <MdLayers className="text-3xl text-accent-400" />
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-10 bg-white border border-gray-100 p-12 rounded-md shadow-sm relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-transparent opacity-50 pointer-events-none" />
+        <div className="flex items-center gap-4 relative z-10 text-[#09111E]">
+          <div className="p-3 bg-gray-50 rounded-full text-[#09111E] border border-gray-100 shadow-sm">
+            <MdInventory className="text-2xl" />
           </div>
-          <div>
-            <h2 className="text-4xl font-bold text-white leading-none mb-3 tracking-tight">Inventory Management</h2>
-            <p className="text-brand-300 text-xs font-semibold mt-1 opacity-60">Manage your product levels and restock thresholds</p>
-          </div>
+          <h3 className="text-2xl font-bold text-[#09111E]">Stock Records</h3>
+        </div>
+        <div>
+          <h1 className="text-4xl font-bold text-[#09111E] leading-none mb-3">Inventory Registry</h1>
+          <p className="text-[#09111E]/80 text-lg font-medium opacity-60">Real-time asset tracking and stock level management</p>
         </div>
         <button
           onClick={() => setIsAddItemFormOpen(true)}
-          className="group relative px-6 py-4 bg-white text-brand-950 rounded-md font-semibold transition-all shadow-2xl overflow-hidden text-sm"
+          className="group relative px-6 py-4 bg-[#09111E] text-white rounded-md font-semibold transition-all shadow-lg overflow-hidden text-sm"
         >
           <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
           <div className="flex items-center gap-3 relative z-10">
@@ -262,54 +253,54 @@ const Stock = () => {
       </div>
 
       {/* Main Inventory Table */}
-      <div className="bg-[#09111E] border border-white/5 rounded-md shadow-2xl overflow-hidden group/table relative">
-        <div className="p-12 border-b border-white/5 flex flex-col xl:flex-row justify-between items-center gap-8 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
+      <div className="bg-white border border-gray-100 rounded-md shadow-sm overflow-hidden group/table relative">
+        <div className="p-12 border-b border-gray-100 flex flex-col xl:flex-row justify-between items-center gap-8 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-transparent pointer-events-none" />
           <div className="w-full xl:w-[500px] relative z-10 group/search">
-            <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-brand-300 text-2xl group-focus-within/search:text-accent-400 transition-colors" />
+            <MdSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-[#09111E]/60 text-2xl group-focus-within/search:text-[#09111E] transition-colors" />
             <input
               type="text"
               placeholder="Filter catalog by product name..."
               onChange={(e) => debouncedSearch(e.target.value)}
-              className="w-full pl-16 pr-8 py-3 bg-white/5 border border-white/5 rounded-md text-white font-medium tracking-tight text-md placeholder:text-brand-300/40 focus:outline-none focus:ring-1 focus:ring-accent-400/10 focus:border-accent-400/50 transition-all shadow-inner"
+              className="w-full pl-14 pr-8 py-3 bg-gray-50 border border-gray-100 rounded-md text-[#09111E] font-medium text-md placeholder:text-[#09111E]/60 focus:outline-none focus:ring-1 focus:ring-blue-500/10 focus:border-gray-100 transition-all shadow-inner"
             />
           </div>
         </div>
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-white/5">
-                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Product Name</th>
-                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Unit</th>
-                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Stock Level</th>
-                <th className="px-10 py-6 text-left text-sm font-bold text-brand-300">Status</th>
-                <th className="px-10 py-6 text-right text-sm font-bold text-brand-300">Actions</th>
+              <tr className="bg-gray-50">
+                <th className="px-10 py-6 text-left text-sm font-bold text-[#09111E]/80 w-1/3">Asset Identifier</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-[#09111E]/80">Classification</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-[#09111E]/80">Volume</th>
+                <th className="px-10 py-6 text-left text-sm font-bold text-[#09111E]/80">Status</th>
+                <th className="px-10 py-6 text-right text-sm font-bold text-[#09111E]/80">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
               {filteredItems.length > 0 ? (
                 filteredItems.map((item) => (
-                  <tr key={item.id} className="hover:bg-white/[0.03] transition-all group/row relative">
+                  <tr key={item.id} className="hover:bg-gray-50 transition-all group/row relative border-b border-gray-50 last:border-0 text-[#09111E]">
                     <td className="px-10 py-8 relative">
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-0 bg-accent-400 group-hover/row:h-1/2 transition-all duration-300 rounded-md" />
-                      <p className="text-xl font-bold text-white group-hover/row:text-accent-400 transition-colors tracking-tight">{item.name}</p>
-                      <p className="text-[10px] text-brand-300 font-bold uppercase mt-2 tracking-widest italic opacity-40">System Id: {item.id?.slice(-8)}</p>
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-0 bg-[#09111E] group-hover/row:h-1/2 transition-all duration-300 rounded-md" />
+                      <p className="text-base font-bold text-[#09111E] group-hover/row:text-[#09111E] transition-colors leading-tight line-clamp-2">{item.name}</p>
+                      <p className="text-[10px] text-[#09111E]/60 font-bold mt-2 italic opacity-40">System Id: {item.id?.slice(-8)}</p>
                     </td>
                     <td className="px-10 py-8">
-                      <span className="px-5 py-2 bg-white/5 rounded-md border border-white/5 text-xs text-brand-300 font-bold">
+                      <span className="px-5 py-2 bg-gray-50 rounded-md border border-gray-100 text-xs text-[#09111E]/80 font-bold italic">
                         {item.unit}
                       </span>
                     </td>
                     <td className="px-10 py-8">
-                      <div className="flex items-center gap-4 text-white">
-                        <span className="text-3xl font-bold tracking-tight">{item.quantity}</span>
-                        <span className="text-[9px] font-bold leading-tight opacity-40 uppercase tracking-wider italic">Items<br />Remaining</span>
+                      <div className="flex items-center gap-4 text-[#09111E]">
+                        <span className="text-3xl font-bold">{item.quantity}</span>
+                        <span className="text-[9px] font-bold leading-tight opacity-40 italic">Items<br />Remaining</span>
                       </div>
                     </td>
                     <td className="px-10 py-8">
-                      <span className={`inline-flex px-6 py-2.5 text-[10px] font-bold rounded-md border uppercase tracking-widest shadow-sm ${item.status === 'In Stock' ? 'bg-green-500/10 text-green-500 border-green-500/20' :
-                        item.status === 'Low Stock' ? 'bg-amber-400/10 text-amber-400 border-amber-400/20' :
-                          'bg-red-500/10 text-red-500 border-red-500/20'
+                      <span className={`inline-flex px-6 py-2.5 text-[10px] font-bold rounded-md border shadow-sm ${item.status === 'In Stock' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' :
+                        item.status === 'Low Stock' ? 'bg-amber-50 text-amber-600 border-amber-100' :
+                          'bg-red-50 text-red-600 border-red-100'
                         }`}>
                         {item.status}
                       </span>
@@ -322,21 +313,21 @@ const Stock = () => {
                             setIsViewModalOpen(true);
                             navigate(`/stock/${item.id}`);
                           }}
-                          className="p-4 bg-white/5 text-brand-300 hover:text-accent-400 hover:bg-white/10 rounded-md border border-white/5 transition-all hover:shadow-2xl active:scale-95"
+                          className="p-4 bg-gray-50 text-[#09111E]/60 hover:text-[#09111E] hover:bg-gray-100 rounded-md border border-gray-100 transition-all hover:shadow-md active:scale-95"
                           title="View Details"
                         >
                           <MdVisibility className="text-2xl" />
                         </button>
                         <button
                           onClick={() => handleEdit(item)}
-                          className="p-4 bg-white/5 text-brand-300 hover:text-green-500 hover:bg-white/10 rounded-md border border-white/5 transition-all hover:shadow-2xl active:scale-95"
+                          className="p-4 bg-gray-50 text-[#09111E]/60 hover:text-[#09111E] hover:bg-emerald-50 rounded-md border border-gray-100 transition-all hover:shadow-md active:scale-95"
                           title="Modify Record"
                         >
                           <MdEdit className="text-2xl" />
                         </button>
                         <button
                           onClick={() => handleDelete(item)}
-                          className="p-4 bg-white/5 text-brand-300 hover:text-red-500 hover:bg-white/10 rounded-md border border-white/5 transition-all hover:shadow-2xl active:scale-95"
+                          className="p-4 bg-gray-50 text-[#09111E]/60 hover:text-[#09111E] hover:bg-red-50 rounded-md border border-gray-100 transition-all hover:shadow-md active:scale-95"
                           title="Purge Record"
                         >
                           <MdDelete className="text-2xl" />
@@ -350,21 +341,21 @@ const Stock = () => {
                   <td colSpan="5" className="px-10 py-40">
                     <div className="flex flex-col items-center justify-center max-w-lg mx-auto">
                       <div className="relative mb-12 group">
-                        <div className="absolute inset-0 bg-accent-400/20 blur-3xl rounded-full group-hover:scale-150 transition-transform duration-1000" />
-                        <div className="relative p-8 bg-[#09111E] rounded-full border border-white/20 shadow-2xl">
-                          <MdInventory className="text-7xl text-brand-300/20 group-hover:text-accent-400 transition-colors duration-500" />
+                        <div className="absolute inset-0 bg-gray-50 blur-3xl rounded-full group-hover:scale-150 transition-transform duration-1000" />
+                        <div className="relative p-8 bg-gray-50 rounded-full border border-gray-100 shadow-sm">
+                          <MdInventory className="text-7xl text-[#09111E]/50 group-hover:text-[#09111E] transition-colors duration-500" />
                         </div>
                       </div>
-                      <h3 className="text-4xl font-bold text-white tracking-tighter mb-4">Stock Registry Empty</h3>
-                      <p className="text-brand-300 italic font-medium opacity-60 leading-relaxed mb-12 text-center text-sm">
+                      <h3 className="text-4xl font-bold text-[#09111E] mb-4">No Asset Records</h3>
+                      <p className="text-[#09111E]/80 italic font-medium opacity-80 leading-relaxed mb-12 text-center text-sm">
                         {searchTerm
-                          ? 'The specific filter parameters yielded zero operational matches.'
-                          : 'Your local distribution center is currently unmapped. Initialize your inventory to begin tracking.'}
+                          ? 'The specific operational parameters yielded zero recorded matches within the inventory registry.'
+                          : 'The inventory repository is currently empty. Define a new asset to map your physical supply chain.'}
                       </p>
                       {!searchTerm && (
                         <button
                           onClick={() => setIsAddItemFormOpen(true)}
-                          className="px-8 py-4 bg-white/5 border items-center gap-2 flex justify-center border-white/10 text-white font-bold text-[16px] rounded-md hover:bg-white/10 transition-all active:scale-95 shadow-xl"
+                          className="px-8 py-4 bg-[#09111E] text-white font-bold text-[16px] rounded-md hover:bg-[#0a1520] transition-all active:scale-95 shadow-xl flex items-center gap-2"
                         >
                           Create Product
                           <Plus size={16} />
@@ -434,32 +425,22 @@ const Stock = () => {
         ]}
       />
 
-    </div>
+    </div >
   );
 };
 
 // Tactical Inventory Summary Component
-const InventoryStatCard = ({ label, value, icon: Icon, detail, color }) => {
-  const colorMap = {
-    'accent-400': 'text-accent-400 bg-accent-400/10 border-accent-400/20 from-accent-400',
-    'green-500': 'text-green-500 bg-green-500/10 border-green-500/20 from-green-500',
-    'amber-400': 'text-amber-400 bg-amber-400/10 border-amber-400/20 from-amber-400',
-    'red-500': 'text-red-500 bg-red-500/10 border-red-500/20 from-red-500',
-  };
-
-  const selectedColor = colorMap[color] || colorMap['accent-400'];
-  const [gradStyle] = selectedColor.split(' ');
-
+const InventoryStatCard = ({ label, value, unit, detail, color }) => {
   return (
-    <div className="group bg-[#09111E] p-10 rounded-md border border-white/5 shadow-2xl relative overflow-hidden transition-all duration-500 hover:border-white/10">
-      <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${gradStyle}/50 to-transparent opacity-50`} />
-      <div className="relative z-10 flex flex-col h-full justify-between gap-10">
+    <div className="bg-[#09111E] border border-white/5 rounded-md p-6 shadow-2xl hover:shadow-brand-500/10 transition-all cursor-pointer group relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000 blur-2xl opacity-60" />
+      <div className="relative z-10 flex flex-col h-full justify-between">
         <div>
-          <p className="text-md font-semibold text-brand-300 mb-3 opacity-60">{label}</p>
-          <h4 className="text-4xl font-bold text-white tracking-tight leading-none mb-3">
-            {value} <span className="text-lg opacity-40 font-bold ml-2">Units</span>
+          <p className="text-md font-semibold text-white/40 mb-6">{label}</p>
+          <h4 className="text-4xl font-bold text-white leading-none mb-6">
+            {value?.toLocaleString() || '0'} <span className="text-lg text-white/20 font-bold italic ml-1">{unit}</span>
           </h4>
-          <p className="text-xs text-brand-300 font-semibold opacity-60">{detail}</p>
+          <p className="text-sm text-white/20 font-medium">{detail}</p>
         </div>
       </div>
     </div>

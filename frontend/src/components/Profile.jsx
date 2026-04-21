@@ -173,228 +173,137 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
+    <div className="max-w-5xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">
       {/* Header Card */}
-      <div className="bg-[#09111E] rounded-md border border-white/5 overflow-hidden shadow-2xl relative">
-        <div className="bg-brand-950/50 px-10 py-16 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-400/5 rounded-md blur-[120px] -mr-[300px] -mt-[300px] pointer-events-none" />
+      <div className="bg-white rounded-md border border-gray-100 overflow-hidden shadow-sm relative">
+        <div className="bg-gray-50/50 px-10 py-16 relative overflow-hidden transition-all duration-700">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 rounded-md blur-[120px] -mr-[300px] -mt-[300px] pointer-events-none" />
           <div className="relative z-10 flex items-center justify-between">
             <div className="space-y-4">
-              <h1 className="text-5xl font-bold text-white tracking-tight mb-2">Profile Settings</h1>
-              <p className="text-brand-300 font-medium text-lg opacity-60">Manage your business profile and account preferences</p>
+              <h1 className="text-5xl font-bold text-[#09111E] mb-2">My Profile</h1>
+              <p className="text-[#09111E]/80 font-medium text-lg opacity-60">Control your business information and preferences</p>
             </div>
           </div>
         </div>
-        <div className="p-10 bg-[#09111E]">
+        <div className="p-10 bg-white">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Badge icon={<MdBusiness className="text-accent-400" />} label="Corporate Identity" value={profileData?.name || formData.name || '—'} />
-            <Badge icon={<MdEmail className="text-accent-400" />} label="Operational Currency" value={profileData?.currency || formData.currency || '—'} />
-            <Badge icon={<MdShield className="text-accent-400" />} label="Industry Sector" value={profileData?.industry || formData.industry || '—'} />
+            <Badge icon={<MdBusiness className="text-[#09111E]" />} label="Business" value={profileData?.name || formData.name || 'Set Name'} />
+            <Badge icon={<MdEmail className="text-[#09111E]" />} label="Currency" value={profileData?.currency || formData.currency || 'Not Set'} />
+            <Badge icon={<MdShield className="text-[#09111E]" />} label="Industry" value={profileData?.industry || formData.industry || 'Not Set'} />
           </div>
-          <div className="mt-12 bg-white/5 p-8 rounded-md border border-white/5 shadow-inner">
-            <div className="flex items-center justify-between mb-5 px-1">
-              <p className="text-sm font-semibold text-brand-300 opacity-60">Setup Progress</p>
-              <p className="text-sm font-bold text-brand-500">
-                {loading ? 'Loading...' : `${completeness}% complete`}
+          <div className="mt-12 bg-[#09111E] p-6 rounded-md border border-white/5 shadow-2xl transition-all duration-500 group relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000 blur-2xl opacity-60" />
+            <div className="flex items-center justify-between mb-6 px-1 font-bold relative z-10">
+              <p className="text-sm font-semibold text-white/40 italic opacity-60">Setup Status</p>
+              <p className="text-sm font-semibold text-white italic opacity-80">
+                {loading ? 'Syncing...' : `${completeness}% COMPLETE`}
               </p>
             </div>
             {!loading && (
-              <div className="w-full h-3 bg-brand-950 border border-white/5 rounded-full overflow-hidden shadow-inner">
+              <div className="w-full h-3 bg-white/5 border border-white/10 rounded-full overflow-hidden shadow-inner relative z-10">
                 <div
-                  className="h-full bg-accent-400 rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(96,165,250,0.5)]"
+                  className="h-full bg-white rounded-full transition-all duration-1000 shadow-[0_0_20px_rgba(255,255,255,0.3)]"
                   style={{ width: `${completeness}%` }}
                 />
               </div>
             )}
+            <p className="mt-6 text-[10px] font-bold text-white/20 px-1 italic relative z-10 opacity-40">
+              Keep your profile updated for better business insights
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Navigation Protocols (Tabs) */}
-      <div className="flex flex-wrap gap-3 p-3 bg-[#09111E] rounded-md border border-white/5 shadow-2xl relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
-        <TabButton active={activeTab === 'basic'} onClick={() => setActiveTab('basic')}>Identity</TabButton>
-        <TabButton active={activeTab === 'description'} onClick={() => setActiveTab('description')}>Manifesto</TabButton>
-        <TabButton active={activeTab === 'contacts'} onClick={() => setActiveTab('contacts')}>Communication</TabButton>
-        <TabButton active={activeTab === 'scale'} onClick={() => setActiveTab('scale')}>Operations</TabButton>
-        <TabButton active={activeTab === 'payments'} onClick={() => setActiveTab('payments')}>Settlement</TabButton>
-        <TabButton active={activeTab === 'strategy'} onClick={() => setActiveTab('strategy')}>Strategy</TabButton>
-        <TabButton active={activeTab === 'security'} onClick={() => setActiveTab('security')}>Encryption</TabButton>
-        <TabButton active={activeTab === 'preferences'} onClick={() => setActiveTab('preferences')}>Configurations</TabButton>
+      <div className="flex flex-wrap gap-3 p-3 bg-white rounded-md border border-gray-100 shadow-sm relative overflow-hidden font-bold">
+        <div className="absolute inset-0 bg-gray-50/50 pointer-events-none" />
+        <TabButton active={activeTab === 'basic'} onClick={() => setActiveTab('basic')}>The Basics</TabButton>
+        <TabButton active={activeTab === 'contacts'} onClick={() => setActiveTab('contacts')}>Contact Info</TabButton>
+        <TabButton active={activeTab === 'security'} onClick={() => setActiveTab('security')}>Safety</TabButton>
+        <TabButton active={activeTab === 'preferences'} onClick={() => setActiveTab('preferences')}>Alerts</TabButton>
       </div>
 
-      {/* Basic Info Tab */}
       {activeTab === 'basic' && (
-        <div className="space-y-6 animate-in fade-in duration-500">
-          {/* Header with Edit/Save buttons */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-10 bg-[#09111E] border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
-            <div className="relative z-10">
-              <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">General Information</h2>
-              <p className="text-sm font-semibold text-brand-300 opacity-60">Manage your core business identity and presence</p>
-            </div>
-            {!editing ? (
-              <button
-                className={`group relative flex items-center gap-4 px-10 py-5 rounded-md text-sm font-semibold transition-all shadow-2xl overflow-hidden active:scale-95 ${loading
-                  ? 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
-                  : 'bg-white text-brand-950 hover:scale-105'
-                  }`}
-                onClick={loading ? undefined : () => setEditing(true)}
-                disabled={loading}
-              >
-                <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
-                <MdEdit className="text-xl relative z-10" />
-                <span className="relative z-10">{loading ? 'Loading...' : 'Edit Profile'}</span>
-              </button>
-            ) : (
-              <div className="flex items-center gap-4 relative z-10">
-                <button
-                  className={`flex items-center gap-4 px-10 py-5 rounded-md text-sm font-semibold transition-all shadow-2xl active:scale-95 ${hasChangesMemo
-                    ? 'bg-white text-brand-950'
-                    : 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
-                    }`}
-                  onClick={hasChangesMemo ? onSave : undefined}
-                  disabled={!hasChangesMemo}
-                >
-                  <MdCheck className="text-xl" /> Save Changes
-                </button>
-                <button
-                  className="flex items-center gap-4 px-10 py-5 rounded-md bg-white/5 border border-white/10 text-brand-300 text-sm font-semibold transition-all hover:bg-white/10 hover:text-white shadow-xl active:scale-95"
-                  onClick={onCancel}
-                >
-                  <MdClose className="text-xl" /> Cancel
-                </button>
-              </div>
-            )}
-          </div>
+        <div className="space-y-8 animate-in fade-in duration-500">
+          <TabHeader
+            title="General Info"
+            subtitle="Tell us about your business"
+            editing={editing}
+            loading={loading}
+            hasChanges={hasChangesMemo}
+            onEdit={() => setEditing(true)}
+            onSave={onSave}
+            onCancel={onCancel}
+          />
 
-          <Section title="Basic Information" subtitle="Tell us about your business.">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <InputField label="Company Name *" name="name" value={formData.name} onChange={handleChange} required disabled={!editing} />
-              <InputField label="Enterprise Description" name="enterpriseDescription" value={formData.enterpriseDescription} onChange={handleChange} placeholder="Brief description of your enterprise" disabled={!editing} />
+          <Section title="The Core Details" subtitle="Fundamental business attributes">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <InputField label="Company Name" name="name" value={formData.name} onChange={handleChange} required disabled={!editing} placeholder="Enter your business name" />
               <SelectField label="Business Type" name="businessType" value={formData.businessType} onChange={handleChange} options={['Sole Proprietorship', 'Partnership', 'Corporation', 'LLC', 'Franchise', 'Other']} disabled={!editing} />
-              <InputField label="Industry" name="industry" value={formData.industry} onChange={handleChange} placeholder="Technology, Retail, Manufacturing" disabled={!editing} />
-              <InputField label="Founded Year" name="foundedYear" value={formData.foundedYear} onChange={handleChange} type="number" placeholder="e.g., 2020" min="1900" max={new Date().getFullYear()} disabled={!editing} />
-              <SelectField label="Currency" name="currency" value={formData.currency} onChange={handleChange} options={['USD', 'EUR', 'GBP', 'RWF', 'KES', 'UGX', 'TZS']} disabled={!editing} />
+              <InputField label="Industry" name="industry" value={formData.industry} onChange={handleChange} placeholder="e.g., Tech, Retail, Logistics" disabled={!editing} />
+              <SelectField label="Trading Currency" name="currency" value={formData.currency} onChange={handleChange} options={['USD', 'EUR', 'GBP', 'RWF', 'KES', 'UGX', 'TZS']} disabled={!editing} />
+              <div className="md:col-span-2">
+                <TextAreaField label="Business Bio" name="description" value={formData.description} onChange={handleChange} placeholder="What does your company do? (briefly)" rows={3} disabled={!editing} />
+              </div>
             </div>
           </Section>
         </div>
       )}
 
-      {/* Description Tab */}
-      {activeTab === 'description' && (
-        <div className="space-y-6 animate-in fade-in duration-500">
-          <TabHeader title="Business Summary" subtitle="Define your business mission and vision" editing={editing} loading={loading} hasChanges={hasChangesMemo} onEdit={() => setEditing(true)} onSave={onSave} onCancel={onCancel} />
-          <Section title="Business Manifesto" subtitle="Articulate your strategic vision and purpose.">
-            <TextAreaField label="Business Description" name="description" value={formData.description} onChange={handleChange} placeholder="Describe your business, products, and services..." disabled={!editing} />
-          </Section>
-        </div>
-      )}
-
-      {/* Contacts Tab */}
       {activeTab === 'contacts' && (
-        <div className="space-y-6 animate-in fade-in duration-500">
-          <TabHeader title="Contact Information" subtitle="Manage your communication channels and presence" editing={editing} loading={loading} hasChanges={hasChangesMemo} onEdit={() => setEditing(true)} onSave={onSave} onCancel={onCancel} />
-          <Section title="Contact Infrastructure" subtitle="How can clients and partners reach your enterprise?">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <TextAreaField label="Physical Address" name="address" value={formData.address} onChange={handleChange} placeholder="Business address" rows={2} disabled={!editing} />
-              <InputField label="Phone Number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Business phone number" disabled={!editing} />
-              <InputField label="Website" name="website" value={formData.website} onChange={handleChange} type="url" placeholder="https://yourwebsite.com" disabled={!editing} />
-              <InputField label="Business Hours" name="businessHours" value={formData.businessHours} onChange={handleChange} placeholder="Monday-Friday 9AM-6PM" disabled={!editing} />
+        <div className="space-y-8 animate-in fade-in duration-500">
+          <TabHeader title="Get In Touch" subtitle="Where can people find you?" editing={editing} loading={loading} hasChanges={hasChangesMemo} onEdit={() => setEditing(true)} onSave={onSave} onCancel={onCancel} />
+          <Section title="Communication Channels" subtitle="Phone, Web, and Physical presence">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <InputField label="Official Phone" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="+250..." disabled={!editing} />
+              <InputField label="Digital Domain (Website)" name="website" value={formData.website} onChange={handleChange} type="url" placeholder="https://www.example.com" disabled={!editing} />
+              <div className="md:col-span-2">
+                <TextAreaField label="Physical Address" name="address" value={formData.address} onChange={handleChange} placeholder="Full business location details..." rows={2} disabled={!editing} />
+              </div>
             </div>
           </Section>
         </div>
       )}
 
-      {/* Scale & Operations Tab */}
-      {activeTab === 'scale' && (
-        <div className="space-y-6 animate-in fade-in duration-500">
-          <TabHeader title="Business Scale" subtitle="Define your operational capacity and fiscal metrics" editing={editing} loading={loading} hasChanges={hasChangesMemo} onEdit={() => setEditing(true)} onSave={onSave} onCancel={onCancel} />
-          <Section title="Scale Metrics" subtitle="Organizational size and fiscal throughput.">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InputField label="Annual Revenue" name="anualRevenue" value={formData.anualRevenue} onChange={handleChange} type="number" placeholder="Annual revenue amount" disabled={!editing} />
-              <InputField label="Workforce Headcount" name="numberOfEmployees" value={formData.numberOfEmployees} onChange={handleChange} type="number" placeholder="Number of employees" disabled={!editing} />
-            </div>
-          </Section>
-        </div>
-      )}
-
-      {/* Payments Tab */}
-      {activeTab === 'payments' && (
-        <div className="space-y-6 animate-in fade-in duration-500">
-          <TabHeader title="Payment Options" subtitle="Configure your preferred financial transaction methods" editing={editing} loading={loading} hasChanges={hasChangesMemo} onEdit={() => setEditing(true)} onSave={onSave} onCancel={onCancel} />
-          <Section title="Financial Settlement" subtitle="What instruments does your enterprise accept?">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <SelectField label="Primary Settlement Method" name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} options={['Cash', 'Credit_Card', 'Debit_Card', 'Bank_Transfer', 'Mobile_Money', 'PayPal', 'Check', 'Crypto']} disabled={!editing} />
-            </div>
-          </Section>
-        </div>
-      )}
-
-      {/* Strategy Tab */}
-      {activeTab === 'strategy' && (
-        <div className="space-y-6 animate-in fade-in duration-500">
-          <TabHeader title="Market Strategy" subtitle="Define your market position and competitive landscape" editing={editing} loading={loading} hasChanges={hasChangesMemo} onEdit={() => setEditing(true)} onSave={onSave} onCancel={onCancel} />
-          <Section title="Market Intelligence" subtitle="Who will you serve and how will you dominate?">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <TextAreaField label="Target Market" name="targetMarket" value={formData.targetMarket} onChange={handleChange} placeholder="Describe your target market..." rows={3} disabled={!editing} />
-              <TextAreaField label="Competitive Landscape" name="competitors" value={formData.competitors} onChange={handleChange} placeholder="List your main competitors..." rows={3} disabled={!editing} />
-            </div>
-            <TextAreaField label="Strategic Goals" name="goals" value={formData.goals} onChange={handleChange} placeholder="Short-term and long-term goals..." rows={4} disabled={!editing} />
-            <TextAreaField label="Additional Directives" name="sendMessage" value={formData.sendMessage} onChange={handleChange} placeholder="Any additional message..." rows={2} disabled={!editing} />
-          </Section>
-        </div>
-      )}
-
-      {/* Security Tab */}
       {activeTab === 'security' && (
-        <div className="space-y-6 animate-in fade-in duration-500">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-4 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
+        <div className="space-y-8 animate-in fade-in duration-500">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-4 bg-white border border-gray-100 p-12 rounded-md shadow-sm relative overflow-hidden">
             <div className="relative z-10">
-              <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">Security Settings</h2>
-              <p className="text-xs font-semibold text-brand-300 opacity-60">Manage your account authentication and security protocols</p>
+              <h2 className="text-3xl font-bold text-[#09111E] mb-3">Login Security</h2>
+              <p className="text-sm font-semibold text-[#09111E]/60 opacity-60">Control your passwords and account access</p>
             </div>
-            <span className="text-xs font-bold text-brand-500 bg-brand-500/10 border border-brand-500/20 px-6 py-3 rounded-md shadow-inner relative z-10">Settings View</span>
           </div>
-          <Section title="Security Protocols" subtitle="Account authentication and access control.">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex items-center justify-between bg-white/5 border border-white/5 rounded-md px-8 py-6 shadow-inner">
-                <span className="text-lg font-bold text-white">Two-Factor Authentication</span>
-                <span className="text-xs font-bold px-4 py-2 rounded-md bg-red-500/10 text-red-500 border border-red-500/20">Disabled</span>
+          <Section title="Safety Protocols" subtitle="Enhance your workspace security">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="flex items-center justify-between bg-gray-50 border border-gray-100 rounded-md px-10 py-8 shadow-sm">
+                <span className="text-lg font-bold text-[#09111E]">Step-2 Verification</span>
+                <span className="text-[10px] font-bold px-4 py-2 rounded-md bg-gray-200 text-[#09111E]/40 border border-gray-300 italic font-Urbanist">Protocol Disabled</span>
               </div>
-              <div className="flex items-center justify-between bg-white/5 border border-white/5 rounded-md px-8 py-6 shadow-inner">
-                <span className="text-lg font-bold text-white">Account Password</span>
-                <span className="text-xs font-bold px-4 py-2 rounded-md bg-white/5 text-brand-300 border border-white/5">Last Updated —</span>
+              <div className="flex items-center justify-between bg-gray-50 border border-gray-100 rounded-md px-10 py-8 shadow-sm">
+                <span className="text-lg font-bold text-[#09111E]">Reset Password</span>
+                <span className="text-[10px] font-bold px-4 py-2 rounded-md bg-[#09111E] text-white cursor-pointer hover:bg-black transition-all font-Urbanist">Update Key</span>
               </div>
             </div>
           </Section>
         </div>
       )}
 
-      {/* Preferences Tab */}
       {activeTab === 'preferences' && (
-        <div className="space-y-6 animate-in fade-in duration-500">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 bg-[#09111E] border border-white/5 p-10 rounded-md shadow-2xl relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
+        <div className="space-y-8 animate-in fade-in duration-500">
+          <div className="flex flex-col md:flex-row md:items-center justify-between bg-white border border-gray-100 p-12 rounded-md shadow-sm relative overflow-hidden">
             <div className="relative z-10">
-              <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">System Preferences</h2>
-              <p className="text-xs font-semibold text-brand-300 opacity-60">Personalize your application experience and alert settings</p>
+              <h2 className="text-3xl font-bold text-[#09111E] mb-3">Alert Preferences</h2>
+              <p className="text-sm font-semibold text-[#09111E]/60 opacity-60">Decide how you want to be notified</p>
             </div>
           </div>
-          <Section title="Notification Matrix" subtitle="Configure your alert and communication preferences.">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <label className="flex items-center justify-between bg-white/5 border border-white/5 rounded-md px-8 py-6 cursor-pointer hover:bg-white/[0.08] transition-all group shadow-inner">
-                <span className="text-lg font-bold text-white tracking-tight group-hover:text-brand-500 transition-colors">Email Notifications</span>
-                <input type="checkbox" defaultChecked className="accent-accent-400 w-5 h-5 cursor-pointer" />
+          <Section title="Inbox & Push" subtitle="Choose your communication style">
+            <div className="grid grid-cols-1 gap-6">
+              <label className="flex items-center justify-between bg-gray-50 border border-gray-100 rounded-md px-10 py-8 cursor-pointer hover:bg-gray-100 transition-all group shadow-sm">
+                <span className="text-lg font-bold text-[#09111E]">Email Notifications</span>
+                <input type="checkbox" defaultChecked className="w-6 h-6 cursor-pointer rounded accent-[#09111E] bg-white border-gray-100" />
               </label>
-              <label className="flex items-center justify-between bg-white/5 border border-white/5 rounded-md px-8 py-6 cursor-pointer hover:bg-white/[0.08] transition-all group shadow-inner">
-                <span className="text-lg font-bold text-white tracking-tight group-hover:text-brand-500 transition-colors">Weekly Reports</span>
-                <input type="checkbox" className="accent-accent-400 w-5 h-5 cursor-pointer" />
-              </label>
-              <label className="flex items-center justify-between bg-white/5 border border-white/5 rounded-md px-8 py-6 cursor-pointer hover:bg-white/[0.08] transition-all group shadow-inner">
-                <span className="text-lg font-bold text-white tracking-tight group-hover:text-brand-500 transition-colors">System Updates</span>
-                <input type="checkbox" className="accent-accent-400 w-5 h-5 cursor-pointer" />
+              <label className="flex items-center justify-between bg-gray-50 border border-gray-100 rounded-md px-10 py-8 cursor-pointer hover:bg-gray-100 transition-all group shadow-sm">
+                <span className="text-lg font-bold text-[#09111E]">Weekly Activity Digest</span>
+                <input type="checkbox" className="w-6 h-6 cursor-pointer rounded accent-[#09111E] bg-white border-gray-100" />
               </label>
             </div>
           </Section>
@@ -406,42 +315,42 @@ const Profile = () => {
 
 // Reusable Tab Header with Edit/Save/Cancel Controls
 const TabHeader = ({ title, subtitle, editing, loading, hasChanges, onEdit, onSave, onCancel }) => (
-  <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-4 bg-[#09111E] border border-white/5 p-12 rounded-md shadow-2xl relative overflow-hidden">
-    <div className="absolute inset-0 bg-gradient-to-r from-accent-400/5 to-transparent pointer-events-none" />
+  <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-4 bg-white border border-gray-100 p-12 rounded-md shadow-sm relative overflow-hidden group">
+    <div className="absolute inset-0 bg-gray-50/30 opacity-50 pointer-events-none" />
     <div className="relative z-10">
-      <h2 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">{title}</h2>
-      <p className="text-sm font-semibold text-brand-300 opacity-60">{subtitle}</p>
+      <h2 className="text-4xl font-bold text-[#09111E] leading-none mb-3">{title}</h2>
+      <p className="text-sm font-semibold text-[#09111E]/60 opacity-60 italic">{subtitle}</p>
     </div>
     {!editing ? (
       <button
-        className={`group flex items-center gap-4 px-10 py-5 rounded-md text-sm font-semibold transition-all shadow-2xl overflow-hidden active:scale-95 relative z-10 ${loading
-          ? 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
-          : 'bg-white text-brand-950 hover:scale-105'
+        className={`group flex items-center gap-4 px-6 py-4 rounded-md text-sm font-semibold transition-all shadow-md overflow-hidden active:scale-95 relative z-10 ${loading
+          ? 'bg-gray-100 text-[#09111E]/30 cursor-not-allowed opacity-40'
+          : 'bg-[#09111E] text-white hover:bg-black'
           }`}
         onClick={loading ? undefined : onEdit}
         disabled={loading}
       >
         <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
         <MdEdit className="text-xl relative z-10" />
-        <span className="relative z-10">{loading ? 'Loading...' : 'Edit Section'}</span>
+        <span className="relative z-10">{loading ? 'Syncing...' : 'Modify Details'}</span>
       </button>
     ) : (
-      <div className="flex items-center gap-4 relative z-10">
+      <div className="flex items-center gap-6 relative z-10 font-bold italic text-[10px]">
         <button
-          className={`flex items-center gap-4 px-10 py-5 rounded-md text-sm font-semibold transition-all shadow-2xl active:scale-95 ${hasChanges
-            ? 'bg-white text-brand-950'
-            : 'bg-white/5 text-brand-300 cursor-not-allowed opacity-40'
+          className={`flex items-center gap-4 px-10 py-5 rounded-md transition-all shadow-sm active:scale-95 ${hasChanges
+            ? 'bg-[#09111E] text-white hover:bg-black'
+            : 'bg-gray-100 text-[#09111E]/30 cursor-not-allowed opacity-50'
             }`}
           onClick={hasChanges ? onSave : undefined}
           disabled={!hasChanges}
         >
-          <MdCheck className="text-xl" /> Save
+          <MdCheck className="text-xl" /> Commit Changes
         </button>
         <button
-          className="flex items-center gap-4 px-10 py-5 rounded-md bg-white/5 border border-white/10 text-brand-300 text-sm font-semibold transition-all hover:bg-white/10 hover:text-white shadow-xl active:scale-95"
+          className="flex items-center gap-4 px-10 py-5 rounded-md bg-white border border-gray-100 text-[#09111E]/60 hover:text-[#09111E] transition-all shadow-sm active:scale-95"
           onClick={onCancel}
         >
-          <MdClose className="text-xl" /> Cancel
+          <MdClose className="text-xl" /> Abort
         </button>
       </div>
     )}
@@ -450,11 +359,11 @@ const TabHeader = ({ title, subtitle, editing, loading, hasChanges, onEdit, onSa
 
 // Helper Components
 const Section = ({ title, subtitle, children }) => (
-  <div className="bg-[#09111E] rounded-md p-12 border border-white/5 shadow-2xl relative overflow-hidden group/section">
-    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-400 to-transparent group-hover/section:translate-x-full transition-transform duration-1000 opacity-50" />
+  <div className="bg-white rounded-md p-12 border border-gray-100 shadow-sm relative overflow-hidden group/section">
+    <div className="absolute top-0 left-0 w-1.5 h-0 bg-[#09111E] group-hover/section:h-full transition-all duration-300 rounded-md" />
     <div className="mb-12 relative z-10">
-      <h3 className="text-3xl font-bold text-white tracking-tight leading-none mb-3">{title}</h3>
-      {subtitle && <p className="text-sm font-semibold text-brand-300 opacity-40">{subtitle}</p>}
+      <h3 className="text-2xl font-bold text-[#09111E] leading-none mb-3">{title}</h3>
+      {subtitle && <p className="text-sm font-semibold text-[#09111E]/60 opacity-60 italic">{subtitle}</p>}
     </div>
     <div className="relative z-10">
       {children}
@@ -465,9 +374,9 @@ const Section = ({ title, subtitle, children }) => (
 const TabButton = ({ active, onClick, children }) => (
   <button
     onClick={onClick}
-    className={`px-10 py-4 rounded-md text-xs font-semibold tracking-wider transition-all duration-500 ${active
-      ? 'bg-white text-brand-950 shadow-lg scale-105'
-      : 'bg-white/5 text-brand-300 hover:text-white hover:bg-white/10'
+    className={`px-10 py-4 rounded-md text-sm font-semibold transition-all duration-500 ${active
+      ? 'bg-[#09111E] text-white shadow-lg scale-105'
+      : 'bg-transparent text-[#09111E]/40 hover:text-[#09111E] hover:bg-gray-50'
       }`}
   >
     {children}
@@ -475,63 +384,64 @@ const TabButton = ({ active, onClick, children }) => (
 );
 
 const InputField = ({ label, type = 'text', name, value, onChange, placeholder, required, min, max, disabled = false }) => (
-  <div className="space-y-4">
-    <label className="block text-sm font-semibold text-brand-300 px-2 opacity-60">{label}</label>
+  <div className="space-y-2">
+    <label className="block text-sm font-semibold text-[#09111E]/60 px-2">{label}</label>
     <input
       type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} required={required}
       min={min} max={max} disabled={disabled}
-      className={`block w-full bg-white/5 border border-white/5 rounded-md px-6 py-5 text-white text-md font-semibold transition-all placeholder:text-brand-300/20 shadow-inner ${disabled
-        ? 'opacity-60 cursor-not-allowed bg-transparent border-white/5'
-        : 'focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50'
+      className={`block w-full bg-gray-50 border border-gray-100 rounded-md px-8 py-4 text-[#09111E] text-sm font-bold transition-all placeholder:text-[#09111E]/20 shadow-inner ${disabled
+        ? 'opacity-40 cursor-not-allowed bg-gray-100 border-gray-100'
+        : 'focus:outline-none focus:ring-4 focus:ring-gray-50 focus:border-gray-200'
         }`}
     />
   </div>
 );
 
 const SelectField = ({ label, name, value, onChange, options, disabled = false }) => (
-  <div className="space-y-4">
-    <label className="block text-sm font-semibold text-brand-300 px-2 opacity-60">{label}</label>
+  <div className="space-y-2">
+    <label className="block text-sm font-semibold text-[#09111E]/60 px-2">{label}</label>
     <div className="relative">
       <select
         name={name} value={value} onChange={onChange} disabled={disabled}
-        className={`block w-full bg-white/5 border border-white/5 rounded-md px-6 py-5 text-white text-md font-semibold transition-all appearance-none cursor-pointer shadow-inner ${disabled
-          ? 'opacity-30 cursor-not-allowed bg-transparent border-white/5'
-          : 'focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50'
+        className={`block w-full bg-gray-50 border border-gray-100 rounded-md px-8 py-4 text-[#09111E] text-sm font-bold transition-all appearance-none cursor-pointer shadow-inner ${disabled
+          ? 'opacity-40 cursor-not-allowed bg-gray-100 border-gray-100'
+          : 'focus:outline-none focus:ring-4 focus:ring-gray-50 focus:border-gray-200'
           }`}
       >
-        <option value="" className="bg-[#09111E] text-brand-300">Select {label}</option>
-        {options.map(opt => <option key={opt} value={opt} className="bg-[#09111E] text-white">{opt}</option>)}
+        <option value="" className="bg-white">Choose {label}</option>
+        {options.map(opt => <option key={opt} value={opt} className="bg-white">{opt}</option>)}
       </select>
     </div>
   </div>
 );
 
 const Badge = ({ icon, label, value }) => (
-  <div className="flex items-center gap-6 bg-white/5 rounded-md border border-white/5 p-8 shadow-2xl transition-all hover:border-accent-400/30 hover:bg-white/[0.08] group relative overflow-hidden">
-    <div className="absolute top-0 right-0 w-24 h-24 bg-accent-400/5 rounded-md blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-    <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/5 transition-all group-hover:bg-white group-hover:text-brand-950 shadow-inner">
-      <div className="text-3xl transition-transform group-hover:scale-110">
-        {icon}
+  <div className="flex items-center gap-6 bg-[#09111E] rounded-md border border-white/5 p-8 shadow-2xl transition-all hover:shadow-brand-500/10 group relative overflow-hidden">
+    <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-md blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
+    <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/10 transition-all group-hover:bg-white group-hover:border-[#09111E]/20 shadow-inner">
+      <div className="text-3xl transition-transform group-hover:scale-110 text-white">
+        {icon && React.isValidElement(icon) ? React.cloneElement(icon, { className: 'text-white' }) : icon}
       </div>
     </div>
     <div className="min-w-0 relative z-10">
-      <p className="text-sm font-semibold text-brand-300 leading-none mb-3 opacity-60">{label}</p>
-      <p className="text-xl font-bold text-white truncate">{value}</p>
+      <p className="text-[10px] font-bold text-white/40 leading-none mb-3 italic opacity-60">{label}</p>
+      <p className="text-lg font-bold text-white truncate group-hover:tracking-tight transition-all">{value}</p>
     </div>
   </div>
 );
 
 const TextAreaField = ({ label, name, value, onChange, placeholder, rows = 3, disabled = false }) => (
-  <div className="space-y-4">
-    <label className="block text-sm font-semibold text-brand-300 px-2 opacity-60">{label}</label>
+  <div className="space-y-2">
+    <label className="block text-sm font-semibold text-[#09111E]/60 px-2">{label}</label>
     <textarea
       name={name} value={value} onChange={onChange} placeholder={placeholder} rows={rows} disabled={disabled}
-      className={`block w-full bg-white/5 border border-white/5 rounded-md px-6 py-5 text-white text-md font-semibold transition-all placeholder:text-brand-300/20 shadow-inner resize-none ${disabled
-        ? 'opacity-30 cursor-not-allowed bg-transparent border-white/5'
-        : 'focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500/50'
+      className={`block w-full bg-gray-50 border border-gray-100 rounded-md px-8 py-4 text-[#09111E] text-sm font-bold transition-all placeholder:text-[#09111E]/20 shadow-inner resize-none ${disabled
+        ? 'opacity-40 cursor-not-allowed bg-gray-100 border-gray-100'
+        : 'focus:outline-none focus:ring-4 focus:ring-gray-50 focus:border-gray-200'
         }`}
     />
   </div>
 );
 
 export default Profile;
+
