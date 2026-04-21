@@ -222,7 +222,7 @@ const CreditsDebit = () => {
   };
 
   if (loading) {
-    return null;
+    return <Loader />;
   }
 
   return (

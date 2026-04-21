@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Loader from './Loader';
 import { MdTrendingUp, MdInventory, MdShoppingCart, MdBusiness, MdDateRange, MdHistory } from 'react-icons/md';
 import { Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import './Dashboard.css';
@@ -61,7 +62,7 @@ const Dashboard = () => {
   }, [startDate, endDate]);
 
   if (loading) {
-    return null;
+    return <Loader />;
   }
 
   if (error || !analyticsData) {

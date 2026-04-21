@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { MdEdit, MdClose, MdCheck, MdShield, MdEmail, MdBusiness } from 'react-icons/md';
+import Loader from './Loader';
 import { useSelector } from 'react-redux';
 import backendApi from '../utils/axiosInstance';
 import { handleError } from '../utils/handleError';
@@ -171,6 +172,10 @@ const Profile = () => {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
+
+  if (loading && !profileData) {
+    return <Loader />;
+  }
 
   return (
     <div className="max-w-5xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 font-Urbanist">

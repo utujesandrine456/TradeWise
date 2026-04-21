@@ -92,7 +92,7 @@ const BuyingProducts = ({ setActiveTab }) => {
   const uniqueSuppliers = new Set(purchases.map(p => p.supplier)).size;
 
   if (loading && purchases.length === 0) {
-    return null;
+    return <Loader />;
   }
 
   return (
@@ -279,7 +279,7 @@ const BuyingProducts = ({ setActiveTab }) => {
                       {!searchTerm && (
                         <button
                           onClick={() => setIsPurchaseOrderFormOpen(true)}
-                          className="mt-12 px-8 py-4 bg-[#09111E] border border-blue-700 text-white font-bold text-[16px] rounded-md hover:bg-[#0a1520] transition-all active:scale-95 shadow-md uppercase tracking-widest"
+                          className="mt-12 px-8 py-4 bg-[#09111E] border border-blue-700 text-white font-semibold text-sm rounded-md hover:bg-[#0a1520] transition-all active:scale-95 shadow-md"
                         >
                           Initiate First Order
                         </button>

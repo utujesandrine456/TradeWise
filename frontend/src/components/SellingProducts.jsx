@@ -91,7 +91,7 @@ const SellingProducts = ({ setActiveTab }) => {
   const uniqueClients = new Set(sales.map(s => s.customer)).size;
 
   if (loading && sales.length === 0) {
-    return null;
+    return <Loader />;
   }
 
   return (

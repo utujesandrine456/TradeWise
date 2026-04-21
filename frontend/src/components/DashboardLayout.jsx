@@ -272,7 +272,7 @@ const DashboardLayout = () => {
               <ArrowLeft size={18} />
             </button>
             <div className="animate-in slide-in-from-left-4 duration-500">
-              <h2 className="text-3xl lg:text-4xl font-bold text-[#09111E] leading-none">
+              <h2 className="text-3xl lg:text-5xl font-black text-[#09111E] leading-none">
                 Welcome Back, <span className="text-[#09111E]/60">{user?.enterpriseName || 'Enterprise'}!</span>
               </h2>
               <p className="text-[#09111E]/40 text-[16px] font-medium mt-1">

@@ -324,7 +324,7 @@ const Notification = () => {
   };
 
   if (loading) {
-    return null;
+    return <Loader />;
   }
 
   return (

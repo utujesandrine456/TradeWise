@@ -4,6 +4,7 @@ import {
   MdShoppingCart, MdAttachMoney, MdAccountBalance,
   MdTrendingUp, MdVisibility, MdRefresh, MdDownload, MdInfo, MdLayers, MdHistory
 } from 'react-icons/md';
+import Loader from './Loader';
 import { useNavigate } from 'react-router-dom';
 import { backendGqlApi } from '../utils/axiosInstance';
 import { findallTransactionsQuery } from '../utils/gqlQuery';
@@ -93,7 +94,7 @@ const History = () => {
   };
 
   if (loading && transactions.length === 0) {
-    return null;
+    return <Loader />;
   }
 
   if (error && transactions.length === 0) {

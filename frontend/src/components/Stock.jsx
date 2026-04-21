@@ -210,7 +210,7 @@ const Stock = () => {
   };
 
   if (loading && stockItems.length === 0) {
-    return null;
+    return <Loader />;
   }
 
   return (
