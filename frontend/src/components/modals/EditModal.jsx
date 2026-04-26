@@ -32,7 +32,7 @@ const EditModal = ({ isOpen, onClose, data, title, onSave, fields }) => {
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/5 rounded-md blur-[80px] -mr-[200px] -mt-[200px] pointer-events-none" />
 
         <div className="p-12 border-b border-white/5 flex items-center justify-between relative z-10">
-          <h2 className="text-3xl font-bold text-white tracking-tight leading-none">{title}</h2>
+          <h2 className="text-3xl font-bold text-white leading-none">{title}</h2>
           <button
             onClick={onClose}
             className="p-4 text-white/60 hover:text-white hover:bg-white/5 rounded-md transition-all shadow-sm hover:rotate-90"
@@ -45,7 +45,7 @@ const EditModal = ({ isOpen, onClose, data, title, onSave, fields }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {fields.map((field) => (
               <div key={field.key} className={`${field.fullWidth ? 'md:col-span-2' : ''} space-y-4`}>
-                <label className="block text-xs font-semibold text-white/60 tracking-wide px-1 opacity-60">
+                <label className="block text-xs font-semibold text-white/60 px-1 opacity-60">
                   {field.label} {field.required && ' — Mandatory'}
                 </label>
                 {field.type === 'textarea' ? (
@@ -55,7 +55,7 @@ const EditModal = ({ isOpen, onClose, data, title, onSave, fields }) => {
                     onChange={handleChange}
                     required={field.required}
                     rows="5"
-                    className="w-full px-8 py-6 bg-white/5 border border-white/5 rounded-md text-white font-semibold tracking-tight text-lg placeholder:text-white/60/20 focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-white/20 transition-all resize-none shadow-inner leading-relaxed"
+                    className="w-full px-8 py-6 bg-white/5 border border-white/5 rounded-md text-white font-semibold text-lg placeholder:text-white/60/20 focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-white/20 transition-all resize-none shadow-inner leading-relaxed"
                     placeholder={`Define ${field.placeholder || field.label}`}
                   />
                 ) : field.type === 'select' ? (
@@ -65,7 +65,7 @@ const EditModal = ({ isOpen, onClose, data, title, onSave, fields }) => {
                       value={formData[field.key] || ''}
                       onChange={handleChange}
                       required={field.required}
-                      className="w-full px-8 py-6 bg-white/5 border border-white/5 rounded-md text-white font-semibold tracking-wide text-sm focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-white/20 transition-all appearance-none cursor-pointer shadow-inner relative z-10"
+                      className="w-full px-8 py-6 bg-white/5 border border-white/5 rounded-md text-white font-semibold text-sm focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-white/20 transition-all appearance-none cursor-pointer shadow-inner relative z-10"
                     >
                       <option value="" className="bg-[#09111E] text-white/60">Select {field.label}</option>
                       {field.options?.map((option) => (
@@ -88,7 +88,7 @@ const EditModal = ({ isOpen, onClose, data, title, onSave, fields }) => {
                     disabled={field.disabled}
                     min={field.min}
                     max={field.max}
-                    className={`w-full px-8 py-6 bg-white/5 border border-white/5 rounded-md text-white font-semibold tracking-tight text-lg placeholder:text-white/60/20 focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-white/20 transition-all shadow-inner ${field.disabled ? 'cursor-not-allowed opacity-30 bg-black/20' : ''}`}
+                    className={`w-full px-8 py-6 bg-white/5 border border-white/5 rounded-md text-white font-semibold  text-lg placeholder:text-white/60/20 focus:outline-none focus:ring-4 focus:ring-accent-400/10 focus:border-white/20 transition-all shadow-inner ${field.disabled ? 'cursor-not-allowed opacity-30 bg-black/20' : ''}`}
                     placeholder={`Enter ${field.placeholder || field.label}`}
                     readOnly={field.disabled}
                   />
@@ -101,13 +101,13 @@ const EditModal = ({ isOpen, onClose, data, title, onSave, fields }) => {
             <button
               type="button"
               onClick={onClose}
-              className="text-xs font-semibold text-white/60 tracking-wide hover:text-white transition-all active:scale-95 opacity-60"
+              className="text-xs font-semibold text-white/60 hover:text-white transition-all active:scale-95 opacity-60"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="group relative px-12 py-5 bg-blue-500 text-white rounded-md font-bold tracking-wide text-xs transition-all active:scale-95 shadow-2xl overflow-hidden hover:scale-105"
+              className="group relative px-12 py-5 bg-blue-500 text-white rounded-md font-bold text-xs transition-all active:scale-95 shadow-2xl overflow-hidden hover:scale-105"
             >
               <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
               <div className="flex items-center gap-4 relative z-10">

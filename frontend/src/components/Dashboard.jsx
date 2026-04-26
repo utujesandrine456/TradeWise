@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Loader from './Loader';
 import { MdTrendingUp, MdInventory, MdShoppingCart, MdBusiness, MdDateRange, MdHistory } from 'react-icons/md';
 import { Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import './Dashboard.css';
 import { backendGqlApi } from '../utils/axiosInstance';
 import { getAnalytics } from '../utils/gqlQuery';
-import { useSelector } from 'react-redux';
 import { toast } from '../utils/toast';
 
 
@@ -22,9 +21,8 @@ const Dashboard = () => {
   const [endDate, setEndDate] = useState(() => {
     return new Date().toISOString().split('T')[0];
   });
-  const { user } = useSelector((state) => state.auth);
 
-  const fetchAnalyticsData = async () => {
+  const fetchAnalyticsData = useCallback(async () => {
     try {
       setLoading(true);
       setError('');
@@ -49,17 +47,17 @@ const Dashboard = () => {
       } else {
         setError('No Analytics Records Retrieved');
       }
-    } catch (err) {
+    } catch {
       setError('Connection To Records Server Failed');
       toast.error('Failed To Sync Records');
     } finally {
       setLoading(false);
     }
-  };
+  }, [startDate, endDate]);
 
   useEffect(() => {
     fetchAnalyticsData();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, fetchAnalyticsData]);
 
   if (loading) {
     return <Loader />;
@@ -237,8 +235,8 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div className="text-right pl-8 flex-shrink-0">
-                    <p className="text-[9px] font-bold text-[#09111E]/60 mb-2 italic opacity-40 uppercase">Date</p>
-                    <p className="text-xs font-bold text-[#09111E] tracking-wide">{new Date(transaction.createdAt).toLocaleDateString()}</p>
+                    <p className="text-[9px] font-bold text-[#09111E]/60 mb-2 italic opacity-40">Date</p>
+                    <p className="text-xs font-bold text-[#09111E]">{new Date(transaction.createdAt).toLocaleDateString()}</p>
                   </div>
                 </div>
               ))
@@ -258,20 +256,20 @@ const Dashboard = () => {
       <div className="bg-white border border-gray-100 rounded-md p-12 shadow-sm relative overflow-hidden group">
         <h3 className="text-4xl font-bold text-[#09111E] leading-none mb-16 text-center">Financial Summary</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-          <div className=" cursor-pointer bg-gray-50 p-6 rounded-md border border-gray-100 shadow-sm group/card hover:bg-gray-100 transition-all relative overflow-hidden">
+          <div className="cursor-pointer bg-gray-50 p-6 rounded-md border border-gray-100 shadow-sm group/card hover:bg-gray-100 transition-all relative overflow-hidden">
             <div className="absolute left-0 top-0 w-1.5 h-full bg-[#09111E] opacity-70" />
             <div className="relative z-10 text-center md:text-left">
               <h4 className="text-md font-bold text-[#09111E]/60 mb-6 px-1 group-hover/card:translate-x-2 transition-transform opacity-60">Total Income</h4>
-              <p className="text-3xl font-bold text-[#09111E] tracking-tight leading-none">
+              <p className="text-3xl font-bold text-[#09111E] leading-none">
                 {analyticsData.finance?.credits?.toLocaleString() || '0'} <span className="text-2xl font-bold ml-2 opacity-20">FRW</span>
               </p>
             </div>
           </div>
-          <div className=" cursor-pointer bg-gray-50 p-6 rounded-md border border-gray-100 shadow-sm group/card hover:bg-gray-100 transition-all relative overflow-hidden">
+          <div className="cursor-pointer bg-gray-50 p-6 rounded-md border border-gray-100 shadow-sm group/card hover:bg-gray-100 transition-all relative overflow-hidden">
             <div className="absolute left-0 top-0 w-1.5 h-full bg-[#09111E] opacity-70" />
             <div className="relative z-10 text-center md:text-left">
               <h4 className="text-md font-bold text-[#09111E]/60 mb-6 px-1 group-hover/card:translate-x-2 transition-transform opacity-60">Total Debt</h4>
-              <p className="text-3xl font-bold text-[#09111E] tracking-tight leading-none">
+              <p className="text-3xl font-bold text-[#09111E] leading-none">
                 {analyticsData.finance?.debits?.toLocaleString() || '0'} <span className="text-2xl font-bold ml-2 opacity-20">FRW</span>
               </p>
             </div>

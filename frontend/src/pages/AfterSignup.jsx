@@ -108,13 +108,13 @@ const AfterSignup = () => {
           <div className="absolute inset-0 bg-white/5 opacity-50 pointer-events-none" />
           <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
             <div className="space-y-2">
-              <h1 className="text-4xl font-bold tracking-tight">Business Profile</h1>
+              <h1 className="text-4xl font-bold">Business Profile</h1>
               <p className="text-xs font-semibold opacity-60">Complete your business setup to get started</p>
             </div>
             <div className="w-full md:w-80">
               <div className="flex justify-between items-end mb-3">
                 <span className="text-xs font-bold opacity-40">Setup Progress</span>
-                <span className="text-2xl font-bold tracking-tight">{progress}%</span>
+                <span className="text-2xl font-bold">{progress}%</span>
               </div>
               <div className="w-full h-3 bg-white/10 rounded-md overflow-hidden shadow-inner p-0.5 border border-white/5">
                 <div className="h-full bg-white rounded-md transition-all duration-1000 ease-out shadow-[0_0_20px_rgba(255,255,255,0.5)]" style={{ width: `${progress}%` }}></div>
@@ -204,7 +204,7 @@ const AfterSignup = () => {
 const Section = ({ title, subtitle, children }) => (
   <div className="bg-brand-50/50 rounded-md p-10 border border-brand-100 shadow-inner group/sec hover:bg-white transition-all duration-500">
     <div className="mb-8">
-      <h3 className="text-xl font-bold text-[#09111E] tracking-tight">{title}</h3>
+      <h3 className="text-xl font-bold text-[#09111E]">{title}</h3>
       {subtitle && <p className="text-xs text-brand-400 font-semibold mt-1 opacity-60 italic">{subtitle}</p>}
     </div>
     {children}

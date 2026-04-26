@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import images from '../utils/images';
 import backendApi from '../utils/axiosInstance'
 import { toast } from '../utils/toast'
 import { useNavigate } from 'react-router-dom';
@@ -54,11 +53,11 @@ const Resetpassword = () => {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[150px] pointer-events-none" />
 
         <div className="relative z-10">
-          <h1 className="text-white font-nosifer font-black text-5xl tracking-tight">Stocka</h1>
+          <h1 className="text-white font-nosifer font-black text-5xl">Stocka</h1>
         </div>
 
         <div className="relative z-10">
-          <h2 className="text-white font-black text-6xl leading-tight mb-6 tracking-tighter">
+          <h2 className="text-white font-black text-6xl leading-tight mb-6">
             Secure<br /><span className="text-brand-500">Override.</span>
           </h2>
           <p className="text-white/30 font-bold text-xl leading-relaxed max-w-sm">
@@ -66,7 +65,7 @@ const Resetpassword = () => {
           </p>
         </div>
 
-        <div className="relative z-10 flex items-center gap-3 text-white/40 font-black text-[10px] uppercase tracking-widest">
+        <div className="relative z-10 flex items-center gap-3 text-white/40 font-black text-[10px]">
           <ShieldCheck size={16} className="text-brand-500" /> Multi-Layer Encryption Active
         </div>
       </div>
@@ -74,23 +73,23 @@ const Resetpassword = () => {
       <div className='w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10 bg-[#F9FBFF] relative overflow-y-auto'>
         <button
           onClick={() => navigate('/login')}
-          className="absolute top-8 left-8 flex items-center gap-2 text-[#09111E]/40 hover:text-[#09111E] font-black text-xs uppercase tracking-widest transition-all"
+          className="absolute top-8 left-8 flex items-center gap-2 text-[#09111E]/40 hover:text-[#09111E] font-black text-xs transition-all"
         >
           <ArrowLeft size={16} /> Back to Login
         </button>
 
         <div className='w-full max-w-md'>
           <div className='mb-12 text-center lg:text-left'>
-            <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 text-[10px] uppercase tracking-widest font-black mb-5 text-center">
+            <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 text-[10px] font-black mb-5 text-center">
               Credential Synchronization
             </div>
-            <h2 className="text-5xl font-black text-[#09111E] mb-3 leading-tight tracking-tighter">Reset<br />Key</h2>
+            <h2 className="text-5xl font-black text-[#09111E] mb-3 leading-tight">Reset<br />Key</h2>
             <p className="text-[#09111E]/40 font-bold">Establish your new security parameters.</p>
           </div>
 
           <form onSubmit={handleReset} className='space-y-6 bg-white p-8 md:p-10 rounded-[2rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.05)] border border-brand-100'>
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#09111E]/60 uppercase tracking-widest pl-1">Identified Network ID</label>
+              <label className="text-[10px] font-black text-[#09111E]/60 pl-1">Identified Network ID</label>
               <input
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
@@ -102,7 +101,7 @@ const Resetpassword = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#09111E]/60 uppercase tracking-widest pl-1">New Secure Key</label>
+              <label className="text-[10px] font-black text-[#09111E]/60 pl-1">New Secure Key</label>
               <div className="relative group">
                 <input
                   value={password}
@@ -123,7 +122,7 @@ const Resetpassword = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-[#09111E]/60 uppercase tracking-widest pl-1">Confirm Update</label>
+              <label className="text-[10px] font-black text-[#09111E]/60 pl-1">Confirm Update</label>
               <input
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}

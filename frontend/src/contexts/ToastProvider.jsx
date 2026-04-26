@@ -3,20 +3,28 @@ import { subscribeToToasts, dismissToast } from "../utils/toast";
 
 const variantStyles = {
   success: {
-    container: "bg-gradient-to-r from-green-500 via-green-400 to-emerald-500 text-white border-green-200/40",
-    icon: "bg-white/20 text-white",
+    background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+    color: "#ffffff",
+    border: "1px solid rgba(255,255,255,0.2)",
+    iconBg: "rgba(255,255,255,0.2)",
   },
   error: {
-    container: "bg-gradient-to-r from-rose-500 via-rose-400 to-red-500 text-white border-red-200/40",
-    icon: "bg-white/20 text-white",
+    background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+    color: "#ffffff",
+    border: "1px solid rgba(255,255,255,0.2)",
+    iconBg: "rgba(255,255,255,0.2)",
   },
   info: {
-    container: "bg-gradient-to-r from-sky-500 via-cyan-400 to-blue-500 text-white border-blue-200/40",
-    icon: "bg-white/20 text-white",
+    background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
+    color: "#ffffff",
+    border: "1px solid rgba(255,255,255,0.2)",
+    iconBg: "rgba(255,255,255,0.2)",
   },
   warning: {
-    container: "bg-gradient-to-r from-amber-500 via-orange-400 to-yellow-500 text-slate-900 border-amber-200/40",
-    icon: "bg-white/30 text-slate-900",
+    background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
+    color: "#1c1917",
+    border: "1px solid rgba(255,255,255,0.2)",
+    iconBg: "rgba(255,255,255,0.3)",
   },
 };
 
@@ -49,34 +57,84 @@ const ToastProvider = ({ children }) => {
       }
     });
 
+    const currentTimers = timers.current;
     return () => {
-      timers.current.forEach((timer) => clearTimeout(timer));
-      timers.current.clear();
+      currentTimers.forEach((timer) => clearTimeout(timer));
+      currentTimers.clear();
       unsubscribe();
     };
   }, []);
 
-  const renderToast = (toast) => {
-    const variant = variantStyles[toast.variant] || variantStyles.info;
-    const icon = variantIcons[toast.variant] || variantIcons.info;
+  const renderToast = (toastItem) => {
+    const variant = variantStyles[toastItem.variant] || variantStyles.info;
+    const icon = variantIcons[toastItem.variant] || variantIcons.info;
 
     return (
       <div
-        key={toast.id}
-        className={`pointer-events-auto w-full sm:w-96 rounded-2xl border shadow-2xl px-5 py-4 flex items-start gap-4 backdrop-blur-lg transition-all duration-200 hover:-translate-y-0.5 ${variant.container}`}
+        key={toastItem.id}
+        style={{
+          background: variant.background,
+          color: variant.color,
+          border: variant.border,
+          borderRadius: "12px",
+          boxShadow: "0 10px 40px rgba(0,0,0,0.25)",
+          padding: "1rem 1.25rem",
+          display: "flex",
+          alignItems: "flex-start",
+          gap: "1rem",
+          fontFamily: "'Urbanist', sans-serif",
+          backdropFilter: "blur(8px)",
+          transition: "transform 0.2s ease",
+          width: "100%",
+          pointerEvents: "auto",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
+        onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
       >
-        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg font-semibold ${variant.icon}`}>
+        <div
+          style={{
+            width: "2.2rem",
+            height: "2.2rem",
+            borderRadius: "50%",
+            background: variant.iconBg,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+            fontSize: "1.1rem",
+            fontWeight: "700",
+            color: variant.color,
+          }}
+        >
           {icon}
         </div>
-        <div className="flex-1">
-          {toast.title && <p className="font-semibold text-base mb-1">{toast.title}</p>}
-          <p className="text-sm leading-snug opacity-90">{toast.message}</p>
+        <div style={{ flex: 1 }}>
+          {toastItem.title && (
+            <p style={{ fontWeight: "700", fontSize: "0.95rem", marginBottom: "0.2rem" }}>
+              {toastItem.title}
+            </p>
+          )}
+          <p style={{ fontSize: "0.875rem", opacity: 0.92, lineHeight: 1.4, fontWeight: "500" }}>
+            {toastItem.message}
+          </p>
         </div>
         <button
           type="button"
           aria-label="Dismiss notification"
-          onClick={() => dismissToast(toast.id)}
-          className="text-xl font-bold opacity-80 hover:opacity-100"
+          onClick={() => dismissToast(toastItem.id)}
+          style={{
+            fontSize: "1.4rem",
+            fontWeight: "700",
+            opacity: 0.75,
+            background: "none",
+            border: "none",
+            color: "inherit",
+            cursor: "pointer",
+            lineHeight: 1,
+            padding: "0 0.2rem",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.75")}
         >
           ×
         </button>
@@ -87,8 +145,21 @@ const ToastProvider = ({ children }) => {
   return (
     <>
       {children}
-      <div className="fixed inset-x-4 bottom-5 flex flex-col gap-4 pointer-events-none sm:inset-auto sm:top-6 sm:right-6 sm:bottom-auto sm:w-[390px] z-[9999]">
-        {toasts.map((toast) => renderToast(toast))}
+      <div
+        style={{
+          position: "fixed",
+          top: "1.5rem",
+          right: "1.5rem",
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.75rem",
+          zIndex: 9999,
+          width: "360px",
+          maxWidth: "calc(100vw - 2rem)",
+          pointerEvents: "none",
+        }}
+      >
+        {toasts.map((toastItem) => renderToast(toastItem))}
       </div>
     </>
   );

@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import backendApi from "../utils/axiosInstance";
 
 export const AuthContext = createContext();
@@ -61,7 +62,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const getUser = async () => {
+  const getUser = useCallback(async () => {
     if (!token) {
       setLoading(false);
       return;
@@ -80,11 +81,11 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [getUser]);
 
   return (
     <AuthContext.Provider value={{

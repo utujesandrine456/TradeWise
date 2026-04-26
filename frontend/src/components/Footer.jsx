@@ -1,6 +1,5 @@
 import React from 'react';
 import { Mail, Phone, Linkedin, Instagram, Facebook, Send } from 'lucide-react';
-import { motion } from 'framer-motion';
 import images from '../utils/images';
 
 const Footer = () => {
@@ -97,7 +96,7 @@ const Footer = () => {
                 </div>
 
                 <div className="mt-8 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
-                    <div className="text-white/30 text-[14px]  font-semibold">
+                    <div className="text-white/30 text-[14px] font-semibold">
                         &copy; {new Date().getFullYear()} <span className="text-white/60 font-nosifer">Stocka</span> All Rights Reserved.
                     </div>
                     <div className="flex gap-10 text-[14px] font-semibold text-white/30">

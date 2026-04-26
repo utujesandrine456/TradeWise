@@ -1,9 +1,8 @@
 import { useState, useRef } from 'react'
-import images from '../utils/images';
 import backendApi from '../utils/axiosInstance'
 import { handleError } from '../utils/handleError'
 import { useNavigate } from 'react-router-dom'
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, ArrowLeft, ArrowRight } from 'lucide-react'
 import { toast } from '../utils/toast'
 
 const Forgotpassword = () => {
@@ -14,7 +13,7 @@ const Forgotpassword = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false);
-  const [dark, setDark] = useState(true);
+  const [dark] = useState(true);
 
   const inputRefs = useRef([])
   const navigate = useNavigate()
@@ -70,6 +69,46 @@ const Forgotpassword = () => {
     }
   }
 
+  const handleCodeChange = (index, value) => {
+    if (!/^\d*$/.test(value)) return;
+    const newCode = [...code];
+    newCode[index] = value.slice(-1);
+    setCode(newCode);
+
+    if (value && index < 5) {
+      inputRefs.current[index + 1].focus();
+    }
+
+    if (newCode.every(char => char !== '') && newCode.length === 6) {
+      setStep(3);
+    }
+  };
+
+  const handleKeyDown = (index, e) => {
+    if (e.key === 'Backspace' && !code[index] && index > 0) {
+      inputRefs.current[index - 1].focus();
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasteData = e.clipboardData.getData('text').slice(0, 6).split('');
+    const newCode = [...code];
+    pasteData.forEach((char, index) => {
+      if (index < 6 && /^\d/.test(char)) {
+        newCode[index] = char;
+      }
+    });
+    setCode(newCode);
+    const lastIndex = Math.min(pasteData.length - 1, 5);
+    if (lastIndex >= 0) {
+      inputRefs.current[lastIndex].focus();
+    }
+    if (newCode.every(char => char !== '')) {
+      setStep(3);
+    }
+  };
+
   return (
     <div className={`${dark ? 'dark' : ''} min-h-screen flex overflow-hidden bg-[#181A1E] font-Urbanist`}>
       <div className="hidden lg:flex lg:w-1/2 relative flex-col justify-between p-16 overflow-hidden">
@@ -86,11 +125,11 @@ const Forgotpassword = () => {
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-brand-500/5 rounded-full blur-[150px] pointer-events-none" />
 
         <div className="relative z-10">
-          <h1 className="text-white font-nosifer font-black text-5xl tracking-tight">Stocka</h1>
+          <h1 className="text-white font-nosifer font-black text-5xl">Stocka</h1>
         </div>
 
         <div className="relative z-10">
-          <h2 className="text-white font-black text-6xl leading-tight mb-6 tracking-tighter">
+          <h2 className="text-white font-black text-6xl leading-tight mb-6">
             Security<br /><span className="text-brand-500">First.</span>
           </h2>
           <p className="text-white/30 font-bold text-xl leading-relaxed max-w-sm">
@@ -102,17 +141,17 @@ const Forgotpassword = () => {
       <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10 bg-[#F9FBFF] relative overflow-y-auto">
         <button
           onClick={() => navigate('/login')}
-          className="absolute top-8 left-8 flex items-center gap-2 text-[#09111E]/40 hover:text-[#09111E] font-black text-xs uppercase tracking-widest transition-all"
+          className="absolute top-8 left-8 flex items-center gap-2 text-[#09111E]/40 hover:text-[#09111E] font-black text-xs transition-all"
         >
           <ArrowLeft size={16} /> Return to Login
         </button>
 
         <div className="w-full max-w-md">
           <div className="mb-12 text-center lg:text-left">
-            <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 text-[10px] uppercase tracking-widest font-black mb-5">
+            <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 text-[10px] font-black mb-5">
               Access Recovery
             </div>
-            <h2 className="text-5xl font-black text-[#09111E] mb-3 leading-tight tracking-tighter">Restore<br />Session</h2>
+            <h2 className="text-5xl font-black text-[#09111E] mb-3 leading-tight">Restore<br />Session</h2>
             <p className="text-[#09111E]/40 font-bold">Follow the sequence to regain access.</p>
           </div>
 
@@ -120,7 +159,7 @@ const Forgotpassword = () => {
             {step === 1 && (
               <form onSubmit={handleIdentifierSubmit} className="space-y-8">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-[#09111E]/60 uppercase tracking-widest pl-1">Phone or Email</label>
+                  <label className="text-[10px] font-black text-[#09111E]/60 pl-1">Phone or Email</label>
                   <input
                     type="text"
                     placeholder="Provide registered ID"
@@ -161,10 +200,10 @@ const Forgotpassword = () => {
                 </div>
 
                 <div className="text-center space-y-4">
-                  <p className="text-xs font-black text-[#09111E]/30 uppercase tracking-widest">Awaiting sequence confirmation</p>
+                  <p className="text-xs font-black text-[#09111E]/30">Awaiting sequence confirmation</p>
                   <button
                     onClick={() => setStep(1)}
-                    className="text-brand-600 font-black text-[10px] uppercase tracking-widest hover:underline"
+                    className="text-brand-600 font-black text-[10px] hover:underline"
                   >
                     Change Identifier
                   </button>
@@ -176,7 +215,7 @@ const Forgotpassword = () => {
               <form onSubmit={handleResetPassword} className="space-y-6">
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-[#09111E]/60 uppercase tracking-widest pl-1">New Secure Password</label>
+                    <label className="text-[10px] font-black text-[#09111E]/60 pl-1">New Secure Password</label>
                     <div className="relative">
                       <input
                         type={showPassword ? 'text' : 'password'}
@@ -197,7 +236,7 @@ const Forgotpassword = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-[#09111E]/60 uppercase tracking-widest pl-1">Confirm Identity</label>
+                    <label className="text-[10px] font-black text-[#09111E]/60 pl-1">Confirm Identity</label>
                     <input
                       type="password"
                       placeholder="Repeat password"

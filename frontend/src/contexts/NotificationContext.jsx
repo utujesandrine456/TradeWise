@@ -1,6 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import { useSelector } from 'react-redux';
+import { useAuth } from '../hooks/useAuth';
 import { toast } from '../utils/toast';
 import { backendGqlApi } from '../utils/axiosInstance';
 import { getAllNotifications } from '../utils/gqlQuery';
@@ -13,7 +14,7 @@ export const NotificationProvider = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [loading, setLoading] = useState(false);
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useAuth();
 
   // Fetch initial unread notifications from database
   useEffect(() => {
@@ -69,10 +70,12 @@ export const NotificationProvider = ({ children }) => {
       return;
     }
 
-    // Create socket connection
-    const socketUrl = import.meta.env.VITE_SOCKET_URL || (import.meta.env.MODE === 'development'
-      ? 'http://localhost:2015/notifications'
-      : 'https://stocka-mm4l.onrender.com/notifications');
+    // Create socket connection — URL must be set in .env as VITE_SOCKET_URL
+    const socketUrl = import.meta.env.VITE_SOCKET_URL;
+    if (!socketUrl) {
+      console.error('VITE_SOCKET_URL is not defined in .env');
+      return;
+    }
 
     const newSocket = io(socketUrl, {
       auth: { token },
@@ -125,7 +128,7 @@ export const NotificationProvider = ({ children }) => {
     return () => {
       newSocket.disconnect();
     };
-  }, [user]);
+  }, [user, socket]);
 
   const value = {
     socket,

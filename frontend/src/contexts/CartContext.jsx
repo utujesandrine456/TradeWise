@@ -1,10 +1,11 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 
 const CartContext = createContext();
 
 const cartReducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_TO_CART':
+    case 'ADD_TO_CART': {
       const existingItem = state.items.find(item => item.id === action.payload.id);
 
       if (existingItem) {
@@ -24,6 +25,7 @@ const cartReducer = (state, action) => {
           items: [...state.items, action.payload]
         };
       }
+    }
 
     case 'REMOVE_FROM_CART':
       return {

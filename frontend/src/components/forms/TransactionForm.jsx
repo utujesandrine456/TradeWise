@@ -95,7 +95,7 @@ const TransactionForm = ({ isOpen, onClose, onSave }) => {
             </div>
             <div>
               <div className="space-y-4">
-                <h2 className="text-4xl font-bold text-[#09111E] tracking-tight leading-none">New Transaction</h2>
+                <h2 className="text-4xl font-bold text-[#09111E] leading-none">New Transaction</h2>
                 <p className="text-sm font-semibold text-[#09111E]/60 opacity-60">Record a new business transaction</p>
               </div>
             </div>

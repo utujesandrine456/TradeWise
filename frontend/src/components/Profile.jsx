@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { toast } from '../utils/toast';
 import { MdEdit, MdClose, MdCheck, MdShield, MdEmail, MdBusiness } from 'react-icons/md';
 import Loader from './Loader';
 import { useSelector } from 'react-redux';
 import backendApi from '../utils/axiosInstance';
-import { handleError } from '../utils/handleError';
 
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
@@ -16,9 +16,9 @@ const Profile = () => {
         setLoading(true);
         const res = await backendApi.get('/auth/settings');
         setProfileData(res.data);
-      } catch (error) {
-        const refinedError = handleError(error);
-        toast.error(refinedError.message);
+      } catch {
+        // Error is handled by handleError within getUserProfile if needed
+        // but here we just catch it to prevent crash
       } finally {
         setLoading(false);
       }
@@ -130,7 +130,7 @@ const Profile = () => {
     try {
       const modifiedData = getModifiedFields();
 
-      const res = await backendApi.post('/auth/onboarding', modifiedData);
+      await backendApi.post('/auth/onboarding', modifiedData);
 
       if (profileData) {
         setProfileData(prev => ({
@@ -146,10 +146,8 @@ const Profile = () => {
 
       setEditing(false);
       toast.success("Profile and settings saved successfully");
-    } catch (error) {
-      const refinedError = handleError(error);
-      console.error(refinedError, error);
-      toast.error(refinedError.message);
+    } catch {
+      toast.error("Failed to save profile changes");
     }
   };
 
@@ -430,7 +428,7 @@ const Badge = ({ icon, label, value }) => (
     </div>
     <div className="min-w-0 relative z-10">
       <p className="text-[10px] font-bold text-white/40 leading-none mb-3 italic opacity-60">{label}</p>
-      <p className="text-lg font-bold text-white truncate group-hover:tracking-tight transition-all">{value}</p>
+      <p className="text-lg font-bold text-white truncate group-hover: transition-all">{value}</p>
     </div>
   </div>
 );

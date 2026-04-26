@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import {
   MdSearch, MdCalendarToday, MdReceipt,
   MdShoppingCart, MdAttachMoney, MdAccountBalance,
@@ -19,7 +19,7 @@ const History = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const fetchTransactions = async () => {
+  const fetchTransactions = useCallback(async () => {
     try {
       setLoading(true);
       setError('');
@@ -36,17 +36,17 @@ const History = () => {
 
       const transactionsData = response.data.data.transactions?.data || [];
       setTransactions(transactionsData);
-    } catch (err) {
+    } catch {
       setError('Network Error: Failed To Load Transactions');
       toast.error('Audit Log Retrieval Failed');
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchTransactions();
-  }, []);
+  }, [fetchTransactions]);
 
   const filteredTransactions = useMemo(() => {
     return transactions.filter(t => {
@@ -80,14 +80,6 @@ const History = () => {
     navigate(`/transaction/${transaction.id}`);
   };
 
-  const getStatusColor = (status) => {
-    switch (status?.toLowerCase()) {
-      case 'completed': return 'bg-green-500/10 text-white border-green-500/20 rounded-md px-2 py-0.5 text-xs font-bold';
-      case 'pending': return 'bg-amber-400/10 text-amber-400 border-amber-400/20 rounded-md px-2 py-0.5 text-xs font-bold';
-      case 'cancelled': return 'bg-[#0d1826]/10 text-white/80 border-red-500/20 rounded-md px-2 py-0.5 text-xs font-bold';
-      default: return 'bg-brand-400/10 text-white/70 border-brand-400/20 rounded-md px-2 py-0.5 text-xs font-bold';
-    }
-  };
 
   const getTypeIcon = (type) => {
     return type?.toLowerCase() === 'sale' ? <MdShoppingCart className="text-xl" /> : <MdAttachMoney className="text-xl" />;
@@ -102,11 +94,11 @@ const History = () => {
       <div className="flex flex-col items-center justify-center py-40 space-y-8 font-Urbanist">
         <div className="p-10 bg-white rounded-md border border-gray-100 shadow-sm text-center">
           <MdInfo className="text-6xl text-red-600 mx-auto mb-6" />
-          <p className="text-2xl font-black text-red-600 uppercase tracking-tight">{error}</p>
+          <p className="text-2xl font-black text-red-600">{error}</p>
         </div>
         <button
           onClick={fetchTransactions}
-          className="px-12 py-5 bg-[#09111E] text-white rounded-md font-black uppercase tracking-widest text-xs transition-all active:scale-95 shadow-lg hover:bg-[#0a1520]"
+          className="px-12 py-5 bg-[#09111E] text-white rounded-md font-black text-xs transition-all active:scale-95 shadow-lg hover:bg-[#0a1520]"
         >
           Retry Connection
         </button>
@@ -302,7 +294,7 @@ const History = () => {
 };
 
 // Tactical Summary Component
-const SummaryCard = ({ label, value, unit, trend, color }) => {
+const SummaryCard = ({ label, value, unit, trend }) => {
   return (
     <div className="bg-[#09111E] border border-white/5 rounded-md p-6 shadow-2xl hover:shadow-brand-500/10 transition-all cursor-pointer group relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000 blur-2xl opacity-60" />

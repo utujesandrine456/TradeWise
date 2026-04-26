@@ -13,7 +13,7 @@ import { formatDistanceToNow } from 'date-fns';
 const BuyingProducts = ({ setActiveTab }) => {
   const [purchases, setPurchases] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [_error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [visibleCount] = useState(25);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
@@ -137,7 +137,6 @@ const BuyingProducts = ({ setActiveTab }) => {
           value={purchases.length}
           unit="Orders"
           detail="Active Manifests"
-          color="blue-600"
         />
         <SummaryCard
           icon={MdInventory}
@@ -145,7 +144,6 @@ const BuyingProducts = ({ setActiveTab }) => {
           value={totalVolume || 0}
           unit="Units"
           detail="Units Acquired"
-          color="blue-500"
         />
         <SummaryCard
           icon={MdAccountBalance}
@@ -153,7 +151,6 @@ const BuyingProducts = ({ setActiveTab }) => {
           value={uniqueSuppliers}
           unit="Entities"
           detail="Verified Entities"
-          color="green-600"
         />
         <SummaryCard
           icon={MdAttachMoney}
@@ -161,7 +158,6 @@ const BuyingProducts = ({ setActiveTab }) => {
           value={(totalSpent / 1000000).toFixed(2)}
           unit="M Frw"
           detail="Fiscal Output"
-          color="red-500"
         />
       </div>
 
@@ -228,12 +224,12 @@ const BuyingProducts = ({ setActiveTab }) => {
                       </span>
                     </td>
                     <td className="px-10 py-8">
-                      <span className="text-xl font-bold text-[#09111E] uppercase group-hover/row:text-[#09111E]">
+                      <span className="text-xl font-bold text-[#09111E] group-hover/row:text-[#09111E]">
                         {purchase.quantity} <span className="text-[10px] text-[#09111E]/60 ml-1">Units</span>
                       </span>
                     </td>
                     <td className="px-10 py-8">
-                      <span className="text-xl font-bold text-[#09111E] uppercase">
+                      <span className="text-xl font-bold text-[#09111E]">
                         {purchase.totalPrice.toLocaleString()} <span className="text-[10px] text-[#09111E]/60 ml-1">Frw</span>
                       </span>
                     </td>
@@ -318,7 +314,7 @@ const BuyingProducts = ({ setActiveTab }) => {
 };
 
 // Tactical Summary Component
-const SummaryCard = ({ label, value, unit, detail, color }) => {
+const SummaryCard = ({ label, value, unit, detail }) => {
   return (
     <div className="bg-[#09111E] border border-white/5 rounded-md p-6 shadow-2xl hover:shadow-brand-500/10 transition-all cursor-pointer group relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000 blur-2xl opacity-60" />

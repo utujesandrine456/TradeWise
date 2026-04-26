@@ -10,7 +10,7 @@ const StatsCard = ({ title, value, icon, bgColor = "bg-[#09111E]/40", iconColor 
           {icon}
         </div>
         {descri && (
-          <span className="text-[10px] font-bold text-brand-300 italic tracking-wider bg-blue-600/5 px-4 py-1.5 rounded-md border border-white/5">
+          <span className="text-[10px] font-bold text-brand-300 italic bg-blue-600/5 px-4 py-1.5 rounded-md border border-white/5">
             {descri}
           </span>
         )}
@@ -18,7 +18,7 @@ const StatsCard = ({ title, value, icon, bgColor = "bg-[#09111E]/40", iconColor 
 
       <div className="relative z-10">
         <p className="text-xs font-bold text-brand-300 mb-3 leading-none opacity-60 px-1">{title}</p>
-        <p className={`text-5xl font-bold tracking-tight leading-none ${valueColor}`}>{value}</p>
+        <p className={`text-5xl font-bold  leading-none ${valueColor}`}>{value}</p>
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client';
 import { CREATE_TRANSACTION } from '../graphql/queries';
 import { toast } from 'react-toastify';
 import images from '../utils/images';
-import styles from './Home.module.css';
 import { Trash2, RotateCcw } from 'lucide-react';
 
 
@@ -69,10 +68,10 @@ const PurchaseForm = () => {
       <div className="bg-[#09111E] flex justify-between items-center px-10 py-4 shadow-2xl relative z-20">
         <div className="flex items-center space-x-4">
           <img src={images.logo} alt="logo" className="w-10 h-10 object-contain brightness-0 invert" />
-          <h1 className="text-xl font-nosifer font-bold text-white tracking-tight">Stocka</h1>
+          <h1 className="text-xl font-nosifer font-bold text-white">Stocka</h1>
         </div>
         <div className="flex items-center px-6 py-2.5 rounded-md bg-white/10 backdrop-blur-md border border-white/20 shadow-inner">
-          <h3 className="font-bold text-white tracking-wide text-xs">Supply Ledger</h3>
+          <h3 className="font-bold text-white text-xs">Supply Ledger</h3>
         </div>
       </div>
 
@@ -83,7 +82,7 @@ const PurchaseForm = () => {
             <div className="absolute top-0 right-0 w-48 h-48 bg-brand-50 rounded-md -mr-24 -mt-24 group-hover:scale-150 transition-transform duration-1000 opacity-50 blur-3xl" />
             <div className="flex items-center justify-between mb-10 relative z-10">
               <div>
-                <h2 className="text-2xl font-bold text-[#09111E] tracking-tight">Add Daily Purchases</h2>
+                <h2 className="text-2xl font-bold text-[#09111E]">Add Daily Purchases</h2>
                 <p className="text-xs text-brand-400 font-semibold mt-1">Record your inventory intake details here</p>
               </div>
               <div className="text-right text-xl font-black text-rose-600 bg-rose-50 px-6 py-3 rounded-md border border-rose-100 shadow-inner">
@@ -178,7 +177,7 @@ const PurchaseForm = () => {
         <div className="w-full lg:w-[450px] bg-white border-l border-brand-100 p-10 flex flex-col h-full shadow-[inset_20px_0_40px_-20px_rgba(9,17,30,0.05)] relative overflow-hidden">
           <div className="flex justify-between items-center mb-12 relative z-10">
             <div>
-              <h2 className="text-2xl font-bold text-[#09111E] flex items-center gap-4 tracking-tight">
+              <h2 className="text-2xl font-bold text-[#09111E] flex items-center gap-4">
                 <RotateCcw className="text-[#09111E]" size={28} />
                 Recent Purchases
               </h2>
@@ -195,11 +194,11 @@ const PurchaseForm = () => {
           <div className="grid grid-cols-2 gap-6 mb-12 relative z-10">
             <div className="bg-brand-50 rounded-md p-6 border border-brand-100 shadow-inner">
               <p className="text-xs text-brand-300 font-bold mb-3">Count</p>
-              <p className="text-4xl font-bold text-[#09111E] tracking-tight">{trades.length}</p>
+              <p className="text-4xl font-bold text-[#09111E]">{trades.length}</p>
             </div>
             <div className="bg-rose-50 rounded-md p-6 border border-rose-100 shadow-inner">
               <p className="text-xs text-rose-400 font-bold mb-3">Total Expense</p>
-              <p className="text-2xl font-bold text-rose-600 tracking-tight">
+              <p className="text-2xl font-bold text-rose-600">
                 {Math.abs(totalPL).toLocaleString()} <span className="text-[10px] opacity-40 ml-1">Frw</span>
               </p>
             </div>
@@ -221,7 +220,7 @@ const PurchaseForm = () => {
                   className="flex justify-between items-center bg-white p-6 rounded-md border border-brand-100 hover:border-[#09111E] hover:shadow-2xl transition-all duration-500 group/row shadow-sm hover:-translate-y-1"
                 >
                   <div className="flex-1">
-                    <p className="font-bold text-[#09111E] tracking-tight text-lg leading-none mb-3">
+                    <p className="font-bold text-[#09111E] text-lg leading-none mb-3">
                       {trade.item}
                     </p>
                     <div className="flex items-center gap-4 text-xs text-brand-300 font-semibold italic">
@@ -230,7 +229,7 @@ const PurchaseForm = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-rose-600 text-xl tracking-tight">
+                    <p className="font-bold text-rose-600 text-xl">
                       -{Math.abs(trade.profitLoss).toLocaleString()}
                     </p>
                     <p className="text-xs text-brand-200 mt-2 font-semibold">{trade.date}</p>

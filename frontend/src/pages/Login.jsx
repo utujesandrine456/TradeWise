@@ -69,7 +69,7 @@ const Login = () => {
           <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 p-2.5 shadow-2xl backdrop-blur-md">
             <img src={images.logo} alt="Stocka Logo" className="w-full h-full object-contain brightness-0 invert" />
           </div>
-          <h1 className="text-white font-nosifer font-black text-5xl tracking-tight">Stocka</h1>
+          <h1 className="text-white font-nosifer font-black text-5xl">Stocka</h1>
         </div>
 
         <div className="relative z-10 space-y-10">
@@ -109,7 +109,7 @@ const Login = () => {
 
         <div className="w-full max-w-md">
           <div className="mb-10 text-center lg:text-left">
-            <h2 className="text-5xl font-black text-[#09111E] mb-1 leading-tight tracking-tighter">Welcome Back</h2>
+            <h2 className="text-5xl font-black text-[#09111E] mb-1 leading-relaxed">Welcome Back</h2>
             <p className="text-[#09111E]/40 font-medium">Authenticate to continue to dashboard.</p>
           </div>
 

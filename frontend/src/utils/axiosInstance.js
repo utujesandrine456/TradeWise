@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { toast } from './toast';
 
-const baseURL = import.meta.env.VITE_API_URL || "http://localhost:2015/api";
-const gqlBaseURL = import.meta.env.VITE_GQL_URL || "http://localhost:2015/graphql";
+const baseURL = import.meta.env.VITE_API_URL;
+const gqlBaseURL = import.meta.env.VITE_GQL_URL;
+
 
 export const backendApi = axios.create({
     baseURL,
@@ -26,7 +27,6 @@ backendApi.interceptors.request.use(
     (config) => {
         console.log('Making request to:', config.url);
 
-        // Ensure stale tokens are not sent during login/signup which could cause 401 Unauthorized
         if (config.url === '/auth/login' || config.url === '/auth/register') {
             delete config.headers['Authorization'];
         }

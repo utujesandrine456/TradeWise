@@ -35,9 +35,7 @@ const DashboardLayout = () => {
     if (!user) navigate("/login");
   }, [user, navigate]);
 
-  const [activeTab, setActiveTab] = useState(() => {
-    return localStorage.getItem('dashboardActiveTab') || 'dashboard';
-  });
+  const [activeTab, setActiveTab] = useState('dashboard');
 
   const [showNotifications, setShowNotifications] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

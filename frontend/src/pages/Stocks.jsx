@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 const Stocks = ({ traderId }) => {
   const { trader } = useAuth();
-  const mainColor = "#09111E";
   const navigate = useNavigate();
 
   const [products, setProducts] = useState([
@@ -62,8 +61,7 @@ const Stocks = ({ traderId }) => {
 
       <div className="bg-[#09111E] flex justify-between items-center px-10 py-5 shadow-2xl relative z-20">
         <div className="flex items-center space-x-4">
-          <img src={logo} alt="logo" className="w-10 h-10 rounded-md brightness-0 invert" />
-          <h1 className="text-white font-nosifer font-bold text-2xl tracking-tight">Stocka</h1>
+          <h1 className="text-white font-nosifer font-bold text-2xl">Stocka</h1>
         </div>
         <div className="flex items-center gap-6">
           <button
@@ -86,7 +84,7 @@ const Stocks = ({ traderId }) => {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto p-12 space-y-12">
         <div className="text-center space-y-4">
-          <h2 className="text-4xl font-bold text-[#09111E] tracking-tight">
+          <h2 className="text-4xl font-bold text-[#09111E]">
             Bulk Inventory Entry
           </h2>
           <p className="text-sm font-semibold text-brand-400 max-w-2xl mx-auto leading-relaxed opacity-70">
@@ -99,11 +97,11 @@ const Stocks = ({ traderId }) => {
           <table className="w-full border-collapse">
             <thead className="bg-[#09111E] text-white">
               <tr>
-                <th className="px-8 py-5 text-left text-xs font-bold tracking-wide opacity-60">Product Name</th>
-                <th className="px-8 py-5 text-left text-xs font-bold tracking-wide opacity-60">Category</th>
-                <th className="px-8 py-5 text-left text-xs font-bold tracking-wide opacity-60">Quantity</th>
-                <th className="px-8 py-5 text-left text-xs font-bold tracking-wide opacity-60">Unit</th>
-                <th className="px-8 py-5 text-center text-xs font-bold tracking-wide opacity-60">Actions</th>
+                <th className="px-8 py-5 text-left text-xs font-bold opacity-60">Product Name</th>
+                <th className="px-8 py-5 text-left text-xs font-bold opacity-60">Category</th>
+                <th className="px-8 py-5 text-left text-xs font-bold opacity-60">Quantity</th>
+                <th className="px-8 py-5 text-left text-xs font-bold opacity-60">Unit</th>
+                <th className="px-8 py-5 text-center text-xs font-bold opacity-60">Actions</th>
               </tr>
             </thead>
             <tbody>

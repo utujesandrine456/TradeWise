@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Loader from './Loader';
-import { MdAdd, MdSearch, MdInventory, MdAccountBalance, MdShoppingCart, MdAttachMoney, MdVisibility, MdTimeline, MdRefresh } from 'react-icons/md';
+import { MdAdd, MdSearch, MdInventory, MdAccountBalance, MdShoppingCart, MdAttachMoney, MdVisibility, MdTimeline, MdRefresh, MdDescription, MdGroup } from 'react-icons/md';
 import SaleForm from './forms/SaleForm';
 import { backendGqlApi } from '../utils/axiosInstance';
 import { findallTransactionsQuery } from '../utils/gqlQuery';
@@ -17,7 +17,7 @@ const SellingProducts = ({ setActiveTab }) => {
   const [isSaleFormOpen, setIsSaleFormOpen] = useState(false);
   const [sales, setSales] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [_error, setError] = useState(null);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [selectedSale, setSelectedSale] = useState(null);
   const [visibleCount] = useState(25);
@@ -135,7 +135,6 @@ const SellingProducts = ({ setActiveTab }) => {
           value={sales.length}
           unit="Sales"
           detail="Active Shipments"
-          color="blue-600"
         />
         <SummaryCard
           icon={MdInventory}
@@ -143,7 +142,6 @@ const SellingProducts = ({ setActiveTab }) => {
           value={totalVolume || 0}
           unit="Units"
           detail="Units Dispatched"
-          color="blue-500"
         />
         <SummaryCard
           icon={MdGroup}
@@ -151,7 +149,6 @@ const SellingProducts = ({ setActiveTab }) => {
           value={uniqueClients}
           unit="Entities"
           detail="Verified Entities"
-          color="green-600"
         />
         <SummaryCard
           icon={MdAttachMoney}
@@ -159,7 +156,6 @@ const SellingProducts = ({ setActiveTab }) => {
           value={(totalRevenue / 1000000).toFixed(2)}
           unit="M Frw"
           detail="Fiscal Gain"
-          color="red-500"
         />
       </div>
 
@@ -316,7 +312,7 @@ const SellingProducts = ({ setActiveTab }) => {
 };
 
 // Tactical Summary Component
-const SummaryCard = ({ label, value, unit, detail, color }) => {
+const SummaryCard = ({ label, value, unit, detail }) => {
   return (
     <div className="bg-[#09111E] border border-white/5 rounded-md p-6 shadow-2xl hover:shadow-brand-500/10 transition-all cursor-pointer group relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000 blur-2xl opacity-60" />

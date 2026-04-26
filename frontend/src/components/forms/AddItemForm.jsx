@@ -49,8 +49,8 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
               <MdInventory className="text-[#09111E] text-3xl" />
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-[#09111E] tracking-tight leading-none">Register Item</h2>
-              <p className="text-xs font-semibold text-[#09111E]/60 tracking-wide mt-3 opacity-60">Add new items to your digital inventory</p>
+              <h2 className="text-3xl font-bold text-[#09111E] leading-none">Register Item</h2>
+              <p className="text-xs font-semibold text-[#09111E]/60 mt-3 opacity-60">Add new items to your digital inventory</p>
             </div>
           </div>
           <button
@@ -64,26 +64,26 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
         <form onSubmit={handleSubmit} className="p-10 space-y-10 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="space-y-4">
-              <label className="block text-xs font-semibold text-[#09111E]/60 tracking-wide px-1 opacity-60">Product Name *</label>
+              <label className="block text-xs font-semibold text-[#09111E]/60 px-1 opacity-60">Product Name *</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-10 py-6 bg-white border border-gray-100 rounded-md text-black placeholder:text-[#09111E]/30 focus:outline-none focus:ring-4 focus:ring-gray-100 transition-all font-semibold tracking-tight text-lg shadow-sm"
+                className="w-full px-10 py-6 bg-white border border-gray-100 rounded-md text-black placeholder:text-[#09111E]/30 focus:outline-none focus:ring-4 focus:ring-gray-100 transition-all font-semibold text-lg shadow-sm"
                 placeholder="Product name..."
               />
             </div>
 
             <div className="space-y-4">
-              <label className="block text-xs font-semibold text-[#09111E]/60 tracking-wide px-1 opacity-60">Unit of Measure *</label>
+              <label className="block text-xs font-semibold text-[#09111E]/60 px-1 opacity-60">Unit of Measure *</label>
               <select
                 name="unit"
                 value={formData.unit}
                 onChange={handleChange}
                 required
-                className="w-full px-10 py-6 bg-white border border-gray-100 rounded-md text-black focus:outline-none focus:ring-4 focus:ring-gray-100 transition-all appearance-none cursor-pointer shadow-sm font-semibold tracking-wide text-sm"
+                className="w-full px-10 py-6 bg-white border border-gray-100 rounded-md text-black focus:outline-none focus:ring-4 focus:ring-gray-100 transition-all appearance-none cursor-pointer shadow-sm font-semibold text-sm"
               >
                 <option value="" className="bg-white">Select Unit</option>
                 <option value="Piece" className="bg-white">Piece (pc)</option>
@@ -101,7 +101,7 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
                   <div className="bg-white p-4 rounded-md border border-gray-100 shadow-sm">
                     <MdInfo className="text-blue-600 text-2xl" />
                   </div>
-                  <p className="text-xs text-[#09111E]/60 font-semibold tracking-wide leading-relaxed opacity-80">
+                  <p className="text-xs text-[#09111E]/60 font-semibold leading-relaxed opacity-80">
                     <span className="text-blue-600 font-bold mr-3">Tip:</span>
                     Maintain consistent naming for accurate reporting. Use singular names for better inventory indexing.
                   </p>
@@ -110,17 +110,17 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
             </div>
 
             <div className="md:col-span-2 space-y-4">
-              <label className="block text-xs font-semibold text-[#09111E]/60 tracking-wide px-1 opacity-60">Shortage Threshold</label>
+              <label className="block text-xs font-semibold text-[#09111E]/60 px-1 opacity-60">Shortage Threshold</label>
               <input
                 type="number"
                 name="low_stock_quantity"
                 value={formData.low_stock_quantity}
                 onChange={handleChange}
                 min="0"
-                className="w-full px-10 py-6 bg-white border border-gray-100 rounded-md text-black placeholder:text-[#09111E]/30 focus:outline-none focus:ring-4 focus:ring-gray-100 transition-all font-semibold tracking-tight text-lg shadow-sm"
+                className="w-full px-10 py-6 bg-white border border-gray-100 rounded-md text-black placeholder:text-[#09111E]/30 focus:outline-none focus:ring-4 focus:ring-gray-100 transition-all font-semibold text-lg shadow-sm"
                 placeholder="5"
               />
-              <p className="text-xs text-[#09111E]/60 font-semibold px-1 opacity-40 tracking-wide">Trigger an alert when stock drops below this level</p>
+              <p className="text-xs text-[#09111E]/60 font-semibold px-1 opacity-40">Trigger an alert when stock drops below this level</p>
             </div>
           </div>
 
@@ -128,13 +128,13 @@ const AddItemForm = ({ isOpen, onClose, onSave }) => {
             <button
               type="button"
               onClick={onClose}
-              className="px-8 py-4 text-[#09111E]/60 hover:text-black transition-colors font-semibold tracking-wide text-xs"
+              className="px-8 py-4 text-[#09111E]/60 hover:text-black transition-colors font-semibold text-xs"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="group relative px-12 py-5 bg-[#09111E] text-white rounded-md font-bold tracking-wide text-xs transition-all active:scale-95 shadow-lg overflow-hidden hover:scale-105"
+              className="group relative px-12 py-5 bg-[#09111E] text-white rounded-md font-bold text-xs transition-all active:scale-95 shadow-lg overflow-hidden hover:scale-105"
             >
               <div className="absolute inset-0 bg-white/10 translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
               <div className="flex items-center gap-4 relative z-10">

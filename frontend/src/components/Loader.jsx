@@ -23,7 +23,7 @@ const Loader = () => {
             </div>
 
             <div className="mt-16 flex flex-col items-center">
-                <h2 className="text-2xl font-nosifer font-bold text-[#09111E] tracking-tighter leading-none mb-2">
+                <h2 className="text-2xl font-nosifer font-bold text-[#09111E] leading-none mb-2">
                     Stocka
                 </h2>
                 <div className="flex items-center gap-2">

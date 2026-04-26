@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { Menu, X } from 'lucide-react';
-import { MdDashboard } from 'react-icons/md';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../hooks/useAuth';
 import images from '../utils/images';
 
 const Header = () => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const navigate = useNavigate();
-    const { user, loading } = useSelector((state) => state.auth);
+    const { user } = useAuth();
 
     useEffect(() => {
         const handleScroll = () => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MdPhoneIphone, MdRefresh, MdArrowBack, MdCheckCircle } from "react-icons/md";
-import { Smartphone, Clock, Shield, ArrowRight, Sun, Moon, Lock } from 'lucide-react';
+import { MdRefresh, MdArrowBack } from "react-icons/md";
+import { Smartphone, Clock, ArrowRight, Lock } from 'lucide-react';
 import OTPInput from '../components/OTPInput';
 import backendApi from '../utils/axiosInstance';
 import { useAuth } from '../hooks/useAuth';
@@ -14,7 +14,7 @@ const VerifyPhone = () => {
     const [loading, setLoading] = useState(false);
     const [resendLoading, setResendLoading] = useState(false);
     const [resendCooldown, setResendCooldown] = useState(0);
-    const [dark, setDark] = useState(true);
+    const [dark] = useState(true);
 
     useEffect(() => {
         if (!user) {
@@ -118,7 +118,7 @@ const VerifyPhone = () => {
                             </div>
 
                             <div className="space-y-4 mb-12">
-                                <h2 className="text-5xl font-black text-[#09111E] dark:text-white tracking-tighter leading-none">
+                                <h2 className="text-5xl font-black text-[#09111E] dark:text-white leading-none">
                                     Verify Access
                                 </h2>
                                 <p className="text-[#09111E]/40 dark:text-white/40 font-medium text-md max-w-sm mx-auto">

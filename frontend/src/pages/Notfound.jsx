@@ -1,10 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Home, ArrowLeft, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useAuth } from '../hooks/useAuth';
 
 const NotFound = () => {
-  const { trader: user } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -40,10 +38,10 @@ const NotFound = () => {
           className="space-y-6"
         >
           <div className="space-y-3 px-4">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white">
               Page Not Found
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-white/60 font-medium max-w-2xl mx-auto px-4 tracking-wide leading-relaxed italic">
+            <p className="text-base sm:text-lg md:text-xl text-white/60 font-medium max-w-2xl mx-auto px-4 leading-relaxed italic">
               Oops! The page you're looking for doesn't exist or has been moved.
               Let's get you back on track.
             </p>
@@ -57,7 +55,7 @@ const NotFound = () => {
           >
             <button
               onClick={() => navigate(-1)}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-500 text-white px-10 py-4 rounded-md font-bold text-lg shadow-xl hover:bg-[#09111E] transition-all duration-300 tracking-wide"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-500 text-white px-10 py-4 rounded-md font-bold text-lg shadow-xl hover:bg-[#09111E] transition-all duration-300"
             >
               <ArrowLeft size={22} />
               <span>Go Back</span>
@@ -65,7 +63,7 @@ const NotFound = () => {
 
             <Link
               to="/"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/5 text-white border border-white/10 px-10 py-4 rounded-md font-bold text-lg hover:bg-white/10 transition-all duration-300 tracking-wide"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/5 text-white border border-white/10 px-10 py-4 rounded-md font-bold text-lg hover:bg-white/10 transition-all duration-300"
             >
               <Home size={22} />
               Go Homepage
@@ -76,7 +74,7 @@ const NotFound = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9, duration: 0.5 }}
-            className="mt-8 sm:mt-12 flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-brand-400 font-semibold px-4 tracking-wide italic opacity-60"
+            className="mt-8 sm:mt-12 flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-brand-400 font-semibold px-4 italic opacity-60"
           >
             <Search size={18} className="sm:w-5 sm:h-5" />
             <p className="text-[10px] sm:text-xs text-center">

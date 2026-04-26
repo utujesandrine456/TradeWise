@@ -66,7 +66,7 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
         query: allProductsNameQuery
       });
       setAllProductsName(response.data.data.productNames);
-    } catch (error) {
+    } catch {
       toast.error('failed to load products');
     } finally {
       setIsLoadingProducts(false);
@@ -183,7 +183,7 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
       onClose();
 
     } catch (error) {
-      if (error.code === 'ECONNABORTED' || error.message.includes('timeout')) {
+      if (error.code === 'ECONNABORTED' || (error.message && error.message.includes('timeout'))) {
         toast.error('request timed out. please try again.');
       } else {
         toast.error(`error creating sale: ${error.message}`);
@@ -366,11 +366,11 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
                       <table className="w-full">
                         <thead>
                           <tr className="bg-gray-50">
-                            <th className="px-8 py-6 text-left text-xs font-bold text-[#09111E]/60 tracking-wide">Product</th>
-                            <th className="px-8 py-6 text-center text-xs font-bold text-[#09111E]/60 tracking-wide w-44">Unit Price</th>
-                            <th className="px-8 py-6 text-center text-xs font-bold text-[#09111E]/60 tracking-wide w-32">Qty</th>
-                            <th className="px-8 py-6 text-right text-xs font-bold text-[#09111E]/60 tracking-wide">Subtotal</th>
-                            <th className="px-8 py-6 text-center text-xs font-bold text-[#09111E]/60 tracking-wide w-24">Actions</th>
+                            <th className="px-8 py-6 text-left text-xs font-bold text-[#09111E]/60">Product</th>
+                            <th className="px-8 py-6 text-center text-xs font-bold text-[#09111E]/60 w-44">Unit Price</th>
+                            <th className="px-8 py-6 text-center text-xs font-bold text-[#09111E]/60 w-32">Qty</th>
+                            <th className="px-8 py-6 text-right text-xs font-bold text-[#09111E]/60">Subtotal</th>
+                            <th className="px-8 py-6 text-center text-xs font-bold text-[#09111E]/60 w-24">Actions</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100 text-black">

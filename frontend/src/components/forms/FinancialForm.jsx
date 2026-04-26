@@ -93,7 +93,7 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
       });
       onClose();
     } catch (error) {
-      if (error.code === 'ECONNABORTED' || error.message.includes('timeout')) {
+      if (error.code === 'ECONNABORTED' || (error.message && error.message.includes('timeout'))) {
         toast.error('request timed out. please try again.');
       } else {
         toast.error('failed to create financial record. please try again.');
@@ -115,7 +115,7 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
             </div>
             <div>
               <div className="space-y-4">
-                <h2 className="text-4xl font-bold text-[#09111E] tracking-tight leading-none">{isEdit ? 'Edit Transaction' : 'New Transaction'}</h2>
+                <h2 className="text-4xl font-bold text-[#09111E] leading-none">{isEdit ? 'Edit Transaction' : 'New Transaction'}</h2>
                 <p className="text-sm font-semibold text-[#09111E]/60 opacity-60">Record or modify financial transaction data</p>
               </div>
             </div>

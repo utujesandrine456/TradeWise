@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 const ProtectedRoute = ({
   children,
   requireAuth = true,
-  requireVerified = false,
 }) => {
-  const { user, loading, checkAuth } = useAuth();
+  const { user, loading } = useAuth();
 
   useEffect(() => {
     if (loading) {

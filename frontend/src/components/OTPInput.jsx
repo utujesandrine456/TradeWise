@@ -73,7 +73,7 @@ const OTPInput = ({ length = 6, onComplete, time }) => {
         if(values.join("").length === length) {
             onComplete?.(values.join(""));
         }
-    }, [values]);
+    }, [values, length, onComplete]);
 
     return (
         <div onPaste={handlePaste}>

@@ -28,16 +28,6 @@ function App() {
         closeOnClick
         pauseOnHover
         draggable
-        closeButton={false}
-        toastClassName={(context) => {
-          const type = context?.type || 'default';
-          let bgColor = 'bg-green-500';
-          if (type === 'error') bgColor = 'bg-red-500';
-          if (type === 'warning') bgColor = 'bg-yellow-500';
-
-          return `${bgColor} text-[#09111E] rounded-md font-bold shadow-lg flex items-center justify-center p-4 mb-2 cursor-pointer transition-all hover:-translate-y-1 active:scale-95`;
-        }}
-        bodyClassName={() => "text-sm text-center flex-1"}
       />
 
       <Router>

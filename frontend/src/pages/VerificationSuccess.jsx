@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle, ArrowRight, Mail, Sparkles, Package, TrendingUp, Users } from 'lucide-react';
-import { toast } from 'react-toastify';
+import { CheckCircle, ArrowRight, Mail, Sparkles, Package, TrendingUp, Users, Sun, Moon } from 'lucide-react';
 import 'react-toastify/dist/ReactToastify.css';
 
 const VerificationSuccess = () => {
@@ -72,7 +71,7 @@ const VerificationSuccess = () => {
                     <Mail size={16} /> Email Verification Complete
                   </div>
 
-                  <h1 className="text-5xl font-bold text-[#09111E] tracking-tight">
+                  <h1 className="text-5xl font-bold text-[#09111E]">
                     Welcome to <span className="font-nosifer font-normal text-4xl">Stocka</span>
                   </h1>
 

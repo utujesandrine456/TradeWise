@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import Loader from './Loader';
 import { MdAdd, MdSearch, MdEdit, MdDelete, MdVisibility, MdInventory, MdCheckCircle, MdSchedule, MdLayers } from 'react-icons/md';
 import { formatDistanceToNow } from 'date-fns';
@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import AddItemForm from './forms/AddItemForm';
 import ViewModal from './modals/ViewModal';
 import EditModal from './modals/EditModal';
-import { getStockImagesQuery, createStockImageMutation, updateStockImageMutation, deleteStockImageMutation, findStockImagesByQuery } from '../utils/gqlQuery';
+import { getStockImagesQuery, createStockImageMutation, updateStockImageMutation, findStockImagesByQuery } from '../utils/gqlQuery';
 import { backendGqlApi } from '../utils/axiosInstance';
 import { debounce } from '../utils/debounce';
 import { toast } from '../utils/toast';
@@ -22,14 +22,15 @@ const Stock = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [stockItems, setStockItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [itemToDelete, setItemToDelete] = useState(null);
-  const [deleteConfirmText, setDeleteConfirmText] = useState('');
   const [stats, setStats] = useState({
     totalProducts: 0,
     inStock: 0,
     lowStock: 0,
     outOfStock: 0
   });
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteConfirmText, setDeleteConfirmText] = useState('');
 
   const getStockImages = async () => {
     try {
@@ -60,8 +61,7 @@ const Stock = () => {
         outOfStock: transformedData.filter(item => item.status === 'Out Of Stock').length
       });
 
-    } catch (err) {
-      setError('failed to synchronize inventory data');
+    } catch {
       toast.error('inventory sync failed');
     } finally {
       setLoading(false);
@@ -72,7 +72,7 @@ const Stock = () => {
     getStockImages();
   }, []);
 
-  const fetchStockItem = async (id) => {
+  const fetchStockItem = useCallback(async (id) => {
     try {
       const response = await backendGqlApi.post('', {
         query: findStockImagesByQuery,
@@ -94,11 +94,10 @@ const Stock = () => {
         setSelectedItem(transformedItem);
         setIsViewModalOpen(true);
       }
-    } catch (error) {
+    } catch {
       toast.error('resource not found');
-      navigate('/dashboard');
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (stockId && stockItems.length > 0) {
@@ -110,7 +109,7 @@ const Stock = () => {
         fetchStockItem(stockId);
       }
     }
-  }, [stockId, stockItems]);
+  }, [stockId, stockItems, fetchStockItem]);
 
   const debouncedSearch = useMemo(
     () => debounce((value) => setSearchTerm(value), 300),
@@ -159,7 +158,7 @@ const Stock = () => {
         toast.success('inventory record updated');
         setIsEditModalOpen(false);
       }
-    } catch (error) {
+    } catch {
       toast.error('failed to update record');
     } finally {
       setLoading(false);
@@ -201,7 +200,7 @@ const Stock = () => {
         setIsAddItemFormOpen(false);
         return true;
       }
-    } catch (err) {
+    } catch {
       toast.error('registration failed');
       return false;
     } finally {
@@ -425,12 +424,57 @@ const Stock = () => {
         ]}
       />
 
+      {/* Confirmation Modal for deletion */}
+      {isDeleteModalOpen && (
+        <div className="fixed inset-0 bg-[#09111E]/40 backdrop-blur-sm flex items-center justify-center z-[100] p-6 animate-in fade-in duration-500">
+          <div className="bg-white border border-gray-100 rounded-md shadow-2xl w-full max-w-lg overflow-hidden relative p-12">
+            <h2 className="text-3xl font-bold text-[#09111E] mb-8">Authorization Required</h2>
+            <p className="text-[#09111E]/80 text-sm font-semibold leading-relaxed opacity-80 mb-10">
+              You are about to delete <span className="text-[#09111E] font-bold underline decoration-2 underline-offset-4">{itemToDelete?.name}</span>.
+              This action is permanent and cannot be undone.
+            </p>
+            <div className="space-y-4 mb-12">
+              <label className="text-xs font-semibold text-[#09111E]/60 px-2">Type "delete" to confirm</label>
+              <input
+                type="text"
+                value={deleteConfirmText}
+                onChange={(e) => setDeleteConfirmText(e.target.value)}
+                className="w-full px-8 py-4 bg-gray-50 border border-gray-100 rounded-md text-[#09111E] font-medium text-lg focus:outline-none focus:ring-1 focus:ring-blue-500/10 transition-all shadow-inner"
+                placeholder="delete"
+                autoFocus
+              />
+            </div>
+            <div className="flex items-center justify-end gap-10">
+              <button
+                onClick={() => {
+                  setIsDeleteModalOpen(false);
+                  setItemToDelete(null);
+                  setDeleteConfirmText('');
+                }}
+                className="text-sm font-semibold text-[#09111E]/80 hover:text-[#09111E] transition-colors"
+              >
+                Abort
+              </button>
+              <button
+                onClick={confirmDeleteItem}
+                disabled={deleteConfirmText.toLowerCase() !== 'delete'}
+                className={`px-10 py-4 rounded-md font-semibold transition-all text-sm shadow-md ${deleteConfirmText.toLowerCase() === 'delete'
+                  ? 'bg-red-600 text-white hover:bg-red-700 active:scale-95'
+                  : 'bg-gray-100 text-[#09111E]/40 cursor-not-allowed border border-gray-100'
+                  }`}
+              >
+                Confirm Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div >
   );
 };
 
 // Tactical Inventory Summary Component
-const InventoryStatCard = ({ label, value, unit, detail, color }) => {
+const InventoryStatCard = ({ label, value, unit, detail }) => {
   return (
     <div className="bg-[#09111E] border border-white/5 rounded-md p-6 shadow-2xl hover:shadow-brand-500/10 transition-all cursor-pointer group relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000 blur-2xl opacity-60" />

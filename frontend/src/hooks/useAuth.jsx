@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { useState, useEffect, useContext, createContext } from 'react';
 import backendApi from '../utils/axiosInstance.js';
 

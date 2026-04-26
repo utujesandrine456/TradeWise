@@ -1,6 +1,4 @@
-import React from 'react';
-import Loader from './Loader';
-// import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   MdNotifications,
   MdNotificationsActive,
@@ -9,7 +7,10 @@ import {
   MdMarkEmailRead,
   MdCheckCircle,
   MdCalendarToday,
-  MdError
+  MdError,
+  MdClose,
+  MdDescription,
+  MdPriorityHigh
 } from 'react-icons/md';
 import { formatDistanceToNow } from 'date-fns';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -67,7 +68,7 @@ const Notification = () => {
     }
   };
 
-  const { refreshTrigger, notifications: wsNotifications } = useNotifications();
+  const { notifications: wsNotifications } = useNotifications();
 
   // Fetch initial notifications from GraphQL
   useEffect(() => {
@@ -154,10 +155,10 @@ const Notification = () => {
         fetchNotification(notificationId);
       }
     }
-  }, [notificationId, notifications]);
+  }, [notificationId, notifications, fetchNotification]);
 
   // Fetch specific notification from backend
-  const fetchNotification = async (id) => {
+  const fetchNotification = useCallback(async (id) => {
     try {
       const response = await backendGqlApi.post('/graphql', {
         query: getANotification,
@@ -186,7 +187,7 @@ const Notification = () => {
       toast.error('Notification not found');
       navigate('/dashboard');
     }
-  };
+  }, [navigate]);
 
   // Open confirmation modal for marking a single notification as read
   const handleMarkAsRead = (notification) => {
@@ -308,20 +309,6 @@ const Notification = () => {
     }
   };
 
-  const getTypeColor = (type) => {
-    // Handle actual backend notification types
-    if (type?.includes('alert') || type?.includes('warning')) {
-      return 'bg-amber-50 border-amber-100';
-    }
-    if (type?.includes('success') || type?.includes('complete')) {
-      return 'bg-emerald-50 border-emerald-100';
-    }
-    if (type?.includes('error') || type?.includes('fail')) {
-      return 'bg-red-50 border-red-100';
-    }
-    // Default for info and other types
-    return 'bg-gray-50 border-gray-100';
-  };
 
   if (loading) {
     return <Loader />;
@@ -642,14 +629,19 @@ const Notification = () => {
 };
 
 // Helper Components
-const StatCard = ({ label, value, unit, detail, color }) => {
+const StatCard = ({ icon, label, value, unit, detail }) => {
   return (
     <div className="bg-[#09111E] border border-white/5 rounded-md p-6 shadow-2xl hover:shadow-brand-500/10 transition-all cursor-pointer group relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000 blur-2xl opacity-60" />
       <div className="relative z-10 flex flex-col h-full justify-between">
-        <div>
-          <p className="text-md font-semibold text-white/40 mb-6">{label}</p>
-          <h4 className="text-4xl font-bold text-white leading-none mb-6">
+        <div className="flex flex-col gap-6">
+          <div className="flex items-center justify-between">
+            <p className="text-md font-semibold text-white/40">{label}</p>
+            <div className="text-2xl text-white/20 group-hover:text-white/40 transition-colors">
+              {icon}
+            </div>
+          </div>
+          <h4 className="text-4xl font-bold text-white leading-none">
             {value?.toLocaleString() || '0'} <span className="text-lg text-white/20 font-bold italic ml-1">{unit}</span>
           </h4>
           <p className="text-sm text-white/20 font-medium">{detail}</p>

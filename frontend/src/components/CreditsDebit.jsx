@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { toast } from '../utils/toast';
 import Loader from './Loader';
 import { MdAdd, MdSearch, MdFilterList, MdEdit, MdDelete, MdVisibility, MdAttachMoney, MdAccountBalance, MdTrendingUp, MdTrendingDown, MdCreditCard, MdAccountBalanceWallet, MdReceipt, MdWarning, MdCheckCircle } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -25,7 +26,7 @@ const CreditsDebit = () => {
   const { financialId } = useParams();
 
   // Fetch financials from backend
-  const fetchFinancials = async () => {
+  const fetchFinancials = useCallback(async () => {
     try {
       setLoading(true);
       const response = await backendGqlApi.post('/graphql', {
@@ -49,11 +50,11 @@ const CreditsDebit = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchFinancials();
-  }, []);
+  }, [fetchFinancials]);
 
   // Handle URL params - open modal if financialId is present
   useEffect(() => {
@@ -182,17 +183,19 @@ const CreditsDebit = () => {
     []
   );
 
-  const handleScroll = throttle(() => {
+  const handleScroll = useCallback(() => {
     const bottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 2;
     if (bottom && visibleCount < filteredTransactions.length) {
       setVisibleCount((prev) => prev + 10);
     }
-  }, 200);
+  }, [visibleCount, filteredTransactions.length]);
+
+  const throttledScroll = useMemo(() => throttle(handleScroll, 200), [handleScroll]);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [visibleCount, filteredTransactions.length]);
+    window.addEventListener('scroll', throttledScroll);
+    return () => window.removeEventListener('scroll', throttledScroll);
+  }, [throttledScroll]);
 
   const totalCredits = useMemo(() =>
     financials.filter(t => t.type === 'Credit').reduce((sum, t) => sum + t.amount, 0),
@@ -204,22 +207,6 @@ const CreditsDebit = () => {
   );
   const netBalance = totalDebits - totalCredits; // Debits (money owed to user) minus Credits (money user owes)
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'completed': return 'bg-green-100 text-green-800 rounded-md';
-      case 'pending': return 'bg-yellow-100 text-yellow-800 rounded-md';
-      case 'cancelled': return 'bg-red-100 text-red-800 rounded-md';
-      default: return 'bg-brand-50 text-[#09111E] rounded-md';
-    }
-  };
-
-  const getTypeIcon = (type) => {
-    return type === 'Credit' ? (
-      <MdTrendingDown className="text-white/80 text-lg" />
-    ) : (
-      <MdTrendingUp className="text-white text-lg" />
-    );
-  };
 
   if (loading) {
     return <Loader />;
@@ -255,16 +242,16 @@ const CreditsDebit = () => {
 
       {/* Financial Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
-        <SummaryCard label="Total Outbound" value={(totalCredits / 1000000).toFixed(2)} unit="M Frw" trend="Credit Assets" color="red-500" />
-        <SummaryCard label="Total Inbound" value={(totalDebits / 1000000).toFixed(2)} unit="M Frw" trend="Debit Assets" color="green-600" />
-        <SummaryCard label="Net Strategic Value" value={(netBalance / 1000000).toFixed(2)} unit="M Frw" trend="Fiscal Equilibrium" color={netBalance >= 0 ? 'green-600' : 'red-500'} />
-        <SummaryCard label="Active Protocols" value={financials.length} unit="Records" trend="Total Records" color="blue-600" />
+        <SummaryCard label="Total Outbound" value={(totalCredits / 1000000).toFixed(2)} unit="M Frw" trend="Credit Assets" />
+        <SummaryCard label="Total Inbound" value={(totalDebits / 1000000).toFixed(2)} unit="M Frw" trend="Debit Assets" />
+        <SummaryCard label="Net Strategic Value" value={(netBalance / 1000000).toFixed(2)} unit="M Frw" trend="Fiscal Equilibrium" />
+        <SummaryCard label="Active Protocols" value={financials.length} unit="Records" trend="Total Records" />
       </div>
 
       {/* Quick Actions */}
       <div className="bg-white border border-gray-100 shadow-sm p-12 rounded-md relative overflow-hidden group/actions">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gray-50 rounded-md blur-[120px] -mr-[300px] -mt-[300px] pointer-events-none" />
-        <h3 className="text-2xl font-bold text-[#09111E] mb-10 tracking-tighter relative z-10">Operational Tactical Protocols</h3>
+        <h3 className="text-2xl font-bold text-[#09111E] mb-10 relative z-10">Operational Tactical Protocols</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
           {[
             { label: 'Record Inbound', sub: 'Authorize Incoming Value', icon: <MdTrendingUp />, color: 'green-600' },
@@ -282,7 +269,7 @@ const CreditsDebit = () => {
                 <action.icon.type className="text-2xl" />
               </div>
               <div>
-                <p className={`font-bold transition-colors tracking-tight text-lg leading-none ${action.color === 'blue-600' ? 'text-blue-600' : 'text-[#09111E] group-hover/btn:text-[#09111E]'}`}>{action.label}</p>
+                <p className={`font-bold transition-colors  text-lg leading-none ${action.color === 'blue-600' ? 'text-blue-600' : 'text-[#09111E] group-hover/btn:text-[#09111E]'}`}>{action.label}</p>
                 <p className="text-xs text-[#09111E]/80 font-medium mt-2 opacity-60">{action.sub}</p>
               </div>
             </button>
@@ -355,8 +342,8 @@ const CreditsDebit = () => {
                           <MdReceipt className="text-7xl text-[#09111E]/50 group-hover:text-[#09111E] transition-colors duration-500" />
                         </div>
                       </div>
-                      <h3 className="text-4xl font-bold text-[#09111E] tracking-tighter mb-4 uppercase">Ledger Vacancy</h3>
-                      <p className="text-[#09111E]/80 font-medium opacity-60 leading-relaxed text-sm uppercase">
+                      <h3 className="text-4xl font-bold text-[#09111E] mb-4">Ledger Vacancy</h3>
+                      <p className="text-[#09111E]/80 font-medium opacity-60 leading-relaxed text-sm">
                         {searchTerm
                           ? 'The current search parameters yielded zero recorded matches within the fiscal repository.'
                           : 'The localized fiscal ledger remains pristine. Initialize a new protocol to register financial assets.'}
@@ -451,7 +438,7 @@ const CreditsDebit = () => {
       <FinancialForm
         isOpen={isFinancialFormOpen}
         onClose={() => setIsFinancialFormOpen(false)}
-        onSave={(newFinancial) => {
+        onSave={() => {
           // Refresh the financials list after adding new one
           fetchFinancials();
           setIsFinancialFormOpen(false);
@@ -472,13 +459,13 @@ const CreditsDebit = () => {
         <div className="fixed inset-0 bg-[#09111E]/40 backdrop-blur-sm flex items-center justify-center z-[100] p-6 animate-in fade-in duration-500">
           <div className="bg-white border border-gray-100 rounded-md shadow-2xl w-full max-w-lg overflow-hidden relative p-12">
             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-md blur-[80px] -mr-32 -mt-32" />
-            <h2 className="text-3xl font-bold text-[#09111E] mb-8 tracking-tight uppercase">Authorization Logic</h2>
-            <p className="text-[#09111E]/80 text-sm font-semibold leading-relaxed opacity-80 mb-10 uppercase">
+            <h2 className="text-3xl font-bold text-[#09111E] mb-8">Authorization Logic</h2>
+            <p className="text-[#09111E]/80 text-sm font-semibold leading-relaxed opacity-80 mb-10">
               You are about to mark this financial record as <span className="text-[#09111E] font-bold decoration-underline decoration-2 underline-offset-4">Completed</span>.
               This action affects your universal balance and <span className="text-[#09111E]/80 font-bold">cannot be undone</span>.
             </p>
             <div className="space-y-4 mb-12">
-              <label className="text-xs font-semibold text-[#09111E]/60 px-2 uppercase tracking-widest">Confirm Protocol Code</label>
+              <label className="text-xs font-semibold text-[#09111E]/60 px-2">Confirm Protocol Code</label>
               <input
                 type="text"
                 value={confirmPaidText}
@@ -495,14 +482,14 @@ const CreditsDebit = () => {
                   setFinancialToMarkPaid(null);
                   setConfirmPaidText('');
                 }}
-                className="text-sm font-semibold text-[#09111E]/80 hover:text-[#09111E] transition-colors uppercase tracking-widest"
+                className="text-sm font-semibold text-[#09111E]/80 hover:text-[#09111E] transition-colors"
               >
                 Abort Action
               </button>
               <button
                 onClick={confirmMarkAsPaid}
                 disabled={confirmPaidText.toLowerCase().trim() !== 'mark as paid'}
-                className={`px-10 py-4 rounded-md font-semibold transition-all text-sm shadow-md uppercase tracking-widest ${confirmPaidText.toLowerCase().trim() === 'mark as paid'
+                className={`px-10 py-4 rounded-md font-semibold transition-all text-sm shadow-md   ${confirmPaidText.toLowerCase().trim() === 'mark as paid'
                   ? 'bg-[#09111E] text-white hover:bg-[#0a1520] active:scale-95'
                   : 'bg-gray-100 text-[#09111E]/40 cursor-not-allowed border border-gray-100'
                   }`}
@@ -517,8 +504,7 @@ const CreditsDebit = () => {
   );
 };
 
-// Tactical Summary Component
-const SummaryCard = ({ label, value, unit, trend, color }) => {
+const SummaryCard = ({ label, value, unit, trend }) => {
   return (
     <div className="bg-[#09111E] border border-white/5 rounded-md p-6 shadow-2xl hover:shadow-brand-500/10 transition-all cursor-pointer group relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-1000 blur-2xl opacity-60" />
