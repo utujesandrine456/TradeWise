@@ -26,7 +26,7 @@ export const NotificationProvider = ({ children }) => {
     const fetchInitialNotifications = async () => {
       try {
         setLoading(true);
-        const response = await backendGqlApi.post('/graphql', {
+        const response = await backendGqlApi.post('', {
           query: getAllNotifications,
           variables: { timeFilters: 'Unread' }
         });

@@ -29,7 +29,7 @@ const CreditsDebit = () => {
   const fetchFinancials = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await backendGqlApi.post('/graphql', {
+      const response = await backendGqlApi.post('', {
         query: findAllFinancials
       });
 
@@ -111,7 +111,7 @@ const CreditsDebit = () => {
     if (!financialToMarkPaid || confirmPaidText.toLowerCase().trim() !== 'mark as paid') return;
 
     try {
-      const response = await backendGqlApi.post('/graphql', {
+      const response = await backendGqlApi.post('', {
         query: makeFinancialPaid,
         variables: { financialId: financialToMarkPaid.id }
       });
@@ -134,7 +134,7 @@ const CreditsDebit = () => {
 
   const handleUpdateFinancial = async (updatedFinancial) => {
     try {
-      const response = await backendGqlApi.post('/graphql', {
+      const response = await backendGqlApi.post('', {
         query: updateFinancials,
         variables: {
           financialId: updatedFinancial.id,

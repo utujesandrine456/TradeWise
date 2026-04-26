@@ -27,7 +27,7 @@ const Dashboard = () => {
       setLoading(true);
       setError('');
 
-      const response = await backendGqlApi.post('/graphql', {
+      const response = await backendGqlApi.post('', {
         query: getAnalytics,
         variables: {
           start: new Date(startDate + 'T00:00:00').toISOString(),

@@ -62,7 +62,7 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
   const fetchProductsName = async () => {
     try {
       setIsLoadingProducts(true);
-      const response = await backendGqlApi.post('/graphql', {
+      const response = await backendGqlApi.post('', {
         query: allProductsNameQuery
       });
       setAllProductsName(response.data.data.productNames);
@@ -148,7 +148,7 @@ const SaleForm = ({ isOpen, onClose, onSave, setActiveTab }) => {
         };
       }
 
-      const response = await backendGqlApi.post('/graphql', {
+      const response = await backendGqlApi.post('', {
         query: createSaleTransactionMutation,
         variables: {
           type: "Sale",

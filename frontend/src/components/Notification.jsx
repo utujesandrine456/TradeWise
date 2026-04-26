@@ -75,7 +75,7 @@ const Notification = () => {
     const fetchNotifications = async () => {
       try {
         setLoading(true);
-        const response = await backendGqlApi.post('/graphql', {
+        const response = await backendGqlApi.post('', {
           query: getAllNotifications,
         });
 
@@ -160,7 +160,7 @@ const Notification = () => {
   // Fetch specific notification from backend
   const fetchNotification = useCallback(async (id) => {
     try {
-      const response = await backendGqlApi.post('/graphql', {
+      const response = await backendGqlApi.post('', {
         query: getANotification,
         variables: { id }
       });
@@ -203,7 +203,7 @@ const Notification = () => {
     if (!notificationToMarkRead || confirmReadText.toLowerCase().trim() !== 'read') return;
 
     try {
-      const response = await backendGqlApi.post('/graphql', {
+      const response = await backendGqlApi.post('', {
         query: markAsRead,
         variables: { id: notificationToMarkRead.id }
       });
@@ -245,7 +245,7 @@ const Notification = () => {
 
     try {
       setMarkingAllAsRead(true);
-      const response = await backendGqlApi.post('/graphql', {
+      const response = await backendGqlApi.post('', {
         query: markAllAsRead
       });
 
@@ -284,7 +284,7 @@ const Notification = () => {
 
     try {
       setIsDeletingRead(true);
-      const response = await backendGqlApi.post('/graphql', {
+      const response = await backendGqlApi.post('', {
         query: deleteReadNotifications
       });
 

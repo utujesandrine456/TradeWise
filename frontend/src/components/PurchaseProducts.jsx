@@ -19,7 +19,7 @@ const PurchaseProducts = () => {
     const fetchPurchases = async () => {
       try {
         setLoading(true);
-        const response = await backendGqlApi.post('/graphql', {
+        const response = await backendGqlApi.post('', {
           query: findallTransactionsQuery,
           variables: {
             type: 'Purchase'

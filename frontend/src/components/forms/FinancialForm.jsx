@@ -72,7 +72,7 @@ const FinancialForm = ({ isOpen, onClose, onSave, initialData, isEdit }) => {
         deadline: new Date(formData.deadline).toISOString()
       };
 
-      const response = await backendGqlApi.post('/graphql', {
+      const response = await backendGqlApi.post('', {
         query: createFinancial,
         variables: financial
       });

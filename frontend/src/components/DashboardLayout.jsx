@@ -49,7 +49,7 @@ const DashboardLayout = () => {
       const searchTransaction = async () => {
         try {
           setIsSearchingTransaction(true);
-          const response = await backendGqlApi.post('/graphql', {
+          const response = await backendGqlApi.post('', {
             query: findATransactionQuery,
             variables: { transactionId: params.id }
           });
@@ -120,7 +120,7 @@ const DashboardLayout = () => {
 
   const markNotificationAsRead = async (notificationId) => {
     try {
-      const response = await backendGqlApi.post('/graphql', {
+      const response = await backendGqlApi.post('', {
         query: markAsRead,
         variables: { id: notificationId }
       });
